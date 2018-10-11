@@ -11,5 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/tim-nguyen-cs/academi-slug"
   }
 }
