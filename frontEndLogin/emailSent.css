@@ -1,0 +1,43 @@
+.navbar {
+    background-color: #fdc700;
+    border-bottom: 3px solid black;
+}
+
+.nav-brand {
+    font-size: 30px;
+    font-weight: bolder;    ;
+}
+
+img {
+    margin-right: 15px;
+}
+
+.navbar a:hover {
+    text-decoration: none;
+    color:black;
+}
+
+h2 {
+    font-weight: bolder;
+}
+
+.btn-primary {
+    color: white;
+    background-color: black;
+    border-color: #003c6c;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: white;
+    background-color: #003c6c;
+    border-color: black;
+}
+
+body {
+    background-image: url("background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: compact;
+}
