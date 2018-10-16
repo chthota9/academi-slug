@@ -15,8 +15,10 @@ module.exports = {
       NODE_ENV: 'production',
       GOOGLE_CLIENT_ID: '675450206162-bo2tctf8cf17ba5mdgatgduho9cibi0e.apps.googleusercontent.com',
       GOOGLE_CLIENT_SECRET: 'UaTfkdsuXOEHhYwauDs60VCU',
-      GOOGLE_CALLBACK:"http://academislug.ddns.net/profile/cb",
-      PORT: 3645,
+      GOOGLE_CALLBACK: "http://academislug.ddns.net/profile/cb",
+      GOOGLE_HAVEP_CALLBACK: `http://academislug.ddns.net/google/login`,
+      GOOGLE_CREATEP_CALLBACK: `http://academislug.ddns.net/google/signup`,
+      PORT: 5000,
       SECRET:'slugger'
     }
   }]
