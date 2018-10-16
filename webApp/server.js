@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-passport(app);
+app.use('/google',passport(app));
 app.use('/profile', profileRoute);
 app.use('/signup', signupRoute);
 app.set('view engine', 'ejs');

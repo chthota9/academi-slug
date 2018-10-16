@@ -12,22 +12,16 @@ const router = require('express').Router();
 
 
 
-router.get('/login', passport.authenticate('google', { scope: ['profile'], hd: 'ucsc.edu' }));
-
-router.get('/cb',
-    passport.authenticate('google', { failureRedirect: '/profile/login' }),
-    function (req, res) {
-        res.redirect('/');
-    })
+router.get('/login', passport.authenticate('googleHave', { scope: ['profile'], hd: 'ucsc.edu' }));
 
 
 router.get('/', function (req, res) {
-    console.log(req.session);
+    // console.log(req.session);
     console.log(req.isAuthenticated());
-    if (!req.isAuthenticated()) { res.redirect('profile/login') }
+    // if (!req.isAuthenticated()) { return res.redirect('profile/login') }
     // console.log('profile');
 
-    // console.log(req.user);
+    console.log(req.user);
 
     res.render('logout');
 })
