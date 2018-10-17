@@ -17,7 +17,7 @@ module.exports = {
       GOOGLE_CLIENT_SECRET: 'UaTfkdsuXOEHhYwauDs60VCU',
       GOOGLE_HAVEP_CALLBACK: `https://aimxex.com/google/login`,
       GOOGLE_CREATEP_CALLBACK: `https://aimxex.com/google/signup`,
-      PORT: 5555,
+      PORT: 5000,
       SECRET:'slugger'
     }
   }]
