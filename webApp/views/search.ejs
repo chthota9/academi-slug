@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Academi-Slug</title>
+
+    <style type="text/css">
+        #search-bar {
+            text-align: center;
+            position: relative;
+            top: 230px;
+        }
+
+        #login-redirect {
+            text-align: right;
+            padding: 10px;
+
+        }
+
+        body {
+            background-image: url("study.jpg");
+            background-position: contain;
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+
+<body>
+    <% if(!loggedIn) { %>
+    <div id="login-redirect">
+        <a href="/signup">Sign Up</a>
+        <a href="/profile/login">Login</a>
+    </div>
+    <% }else{ %>
+
+    <a href="/profile">Profile</a>
+    <% } %>
+
+
+    <div id="search-bar">
+
+        <h1> What do you need help with? </h1>
+
+        <form>
+            <input type="text" name=text class="search" placeholder="Search For a Course" size="50">
+            <input type="submit" name="submit" class="submit" value="Search">
+        </form>
+    </div>
+</body>
+
+s
+
+</html>

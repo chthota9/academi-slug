@@ -1,43 +1,77 @@
-<!DOCTYPE html>
+
 <html>
     <head>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+            <title>Academi-Slug | Search</title>
             <style type="text/css">
 
                 #search-bar {
                 text-align: center;
                 position:relative;
-                top: 10px;
+                top: -20px;
             }
                 #tutor-table {
                     text-align:center;
                     position:relative;
                     left: 290px;
-                    bottom: -100px;
+                    bottom: -150px;
                 }
-                body {
-                background-image:url("board.jpg");
-                background-position: contain;
-                }
-
                 table, th, td {
                 border: 1px solid black;
                 }
+                #text {
+                    text-align:left;
+                    position:relative;
+                    top: 190px;
+                }
+                .navbar {
+                    background-color: #fdc700;
+                    border-bottom: 3px solid black;
+                }
 
+                .nav-brand {
+                    font-size: 30px;
+                    font-weight: bolder;
+                }               
+
+                .btn-nav {
+                    color: white;
+                    background-color: black;
+                    border-color: #003c6c;
+                }
+
+                .btn-nav:hover{
+                    background-color: #003c6c;
+                    border-color: black;
+                }
+
+                .navbar a:hover {
+                    text-decoration: none;
+                    color:black;
+                }
+
+                img {
+                    margin-right: 15px;
+                }
            </style>
     </head>
+    
     <body>
             <h2>You searched for______</h2>
             <p>____Search Results Found</p>
 
             <div id="search-bar">
             
-                    <h1>Search Again!</h1>
-                    
-                <form>
-                    <input type ="text" name =text class ="search" placeholder ="Search For a Course" size="50">
-                    <input type ="submit" name="submit" class ="submit" value="Search">
-                </form>
-            </div>
+            <form class="form-inline" action="https://www.google.com/">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search for Classes">
+                <button class="btn btn-nav" type="submit">Search</button>
+            </form>
+        </nav>
+    <body>
+        <div id="text">
+                <h2>You searched for______</h2>
+                <p>____Search Results Found</p>
+        </div>
             
             <div id="tutor-table">
                     <table style="width:60%">
