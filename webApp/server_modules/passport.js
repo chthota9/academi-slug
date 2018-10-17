@@ -32,8 +32,8 @@ module.exports = function (app) {
         callbackURL: process.env.GOOGLE_HAVEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
         // console.log(`${accessToken}, ${refreshToken}, ${profile} `);
-        //look if account alread exists else have them create one
-        let googProfile = { acctID: profile.id, name: profile.name }
+        //Look for user in DB else redirect to sign up 
+        let googProfile = { acctID: profile.id, name: profile.name, email: emails.value }
         //  console.log(profile);
         return cb(null, googProfile);
     }));
@@ -43,24 +43,26 @@ module.exports = function (app) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CREATEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
-        console.log(profile.id);
-        return cb(null, profile.id);
+        let googProfile = { acctID: profile.id, name: profile.name, email: emails.value }
+        //add user to DB
+        return cb(null, googProfile);
     }));
 
-    passport.serializeUser(function (userID, cb) {
+    passport.serializeUser(function (googProfile, cb) {
         console.log('serializing');
 
-        return cb(null, userID);
+        return cb(null, googProfile);
     });
 
-    passport.deserializeUser(function (userID, cb) {
+    passport.deserializeUser(function (googProfile, cb) {
         //search database for user
         console.log('deserializing');
-        return cb(null, userID);
+
+        return cb(null, googProfile);
     });
 
 
-    router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/' }),
+    router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/signup' }),
         function (req, res) {
             console.log(req.user);
             req.session.save(() => res.redirect('/signup/createprofile'));
