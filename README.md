@@ -24,9 +24,9 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 #### Installation Guide:
 - `cd` into `\webApp\` directory
 - In `\webApp\` directory
- 1. Check if Node is installed by typing `node -v` this should print Node's version number. It should be v8.11.3.
- 2. Check if NPM is installed by typing `npm -v` this should print the NPM's version number. It should be 5.6.0.
- 3. Use `npm install` to get all dependencies and then type `npm install pm2 -g`
- 4. Use `pm2 start ecosystem.config.js` to start server.
-     - To connect to server type `localhost:5000` into a web browser.
-     - To end the server type `pm2 kill`
+   1. Check if Node is installed by typing `node -v` this should print Node's version number. It should be v8.11.3.
+   2. Check if NPM is installed by typing `npm -v` this should print the NPM's version number. It should be 5.6.0.
+   3. Use `npm install` to get all dependencies and then type `npm install pm2 -g`
+   4. Use `pm2 start ecosystem.config.js` to start server.
+      - To connect to server type `localhost:5000` into a web browser.
+      - To end the server type `pm2 kill`
