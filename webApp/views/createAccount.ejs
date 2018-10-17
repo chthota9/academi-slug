@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-widgth, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Academi-Slug | Sign Up</title>
+    </head>
+
+    <nav class="navbar navbar-expand-sm fixed-top justify-content-between">
+        <a class="nav-brand" href="login.html">
+        <img src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
+        
+        <form class="form-inline" action="https://www.google.com/">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search for Classes">
+            <button class="btn btn-nav" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <div class="bg">
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">Create Account</h2>
+                        </div>
+                        <div class="card-body">
+                            <form target="_parent" method="post">
+                                <h3>Profile Information</h3>
+                                <div class="row">
+                                    <div class="form-group col-md-5 col-sm-5">
+                                        <input type="text" class="form-control" id="firstName"placeholder="First name">
+                                    </div>
+                                    <div class="form-group col-md-5 col-sm-5">
+                                        <input type="text" class="form-control" id="lastName" placeholder="Last name">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <select id="year" class="form-control">
+                                            <option selected disabled>Year</option>
+                                            <option>Freshman</option>
+                                            <option>Sophomore</option>
+                                            <option>Junior</option>
+                                            <option>Senior</option>
+                                            <option>Transfer</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <input type="text" class="form-control" id="major" placeholder="Major">
+                                    </div>
+                                    <div class="form-group col-md-4 col-sm-4">
+                                        <select id="college" class="form-control">
+                                            <option selected disabled>College Affiliation</option>
+                                            <option>Cowell</option>
+                                            <option>Stevenson</option>
+                                            <option>Crown</option>
+                                            <option>Merrill</option>
+                                            <option>College Nine</option>
+                                            <option>College Ten</option>                    
+                                            <option>Kresge</option>
+                                            <option>Porter</option>
+                                            <option>Rachel Carson</option>
+                                            <option>Oakes</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <textarea class="form-control" rows="5" id="bio" placeholder="Tell me a little bit about yourself..."></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="account">
+                                    <h3>Account Information</h3>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8 col-sm-8">
+                                            <input type="text" class="form-control" id="email"placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6 col-sm-6">
+                                            <input type="password" class="form-control" id="pwd" placeholder="Password">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-primary mt-2 float-right">Sign up</button>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
