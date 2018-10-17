@@ -3,7 +3,6 @@ const app = express();
 const path = require('path');
 const passport = require('./server_modules/passport');
 const profileRoute = require('./server_modules/routes/profile');
-const signupRoute = require('./server_modules/routes/signup');
 const bodyParser = require('body-parser');
 
 
