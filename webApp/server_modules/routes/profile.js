@@ -12,21 +12,20 @@ const router = require('express').Router();
 
 
 
-router.get('/login', passport.authenticate('googleHave', { scope: ['profile'], hd: 'ucsc.edu' }));
+router.get('/login', passport.authenticate('googleHave', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
 
 
 router.get('/', function (req, res) {
     // console.log(req.session);
-    console.log(req.isAuthenticated());
+    console.log('profile ' + req.isAuthenticated());
     if (!req.isAuthenticated()) { return res.redirect('profile/login') }
-    // console.log('profile');
 
     console.log(req.user);
-
-    res.render('logout');
+    let profile = JSON.stringify(req.user, null, 3);
+    res.render('logout', { profile: profile });
 });
 
-router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile'], hd: 'ucsc.edu' }));
+router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
 
 router.get('/createprofile', function (req, res) {
     console.log(req.session);
@@ -36,6 +35,8 @@ router.get('/createprofile', function (req, res) {
 
 router.get('/logout', function (req, res) {
     req.logout();
+    console.log(req.session);
+
     res.redirect('/');
 })
 
