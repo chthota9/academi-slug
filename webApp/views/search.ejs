@@ -1,91 +1,95 @@
 <!DOCTYPE html>
 <html>
+     
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <title>Academi-Slug | Search</title>
+        
+        <style type="text/css">
+            
+            #search-bar {
+                text-align: center;
+                position:relative;
+                top: 230px;
+            }
 
-<head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <title>Academi-Slug | Search</title>
+            #login-redirect {
+                text-align:right;
+                padding: 10px;
+            }
+        
+            .navbar {
+                background-color: #fdc700;
+                border-bottom: 3px solid black;
+            }
 
-    <style type="text/css">
-        #search-bar {
-            text-align: center;
-            position: relative;
-            top: 230px;
-        }
+            .nav-brand {
+                font-size: 30px;
+                font-weight: bolder;
+            }
 
-        #login-redirect {
-            text-align: right;
-            padding: 10px;
-        }
+            .btn-nav {
+                color: white;
+                background-color: black;
+                border-color: black;
+            }
 
-        body {
-            background-image: url("study.jpg");
-            background-size: cover;
-        }
+            .btn-nav:hover{
+                background-color: #003c6c;
+                border-color: black;
+            }
 
-        .navbar {
-            background-color: #fdc700;
-            border-bottom: 3px solid black;
-        }
+            .navbar a:hover {
+                text-decoration: none;
+                color:black;
+            }
 
-        .nav-brand {
-            font-size: 30px;
-            font-weight: bolder;
-        }
+            img {
+                margin-right: 15px;
+            }
 
-        .btn-nav {
-            color: white;
-            background-color: black;
-            border-color: black;
-        }
+            body {
+               background-size: cover;
+               background-image: url("study2.jpg");
+           }
+            
 
-        .btn-nav:hover {
-            background-color: #003c6c;
-            border-color: black;
-        }
+        </style>
+    </head>
+    <nav class="navbar navbar-expand-sm fixed-top justify-content-between">
+            <a class="nav-brand" href="/profile/login">
 
-        .navbar a:hover {
-            text-decoration: none;
-            color: black;
-        }
-
-        img {
-            margin-right: 15px;
-        }
-    </style>
-</head>
-<nav class="navbar navbar-expand-sm fixed-top justify-content-between">
-    <a class="nav-brand" href="login.html">
-        <img src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
-
-    <!--  <form class="form-inline" action="https://www.google.com/">
+            <!-- slug icon pic -->
+            <img src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
+            
+          <!--  <form class="form-inline" action="https://www.google.com/">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search for Classes">
                 <button class="btn btn-nav" type="submit">Search</button>
             </form> -->
-</nav>
+        </nav>
+    
+    
+    <body>
 
-
-<body>
-    <% if (loggedIn) {%>
-    <div id="login-redirect">
-        <a href="/profile/signup">Sign Up</a>
-        <a href="/profile/login">Login</a>
-    </div>
-    <% }else{ %>
-    <div id="login-redirect">
-        <a href="/profile">Profile</a>
-    </div>
-    <% } %>
-    <div id="search-bar">
-
-        <h1> What do you need help with? </h1>
-
+        <div id="login-redirect">
+                <a href="/profile/signup">Sign Up</a>
+                <a href="/profile/login">Login</a>
+        </div>
+    
+        
+        <div id="search-bar">
+            
+            <h1> What do you need help with? </h1>
+            
         <form>
-            <input type="text" name=text class="search" placeholder="Search For a Course" size="50">
-            <input type="submit" name="submit" class="submit" value="Search">
+            <input type ="text" name =text class ="search" placeholder ="Search For a Course" size="50">
+            <input type ="submit" name="submit" class ="submit" value="Search">
         </form>
-    </div>
 
+        </div>
 
-</body>
+        
+
+    </body>
 
 </html>

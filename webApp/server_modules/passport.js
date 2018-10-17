@@ -65,11 +65,11 @@ module.exports = function (app) {
     router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/signup' }),
         function (req, res) {
             console.log(req.user);
-            req.session.save(() => res.redirect('/signup/createprofile'));
+            req.session.save(() => res.redirect('/profile/createprofile'));
         });
 
     router.get('/login', function (req, res) {
-        return res.redirect('/profile');
+        req.session.save(()=>res.redirect('/profile'));
     });
 
     return router;
