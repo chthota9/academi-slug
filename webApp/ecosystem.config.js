@@ -14,8 +14,8 @@ module.exports = {
       NODE_ENV: 'production',
       GOOGLE_CLIENT_ID: '675450206162-bo2tctf8cf17ba5mdgatgduho9cibi0e.apps.googleusercontent.com',
       GOOGLE_CLIENT_SECRET: 'UaTfkdsuXOEHhYwauDs60VCU',
-      GOOGLE_HAVEP_CALLBACK: `https://aimxex.com/google/login`,
-      GOOGLE_CREATEP_CALLBACK: `https://aimxex.com/google/signup`,   
+      GOOGLE_HAVEP_CALLBACK: `https://academi-slug.herokuapp.com/google/login`,
+      GOOGLE_CREATEP_CALLBACK: `https://academi-slug.herokuapp.com/google/login`,   
       SECRET:'slugger'
     }
   }]
