@@ -63,8 +63,7 @@ module.exports = function (app) {
     router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/' }),
         function (req, res) {
             console.log(req.user);
-            res.redirect('/signup/createprofile');
-
+            req.session.save(() => res.redirect('/signup/createprofile'));
         });
 
     router.get('/login', function (req, res) {

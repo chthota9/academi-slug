@@ -5,6 +5,8 @@
 #### Description: 
 Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring platform of UC Santa Cruz. Users can sign up and search for all tutors available for a particular class. After selecting a tutor based on their experience and qualifications, potential tutees can then communicate with their tutors to establish a meeting time/location. Simple and easy-to-use, Academi-Slug is your one-stop-shop for all your assistive-learning needs.
 
+---
+
 #### Documentation:
 - Link to our [Release Plan](Documents/Release%20Plan.pdf)
 - Link to our first [Sprint Plan](Documents/Sprint%201%20Plan.pdf)
@@ -17,10 +19,14 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 - Link to our fourth Sprint Report (TBA)
 - Link to our [Scrum Board](https://trello.com/invite/b/3utiz3Fv/b8d9a24621bd50681c49075468a3ae49/initial-tasks)
 
+---
 
 #### Installation Guide:
-
+- `cd` into `\webApp\` directory
 - In `\webApp\` directory
-  1. Use `npm install` to get all dependencies
-  2. Use `node server.js` to start server
-     - To connect to server type `localhost:5000` into a web browser
+ 1. Check if Node is installed by typing `node -v` this should print Node's version number. It should be v8.11.3.
+ 2. Check if NPM is installed by typing `npm -v` this should print the NPM's version number. It should be 5.6.0.
+ 3. Use `npm install` to get all dependencies and then type `npm install pm2 -g`
+ 4. Use `pm2 start ecosystem.config.js` to start server.
+     - To connect to server type `localhost:5000` into a web browser.
+     - To end the server type `pm2 kill`
