@@ -6,7 +6,6 @@ module.exports = {
       NODE_ENV: 'development',
       GOOGLE_CLIENT_ID: '675450206162-bo2tctf8cf17ba5mdgatgduho9cibi0e.apps.googleusercontent.com',
       GOOGLE_CLIENT_SECRET: 'UaTfkdsuXOEHhYwauDs60VCU',
-      PORT: 5000,
       GOOGLE_HAVEP_CALLBACK: `http://localhost:5000/google/login`,
       GOOGLE_CREATEP_CALLBACK: `http://localhost:5000/google/signup`,
       SECRET:'slugger'
@@ -16,8 +15,7 @@ module.exports = {
       GOOGLE_CLIENT_ID: '675450206162-bo2tctf8cf17ba5mdgatgduho9cibi0e.apps.googleusercontent.com',
       GOOGLE_CLIENT_SECRET: 'UaTfkdsuXOEHhYwauDs60VCU',
       GOOGLE_HAVEP_CALLBACK: `https://aimxex.com/google/login`,
-      GOOGLE_CREATEP_CALLBACK: `https://aimxex.com/google/signup`,
-      PORT: 5000,
+      GOOGLE_CREATEP_CALLBACK: `https://aimxex.com/google/signup`,   
       SECRET:'slugger'
     }
   }]

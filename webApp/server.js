@@ -21,7 +21,7 @@ app.get('/', function (req, res) {
     res.render('search',{loggedIn: req.isAuthenticated()});
 });
 
-const PORT = process.env.PORT || 3569;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, function () {
     console.log(`Server started on port ${PORT}`);
