@@ -4,15 +4,16 @@ const session = require('express-session');
 const router = require('express').Router();
 
 let sess = {
+    name: 'sessID',
     secret: process.env.SECRET,
     saveUninitialized: false,
-    resave: true,
+    resave: false,
     unset: 'destroy',
     cookie: {
         httpOnly: true,
         secure: false,
-        maxAge: 60 * 60,
-        sameSite: true
+        maxAge: 60 * 60 * 1000,
+        // sameSite: true
 
     }
 }
@@ -47,22 +48,22 @@ module.exports = function (app) {
     }));
 
     passport.serializeUser(function (userID, cb) {
+        console.log('serializing');
+
         return cb(null, userID);
     });
 
     passport.deserializeUser(function (userID, cb) {
         //search database for user
+        console.log('deserializing');
         return cb(null, userID);
     });
+
 
     router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/' }),
         function (req, res) {
             console.log(req.user);
-            req.logIn(req.user, function () {
-                req.session.save(function () {
-                    res.redirect('/signup/createprofile');
-                })
-            })
+            res.redirect('/signup/createprofile');
 
         });
 
