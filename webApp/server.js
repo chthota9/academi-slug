@@ -12,7 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/google',passport(app));
 app.use('/profile', profileRoute);
-app.use('/signup', signupRoute);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
