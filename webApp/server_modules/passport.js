@@ -32,10 +32,13 @@ module.exports = function (app) {
         callbackURL: process.env.GOOGLE_HAVEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
         // console.log(`${accessToken}, ${refreshToken}, ${profile} `);
+
+        console.log(profile);
+        console.log(profile.emails);
+        
+        let googProf = { id: profile.id, email: profile.emails[0].value, name: profile.name };
         //Look for user in DB else redirect to sign up 
-        let googProfile = { acctID: profile.id, name: profile.name, email: emails.value }
-        //  console.log(profile);
-        return cb(null, googProfile);
+        return cb(null, googProf);
     }));
 
     passport.use('googleSignUp', new googleAuth({
@@ -43,7 +46,7 @@ module.exports = function (app) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CREATEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
-        let googProfile = { acctID: profile.id, name: profile.name, email: emails.value }
+        console.log(profile.emails);
         //add user to DB
         return cb(null, googProfile);
     }));
@@ -64,13 +67,17 @@ module.exports = function (app) {
 
     router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/signup' }),
         function (req, res) {
+
             console.log(req.user);
             req.session.save(() => res.redirect('/profile/createprofile'));
         });
 
-    router.get('/login', function (req, res) {
-        req.session.save(()=>res.redirect('/profile'));
-    });
+    router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/signup' }),
+        function (req, res) {
+
+            console.log(req.user);
+            req.session.save(() => res.redirect('/profile'));
+        });
 
     return router;
 }
