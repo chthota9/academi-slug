@@ -15,8 +15,8 @@ module.exports = {
       NODE_ENV: 'production',
       GOOGLE_CLIENT_ID: '675450206162-bo2tctf8cf17ba5mdgatgduho9cibi0e.apps.googleusercontent.com',
       GOOGLE_CLIENT_SECRET: 'UaTfkdsuXOEHhYwauDs60VCU',
-      GOOGLE_CALLBACK: "http://aimxex/profile/cb",
-      GOOGLE_HAVEP_CALLBACK: `https://aimxex/google/login`,
+      GOOGLE_CALLBACK: "http://aimxex.com/profile/cb",
+      GOOGLE_HAVEP_CALLBACK: `https://aimxex.com/google/login`,
       GOOGLE_CREATEP_CALLBACK: `https://aimxex.com/google/signup`,
       PORT: 5000,
       SECRET:'slugger'
