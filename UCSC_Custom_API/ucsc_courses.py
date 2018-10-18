@@ -4,6 +4,7 @@ import requests
 import os
 from os import listdir
 from logger_helper import LoggerHelpers
+import xml.sax.saxutils as saxutils
 
 
 # references:
@@ -124,7 +125,7 @@ class API():
     @staticmethod
     @app.route('/api/v1.0/courses/all/2180', methods=['GET'])
     def courses_num():
-        ConfigObject.logger.log_msg('Running the Open Courses API', 'INFO')
+        ConfigObject.logger.log_msg('Running the Custom Courses API', 'INFO')
         default_payload = ConfigObject.default_payload
 
         # You can derive this payload using the Inspect Element feature, navigate to the Networks
@@ -156,7 +157,7 @@ class API():
         results = CourseParser.parse_classes_page(open_courses_payload)
 
         with open('output.txt', 'w') as f:
-            f.write(str(results))
+            json.dump(results,f, indent=4)
 
         return jsonify(results)
 
