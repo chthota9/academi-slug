@@ -27,7 +27,19 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 - In `\webApp\` directory
    1. Check if Node is installed by typing `node -v` this should print Node's version number. It should be v8.11.3.
    2. Check if NPM is installed by typing `npm -v` this should print the NPM's version number. It should be 5.6.0.
-   3. Use `npm install` to get all dependencies and then type `npm install pm2`
+   3. Use `sudo npm install` to get all dependencies and then type `sudo npm install pm2 -g`
    4. Use `pm2 start` to start server.
       - To connect to server type `localhost:5000` into a web browser.
       - To end the server type `pm2 kill`
+
+### Bug fixes:
+- adjust search.ejs so that as the user minimizes and maximizes the window, the page stays constant
+  
+
+### Server Routes
+- These routes would be placed in `href=""` Example: `href="login.html"` -> `href="/profile/login"` 
+ - `/profile/` to view profile
+ - `/profile/signip` to direct client to sign up page
+ - `/profile/login` to direct the client to login page
+ - `/profile/logout` to logout client
+ - `/` for home route

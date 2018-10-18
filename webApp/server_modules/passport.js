@@ -47,6 +47,7 @@ module.exports = function (app) {
         callbackURL: process.env.GOOGLE_CREATEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
         console.log(profile.emails);
+        //check if user exists
         //add user to DB
         return cb(null, googProfile);
     }));

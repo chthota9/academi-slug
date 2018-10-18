@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-widgth, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+        <link rel="stylesheet" type="text/css" href="login-noSearch.css">
+        <title>Academi-Slug | Log in</title>
+    </head>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container-fluid">    
+            <div class="navbar-header">
+                <a class="nav-brand" href="login.html"><img src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
+            </div>
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="btn btn-nav" href="login.html" role="button">Log In</a>
+                </li>
+                <li>
+                    <a class="btn btn-nav" href="createAccount.html" role="button">Sign Up</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="bg">    
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="mb-0">Login</h2>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" autocomplete="on">
+                               <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control form-control-lg"required="" id="email">
+                                </div>
+
+                                <div class="form-group">
+                                        <label for="email">Password</label>
+                                        <input type="password" class="form-control form-control-lg" required="" id="pwd">
+                                </div> 
+                                <button type="submit" class="btn btn-primary float-right">Log in</button>
+                           </form>
+                            <div class="link"><a href="forgotAccount.html" target="_self">Forgot password?</a></div>
+
+                            <br><br>
+                            <p class="text-center">Don't have an account?  <a href="createAccount.html">Sign up!</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
