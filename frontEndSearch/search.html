@@ -9,19 +9,19 @@
 
            
             
-            #search-bar {
+            .search-bar {
                 text-align: center;
                 position:relative;
                 top: 230px;
               
             }
 
-            h1 {
+            .heading {
                 color: black;
                 font-size: 300%;
             }
 
-            #login-redirect {
+            .login-redirect {
                 text-align:right;
                 padding: 10px;
             }
@@ -52,11 +52,11 @@
                 color:black;
             }
 
-            img {
+            .logo {
                 margin-right: 15px;
             }
 
-            #back-image{
+            .back-image{
                position:fixed;
                width: 100%;
                opacity: 0.65;
@@ -71,7 +71,7 @@
             <a class="nav-brand" href="login.html">
 
             <!-- slug icon pic -->
-            <img src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
+            <img class="logo" src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
             
           <!--  <form class="form-inline" action="https://www.google.com/">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search for Classes">
@@ -81,18 +81,23 @@
     
     
     <body>
-            <img id="back-image" src="study2.jpg"> <!---background image -->
+            <img class="back-image" src="study2.jpg"> <!---background image -->
 
 
-        <div id="login-redirect">
+        <div class="login-redirect">
                 <a href="login.html">Sign Up</a>
                 <a href="login.html">Login</a>
         </div>
     
         
-        <div id="search-bar">
+        <div class="search-bar">
             
-            <h1> What do you need help with? </h1>
+            <div class="heading">
+                    <h1> What do you need help with? </h1>
+
+            </div>
+
+          
             
         <form>
             <input type ="text" name =text class ="search" placeholder ="Search For a Course" size="50">
