@@ -31,3 +31,7 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
    4. Use `pm2 start` to start server.
       - To connect to server type `localhost:5000` into a web browser.
       - To end the server type `pm2 kill`
+
+### Bug fixes:
+- adjust search.ejs so that as the user minimizes and maximizes the window, the page stays constant
+  
