@@ -6,12 +6,15 @@
 .nav-brand {
     font-size: 30px;
     font-weight: bolder;
+    margin-left: -15px;
 }
 
 .btn-nav {
     color: white;
     background-color: black;
     border-color: #003c6c;
+    border-width: 2px;
+    margin-left: 15px;
 }
 
 .btn-nav:hover{
