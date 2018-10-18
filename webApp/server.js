@@ -8,6 +8,8 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('client'));
+
 
 app.use('/google',passport(app));
 app.use('/profile', profileRoute);
