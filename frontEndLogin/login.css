@@ -1,3 +1,4 @@
+/* Navigation Bar */
 .navbar {
     background-color: #fdc700;
     border-bottom: 3px solid black;
@@ -28,7 +29,9 @@ img {
     margin-right: 15px;
 }
 
-html,body {
+
+/* Background */
+.html,.body {
     height: 100%;
     background-color: black;
 }
@@ -42,6 +45,7 @@ html,body {
     margin-top: 65px;
 } 
 
+/* Body */
 h2 {
     font-weight: bolder;
 }
