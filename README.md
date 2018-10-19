@@ -37,9 +37,6 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
       - To connect to server type `localhost:5000` into a web browser.
       - To end the server type `pm2 kill`
 
-### Bug fixes:
-- adjust search.ejs so that as the user minimizes and maximizes the window, the page stays constant
-  
 
 ### Server Routes
 - These routes would be placed in `href=""` Example: `href="login.html"` -> `href="/profile/login"` 
