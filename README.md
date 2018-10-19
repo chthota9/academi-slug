@@ -1,6 +1,6 @@
 ## Academi-Slug: UCSC's Premier Tutoring Platform
 
-##### Website https://academi-slug.herokuapp.com/
+
 
 
 #### Description: 
@@ -22,14 +22,17 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 
 ---
 
+##### Online Website https://academi-slug.herokuapp.com/
+
 #### Installation Guide:
+- Install [Node.js](https://nodejs.org/en/)
 - `cd` into `\webApp\` directory
 - In `\webApp\` directory
    1. Check if Node is installed by typing `node -v` this should print Node's version number. It should be v8.11.3.
    2. Check if NPM is installed by typing `npm -v` this should print the NPM's version number. It should be 5.6.0.
    3. Use `sudo npm install` to get all dependencies and then type 
-   	-`sudo npm install pm2 -g` if on a mac or linux
-	-`npm install pm2 -g` if on windows
+   		- `sudo npm install pm2 -g` if on a mac or linux
+	 	- `npm install pm2 -g` if on windows
    4. Use `pm2 start` to start server.
       - To connect to server type `localhost:5000` into a web browser.
       - To end the server type `pm2 kill`
@@ -47,13 +50,11 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
  - `/` for home route
 
 ### Mongoose user schema:
-	{
-	googleID: {type: Number},
-	email: {type: String},	
-	name: {firstName: {type: String}, lastName: {type: String}},
-	year: {type: String},
-	college: {type: String},
-	major: {type: String},
-	bio: {type: String},
-	coursesTaught: [{courseNo: {type: String}}]
-	}
+	googleID: 123456789,
+	email: "samslug@ucsc.edu,	
+	name: {firstName: "Sammy", lastName: "Slug"},
+	year: "Senior",
+	college: "Oakes",
+	major: "Computer Science",
+	bio: {"Im a slug."},
+	coursesTeachable: ["CMPS 115", "CMPS 112", "CMPE 150", "CMPS 121"]
