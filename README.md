@@ -18,7 +18,7 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 - Link to our third Sprint Report (TBA)
 - Link to our fourth Sprint Plan (TBA)
 - Link to our fourth Sprint Report (TBA)
-- Link to our [Scrum Board](https://trello.com/invite/b/3utiz3Fv/b8d9a24621bd50681c49075468a3ae49/initial-tasks)
+- Link to our [Scrum Board](https://github.com/tim-nguyen-cs/academi-slug/projects/1)
 
 ---
 
@@ -27,7 +27,9 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 - In `\webApp\` directory
    1. Check if Node is installed by typing `node -v` this should print Node's version number. It should be v8.11.3.
    2. Check if NPM is installed by typing `npm -v` this should print the NPM's version number. It should be 5.6.0.
-   3. Use `sudo npm install` to get all dependencies and then type `sudo npm install pm2 -g`
+   3. Use `sudo npm install` to get all dependencies and then type 
+   	-`sudo npm install pm2 -g` if on a mac or linux
+	-`npm install pm2 -g` if on windows
    4. Use `pm2 start` to start server.
       - To connect to server type `localhost:5000` into a web browser.
       - To end the server type `pm2 kill`
