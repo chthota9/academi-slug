@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="html">
      
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -11,9 +11,8 @@
             .search-bar {
                 position:relative;
                 text-align: center;
-                top: 230px;
+                top: -30px;
                
-              
             }
 
             .heading {
@@ -57,17 +56,24 @@
                 margin-right: 15px;
             }
 
-            .back-image{
-               position:fixed;
-               width: 100%;
-               opacity: 0.5;
-           }
-            
+            .bg {
+                background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("study2.jpg");
+                height: 100%;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                margin-top: 65px;
 
-           
+            }
 
+            .html,.body {
+            height: 100%;
+          
+            }
         </style>
     </head>
+
+
     <nav class="navbar navbar-expand-sm fixed-top justify-content-between">
             <a class="nav-brand" href="login.html">
 
@@ -79,11 +85,23 @@
                 <button class="btn btn-nav" type="submit">Search</button>
             </form> -->
         </nav>
-    
-    
-    <body>
-            <img class="back-image" src="study2.jpg"> <!---background image -->
 
+        
+            
+                
+    
+    
+    <body class="body">
+
+            <div class="bg">    
+                    <div class="container h-100">
+                            <div class="row h-100 justify-content-center align-items-center">
+                                <div class="col-md-6">
+
+
+                <!---
+            <img class="back-image" src="study2.jpg"> 
+                    background image -->
 
         <div class="login-redirect">
                 <a href="login.html">Sign Up</a>
@@ -107,10 +125,11 @@
 
         </div>
 
-
+        </div>
+      </div>
+    </div>
+</div>
        
-        
-
     </body>
 
 </html>
