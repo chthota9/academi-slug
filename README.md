@@ -45,14 +45,13 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
  - `/` for home route
 
 ### Mongoose user schema:
-let userSchema = new mongoose.Schema({
+	{
 	googleID: {type: Number},
 	email: {type: String},	
 	name: {firstName: {type: String}, lastName: {type: String}},
-	
 	year: {type: String},
 	college: {type: String},
 	major: {type: String},
 	bio: {type: String},
 	coursesTaught: [{courseNo: {type: String}}]
-	});
+	}
