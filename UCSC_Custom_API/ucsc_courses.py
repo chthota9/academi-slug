@@ -156,8 +156,8 @@ class API():
         # Parse resulting payload into the results object
         results = CourseParser.parse_classes_page(open_courses_payload)
 
-        with open('output.txt', 'w') as f:
-            json.dump(results,f, indent=4)
+        with open('output.json', 'w') as f:
+            json.dump(results,f,indent=4)
 
         return jsonify(results)
 
