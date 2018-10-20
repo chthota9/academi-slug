@@ -1,5 +1,6 @@
 const passport = require('passport');
 const router = require('express').Router();
+const {validateForm} = require('../validator');
 
 /**
  * 
@@ -38,7 +39,11 @@ router.get('/logout', function (req, res) {
     console.log(req.session);
 
     res.redirect('/');
-})
+});
+
+router.post('/create',validateForm, function (req, res) {
+    res.send(JSON.stringify(req.body));
+});
 
 
 module.exports = router;
