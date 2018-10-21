@@ -5,25 +5,19 @@
             <title>Academi-Slug | Search</title>
             <style type="text/css">
 
-                #search-bar {
-                text-align: center;
-                position:relative;
-                top: -20px;
-            }
-                #tutor-table {
+
+                .tutor-table {
                     text-align:center;
                     position:relative;
-                    left: 290px;
-                    bottom: -150px;
+                    top: 40px;
+                    left: -120px;
                 }
+
                 table, th, td {
                 border: 1px solid black;
                 }
-                #text {
-                    text-align:left;
-                    position:relative;
-                    top: 190px;
-                }
+
+                
                 .navbar {
                     background-color: #fdc700;
                     border-bottom: 3px solid black;
@@ -53,14 +47,40 @@
                 img {
                     margin-right: 15px;
                 }
+
+               .search-text {
+                   position: relative;
+                   top: -150px;
+                   text-align: center;
+                }
+
+                #search-confirm {
+                    font-size: 220%;
+                }
+
+                #search-results {
+                    font-size: 145%;
+                }
+
+                .bg {
+                  
+                    background: linear-gradient(rgba(255, 255, 255, 0.644), rgba(255, 255, 255, 0.445)),url("tutor.jpg");
+                    height: 100%;
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    margin-top: 65px;
+            }
+
+                .html,.body {
+                    height: 100%;
+            }
+
+               
+                
            </style>
     </head>
     
-    <body>
-            <h2>You searched for______</h2>
-            <p>____Search Results Found</p>
-
-            <div id="search-bar"> </div>
                 <nav class="navbar navbar-expand-sm fixed-top justify-content-between">
                     <a class="nav-brand" href="login.html">
         
@@ -72,15 +92,17 @@
                         <button class="btn btn-nav" type="submit">Search</button>
                     </form>
                 </nav>
-        
-    <body>
-        <div id="text">
-                <h2>You searched for______</h2>
-                <p>____Search Results Found</p>
-        </div>
+
+               
+<body class="body">
+    <div class="bg">    
+         <div class="container h-100">
+             <div class="row h-100 justify-content-center align-items-center">
+                <div class="col-md-6">
             
-            <div id="tutor-table">
-                    <table style="width:60%">
+
+            <div class="tutor-table">
+                    <table style="width:150%">
                             <tr>
                               <th>Last, First</th>
                               <th>Courses</th>
@@ -98,6 +120,23 @@
                             </tr>
                     </table>
             </div>
+            
+            <div class="search-text"> 
+               <span id="search-confirm"> <p>You searched for______</p></span> 
+               <span id="search-results"><p> ____Search Results Found</p> </span> 
+            </div>
+            
+        </div>
+
+        </div>
+
+        </div>
+
+        </div>
+
+
+
+
 
     </body>
 </html>
