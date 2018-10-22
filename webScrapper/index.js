@@ -105,13 +105,5 @@ function requestCourses() {
         .catch(err => { throw err });
 }
 
-function requesting() {
-    let args = process.argv.splice(2);
-    if (args.length < 1) {
-        console.log('Enter what you would like to request');
-        console.log('majors, courses , or both');
-    }
-    
-}
-
-requesting();
+requestCourses();
+requestMajors();

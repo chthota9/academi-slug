@@ -1,4 +1,4 @@
-const { checkSchema } = require('validator');
+const { checkSchema } = require('express-validator/check');
 let years = ['freshmen', 'sophmore', 'junior', 'senior'];
 let colleges = ['Oakes', 'Cowell', 'Stevenson', 'Crown', 'Merril', 'Porter',
     'Kresge', 'Rachel Carson', 'College Nine', 'College Ten'];
@@ -42,7 +42,15 @@ let checkScheme = checkSchema({
         required: true,
         escape: true,
         isAlpha: true,
-        trim:true
+        trim: true,
+        custom: {
+            options: (value, { req, location, path }) => {
+                if (colleges.includes(value)) {
+                    return Promise.resolve();
+                }
+                return Promise.reject();
+            }
+        }
     },
     major: {
         in: ['body'],
