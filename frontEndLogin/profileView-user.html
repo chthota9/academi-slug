@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html class="html">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-widgth, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+        <link rel="stylesheet" type="text/css" href="profileView-guest.css">
+        <title>Academi-Slug | Profile</title>
+    </head>
+
+    <nav class="navbar navbar-expand-sm fixed-top justify-content-between">
+        <a class="nav-brand" href="login.html">
+        <img class="icon" src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
+        
+        <form class="form-inline" action="https://www.google.com/">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search for Classes">
+            <button class="btn btn-nav" type="submit">Search</button>
+        </form>
+    </nav>
+
+    <body class="body">
+        <div class="bg">    
+            <div class="container h-100">
+                <div class="row h-100 justify-content-center align-items-center">
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="display-4 mb-0">Your Profile</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="col-md-auto">
+                                    <form>
+                                        <div class="form-group row">
+                                            <label for="name" class="col-4 col-form-label">Name:</label> 
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" id="name">
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="form-group row">
+                                            <label for="year" class="col-4 col-form-label">Year:</label> 
+                                            <div class="col-8">
+                                                <select id="year" name="year" class="custom-select">
+                                                    <option selected disabled>Sophomore</option>
+                                                    <option>Freshman</option>
+                                                    <option>Sophomore</option>
+                                                    <option>Junior</option>
+                                                    <option>Senior</option>
+                                                    <option>Transfer</option>
+                                                    <option>Other</option>                                              
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="college" class="col-4 col-form-label">College:</label> 
+                                            <div class="col-8">
+                                                <select id="college" name="college" class="custom-select">
+                                                    <option selected disabled>College Affiliation</option>
+                                                    <option>Cowell</option>
+                                                    <option>Stevenson</option>
+                                                    <option>Crown</option>
+                                                    <option>Merrill</option>
+                                                    <option>College Nine</option>
+                                                    <option>College Ten</option>                    
+                                                    <option>Kresge</option>
+                                                    <option>Porter</option>
+                                                    <option>Rachel Carson</option>
+                                                    <option>Oakes</option>
+                                                    <option>Other</option>                                              
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="major" class="col-4 col-form-label">Major:</label> 
+                                            <div class="col-8">
+                                              <input id="major" name="major" class="form-control" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="about" class="col-4 col-form-label">About Me:</label> 
+                                            <div class="col-8">
+                                              <textarea id="about" name="about" cols="40" rows="4" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="offset-4 col-8">
+                                                <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
