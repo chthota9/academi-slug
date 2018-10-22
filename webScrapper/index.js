@@ -58,7 +58,7 @@ function parseHTMLCourses($) {
                 return classes;
             }, {});
 
-            return resolve(JSON.stringify(ucscClasses));
+            return resolve(ucscClasses);
         })
     })
 }
@@ -69,7 +69,7 @@ function parseHTMLMajors($) {
             let majorHTML = $('#subNav > ul li > ul').children().toArray().map((x) => {
                 return $(x).text().replace('*', '');
             });
-            return resolve(JSON.stringify(majorHTML))
+            return resolve(majorHTML);
         })
     })
 }
@@ -78,7 +78,7 @@ function requestMajors() {
     request(optionMajors)
         .then($ => parseHTMLMajors($))
         .then(majors => {
-            return fs.writeFile('ucsc-majors.json', majors, err => {
+            return fs.writeFile('ucsc-majors.json', JSON.stringify(majors), err => {
                 if (err) { throw err }
                 console.log(`Got all ${majors.length} majors at UCSC!`);
             })
@@ -89,15 +89,14 @@ function requestMajors() {
 
 
 
-
 function requestCourses() {
     request(optionCourses)
         .then(($) => parseHTMLCourses($))
         .then(classes =>
             new Promise((resolve, reject) => {
-                fs.writeFile('ucsc-courses.json', classes, err => {
+                fs.writeFile('ucsc-courses.json', JSON.stringify(classes), err => {
                     if (err) { return reject(err) }
-                    console.log(`Got all ${classes.length} courses at UCSC!`);
+                    console.log(`Got all ${Object.keys(classes).length} courses at UCSC!`);
                     resolve();
                 })
             })
