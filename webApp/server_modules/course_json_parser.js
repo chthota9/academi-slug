@@ -15,3 +15,7 @@ module.exports.courses = coursesObjArray;
 function getClassID(className){
 	return multiClassObject[className];
 }
+var classKeys = Object.keys(classKey));
+function getClassKey(){
+	return classKeys;
+}
