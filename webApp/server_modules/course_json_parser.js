@@ -1,5 +1,5 @@
 const fs = require('fs');
-var classObject;
+var multiClassObject;
 
 fs.readFile('..\\..\\webScrapper\\ucsc-courses.json', (err, data) => {
   if (err){
@@ -10,7 +10,7 @@ fs.readFile('..\\..\\webScrapper\\ucsc-courses.json', (err, data) => {
 });
 
 // Errors thrown for the line below:
-//module.export.courses = coursesObjArray;
+module.exports.courses = coursesObjArray;
 
 function getClassID(className){
 	return multiClassObject[className];
