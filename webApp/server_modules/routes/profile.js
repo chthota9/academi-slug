@@ -1,6 +1,7 @@
 const passport = require('passport');
 const router = require('express').Router();
-const {validateForm} = require('../validator');
+const { validateForm } = require('../validator');
+const {addUser} = require('../mongoose');
 
 /**
  * 

@@ -1,21 +1,45 @@
 const fs = require('fs');
-var multiClassObject;
+let classNameToID;
+let classIDToName;
+let classNames;
+let classIDs;
 
-fs.readFile('..\\..\\webScrapper\\ucsc-courses.json', (err, data) => {
-  if (err){
-	  console.log("File does not exist");
-	  throw err;
-  }
-  multiClassObject = JSON.parse(data);
-});
-
-// Errors thrown for the line below:
-module.exports.courses = coursesObjArray;
-
-function getClassID(className){
-	return multiClassObject[className];
+function GetCourses() {
+	return new Promise((resolve, reject) => {
+		fs.readFile('./ucsc-courses.json', (err, data) => {
+			if (err) {
+				console.log("File does not exist");
+				return reject(err);
+			}
+			return resolve(data);
+		});
+	})
 }
-var classKeys = Object.keys(classKey));
-function getClassKey(){
-	return classKeys;
+
+
+function getClassID(className) {
+	return classNameToID[className];
 }
+
+function getClassNames() {
+	return classNames;
+}
+
+function getClassName(classID) {
+	return classIDToName[classID];
+}
+
+module.exports = {
+	getClassID, getClassName
+}
+
+GetCourses()
+	.then(data => {
+		classNameToID = JSON.parse(data);
+		classNames = Object.keys(classNameToID);
+		classIDs = Object.values(classNameToID);
+		classIDToName = classVals.reduce((obj, val, i) => {
+			obj[val] = classKeys[i];
+			return obj;
+		}, {});
+	});
