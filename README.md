@@ -18,7 +18,7 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 - Link to our third Sprint Report (TBA)
 - Link to our fourth Sprint Plan (TBA)
 - Link to our fourth Sprint Report (TBA)
-- Link to our [Scrum Board](https://github.com/tim-nguyen-cs/academi-slug/projects/1)
+- Link to our [Scrum Board](https://trello.com/b/3utiz3Fv/scrum-board)
 
 ---
 
