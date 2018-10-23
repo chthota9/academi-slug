@@ -23,8 +23,7 @@ router.get('/', function (req, res) {
     if (!req.isAuthenticated()) { return res.redirect('profile/login') }
 
     console.log(req.user);
-    let profile = JSON.stringify(req.user, null, 3);
-    res.render('logout', { profile: profile });
+    res.render('profileView-user', { profile: req.user });
 });
 
 router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
@@ -52,7 +51,7 @@ router.post('/createProfile', function (req, res) {
     addUser(newProfile)
         .then(profile => {
             req.login({ id: profile.googleID }, err => {
-                res.render('logout', { profile: profile });
+                res.redirect('/profile');
 
             });
         })
