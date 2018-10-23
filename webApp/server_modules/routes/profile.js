@@ -2,6 +2,7 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors } = require('../course_json_parser');
+const { addUser } = require('../mongoose');
 
 /**
  * 
@@ -41,8 +42,17 @@ router.get('/logout', function (req, res) {
 
 router.post('/createProfile', function (req, res) {
     console.log('CREATED PROFILE');
-
-    res.send(JSON.stringify(req.body));
+    let newProfile = {
+        ...req.body, 'googleID': req.user.id,
+        ...req.user.extra,
+        coursesTaught: [{ courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }]
+    }
+    // console.log(newProfile);
+    
+    addUser(newProfile)
+        .then(profile => {
+            res.send(JSON.stringify(profile));
+        })
 });
 
 

@@ -26,7 +26,7 @@ function addUser(user) {
 		let userAdded = new Users({
 			googleID: user.googleID,
 			email: user.email,
-			name: { firstName: user.name.firstName, lastName: user.name.lastName },
+			name: { firstName: user.firstName, lastName: user.lastName },
 			year: user.year,
 			college: user.college,
 			major: user.major,
