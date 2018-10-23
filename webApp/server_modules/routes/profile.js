@@ -48,10 +48,13 @@ router.post('/createProfile', function (req, res) {
         coursesTaught: [{ courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }]
     }
     // console.log(newProfile);
-    
+
     addUser(newProfile)
         .then(profile => {
-            res.send(JSON.stringify(profile));
+            req.login({ id: profile.googleID }, err => {
+                res.render('logout', { profile: profile });
+
+            });
         })
 });
 

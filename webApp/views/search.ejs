@@ -93,8 +93,12 @@
             <!-- slug icon pic -->
             <img class="logo" src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
             <div class="login-redirect">
+                <% if(!loggedIn) { %>
                     <a href="/profile/signup">Sign Up</a>
                     <a href="/profile/login">Login</a>
+                    <% }else{ %>
+                        <a href="/profile">profile</a>
+                   <% } %>
             </div>
         
             

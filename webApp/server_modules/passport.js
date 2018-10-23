@@ -64,6 +64,7 @@ module.exports = function (app) {
 
     passport.serializeUser((sessData, cb) => {
         console.log('serializing');
+        console.log(JSON.stringify(sessData));
 
         return cb(null, sessData);
     });
@@ -71,6 +72,7 @@ module.exports = function (app) {
     passport.deserializeUser((sessData, cb) => {
         //search database for user
         console.log('deserializing');
+        console.log(JSON.stringify(sessData));
         if (sessData.extra != undefined) {
             cb(null, sessData);
         } else {
@@ -83,7 +85,6 @@ module.exports = function (app) {
     router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/' }),
         function (req, res) {
             console.log('SIGNUP');
-
             console.log(req.user);
             req.session.save(() => res.redirect('/profile/create'));
         });
@@ -91,11 +92,11 @@ module.exports = function (app) {
     router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/profile/signup' }),
         function (req, res) {
             console.log('LOGIN');
-            console.log(req.user);
+            // console.log(req.user);
             findUser(req.user.id)
                 .then(user => {
                     if (user === null) {
-                        console.log('NO USER');
+                        // console.log('NO USER');
 
                         return res.redirect('/profile/signup')
                     } else {

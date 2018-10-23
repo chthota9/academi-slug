@@ -8,12 +8,12 @@ connection.once('open', function () {
 let userSchema = new mongoose.Schema({
 	googleID: { type: Number, required: true },
 	email: { type: String, required: true },
-	name: { firstName: { type: String, required: true }, lastName: { type: String, required: true } },
+	name: { firstName: { type: String, required: true }, lastName: { type: String, required: true }, _id: { id: false }},
 	year: { type: String, required: true },
 	college: { type: String, required: true },
 	major: { type: String, required: true },
 	bio: { type: String, required: true },
-	coursesTaught: [{ courseNo: { type: Number, required: true }, rating: { type: Number, required: true } }]
+	coursesTaught: [{ courseNo: { type: Number, required: true, }, rating: { type: Number, required: true }, _id: { id: false } }]
 }, { autoIndex: false, versionKey: false });
 
 
@@ -57,6 +57,8 @@ function deleteUser(googleID) {
 	})
 
 }
+
+// deleteUser(113030757337216400000)
 
 //deleteUser(24245);
 
