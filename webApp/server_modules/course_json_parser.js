@@ -3,8 +3,9 @@ let classNameToID;
 let classIDToName;
 let classNames;
 let classIDs;
+let ucscMajors;
 
-function GetCourses() {
+function getUCSCCourses() {
 	return new Promise((resolve, reject) => {
 		fs.readFile('./ucsc-courses.json', (err, data) => {
 			if (err) {
@@ -16,30 +17,62 @@ function GetCourses() {
 	})
 }
 
+function getUCSCMajors() {
+	return new Promise((resolve, reject) => {
+		fs.readFile('./ucsc-majors.json', (err, data) => {
+			if (err) {
+				console.log("File does not exist");
+				return reject(err);
+			}
+			return resolve(data);
+		});
+	})
+}
 
+/**
+ * 
+ * @param {String} className 
+ * @returns {Number}
+ */
 function getClassID(className) {
 	return classNameToID[className];
 }
-
-function getClassNames() {
+/**
+ *@returns {Array<String>} 
+ */
+function getAllClasses() {
 	return classNames;
 }
-
+/**
+ * @param {Number} classID 
+ * @returns {String}
+ */
 function getClassName(classID) {
 	return classIDToName[classID];
 }
-
-module.exports = {
-	getClassID, getClassName
+/**
+ * @returns {Array<String>}
+ */
+function getMajors() {
+	return ucscMajors;
 }
 
-GetCourses()
+module.exports = {
+	getClassID, getClassName, getMajors, getAllClasses
+}
+
+getUCSCCourses()
 	.then(data => {
 		classNameToID = JSON.parse(data);
 		classNames = Object.keys(classNameToID);
 		classIDs = Object.values(classNameToID);
-		classIDToName = classVals.reduce((obj, val, i) => {
-			obj[val] = classKeys[i];
+		classIDToName = classIDs.reduce((obj, val, i) => {
+			obj[val] = classNames[i];
 			return obj;
 		}, {});
-	});
+	})
+	.then(() => getUCSCMajors())
+	.then(majors => {
+		ucscMajors = JSON.parse(majors);
+	})
+	.catch(err => console.log(err));

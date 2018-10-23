@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", { useNewUrlParser: true })
-let db = mongoose.connection;
-db.once('open', function () {
+const connection = mongoose.connection;
+connection.once('open', function () {
 	console.log("we're connected!");
 });
 
@@ -9,20 +9,20 @@ let userSchema = new mongoose.Schema({
 	googleID: { type: Number, required: true },
 	email: { type: String, required: true },
 	name: { firstName: { type: String, required: true }, lastName: { type: String, required: true } },
-
 	year: { type: String, required: true },
 	college: { type: String, required: true },
 	major: { type: String, required: true },
 	bio: { type: String, required: true },
-	coursesTaught: [{ courseNo: { type: Number, required: true } }]
+	coursesTaught: [{ courseNo: { type: Number, required: true }, rating: { type: Number, required: true } }]
 }, { autoIndex: false, versionKey: false });
+
 
 userSchema.index({ googleID: 1 }, { sparse: true });
 
 let Users = mongoose.model('Users', userSchema);
 
 function addUser(user) {
-	return new Promise((res, rej) => {
+	return new Promise((resolve, reject) => {
 		let userAdded = new Users({
 			googleID: user.googleID,
 			email: user.email,
@@ -33,10 +33,10 @@ function addUser(user) {
 			bio: user.bio,
 			coursesTaught: user.coursesTaught
 		});
-		userAdded.save((err, user1) => {
-			console.log("User " + user1.googleID + " added.");
-			if (err) { return rej(err) }
-			res(user1);
+		userAdded.save((err, profile) => {
+			if (err) { return reject(err) }
+			console.log("User " + profile.googleID + " added.");
+			resolve(profile);
 		})
 	})
 }
@@ -64,20 +64,17 @@ function findUser(googleID) {
 	console.log("Searching for user " + googleID);
 	return new Promise((res, rej) => {
 		Users.findOne({ googleID: googleID }).exec((err, userQuery) => {
-			if (err) {
-				console.log("User with googleID " + googleID + " does not exist.");
-				return rej(err);
+			if (userQuery != null) {
+				console.log("User with googleID " + googleID + " has email " + userQuery.email);
 			}
-			console.log("User with googleID " + googleID + " has email " + userQuery.email);
 			return res(userQuery);
 		});
 	})
-
 }
 
 //findUser(24245);
 
 
 module.exports = {
-	addUser, deleteUser, findUser
+	addUser, deleteUser, findUser, connection,
 }

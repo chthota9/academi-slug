@@ -1,28 +1,25 @@
 const { checkSchema } = require('express-validator/check');
-let years = ['freshmen', 'sophmore', 'junior', 'senior'];
-let colleges = ['Oakes', 'Cowell', 'Stevenson', 'Crown', 'Merril', 'Porter',
+const years = ['freshmen', 'sophmore', 'junior', 'senior'];
+const colleges = ['Oakes', 'Cowell', 'Stevenson', 'Crown', 'Merril', 'Porter',
     'Kresge', 'Rachel Carson', 'College Nine', 'College Ten'];
 
 let checkScheme = checkSchema({
     googleID: {
         in: ['body'],
-        required: true,
         isInt: true,
         toInt: true,
     },
     email: {
         in: ['body'],
-        required: true,
         escape: true,
         isEmail: true,
         normalizeEmail: true,
     },
-    'name.firstName': {
+    'firstName': {
         in: ['body'],
-        required: true,
         trim:true
     },
-    'name.lastName': {
+    'lastName': {
         in: ['body'],
         trim:true
     },
@@ -39,7 +36,6 @@ let checkScheme = checkSchema({
     },
     college: {
         in: ['body'],
-        required: true,
         escape: true,
         isAlpha: true,
         trim: true,
@@ -54,20 +50,17 @@ let checkScheme = checkSchema({
     },
     major: {
         in: ['body'],
-        required: true,
         escape: true,
         isAlpha: true,
         trim:true
     },
     bio: {
         in: ['body'],
-        required: true,
         escape: true,
         trim:true
     },
     coursesTaught: {
         in: ['body'],
-        required:true
     }
 
 
