@@ -34,7 +34,7 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
    3. To get all dependencies and type 
    		- If on a mac or linux `sudo npm install` then `sudo npm install pm2 -g` 
 	 	- If on windows `npm install` then `npm install pm2 -g`
-   4. Use `pm2 start` to start server.
+   4. Use `npm start` to start server.
       - To connect to server type `localhost:5000` into a web browser.
       - To end the server type `pm2 kill`
       - In `\webApp\` directory
