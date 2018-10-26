@@ -12,14 +12,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client'));
 
 
-app.use('/google',passport(app));
+app.use('/google', passport(app));
 app.use('/profile', profileRoute);
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '/views'));
 
 app.get('/', function (req, res) {
-    // console.log(req.session);
-    res.render('search',{loggedIn: req.isAuthenticated()});
+    console.log(req.session);
+    let loggedIn = req.isAuthenticated() && req.user.extra === undefined;
+    res.render('search', { loggedIn: loggedIn });
 });
 
 const PORT = process.env.PORT || 5000;

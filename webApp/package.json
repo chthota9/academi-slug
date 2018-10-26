@@ -4,13 +4,13 @@
   "description": "CMPS 115 Project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start ecosystem.config.js --env production",
-    "debug": "node server.js"
+    "test": "pm2 start ecosystem.config.js --watch",
+    "start": "pm2-runtime start ecosystem.config.js --env production "
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "connect-mongo": "^2.0.1",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",

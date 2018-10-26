@@ -1,7 +1,3 @@
-body {
-    background-color: #1E90FF;
-    margin: auto;
-}
 .navbar {
     background-color: #fdc700;
     border-bottom: 3px solid black;
@@ -28,12 +24,85 @@ body {
     color:black;
 }
 
-img {
+.icon {
     margin-right: 15px;
 }
 
-html,body {
+.html,.body {
     height: 100%;
+    background-color: black;
+    overflow: auto;
+}
+
+.bg  {
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("background.png");
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 65px;
+} 
+
+.btn-primary {
+    color: white;
+    background-color: #003c6c;
+    border-color: #003c6c;
+}
+
+.btn-primary:hover{
+    color: black;
+    background-color: #fdc700;
+    border-color: black;
+}
+
+.h3-title  {
+    font-weight: bolder;    
+}
+
+.card {
+    border-color: black;
+    border-width: thick;
+    border-radius: 7px;
+}
+
+.card-header {
+    background-color: #003c6c;
+    color: white;
+}
+
+
+.navbar {
+    background-color: #fdc700;
+    border-bottom: 3px solid black;
+}
+
+.nav-brand {
+    font-size: 30px;
+    font-weight: bolder;    ;
+}
+
+.btn-nav {
+    color: white;
+    background-color: black;
+    border-color: #003c6c;
+}
+
+.btn-nav:hover{
+    background-color: #003c6c;
+    border-color: black;
+}
+
+.navbar a:hover {
+    text-decoration: none;
+    color:black;
+}
+
+.icon {
+    margin-right: 15px;
+}
+
+.html,.body {
+    height: 110%;
     background-color: black;
 }
 
@@ -58,13 +127,7 @@ html,body {
     border-color: black;
 }
 
-h1 {
-    text-align: center;
-    font-weight: bolder;
-    margin-top: 100px;
-}
-
-h2,h3  {
+.h2-title, .h3-title  {
     font-weight: bolder;    
 }
 
@@ -78,7 +141,3 @@ h2,h3  {
     background-color: #003c6c;
     color: white;
 }
-
-
-
-

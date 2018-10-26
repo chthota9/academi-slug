@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html class="html">
      
     <head>
@@ -19,14 +20,6 @@
                 color: black;
                 font-size: 300%;
             }
-
-            .login-redirect {
-             
-             
-               position: relative;
-               left: 100px;
-
-            }
         
             .navbar {
                 background-color: #fdc700;
@@ -36,18 +29,21 @@
             .nav-brand {
                 font-size: 30px;
                 font-weight: bolder;
-                color: black
+                margin-left: -15px;
             }
 
             .btn-nav {
                 color: white;
                 background-color: black;
-                border-color: black;
+                border-color: #003c6c;
+                border-width: 2px;
+                margin-left: 15px;
             }
 
             .btn-nav:hover{
                 background-color: #003c6c;
                 border-color: black;
+                color: white !important;
             }
 
             .navbar a:hover {
@@ -76,27 +72,29 @@
         </style>
     </head>
 
-
-    <nav class="navbar navbar-expand-sm fixed-top justify-content-between">
-            <a class="nav-brand" href="login.html">
-
-            <!-- slug icon pic -->
-            <img class="logo" src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
-            <div class="login-redirect">
-                    <a href="login.html">Sign Up</a>
-                    <a href="login.html">Login</a>
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container-fluid">    
+            <div class="navbar-header">
+                <a class="nav-brand" href="/profile/login"><img class="logo" src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
             </div>
-        
             
-            
-          <!--  <form class="form-inline" action="https://www.google.com/">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search for Classes">
-                <button class="btn btn-nav" type="submit">Search</button>
-            </form> -->
-        </nav>
-
+            <ul class="nav navbar-nav navbar-right">
+                <% if(!loggedIn) { %>
+                    <li>
+                        <a class="btn btn-nav" href="/profile/login" role="button">Log In</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-nav" href="/profile/signup" role="button">Sign Up</a>
+                    </li>
+                <% } else { %>
+                    <li>
+                        <a class="btn btn-nav" href="/profile" role="button">Profile</a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
         
-    
     <body class="body">
 
             <div class="bg">    

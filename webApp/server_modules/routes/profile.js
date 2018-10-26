@@ -1,7 +1,8 @@
 const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
-const {addUser} = require('../mongoose');
+const { getMajors } = require('../course_json_parser');
+const { addUser } = require('../mongoose');
 
 /**
  * 
@@ -9,7 +10,6 @@ const {addUser} = require('../mongoose');
  * @param {Express.Response} res 
  * @param {*} next 
  */
-
 
 
 
@@ -23,27 +23,38 @@ router.get('/', function (req, res) {
     if (!req.isAuthenticated()) { return res.redirect('profile/login') }
 
     console.log(req.user);
-    let profile = JSON.stringify(req.user, null, 3);
-    res.render('logout', { profile: profile });
+    res.render('profileView-user', { profile: req.user });
 });
 
 router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
 
-router.get('/createprofile', function (req, res) {
+router.get('/create', function (req, res) {
     console.log(req.session);
-
-    res.render('createAccount');
+    res.render('createAccount', { user: req.user, majors: getMajors() });
 })
 
 router.get('/logout', function (req, res) {
     req.logout();
     console.log(req.session);
-
     res.redirect('/');
 });
 
-router.post('/create',validateForm, function (req, res) {
-    res.send(JSON.stringify(req.body));
+router.post('/createProfile', function (req, res) {
+    console.log('CREATED PROFILE');
+    let newProfile = {
+        ...req.body, 'googleID': req.user.id,
+        ...req.user.extra,
+        coursesTaught: [{ courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }]
+    }
+    // console.log(newProfile);
+
+    addUser(newProfile)
+        .then(profile => {
+            req.login({ id: profile.googleID }, err => {
+                res.redirect('/profile');
+
+            });
+        })
 });
 
 

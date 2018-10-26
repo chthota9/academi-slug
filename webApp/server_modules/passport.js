@@ -2,21 +2,26 @@ const passport = require('passport');
 const googleAuth = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const router = require('express').Router();
+const { connection, findUser, addUser, emptyAcct } = require('./mongoose');
+const mongoStore = require('connect-mongo')(session);
 
+let sessionAge = 60 * 60 * 1000;
 let sess = {
-    name: 'sessID',
+    name: 'SID',
     secret: process.env.SECRET,
     saveUninitialized: false,
     resave: false,
     unset: 'destroy',
     cookie: {
-        httpOnly: true,
         secure: false,
-        maxAge: 60 * 60 * 1000,
-        // sameSite: true
-
+        maxAge: sessionAge,
+        sameSite: false
     }
 }
+if (process.env.NODE_ENV === 'production') {
+    sess.store = new mongoStore({ mongooseConnection: connection, ttl: sessionAge });
+}
+
 
 
 module.exports = function (app) {
@@ -31,14 +36,12 @@ module.exports = function (app) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_HAVEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
-        // console.log(`${accessToken}, ${refreshToken}, ${profile} `);
-
-        console.log(profile);
-        console.log(profile.emails);
-        
-        let googProf = { id: profile.id, email: profile.emails[0].value, name: profile.name };
         //Look for user in DB else redirect to sign up 
-        return cb(null, googProf);
+        console.log('HAS ACCT?');
+        let sessData = {
+            id: Number.parseInt(profile.id)
+        }
+        cb(null, sessData)
     }));
 
     passport.use('googleSignUp', new googleAuth({
@@ -46,38 +49,61 @@ module.exports = function (app) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CREATEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
-        console.log(profile.emails);
-        //check if user exists
-        //add user to DB
-        return cb(null, googProfile);
+        // console.log(profile);
+        console.log('CREATING ACCT');
+        let sessData = {
+            id: Number.parseInt(profile.id),
+            extra: {
+                firstName: profile.name.givenName,
+                lastName: profile.name.familyName,
+                email: profile.emails[0].value
+            }
+        };
+        cb(null, sessData);
     }));
 
-    passport.serializeUser(function (googProfile, cb) {
+    passport.serializeUser((sessData, cb) => {
         console.log('serializing');
+        console.log(JSON.stringify(sessData));
 
-        return cb(null, googProfile);
+        return cb(null, sessData);
     });
 
-    passport.deserializeUser(function (googProfile, cb) {
+    passport.deserializeUser((sessData, cb) => {
         //search database for user
         console.log('deserializing');
-
-        return cb(null, googProfile);
+        console.log(JSON.stringify(sessData));
+        if (sessData.extra != undefined) {
+            cb(null, sessData);
+        } else {
+            findUser(sessData.id)
+                .then(user => cb(null, user))
+        }
     });
 
 
-    router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/signup' }),
+    router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/' }),
         function (req, res) {
-
+            console.log('SIGNUP');
             console.log(req.user);
-            req.session.save(() => res.redirect('/profile/createprofile'));
+            req.session.save(() => res.redirect('/profile/create'));
         });
 
-    router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/signup' }),
+    router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/profile/signup' }),
         function (req, res) {
+            console.log('LOGIN');
+            // console.log(req.user);
+            findUser(req.user.id)
+                .then(user => {
+                    if (user === null) {
+                        // console.log('NO USER');
 
-            console.log(req.user);
-            req.session.save(() => res.redirect('/profile'));
+                        return res.redirect('/profile/signup')
+                    } else {
+                        console.log('YES USER');
+                        req.session.save(() => res.redirect('/profile'));
+                    }
+                })
         });
 
     return router;
