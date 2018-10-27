@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", { useNewUrlParser: true })
 const connection = mongoose.connection;
 connection.once('open', function () {
-	console.log("we're connected!");
+	console.log("We're connected to the database!");
 });
 
 let userSchema = new mongoose.Schema({
