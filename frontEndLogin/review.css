@@ -5,7 +5,7 @@
 
 .nav-brand {
     font-size: 30px;
-    font-weight: bolder;    ;
+    font-weight: bolder;
 }
 
 .btn-nav {
@@ -28,7 +28,7 @@
     margin-right: 15px;
 }
 
-.html,.body {
+html, body {
     height: 110%;
     background-color: black;
 }

@@ -1,4 +1,103 @@
-body {
-    background-color: #1E90FF;
-    margin: auto;
+.navbar {
+    background-color: #fdc700;
+    border-bottom: 3px solid black;
+}
+
+.nav-brand {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.btn-nav {
+    color: white;
+    background-color: black;
+    border-color: #003c6c;
+	margin-left: 15px;
+}
+
+.btn-nav:hover{
+    background-color: #003c6c;
+    border-color: black;
+}
+
+.navbar a:hover {
+    text-decoration: none;
+    color:black;
+}
+
+.icon {
+    margin-right: 15px;
+}
+
+html,body {
+    height: 100%;
+    background-color: black;
+}
+
+.bg  {
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("tutor.jpg");
+    height: 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+} 
+
+.btn-primary {
+    color: white;
+    background-color: #003c6c;
+    border-color: #003c6c;
+}
+
+.btn-primary:hover{
+    color: black;
+    background-color: #fdc700;
+    border-color: black;
+}
+
+.h2-title, .h3-title  {
+    font-weight: bolder;    
+}
+
+.card {
+    border-color: black;
+    border-width: thick;
+    border-radius: 7px;
+}
+
+.card-header {
+    background-color: #003c6c;
+    color: white;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.centralize {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.search-bar {
+	text-align: center;
+	position:relative;           
+}
+
+.heading {
+	color: black;
+	font-size: 300%;
+}
+
+.login-redirect {
+	text-align:right;
+	padding: 10px;
+}
+
+.logo {
+	margin-right: 15px;
 }
