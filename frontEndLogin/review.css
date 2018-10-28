@@ -69,6 +69,20 @@
     color: white;
 }
 
+.bold {
+	font-weight: bold;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.centralize {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
@@ -98,9 +112,9 @@
 
 .rating > input:checked ~ label, /* show gold star when clicked */
 .rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover previous stars in list */
+.rating:not(:checked) > label:hover ~ label { color: #fdc700;  } /* hover previous stars in list */
 
 .rating > input:checked + label:hover, /* hover current star when changing rating */
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+.rating > input:checked ~ label:hover ~ label { color: #003c6c;  } 
