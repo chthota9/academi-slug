@@ -1,3 +1,23 @@
+.tutor-table {
+	text-align:center;
+}
+
+table, th, td {
+border: 1px solid black;
+}
+
+.search-text {
+   text-align: center;
+}
+
+#search-confirm {
+	font-size: 220%;
+}
+
+#search-results {
+	font-size: 145%;
+}
+
 .navbar {
     background-color: #fdc700;
     border-bottom: 3px solid black;
