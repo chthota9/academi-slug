@@ -1,116 +1,43 @@
 <!DOCTYPE html>
-
-<html class="html">
+<html>
      
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
         <title>Academi-Slug | Search</title>
-        
-        <style type="text/css">
-
-            .search-bar {
-                position:relative;
-                text-align: center;
-                top: -30px;
-               
-            }
-
-            .heading {
-                color: black;
-                font-size: 300%;
-            }
-        
-            .navbar {
-                background-color: #fdc700;
-                border-bottom: 3px solid black;
-            }
-
-            .nav-brand {
-                font-size: 30px;
-                font-weight: bolder;
-                margin-left: -15px;
-            }
-
-            .btn-nav {
-                color: white;
-                background-color: black;
-                border-color: #003c6c;
-                border-width: 2px;
-                margin-left: 15px;
-            }
-
-            .btn-nav:hover{
-                background-color: #003c6c;
-                border-color: black;
-                color: white !important;
-            }
-
-            .navbar a:hover {
-                text-decoration: none;
-                color:black;
-            }
-
-            .logo {
-                margin-right: 15px;
-            }
-
-            .bg {
-                background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("study2.jpg");
-                height: 100%;
-                background-position: center center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                margin-top: 65px;
-
-            }
-
-            .html,.body {
-            height: 100%;
-          
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="search.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-
-    <script src="nav-buttons.js"></script>
-    
-    <body class="body">
-
-            <div class="bg">    
-                    <div class="container h-100">
-                            <div class="row h-100 justify-content-center align-items-center">
-                                <div class="col-md-6">
-
-
-                <!---
-            <img class="back-image" src="study2.jpg"> 
-                    background image -->
-
-        
-        <div class="search-bar">
-
-                
-            
-            <div class="heading">
-
-                    <h1> What do you need help with? </h1>
-
-            </div>
-
-          
-            
-        <form>
-            <input type ="text" name =text class ="search" placeholder ="Search For a Course" size="50">
-            <input type ="submit" name="submit" class ="submit" value="Search">
+	
+	<nav class="navbar navbar-expand-sm fixed-top justify-content-between">
+        <a class="nav-brand" href="login.html">
+        <img class="icon" src="https://cdn0.iconfinder.com/data/icons/insects-4/300/24-512.png" width="50" height="50" alt="Slug Icon">Academi-Slug</a>
+		<form class="form-inline" action="https://www.google.com/">
+            <button class="btn btn-nav" type="submit">Sign Up</button>
+			<button class="btn btn-nav" type="submit">Login</button>
         </form>
-
+	</nav>
+    
+    <body>
+		<div class="bg">    
+            <div class="container h-100">
+                <div class="row h-100 justify-content-center align-items-center">
+                    <div class="col-md-auto">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="display-4 mb-0 text-center">What do you need help with?</h2>
+                            </div>
+                            <div class="card-body">
+								<form class="form-inline" action="https://www.google.com/">									
+									<input class="form-control mr-sm-2 text-center" type="search" placeholder="Search for a Course" size="55">
+									<button name="search" type="submit" class="btn btn-primary" style="margin-left: 15px">Search</button>
+								</form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        </div>
-      </div>
-    </div>
-</div>
-       
     </body>
 
 </html>
