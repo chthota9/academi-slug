@@ -76,6 +76,7 @@ function findUser(googleID) {
 
 //findUser(24245);
 
+//Untested
 function updateUser(user) {
 	console.log("Updating user " + googleID);
 	return new Promise((resolve, reject) => {
@@ -84,6 +85,11 @@ function updateUser(user) {
 			otherUser.set(user);
 		})
 	})
+}
+
+//Untested
+function addReview(user, average){
+	console.log("Adding a review!");
 }
 
 module.exports = {

@@ -28,7 +28,7 @@ router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile',
 router.get('/create', function (req, res) {
     console.log(req.session);
     res.render('createAccount', { user: req.user, majors: getMajors() });
-})
+});
 
 router.get('/logout', function (req, res) {
     req.logout();
@@ -53,6 +53,23 @@ router.post('/createProfile', function (req, res) {
         })
 });
 
+//Incomplete
+router.get('/review', function (req, res) {
+    console.log('REVIEWING A CLASS');
+    res.render('review', { user: req.user, class: req.body });
+});
+
+//Incomplete
+router.post('/submitReview', function(req,res) {
+    console.log('SUBMITTING A REVIEW');
+    var avg = sum(...req.body)/4.0;
+    console.log(avg);
+
+    addReview(req.user.id, avg)
+        .then(res.redirect('profileView-guest', { profile: req.user });
+});
+
+//Incomplete
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
     let updatedProfile = {
@@ -63,7 +80,7 @@ router.post('/updateProfile', function(req, res) {
 
     updateUser(updatedProfile)
         .then(res.redirect('/profile'));
-})
+});
 
 
 module.exports = router;
