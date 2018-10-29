@@ -66,7 +66,7 @@ router.post('/submitReview', function(req,res) {
     console.log(avg);
 
     addReview(req.user.id, avg)
-        .then(res.redirect('profileView-guest', { profile: req.user });
+        .then(res.redirect('profileView-guest', { profile: req.user }));
 });
 
 //Incomplete
