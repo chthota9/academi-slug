@@ -6,18 +6,12 @@ document.write('\
             </div>\
 \
             <ul class="nav navbar-nav navbar-right">\
-                <% if(!loggedIn) { %>\
                     <li>\
                         <a class="btn btn-nav" href="/profile/login" role="button">Log In</a>\
                     </li>\
                     <li>\
                         <a class="btn btn-nav" href="/profile/signup" role="button">Sign Up</a>\
                     </li>\
-                <% } else { %>\
-                    <li>\
-                        <a class="btn btn-nav" href="/profile" role="button">Profile</a>\
-                    </li>\
-                <% } %>\
             </ul>\
         </div>\
     </nav>\
