@@ -64,7 +64,7 @@ function deleteUser(googleID) {
 
 function findUser(googleID) {
 	console.log("Searching for user " + googleID);
-	return new Promise((res, rej) => {
+	return new Promise((resolve, reject) => {
 		Users.findOne({ googleID: googleID }).exec((err, userQuery) => {
 			if (userQuery != null) {
 				console.log("User with googleID " + googleID + " has email " + userQuery.email);
@@ -76,7 +76,16 @@ function findUser(googleID) {
 
 //findUser(24245);
 
+function updateUser(user) {
+	console.log("Updating user " + googleID);
+	return new Promise((resolve, reject) => {
+		Users.findById(user.googleID, function(err, user) {
+			if (err) return handleError(err);
+			otherUser.set(user);
+		})
+	})
+}
 
 module.exports = {
-	addUser, deleteUser, findUser, connection,
+	addUser, deleteUser, findUser, updateUser, connection,
 }

@@ -11,12 +11,6 @@ const { addUser } = require('../mongoose');
  * @param {*} next 
  */
 
-
-
-
-router.get('/login', passport.authenticate('googleHave', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
-
-
 router.get('/', function (req, res) {
     // console.log(req.session);
     console.log('profile ' + req.isAuthenticated());
@@ -25,6 +19,9 @@ router.get('/', function (req, res) {
     console.log(req.user);
     res.render('profileView-user', { profile: req.user });
 });
+
+
+router.get('/login', passport.authenticate('googleHave', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
 
 router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
 
@@ -40,7 +37,7 @@ router.get('/logout', function (req, res) {
 });
 
 router.post('/createProfile', function (req, res) {
-    console.log('CREATED PROFILE');
+    console.log('CREATED A PROFILE');
     let newProfile = {
         ...req.body, 'googleID': req.user.id,
         ...req.user.extra,
@@ -52,10 +49,21 @@ router.post('/createProfile', function (req, res) {
         .then(profile => {
             req.login({ id: profile.googleID }, err => {
                 res.redirect('/profile');
-
             });
         })
 });
+
+router.post('/updateProfile', function(req, res) {
+    console.log('UPDATED A PROFILE');
+    let updatedProfile = {
+        ...req.body, 'googleID': req.user.id,
+        ...req.user.extra
+    }
+    console.log(updatedProfile);
+
+    updateUser(updatedProfile)
+        .then(res.redirect('/profile'));
+})
 
 
 module.exports = router;
