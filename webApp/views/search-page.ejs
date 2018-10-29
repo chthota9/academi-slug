@@ -1,119 +1,62 @@
 <!DOCTYPE html>
 <html class="html">
     <head>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-            <title>Academi-Slug | Search</title>
-            <style type="text/css">
-
-
-                .tutor-table {
-                    text-align:center;
-                    position:relative;
-                    top: 40px;
-                    left: -120px;
-                }
-
-                table, th, td {
-                border: 1px solid black;
-                }
-
-                
-                .navbar {
-                    background-color: #fdc700;
-                    border-bottom: 3px solid black;
-                }
-
-                .nav-brand {
-                    font-size: 30px;
-                    font-weight: bolder;
-                }               
-
-                .btn-nav {
-                    color: white;
-                    background-color: black;
-                    border-color: #003c6c;
-                }
-
-                .btn-nav:hover{
-                    background-color: #003c6c;
-                    border-color: black;
-                }
-
-                .navbar a:hover {
-                    text-decoration: none;
-                    color:black;
-                }
-
-                img {
-                    margin-right: 15px;
-                }
-
-               .search-text {
-                   position: relative;
-                   top: -150px;
-                   text-align: center;
-                }
-
-                #search-confirm {
-                    font-size: 220%;
-                }
-
-                #search-results {
-                    font-size: 145%;
-                }
-
-                .bg {
-                  
-                    background: linear-gradient(rgba(255, 255, 255, 0.644), rgba(255, 255, 255, 0.445)),url("tutor.jpg");
-                    height: 100%;
-                    background-position: center center;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    margin-top: 65px;
-            }
-
-                .html,.body {
-                    height: 100%;
-            }
-
-               
-                
-           </style>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		<title>Academi-Slug | Search Results</title>
+		<link rel="stylesheet" type="text/css" href="/style.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     
-<script src="nav-search.js"></script>
-
-<body class="body">
+	<script src="nav-buttons.js"></script>
+               
+	<body class="body">
+		<div class="bg">    
+			<div class="container h-100">
+				<div class="row h-100 justify-content-center align-items-center">
+					<div class="col-md-auto">
+						<div class="card">
+							<div class="card-header">
+								<div class="search-text"> 
+									<span id="search-confirm"><p>You searched for______.</p></span> 
+									<span id="search-results"><p> ____Search Results Found</p> </span> 
+								</div>
+							</div>
+							<div class="card-body col-md-auto">
+								<div class="tutor-table">
+									<table class="table centralize">
+											<tr>
+											  <th class="th">Last, First</th>
+											  <!-- <th>Courses</th> -->
+											  <th class="th">Ratings</th>
+											</tr>
+											  <td class="td">Slug, Sammy</td>
+											<tr>
+											  <!-- <td>CMPS 115, CMPS 112, CMPS 101</td>  -->
+											  <td class="td">* * * *</td>
+											</tr>
+											<tr>
+											  <td class="td">Bluementhall, George</td>
+											  <!-- <td>CMPS 11, CMPS 12B, CMPS 5J</td>  -->
+											  <td class="td">* * *</td>
+											</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     <div class="bg">    
          <div class="container h-100">
              <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-md-6">
             
 
-            <div class="tutor-table">
-                    <table style="width:150%">
-                            <tr>
-                              <th>Last, First</th>
-                              <th>Courses</th>
-                              <th>Ratings</th>
-                            </tr>
-                            <tr>
-                              <td>Slug, Sammy</td>
-                              <td>CMPS 115, CMPS 112, CMPS 101</td> 
-                              <td>* * * *</td>
-                            </tr>
-                            <tr>
-                              <td>Bluementhall, George</td>
-                              <td>CMPS 11, CMPS 12B, CMPS 5J</td> 
-                              <td>* * *</td>
-                            </tr>
-                    </table>
-            </div>
             
-            <div class="search-text"> 
-               <span id="search-confirm"> <p>You searched for______</p></span> 
-               <span id="search-results"><p> ____Search Results Found</p> </span> 
-            </div>
+            
+            
             
         </div>
 
