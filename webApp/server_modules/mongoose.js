@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", { useNewUrlParser: true })
 const connection = mongoose.connection;
 connection.once('open', function () {
-	console.log("we're connected!");
+	console.log("We're connected to the database!");
 });
 
 let userSchema = new mongoose.Schema({
@@ -64,7 +64,7 @@ function deleteUser(googleID) {
 
 function findUser(googleID) {
 	console.log("Searching for user " + googleID);
-	return new Promise((res, rej) => {
+	return new Promise((resolve, reject) => {
 		Users.findOne({ googleID: googleID }).exec((err, userQuery) => {
 			if (userQuery != null) {
 				console.log("User with googleID " + googleID + " has email " + userQuery.email);
@@ -76,7 +76,22 @@ function findUser(googleID) {
 
 //findUser(24245);
 
+//Untested
+function updateUser(user) {
+	console.log("Updating user " + googleID);
+	return new Promise((resolve, reject) => {
+		Users.findById(user.googleID, function(err, user) {
+			if (err) return handleError(err);
+			otherUser.set(user);
+		})
+	})
+}
+
+//Untested
+function addReview(user, average){
+	console.log("Adding a review!");
+}
 
 module.exports = {
-	addUser, deleteUser, findUser, connection,
+	addUser, deleteUser, findUser, updateUser, connection,
 }

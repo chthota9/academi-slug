@@ -22,5 +22,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/tim-nguyen-cs/academi-slug"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
   }
 }
