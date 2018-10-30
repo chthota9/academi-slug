@@ -76,6 +76,8 @@
     color: white;
 }
 
+/* class Select CSS */
+
 .classSelect {
     position: relative;
     margin: 0;
@@ -96,8 +98,8 @@
     left: 0;
     display: inline-block;
     transform: translateY(-50%);
-    /* -moz-transform: translateY(-50%); */
-    /* -webkit-transform: translateY(-50%); */
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
 }
 
 .classname {
@@ -117,6 +119,8 @@
     width: 1em;
     height: 0.10em;
     transform: rotateZ(45deg);
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
 }
 
 .classname::after {
@@ -129,6 +133,7 @@
     width: 1em;
     height: 0.10em;
     transform: rotateZ(-45deg);
+    -webkit-transform: rotateZ(-45deg);
 }
 
 .classname:hover {
@@ -165,9 +170,6 @@
     max-height: 7em;
 }
 
-.hidden {
-    display: none;
-}
 
 .querylist>li:hover {
     background: #014d8b;
@@ -186,15 +188,37 @@
     border-top: var(--borderWidth) solid #003c6c;
     border-bottom: var(--borderWidth) solid #003c6c;
     position: relative;
-    animation: loading 1.5s ease-in-out 0s infinite ;
+    animation: loading 1.5s ease-in-out 0s infinite;
+}
+
+.helper {
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border-width: 0;
+    animation: none;
+}
+.helper::before{
+    content: attr(data-helper);
+}
+
+
+.hidden {
+    display: none;
 }
 
 @keyframes loading {
     0% {
         transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
     }
 
     100% {
         transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
     }
 }
