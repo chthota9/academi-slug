@@ -5,6 +5,7 @@ const path = require('path');
 const passport = require('./server_modules/passport');
 const profileRoute = require('./server_modules/routes/profile');
 const bodyParser = require('body-parser');
+const classSearch = require('./server_modules/routes/classSearch');
 
 
 app.use(bodyParser.json());
@@ -15,6 +16,7 @@ app.use(express.static('client'));
 
 app.use('/google', passport(app));
 app.use('/profile', profileRoute);
+app.use('/classSearch',classSearch);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));

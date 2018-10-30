@@ -44,7 +44,7 @@ router.post('/createProfile', function (req, res) {
     let newProfile = {
         ...req.body, 'googleID': req.user.id,
         ...req.user.extra,
-        coursesTaught: [{ courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }]
+        coursesTeaching: [{ courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }]
     }
     // console.log(newProfile);
 
@@ -55,6 +55,8 @@ router.post('/createProfile', function (req, res) {
 
             });
         })
+        //TODO: SEND ERR BACK AND REDIRECT CLIENT
+        .catch(err=>console.log(err))
 });
 
 

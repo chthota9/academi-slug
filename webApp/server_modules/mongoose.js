@@ -8,12 +8,12 @@ connection.once('open', function () {
 let userSchema = new mongoose.Schema({
 	googleID: { type: Number, required: true },
 	email: { type: String, required: true },
-	name: { firstName: { type: String, required: true }, lastName: { type: String, required: true }, _id: { id: false }},
+	name: { first: { type: String, required: true }, last: { type: String, required: true }, _id: { id: false }},
 	year: { type: String, required: true },
 	college: { type: String, required: true },
 	major: { type: String, required: true },
 	bio: { type: String, required: true },
-	coursesTaught: [{ courseNo: { type: Number, required: true, }, rating: { type: Number, required: true }, _id: { id: false } }]
+	coursesTeaching: [{ courseNum: { type: Number, required: true, }, rating: { type: Number, required: true }, _id: { id: false } }]
 }, { autoIndex: false, versionKey: false });
 
 
@@ -31,7 +31,7 @@ function addUser(user) {
 			college: user.college,
 			major: user.major,
 			bio: user.bio,
-			coursesTaught: user.coursesTaught
+			coursesTeaching: user.coursesTeaching
 		});
 		userAdded.save((err, profile) => {
 			if (err) { return reject(err) }
@@ -40,6 +40,18 @@ function addUser(user) {
 		})
 	})
 }
+
+// addUser({
+// 	googleID:1445,
+// 	email:'sammyslub@ucsc.edu',
+// 	firstName:'Sammy',
+// 	lastName:'Slug',
+// 	year:'Junior',
+// 	college:'Nine',
+// 	major:'CS',
+// 	bio:'Banana',
+// 	coursesTeaching:[{courseNum:420,rating:5}]
+// })
 
 //addUser({googleID: 24245, email:'sammyslub@ucsc.edu', name:{firstName:'Sammy', lastName: 'Slug'}, year:'Junior', college: 'Nine', major:'CS', bio:'Banana Slug', coursesTaught:[{courseNo: 'CMPS115'}, {courseNo: 'MATH117'}]});
 
@@ -60,7 +72,7 @@ function deleteUser(googleID) {
 
 // deleteUser(113030757337216400000)
 
-//deleteUser(24245);
+// deleteUser(1445);
 
 function findUser(googleID) {
 	console.log("Searching for user " + googleID);
