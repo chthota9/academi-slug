@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-    
+    <!-- <%- include(templates/nav-buttons) %> -->
 	<script src="nav-buttons.js"></script>
                
 	<body class="body">
@@ -18,8 +18,8 @@
 						<div class="card">
 							<div class="card-header">
 								<div class="search-text"> 
-									<span id="search-confirm"><p>You searched for______.</p></span> 
-									<span id="search-results"><p> ____Search Results Found</p> </span> 
+									<span id="search-confirm"><p>You searched for <%= classSearched %> .</p></span> 
+									<span id="search-results"><p> <%= resNum %> Search Results Found</p> </span> 
 								</div>
 							</div>
 							<div class="card-body col-md-auto">

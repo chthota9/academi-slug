@@ -133,12 +133,13 @@
 
         </div>
 
-=======
     </head>
 	
     <% if(!loggedIn) { %>
-	   <script src="nav-buttons.js"></script>
-    <% } else { %>
+        <!-- <%- include (templates/nav-buttons) %> -->
+        <script src="nav-buttons.js"></script>
+        <% } else { %>
+            <!-- <%- include (templates/nav-profileav-buttons) %> -->
         <script src="nav-profile.js"></script>
     <% } %>
     
@@ -161,7 +162,6 @@
                     </div>
                 </div>
             </div>
->>>>>>> 15d5dbca0cad498fd210c2655330aa6ff242301a
         </div>
     </body>
 
