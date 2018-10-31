@@ -16,10 +16,22 @@
 				<div class="row h-100 justify-content-center align-items-center">
 					<div class="col-md-auto">
 						<div class="card">
+								<form class="form-inline" action="https://www.google.com/">									
+									<input class="form-control mr-sm-2 text-center col-sm-9" type="search" placeholder="Search for a Course">
+									<button name="search" type="submit" class="btn btn-primary col-sm-2" style="margin-left: 10px">Search</button>
+								</form>
 							<div class="card-header">
 								<div class="search-text"> 
 									<span id="search-confirm"><p>You searched for <%= classSearched %> .</p></span> 
 									<span id="search-results"><p> <%= resNum %> Search Results Found</p> </span> 
+								</div>
+								<div class="dropdown">
+									<button class="btn btn-sort">Sort By ↓</button>
+									<div class="dropdown-content">
+										<a href="#">Alphabetically</a>
+										<a href="#">Ratings</a>
+										<a href="#">Cost</a>
+									</div>
 								</div>
 							</div>
 							<div class="card-body col-md-auto">
