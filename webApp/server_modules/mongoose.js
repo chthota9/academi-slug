@@ -133,7 +133,7 @@ function deleteUser(googleID) {
 // 	major: 'CS',
 // 	bio: 'Banana Slug',
 // 	coursesTaught: [{
-// 		courseNo: 1234,
+// 		courseNo: 'CMPS115',
 // 		rating: 4
 // 	}]
 // });
@@ -177,11 +177,60 @@ function updateUser(googleID, userEdits) {
 function addReview(user, average) {
 	console.log("Adding a review!");
 }
+let classSchema = new mongoose.Schema({
+    courseNo: {
+        type: String,
+        required: true
+    },
+    tutors: [{
+        googleID: {
+            type: Number,
+            required: true,
+        },
+        _id: {
+            id: false
+        }
+    }]
+}, {
+    autoIndex: false,
+    versionKey: false
+});
+
+classSchema.index({
+    courseNo: 1
+}, {
+    sparse: true
+});
+
+let Classes = mongoose.model('Classes', classSchema);
+
+//Untested
+function addClass(course) {
+    return new Promise((resolve, reject) => {
+        let newClass = new Classes({
+            courseNo: course.courseNo,
+        });
+        classAdded.save((err, course) => {
+            if (err) {
+                return reject(err)
+            }
+            console.log("class " + course.courseNo + " added.");
+            resolve(course);
+        })
+    })
+}
+
+//Untested
+function addTutor(googleID){
+    console.log('I am adding a tutor to a class!');
+}
+
 
 module.exports = {
-	addUser,
-	deleteUser,
-	findUser,
-	updateUser,
-	connection,
+    addUser,
+    deleteUser,
+    findUser,
+    updateUser,
+    addClass,
+    connection,
 }
