@@ -11,76 +11,75 @@
 	<!-- <script src="nav-buttons.js"></script> -->
                
 	<body class="body">
-		<div class="bg">    
-			<div class="container h-100">
-				<div class="row h-100 justify-content-center align-items-center">
-					<div class="col-md-auto">
-						<div class="card">
-								<form class="form-inline" action="https://www.google.com/">									
-									<input class="form-control mr-sm-2 text-center col-sm-9" type="search" placeholder="Search for a Course">
-									<button name="search" type="submit" class="btn btn-primary col-sm-2" style="margin-left: 10px">Search</button>
-								</form>
-							<div class="card-header">
-								<div class="search-text"> 
-									<span id="search-confirm"><p>You searched for <%= classSearched %> .</p></span> 
-									<span id="search-results"><p> <%= resNum %> Search Results Found</p> </span> 
-								</div>
-								<div class="dropdown">
-									<button class="btn btn-sort">Sort By ↓</button>
-									<div class="dropdown-content">
-										<a href="#">Alphabetically</a>
-										<a href="#">Ratings</a>
-										<a href="#">Cost</a>
+			<div class="bg">    
+				<div class="container h-100">
+					<div class="row h-100 justify-content-center align-items-center">
+						<div class="col-md-auto">
+								<div class="card-body">
+										<form class="form-inline" action="https://www.google.com/">									
+											<input class="form-control mr-sm-2 text-center col-sm-9" type="search" placeholder="Search for a Course">
+											<a class="btn btn-primary" href="/searchRoute"style="margin-left: 15px"role="button">Search</a>   
+										</form>
 									</div>
+							<div class="card">
+								<div class="card-header">
+									<div class="search-text"> 
+										<span id="search-confirm"><p>You searched for______.</p></span> 
+										<span id="search-results"><p> ____Search Results Found</p> </span> 
+									</div>
+									<div class="dropdown">
+											<button class="btn btn-sort">Sort By ↓</button>
+											<div class="dropdown-content">
+												<a href="#">Alphabetically</a>
+												<a href="#">Ratings</a>
+												<a href="#">Cost</a>
+											</div>
+										</div>
 								</div>
-							</div>
-							<div class="card-body col-md-auto">
-								<div class="tutor-table">
-									<table class="table centralize">
-											<tr>
-											  <th class="th">Last, First</th>
-											  <!-- <th>Courses</th> -->
-											  <th class="th">Ratings</th>
-											</tr>
-											  <td class="td">Slug, Sammy</td>
-											<tr>
-											  <!-- <td>CMPS 115, CMPS 112, CMPS 101</td>  -->
-											  <td class="td">* * * *</td>
-											</tr>
-											<tr>
-											  <td class="td">Bluementhall, George</td>
-											  <!-- <td>CMPS 11, CMPS 12B, CMPS 5J</td>  -->
-											  <td class="td">* * *</td>
-											</tr>
-									</table>
+								<div class="card-body col-md-auto">
+									<div class="tutor-table">
+										<table style="centralize">
+												<tr>
+													<th>Last, First</th>
+													<th>Courses</th>
+													<th>Ratings</th>
+												</tr>
+												<tr>
+													<td>Slug, Sammy</td>
+													<td>CMPS 115, CMPS 112, CMPS 101</td> 
+													<td>* * * *</td>
+												</tr>
+												<tr>
+													<td>Bluementhall, George</td>
+													<td>CMPS 11, CMPS 12B, CMPS 5J</td> 
+													<td>* * *</td>
+												</tr>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-    <div class="bg">    
-         <div class="container h-100">
-             <div class="row h-100 justify-content-center align-items-center">
-                <div class="col-md-6">
-            
-
-            
-            
-            
-            
-        </div>
-
-        </div>
-
-        </div>
-
-        </div>
-
-
-
-
-
-    </body>
-</html>
+			<div class="bg">    
+					 <div class="container h-100">
+							 <div class="row h-100 justify-content-center align-items-center">
+									<div class="col-md-6">
+							
+	
+							
+							
+							
+							
+					</div>
+	
+					</div>
+	
+					</div>
+	
+					</div>
+	
+	
+			</body>
+	</html>
