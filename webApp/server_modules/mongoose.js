@@ -118,6 +118,7 @@ function deleteUser(googleID) {
 
 //deleteUser(24245);
 
+//Needs more testing
 function findUser(googleID) {
 	console.log("Searching for user " + googleID);
 	return new Promise((resolve, reject) => {
@@ -128,7 +129,7 @@ function findUser(googleID) {
 	})
 }
 
-findUser(24245);
+//findUser(24245);
 
 //Untested
 function updateUser(googleID, userEdits) {
@@ -141,7 +142,9 @@ function updateUser(googleID, userEdits) {
 	})
 }
 
-//Untested
+//updateUser(24245, {name: 'Elizabeth'});
+
+//Untested - probably not needed
 function addReview(user, average) {
 	console.log("Adding a review!");
 }
