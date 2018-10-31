@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
-router.get('/:q', (req, res) => {
-    console.log(`client is looking for ${req.params.q}`);
-    res.send(`${req.params.q}`);
+router.get('/', (req, res) => {
+    console.log(`client is looking for ${req.query.q}`);
+    res.send(`${req.query.q}`);
 });
 
 module.exports = router;

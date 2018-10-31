@@ -4,7 +4,8 @@ let choosenClasses = Array.from(list.getElementsByClassName('classname'), el => 
     el.addEventListener('click', deleteClass);
     return el;
 });
-
+let inputTimer;
+let inputTimeout = 1000;
 let inputBox = inputNode.children[0];
 let queryList = inputNode.children[1];
 let helper = queryList.children[0];
@@ -14,25 +15,31 @@ let req = new XMLHttpRequest();
 function SendQuery(param) {
     // req.setRequestHeader('Content-type',"application/x-www-form-urlencoded");
     console.log(`/classsearch/?q=${param}`);
+    req.open('GET', `/classSearch/?q=${param}`);
     req.addEventListener('loadend', ev => {
-        console.log(req.responseText);
+        if(req.status === 404){
+            helper.classList.add('helper');
+            console.log(req.responseText + '404');
+            return;
+        }
+
         //display list
     });
     req.addEventListener('error', evt => {
-        console.log(req.responseText);
-        // helper.classList.add('helper');
-
+        console.log(req.responseText + 'err');
+        helper.classList.add('helper');
     });
-    req.open('GET', `/classSearch/?q=${param}`);
     req.send(null);
 }
 
 inputBox.addEventListener('input', evt => {
     let param = evt.currentTarget.value;
+    console.log('called');
 
     if (param.length > 0) {
         helper.classList.remove('helper');
-        SendQuery(param);
+        clearTimeout(inputTimer);
+        inputTimer = setTimeout(() => SendQuery(param), inputTimeout);
     } else {
         helper.classList.add('helper');
 
