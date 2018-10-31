@@ -17,7 +17,7 @@ let userSchema = new mongoose.Schema({
 }, { autoIndex: false, versionKey: false });
 
 
-userSchema.index({ googleID: 1 }, { sparse: true });
+userSchema.index({ googleID: 1, courseNum: 1 }, { sparse: true });
 
 let Users = mongoose.model('Users', userSchema);
 
