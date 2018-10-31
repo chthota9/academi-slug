@@ -7,10 +7,14 @@ connection.once('open', function () {
 	console.log("We're connected to the database!");
 });
 
+// connection.dropDatabase();
+
+
 let userSchema = new mongoose.Schema({
 	googleID: {
 		type: Number,
-		required: true
+		required: true,
+		unique: true
 	},
 	email: {
 		type: String,
@@ -64,14 +68,13 @@ let userSchema = new mongoose.Schema({
 });
 
 
-userSchema.index({
-	googleID: 1
-}, {
-	sparse: true
-});
+
 
 let Users = mongoose.model('Users', userSchema);
 
+Users.createIndexes({
+	googleID: 1
+})
 function addUser(user) {
 	return new Promise((resolve, reject) => {
 		let userAdded = new Users({
@@ -97,11 +100,18 @@ function addUser(user) {
 	})
 }
 
-//addUser({googleID: 24245, email:'sammyslub@ucsc.edu', name:{firstName:'Sammy', lastName: 'Slug'}, year:'Junior', college: 'Nine', major:'CS', bio:'Banana Slug', coursesTaught:[{courseNo: 'CMPS115'}, {courseNo: 'MATH117'}]});
+
+
+
+
 
 function deleteUser(googleID) {
 	return new Promise((resolve, reject) => {
-		Users.deleteOne({ googleID: { $eq: googleID } }, function (err) {
+		Users.deleteOne({
+			googleID: {
+				$eq: googleID
+			}
+		}, function (err) {
 			if (err) {
 				console.log("User with googleID " + googleID + " does not exist.");
 				return reject(err);
@@ -113,6 +123,21 @@ function deleteUser(googleID) {
 	})
 
 }
+// addUser({
+// 	googleID: 24245,
+// 	email: 'sammyslub@ucsc.edu',
+// 	firstName: 'Sammy',
+// 	lastName: 'Slug',
+// 	year: 'Junior',
+// 	college: 'Nine',
+// 	major: 'CS',
+// 	bio: 'Banana Slug',
+// 	coursesTaught: [{
+// 		courseNo: 1234,
+// 		rating: 4
+// 	}]
+// });
+
 
 // deleteUser(113030757337216400000)
 
@@ -121,7 +146,9 @@ function deleteUser(googleID) {
 function findUser(googleID) {
 	console.log("Searching for user " + googleID);
 	return new Promise((resolve, reject) => {
-		Users.findOne({ googleID: googleID }).exec((err, userQuery) => {
+		Users.findOne({
+			googleID: googleID
+		}).exec((err, userQuery) => {
 			if (err) return reject(err);
 			resolve(userQuery);
 		});
@@ -134,10 +161,12 @@ function findUser(googleID) {
 function updateUser(googleID, userEdits) {
 	console.log("Updating user " + googleID);
 	return new Promise((resolve, reject) => {
-		Users.findOneAndUpdate({ googleID: googleID }, userEdits).exec((err, user) => {
-				if (err) return reject(err);
-				resolve(user);
-			})
+		Users.findOneAndUpdate({
+			googleID: googleID
+		}, userEdits).exec((err, user) => {
+			if (err) return reject(err);
+			resolve(user);
+		})
 	})
 }
 
