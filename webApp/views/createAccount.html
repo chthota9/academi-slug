@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>Academi-Slug | Sign Up</title>
 </head>
-<!-- <%- include(templates/nav-search) %> -->
 <script src="nav-search.js"></script>
 
 <body class="body">
@@ -87,12 +86,11 @@
                                     <ul class="classlist">
                                         <li class="classname">CMPS 115</li>
                                         <li class="classname">CMPS 112</li>
-                                        <li class="classinput">
-                                            <input placeholder="Search class" type="search" name="query" autocomplete="off"
+                                        <li class="classinput" >
+                                            <input placeholder="Search class" type="text" name="query" autocomplete="off"
                                                 spellcheck="false">
-                                            <ul class="querylist hidden">
-                                                <span class="loader helper" data-helper ="e.g cmps 115"></span>
-                                            </ul>
+                                            <span data-helper="e.g cmps 115" class="querylist helper hidden"></span>
+
                                         </li>
                                     </ul>
                                 </div>

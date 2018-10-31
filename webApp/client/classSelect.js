@@ -7,106 +7,80 @@ let choosenClasses = Array.from(list.getElementsByClassName('classname'), el => 
 let inputTimer;
 let inputTimeout = 1000;
 let inputBox = inputNode.children[0];
-let infoNode = inputNode.children[1];
+let helperList = inputNode.children[1];
+let emptyqueryList = queryList.cloneNode(false);
 let courseList;
+let helper = queryList.children[0];
 
 let req;
-
-function setInfoHelp() {
-    infoNode.classList.remove('loader');
-    infoNode.classList.add('helper');
-}
-
-function showInfo() {
-    infoNode.classList.remove('hidden');
-}
-
-function hideInfo() {
-    infoNode.classList.add('hidden');
-}
-
-function setInfoLoad() {
-    infoNode.classList.remove('helper');
-    infoNode.classList.add('loader');
-}
-
-function removeCourseList() {
-
-    if (courseList && inputNode.contains(courseList)) {
-        inputNode.removeChild(courseList);
-    } else {
-        courseList = null;
-    }
-}
-
-
-
 function sendQuery(param) {
     req = new XMLHttpRequest();
     // req.setRequestHeader('Content-type',"application/x-www-form-urlencoded");
+    console.log(`/classsearch/?q=${param}`);
     req.open('GET', `/classSearch/?q=${param}`);
-    req.addEventListener('loadend', evt => {
+    req.addEventListener('loadend', ev => {
         if (req.status === 404) {
-            hideInfo();
+            helper.classList.add('helper');
             console.log(req.responseText + '404');
-            let classes = ['CMPS 115', 'CMPS 112', 'CMPS 101', 'CMPS 200', 'CMPE 150'];
-            createList(classes);
             return;
         }
-        hideInfo();
         console.log(req.responseText);
         console.log(document.activeElement);
-
+        
         let results = JSON.parse(req.responseText);
 
         createList(results);
 
         //display list
     });
+    req.addEventListener('abort',evt =>{
+        console.log('aborted!');
+        
+    })
     req.addEventListener('error', evt => {
         console.log(req.responseText + 'err');
-        infoNode.classList.add('helper');
+        helper.classList.add('helper');
     });
     req.send(null);
 }
 
 inputBox.addEventListener('input', evt => {
     let param = evt.currentTarget.value;
-    console.log('input ' + evt.target.value.length);
+    console.log('called');
 
-    removeCourseList();
     if (param.length > 0) {
-        showInfo();
-        setInfoLoad();
+        helper.classList.remove('helper');
         clearTimeout(inputTimer);
         inputTimer = setTimeout(() => sendQuery(param), inputTimeout);
     } else {
-        clearTimeout(inputTimer);
-        showInfo();
-        setInfoHelp();
+        helper.classList.add('helper');
+        clearList()
+
     }
 })
+
 
 /**
  * @param {Array} courses 
  */
 function createList(courses) {
     console.log('creatingLIST');
-    let listNode = document.createElement('ul');
-    listNode.classList.add('querylist');
-    courseList = listNode;
     courses.forEach(course => {
         let newClassNode = document.createElement('li');
         newClassNode.textContent = course;
-        newClassNode.onmousedown = (evt) => addClass(evt.target);
-        listNode.appendChild(newClassNode);
-    });
+        queryList.appendChild(newClassNode);
+    })
 
-    if (courseList == listNode) {
-        inputNode.appendChild(listNode);
-    }
 }
 
+function clearList() {
+    if (queryList.childElementCount > 1) {
+        let cleanList = emptyqueryList.cloneNode(true);
+        queryList.parentNode.replaceChild(cleanList, queryList);
+        queryList = cleanList;
+        helper = queryList.children[0];
+    }
+}
 
 /**
  * 
@@ -133,26 +107,27 @@ function deleteClass(evt) {
 function addClass(chosenClass) {
     if (choosenClasses.length < 10) {
         let newClass = document.createElement('li');
-        newClass.textContent = chosenClass.textContent;
+        newClass.textContent = chosenClass.name;
         newClass.classList.add('classname');
+        newClass.addEventListener('click', deleteClass);
         list.insertBefore(newClass, inputNode);
         choosenClasses.push(newClass)
     }
 }
 inputBox.addEventListener('focus', evt => {
-    showInfo();
-
+    queryList.classList.remove('hidden');
 })
 inputBox.addEventListener('blur', evt => {
-
-    hideInfo();
-    setInfoHelp();
-    removeCourseList();
+    queryList.classList.add('hidden');
+    helper.classList.add('helper');
+    clearList();
     evt.currentTarget.value = '';
+    if(req){
+        
+    }
 })
 inputBox.addEventListener('keydown', evt => {
     let key = evt.key || evt.keyCode;
-
 
     if (evt.target.value.length === 0) {
         if (key === 'Backspace' || key === 'Delete' || key === 46 || key === 8) {
