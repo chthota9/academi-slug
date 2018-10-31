@@ -47,7 +47,7 @@ let userSchema = new mongoose.Schema({
 	},
 	coursesTaught: [{
 		courseNo: {
-			type: Number,
+			type: String,
 			required: true,
 		},
 		rating: {
@@ -97,11 +97,11 @@ function addUser(user) {
 	})
 }
 
-//addUser({googleID: 24245, email:'sammyslub@ucsc.edu', name:{firstName:'Sammy', lastName: 'Slug'}, year:'Junior', college: 'Nine', major:'CS', bio:'Banana Slug', coursesTaught:[{courseNo: 'CMPS115'}, {courseNo: 'MATH117'}]});
+//addUser({googleID: 24245, email:'sammyslub@ucsc.edu', firstName:'Sammy', lastName: 'Slug', year:'Junior', college: 'Nine', major:'CS', bio:'Banana Slug', coursesTaught:[{courseNo: 'CMPS115', rating: 0}, {courseNo: 'MATH117', rating: 2}]});
 
 function deleteUser(googleID) {
 	return new Promise((resolve, reject) => {
-		Users.deleteOne({ googleID: { $eq: googleID } }, function (err) {
+		Users.deleteMany({ googleID: { $eq: googleID } }, function (err) {
 			if (err) {
 				console.log("User with googleID " + googleID + " does not exist.");
 				return reject(err);
@@ -114,7 +114,7 @@ function deleteUser(googleID) {
 
 }
 
-// deleteUser(113030757337216400000)
+//deleteUser(113030757337216400000)
 
 //deleteUser(24245);
 
@@ -128,7 +128,7 @@ function findUser(googleID) {
 	})
 }
 
-//findUser(24245);
+findUser(24245);
 
 //Untested
 function updateUser(googleID, userEdits) {
