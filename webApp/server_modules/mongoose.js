@@ -51,7 +51,7 @@ let userSchema = new mongoose.Schema({
 	},
 	coursesTaught: [{
 		courseNo: {
-			type: Number,
+			type: String,
 			required: true,
 		},
 		rating: {
@@ -139,10 +139,11 @@ function deleteUser(googleID) {
 // });
 
 
-// deleteUser(113030757337216400000)
+//deleteUser(113030757337216400000)
 
 //deleteUser(24245);
 
+//Needs more testing
 function findUser(googleID) {
 	console.log("Searching for user " + googleID);
 	return new Promise((resolve, reject) => {
@@ -170,7 +171,9 @@ function updateUser(googleID, userEdits) {
 	})
 }
 
-//Untested
+//updateUser(24245, {name: 'Elizabeth'});
+
+//Untested - probably not needed
 function addReview(user, average) {
 	console.log("Adding a review!");
 }
