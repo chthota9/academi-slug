@@ -10,7 +10,8 @@ let inputBox = inputNode.children[0];
 let infoNode = inputNode.children[1];
 let courseList;
 
-let req;
+let form = document.querySelector('.form');
+
 
 function setInfoHelp() {
     infoNode.classList.remove('loader');
@@ -31,7 +32,6 @@ function setInfoLoad() {
 }
 
 function removeCourseList() {
-
     if (courseList && inputNode.contains(courseList)) {
         inputNode.removeChild(courseList);
     } else {
@@ -39,10 +39,8 @@ function removeCourseList() {
     }
 }
 
-
-
 function sendQuery(param) {
-    req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     // req.setRequestHeader('Content-type',"application/x-www-form-urlencoded");
     req.open('GET', `/classSearch/?q=${param}`);
     req.addEventListener('loadend', evt => {
@@ -72,17 +70,13 @@ function sendQuery(param) {
 
 inputBox.addEventListener('input', evt => {
     let param = evt.currentTarget.value;
-    console.log('input ' + evt.target.value.length);
-
+    clearTimeout(inputTimer);
     removeCourseList();
+    showInfo();
     if (param.length > 0) {
-        showInfo();
         setInfoLoad();
-        clearTimeout(inputTimer);
         inputTimer = setTimeout(() => sendQuery(param), inputTimeout);
     } else {
-        clearTimeout(inputTimer);
-        showInfo();
         setInfoHelp();
     }
 })
@@ -152,13 +146,9 @@ inputBox.addEventListener('blur', evt => {
 })
 inputBox.addEventListener('keydown', evt => {
     let key = evt.key || evt.keyCode;
-
-
     if (evt.target.value.length === 0) {
         if (key === 'Backspace' || key === 'Delete' || key === 46 || key === 8) {
             deleteClass();
         }
-
     }
-
 })
