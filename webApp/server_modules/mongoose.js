@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", {
-	useNewUrlParser: true
-})
+		useNewUrlParser: true
+	})
 const connection = mongoose.connection;
 connection.once('open', function () {
 	console.log("We're connected to the database!");
 });
-
 // connection.dropDatabase();
 
 
@@ -68,6 +67,14 @@ let userSchema = new mongoose.Schema({
 });
 
 
+module.exports = {
+    addUser,
+    deleteUser,
+    findUser,
+    updateUser,
+    addClass,
+    connection,
+}
 
 
 let Users = mongoose.model('Users', userSchema);
@@ -123,25 +130,12 @@ function deleteUser(googleID) {
 	})
 
 }
-// addUser({
-// 	googleID: 24245,
-// 	email: 'sammyslub@ucsc.edu',
-// 	firstName: 'Sammy',
-// 	lastName: 'Slug',
-// 	year: 'Junior',
-// 	college: 'Nine',
-// 	major: 'CS',
-// 	bio: 'Banana Slug',
-// 	coursesTaught: [{
-// 		courseNo: 'CMPS115',
-// 		rating: 4
-// 	}]
-// });
+
 
 
 //deleteUser(113030757337216400000)
 
-//deleteUser(24245);
+
 
 //Needs more testing
 function findUser(googleID) {
@@ -170,8 +164,6 @@ function updateUser(googleID, userEdits) {
 		})
 	})
 }
-
-//updateUser(24245, {name: 'Elizabeth'});
 
 //Untested - probably not needed
 function addReview(user, average) {
@@ -225,12 +217,28 @@ function addTutor(googleID){
     console.log('I am adding a tutor to a class!');
 }
 
-
-module.exports = {
-    addUser,
-    deleteUser,
-    findUser,
-    updateUser,
-    addClass,
-    connection,
+function testAdd() {
+	addUser({
+	googleID: 24245,
+	email: 'sammyslug@ucsc.edu',
+	firstName: 'Sammy',
+	lastName: 'Slug',
+	year: 'Junior',
+	college: 'Nine',
+	major: 'CS',
+	bio: 'Banana Slug',
+	coursesTaught: [{
+		courseNo: 'CMPS115',
+		rating: 4
+	}]
+	});	
 }
+
+async function run() {
+	// await deleteUser(24245); 
+	// await testAdd();
+	console.log("Something to stop");
+	await updateUser(24245, {firstName: 'Elisabeth'});
+}
+
+run();
