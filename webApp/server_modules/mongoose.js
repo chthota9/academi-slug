@@ -48,12 +48,12 @@ let userSchema = new mongoose.Schema({
         required: true
     },
     name: {
-        firstName: {
+        first: {
             type: String,
             required: true,
             alias: 'firstName'
         },
-        lastName: {
+        last: {
             type: String,
             required: true,
             alias: 'lastName'
@@ -80,7 +80,7 @@ let userSchema = new mongoose.Schema({
     },
     coursesTaught: [{
         courseNo: {
-            type: String,
+            type: Number,
             required: true,
         },
         rating: {
@@ -97,8 +97,8 @@ let userSchema = new mongoose.Schema({
     _id: false
 });
 
-userSchema.virtual('fullName').get(() => {
-    return this.name.firstName + ' ' + this.name.lastName;
+userSchema.virtual('fullName').get(function() {
+    return this.firstName + ' ' + this.lastName;
 });
 
 
@@ -111,10 +111,8 @@ function addUser (user) {
         let userAdded = new Users({
             googleID: user.googleID,
             email: user.email,
-            name: {
-                firstName: user.firstName,
-                lastName: user.lastName
-            },
+            firstName: user.firstName,
+            lastName: user.lastName,
             year: user.year,
             college: user.college,
             major: user.major,
@@ -134,14 +132,14 @@ function addUser (user) {
 
 //Uncomment to test
 // deleteUser(24245)
-//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 'CMPS115', rating: 4 }] }))
+//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 420, rating: 4 }] }))
 //     .then(prof => findUser(prof.googleID))
 //     .then(prof => {
-//         console.log(`BEFORE: ${prof.name.firstName}`);
+//         console.log(`BEFORE: ${prof.fullName}`);
 //         return prof;
 //     })
-//     .then((prof) => updateUser(prof.googleID, { 'name.firstName': 'Bob' }))
-//     .then(prof => console.log(`AFTER: ${prof.name.firstName}`))
+//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
+//     .then(prof => console.log(`AFTER: ${prof.fullName}`))
 //     .catch(err => console.log(err));
 
 
