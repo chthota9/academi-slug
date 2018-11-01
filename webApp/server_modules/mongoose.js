@@ -10,15 +10,20 @@ connection.once('open', function() {
 });
 // connection.dropDatabase();
 let classSchema = new mongoose.Schema({
-    courseNo: {
-        type: String,
+    _id: {
+        type: Number,
         required: true,
-        unique: true
+        unique: true,
+        alias: 'courseNo'
     },
     tutors: [{
         googleID: {
             type: Number,
             required: true,
+        },
+        rating: {
+            type: Number,
+            required:true
         },
         _id: {
             id: false
@@ -26,13 +31,13 @@ let classSchema = new mongoose.Schema({
     }]
 }, {
     autoIndex: false,
-    versionKey: false
+    versionKey: false,
+    _id: false
 });
 
 
 let Classes = mongoose.model('Classes', classSchema);
 
-Classes.createIndexes({ courseNo: 1 })
 
 
 let userSchema = new mongoose.Schema({
