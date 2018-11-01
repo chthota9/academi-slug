@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false); //Avoid deprecation warning
 mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", {
     useNewUrlParser: true
 })
+
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log("We're connected to the database!");
@@ -66,21 +68,17 @@ let userSchema = new mongoose.Schema({
 }, {
     autoIndex: false,
     versionKey: false,
-    _id:false
+    _id: false
 });
 
 userSchema.virtual('fullName').get(() => {
     return this.name.firstName + ' ' + this.name.lastName;
-})
+});
 
 
 
 
 let Users = mongoose.model('Users', userSchema);
-
-Users.createIndexes({
-    googleID: 1
-})
 
 function addUser (user) {
     return new Promise((resolve, reject) => {
@@ -107,6 +105,16 @@ function addUser (user) {
     })
 }
 
+deleteUser(24245)
+    .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 'CMPS115', rating: 4 }] }))
+    .then(prof => findUser(prof.googleID))
+    .then(prof => {
+        console.log(`BEFORE: ${prof.name.firstName}`);
+        return prof;
+    })
+    .then((prof) => updateUser(prof.googleID, { 'name.firstName': 'Bob' }))
+    .then(prof => console.log(`AFTER: ${prof.name.firstName}`))
+    .catch(err => console.log(err));
 
 
 
@@ -114,11 +122,7 @@ function addUser (user) {
 
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
-        Users.deleteOne({
-            googleID: {
-                $eq: googleID
-            }
-        }, function(err) {
+        Users.findByIdAndDelete(googleID, function(err) {
             if (err) {
                 console.log("User with googleID " + googleID + " does not exist.");
                 return reject(err);
@@ -154,12 +158,12 @@ function deleteUser (googleID) {
 function findUser (googleID) {
     console.log("Searching for user " + googleID);
     return new Promise((resolve, reject) => {
-        Users.findOne({
-            googleID: googleID
-        }).exec((err, userQuery) => {
-            if (err) return reject(err);
-            resolve(userQuery);
-        });
+        Users.findById(googleID)
+            .exec((err, userQuery) => {
+                if (err) { return reject(err); }
+                // console.log(userQuery);
+                resolve(userQuery);
+            });
     })
 }
 
@@ -169,12 +173,11 @@ function findUser (googleID) {
 function updateUser (googleID, userEdits) {
     console.log("Updating user " + googleID);
     return new Promise((resolve, reject) => {
-        Users.findOneAndUpdate({
-            googleID: googleID
-        }, userEdits).exec((err, user) => {
-            if (err) return reject(err);
-            resolve(user);
-        })
+        Users.findByIdAndUpdate(googleID, userEdits, { new: true })
+            .exec((err, user) => {
+                if (err) return reject(err);
+                resolve(user);
+            })
     })
 }
 
