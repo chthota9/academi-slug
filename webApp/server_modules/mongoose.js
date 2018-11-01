@@ -3,6 +3,7 @@ mongoose.set('useFindAndModify', false); //Avoid deprecation warning
 mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", {
     useNewUrlParser: true
 })
+
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log("We're connected to the database!");
@@ -36,10 +37,11 @@ Classes.createIndexes({ courseNo: 1 })
 
 
 let userSchema = new mongoose.Schema({
-    googleID: {
+    _id: {
         type: Number,
         required: true,
-        unique: true
+        unique: true,
+        alias: 'googleID'
     },
     email: {
         type: String,
@@ -48,11 +50,13 @@ let userSchema = new mongoose.Schema({
     name: {
         firstName: {
             type: String,
-            required: true
+            required: true,
+            alias: 'firstName'
         },
         lastName: {
             type: String,
-            required: true
+            required: true,
+            alias: 'lastName'
         },
         _id: {
             id: false
@@ -89,15 +93,18 @@ let userSchema = new mongoose.Schema({
     }]
 }, {
     autoIndex: false,
-    versionKey: false
+    versionKey: false,
+    _id: false
+});
+
+userSchema.virtual('fullName').get(() => {
+    return this.name.firstName + ' ' + this.name.lastName;
 });
 
 
 
 
 let Users = mongoose.model('Users', userSchema);
-
-Users.createIndexes({ googleID: 1 })
 
 function addUser (user) {
     return new Promise((resolve, reject) => {
@@ -125,6 +132,17 @@ function addUser (user) {
     })
 }
 
+//Uncomment to test
+// deleteUser(24245)
+//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 'CMPS115', rating: 4 }] }))
+//     .then(prof => findUser(prof.googleID))
+//     .then(prof => {
+//         console.log(`BEFORE: ${prof.name.firstName}`);
+//         return prof;
+//     })
+//     .then((prof) => updateUser(prof.googleID, { 'name.firstName': 'Bob' }))
+//     .then(prof => console.log(`AFTER: ${prof.name.firstName}`))
+//     .catch(err => console.log(err));
 
 
 
@@ -132,7 +150,7 @@ function addUser (user) {
 
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
-        Users.deleteOne({ googleID: { $eq: googleID } }, (err) => {
+        Users.findByIdAndDelete(googleID, function(err) {
             if (err) {
                 console.log("User with googleID " + googleID + " does not exist.");
                 return reject(err);
@@ -145,39 +163,25 @@ function deleteUser (googleID) {
 
 }
 
-deleteUser(24245)
-    .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 'CMPS115', rating: 4 }] }))
-    .then(prof => findUser(prof.googleID))
-    .then(prof => {
-        console.log(`BEFORE: ${prof.name.firstName}`);
-        return prof;
-    })
-    .then((prof) => updateUser(prof.googleID, { 'name.firstName': 'Bob' }))
-    .then(prof => console.log(`AFTER: ${prof.name.firstName}`))
-    .catch(err => console.log(err));
 
-
-/**
- * 
- * @param {Number} googleID 
- */
+//Works
 function findUser (googleID) {
     console.log("Searching for user " + googleID);
     return new Promise((resolve, reject) => {
-        Users.findOne({ googleID: googleID })
+        Users.findById(googleID)
             .exec((err, userQuery) => {
-                if (err) return reject(err);
+                if (err) { return reject(err); }
                 resolve(userQuery);
             });
     })
 }
 
 
-//Works
+//Tested works
 function updateUser (googleID, userEdits) {
     console.log("Updating user " + googleID);
     return new Promise((resolve, reject) => {
-        Users.findOneAndUpdate({ googleID: googleID }, userEdits, { new: true, })
+        Users.findByIdAndUpdate(googleID, userEdits, { new: true })
             .exec((err, user) => {
                 if (err) return reject(err);
                 resolve(user);
@@ -189,7 +193,6 @@ function updateUser (googleID, userEdits) {
 //Untested - probably not needed
 function addReview (user, average) {
     console.log("Adding a review!");
-
 }
 
 
