@@ -8,7 +8,6 @@ const connection = mongoose.connection;
 connection.once('open', function() {
     console.log("We're connected to the database!");
 });
-
 // connection.dropDatabase();
 let classSchema = new mongoose.Schema({
     courseNo: {
@@ -102,6 +101,14 @@ userSchema.virtual('fullName').get(function() {
 });
 
 
+module.exports = {
+    addUser,
+    deleteUser,
+    findUser,
+    updateUser,
+    addClass,
+    connection,
+}
 
 
 let Users = mongoose.model('Users', userSchema);
@@ -187,7 +194,6 @@ function updateUser (googleID, userEdits) {
     })
 }
 
-
 //Untested - probably not needed
 function addReview (user, average) {
     console.log("Adding a review!");
@@ -218,6 +224,22 @@ function addTutor (googleID) {
     console.log('I am adding a tutor to a class!');
 }
 
+function testAdd () {
+    addUser({
+        googleID: 24245,
+        email: 'sammyslug@ucsc.edu',
+        firstName: 'Sammy',
+        lastName: 'Slug',
+        year: 'Junior',
+        college: 'Nine',
+        major: 'CS',
+        bio: 'Banana Slug',
+        coursesTaught: [{
+            courseNo: 'CMPS115',
+            rating: 4
+        }]
+    });
+}
 
 module.exports = {
     addUser,
