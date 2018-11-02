@@ -109,6 +109,7 @@ userSchema.virtual('fullName').get(function() {
 let Users = mongoose.model('Users', userSchema);
 
 function addUser (user) {
+    
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
             googleID: user.googleID,
@@ -125,7 +126,7 @@ function addUser (user) {
             if (err) {
                 return reject(err)
             }
-            console.log(profile);
+            // console.log(profile);
             console.log("User " + profile.googleID + " added.");
             resolve(profile);
         })

@@ -37,10 +37,11 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
+
 router.post('/createProfile', function(req, res) {
     console.log('CREATED A PROFILE');
     let profile = newProfile(req.body, req.user.id, req.user.extra);
-    addUser(newProfile)
+    addUser(profile)
         .then(profile => {
             req.login({ id: profile.googleID }, err => {
                 res.redirect('/profile');
