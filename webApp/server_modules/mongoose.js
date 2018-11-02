@@ -17,9 +17,10 @@ let classSchema = new mongoose.Schema({
         alias: 'courseNo'
     },
     tutors: [{
-        googleID: {
+        _id: {
             type: Number,
             required: true,
+            alias:'googleID'
         },
         name: { type: string, required: true },
         rating: {
