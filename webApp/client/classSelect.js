@@ -153,7 +153,7 @@ inputBox.addEventListener('keydown', evt => {
 })
 
 
-let form = document.querySelector('#classCreation');
+let form = document.querySelector('#profileForm');
 let subBtn = form.querySelector('button[type="submit"]');
 
 

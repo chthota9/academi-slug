@@ -23,7 +23,7 @@
                             <h2 class="display-4 mb-0 h2-title">Create Account</h2>
                         </div>
                         <div class="card-body">
-                            <form id="classCreation">
+                            <form id="profileForm">
 
                                 <h3 class="h3-title">Profile Information</h3>
                                 <div class="row">
@@ -50,8 +50,10 @@
                                     <div class="form-group col-md-5">
                                         <select id="major" name="major" class="form-control" required>
                                             <option value="" selected disabled>Major</option>
-                                            <% majors.forEach(major=>{ %> 
-                                            <option><%= major %></option>
+                                            <% majors.forEach(major=>{ %>
+                                            <option>
+                                                <%= major %>
+                                            </option>
                                             <%   }) %>
                                         </select>
                                     </div>
@@ -78,16 +80,7 @@
                                         <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
                                     </div>
                                 </div>
-                                <div class="form-control classSelect">
-                                    <ul class="classlist">
-                                        <li class="classinput">
-                                            <input placeholder="Search class" type="text" name="query" autocomplete="off" spellcheck="false">
-                                            <span data-helper="e.g cmps 115" class="querylist helper hidden"></span>
-
-                                        </li>
-                                    </ul>
-                                </div>
-
+                                <%- include templates/classSelect.ejs %>
                                 <button form="classCreation" type="submit" class="btn btn-primary mt-2 float-right">Sign up</button>
                             </form>
                         </div>
