@@ -64,7 +64,7 @@ router.post('/createProfile', function(req, res) {
 //Incomplete
 router.get('/review', function(req, res) {
     console.log('REVIEWING A CLASS');
-    res.render('review', { user: req.user, class: req.body });
+    res.render('review', { profile: req.user, class: req.body });
 });
 
 //Incomplete

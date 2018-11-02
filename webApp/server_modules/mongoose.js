@@ -154,10 +154,6 @@ function addUser (user) {
 //     .then(prof => console.log(`AFTER: ${prof.fullName}`))
 //     .catch(err => console.log(err));
 
-
-
-
-
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findByIdAndDelete(googleID, function(err) {
@@ -173,8 +169,6 @@ function deleteUser (googleID) {
 
 }
 
-
-//Works
 function findUser (googleID) {
     console.log("Searching for user " + googleID);
     return new Promise((resolve, reject) => {
@@ -186,8 +180,6 @@ function findUser (googleID) {
     })
 }
 
-
-//Tested works
 function updateUser (googleID, userEdits) {
     console.log("Updating user " + googleID);
     return new Promise((resolve, reject) => {
