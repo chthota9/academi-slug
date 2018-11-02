@@ -143,15 +143,18 @@ function addUser (user) {
 }
 
 //Uncomment to test
+//UpdateUser works on Reviews, but overrides reviews.
 // deleteUser(24245)
-//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 420, rating: 4 }] }))
+//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 420, rating: 4 }, { courseNo: 567, rating: 2}] }))
 //     .then(prof => findUser(prof.googleID))
 //     .then(prof => {
 //         console.log(`BEFORE: ${prof.fullName}`);
 //         return prof;
 //     })
 //     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
+//     .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{courseNo:  420, rating: 4.6}] }))
 //     .then(prof => console.log(`AFTER: ${prof.fullName}`))
+//     .then(prof => console.log(`AFTER: ${prof.coursesTaught[0]}`))
 //     .catch(err => console.log(err));
 
 function deleteUser (googleID) {
@@ -191,9 +194,16 @@ function updateUser (googleID, userEdits) {
     })
 }
 
-//Untested - probably not needed
-function addReview (user, average) {
+//Untested - needed
+function addReview (googleID, courseNo, average) {
     console.log("Adding a review!");
+    return new Promise((resolve, reject) => {
+        Users.update({'googleID' : googleID, 'courseNo': courseNo}, {$set: { 'courseNo.$.rating' : average }})
+            .exec((err, user) => {
+                if (err) return reject(err);
+                resolve(user);
+            })
+    })
 }
 
 
