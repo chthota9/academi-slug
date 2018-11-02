@@ -124,11 +124,65 @@ border: 1px solid black;
 #search-results {
 	font-size: 145%;
 }
-html,body {
-    height: 100%;
-    background-color: black;
+
+.btn-primary {
+    color: white;
+    background-color: #003c6c;
+    border-color: #003c6c;
 }
 
-.h2-title, .h3-title  {
-    font-weight: bolder;    
+.btn-primary:hover{
+    color: black;
+    background-color: #fdc700;
+    border-color: black;
 }
+
+.bold {
+	font-weight: bold;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.centralize {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+/****** Style Star Rating Widget *****/
+/* Credits to: https://codepen.io/jamesbarnett/pen/vlpkh */
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+.rating > input:checked ~ label, /* show gold star when clicked */
+.rating:not(:checked) > label:hover, /* hover current star */
+.rating:not(:checked) > label:hover ~ label { color: #fdc700;  } /* hover previous stars in list */
+
+.rating > input:checked + label:hover, /* hover current star when changing rating */
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
+.rating > input:checked ~ label:hover ~ label { color: #003c6c;  } 
