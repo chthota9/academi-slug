@@ -10,28 +10,28 @@ let inputBox = inputNode.children[0];
 let infoNode = inputNode.children[1];
 let courseList;
 
-let form = document.querySelector('.form');
 
 
-function setInfoHelp() {
+
+function setInfoHelp () {
     infoNode.classList.remove('loader');
     infoNode.classList.add('helper');
 }
 
-function showInfo() {
+function showInfo () {
     infoNode.classList.remove('hidden');
 }
 
-function hideInfo() {
+function hideInfo () {
     infoNode.classList.add('hidden');
 }
 
-function setInfoLoad() {
+function setInfoLoad () {
     infoNode.classList.remove('helper');
     infoNode.classList.add('loader');
 }
 
-function removeCourseList() {
+function removeCourseList () {
     if (courseList && inputNode.contains(courseList)) {
         inputNode.removeChild(courseList);
     } else {
@@ -39,7 +39,7 @@ function removeCourseList() {
     }
 }
 
-function sendQuery(param) {
+function sendClassQuery (param) {
     let req = new XMLHttpRequest();
     // req.setRequestHeader('Content-type',"application/x-www-form-urlencoded");
     req.open('GET', `/classSearch/?q=${param}`);
@@ -75,7 +75,7 @@ inputBox.addEventListener('input', evt => {
     showInfo();
     if (param.length > 0) {
         setInfoLoad();
-        inputTimer = setTimeout(() => sendQuery(param), inputTimeout);
+        inputTimer = setTimeout(() => sendClassQuery(param), inputTimeout);
     } else {
         setInfoHelp();
     }
@@ -84,7 +84,7 @@ inputBox.addEventListener('input', evt => {
 /**
  * @param {Array} courses 
  */
-function createList(courses) {
+function createList (courses) {
     console.log('creatingLIST');
     let listNode = document.createElement('ul');
     listNode.classList.add('querylist');
@@ -106,7 +106,7 @@ function createList(courses) {
  * 
  * @param {MouseEvent} evt 
  */
-function deleteClass(evt) {
+function deleteClass (evt) {
     let classRemoved;
 
     if (evt === undefined) {
@@ -124,7 +124,7 @@ function deleteClass(evt) {
     }
 }
 
-function addClass(chosenClass) {
+function addClass (chosenClass) {
     if (choosenClasses.length < 10) {
         let newClass = document.createElement('li');
         newClass.textContent = chosenClass.textContent;
@@ -152,3 +152,16 @@ inputBox.addEventListener('keydown', evt => {
         }
     }
 })
+
+
+let form = document.querySelector('form');
+let subBtn = form.querySelector('button[type="submit"]');
+form.addEventListener('submit', evt => {
+    evt.preventDefault();
+    let formData = new FormData(evt.currentTarget);
+    formData.append('classesTeaching',)
+})
+
+function subForm(form) {
+    
+}
