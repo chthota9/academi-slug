@@ -22,7 +22,7 @@ let classSchema = new mongoose.Schema({
             required: true,
             alias:'googleID'
         },
-        name: { type: string, required: true },
+        name: { type: String, required: true },
         rating: {
             type: Number,
             required: true
