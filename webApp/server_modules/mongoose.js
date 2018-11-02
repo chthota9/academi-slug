@@ -90,7 +90,8 @@ let userSchema = new mongoose.Schema({
         },
         rating: {
             type: Number,
-            required: true
+            required: true,
+            Default:5
         },
         _id: {
             id: false
