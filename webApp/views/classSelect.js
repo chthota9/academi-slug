@@ -1,6 +1,6 @@
 let list = document.querySelector('.classlist');
 let inputNode = list.querySelector('.classinput');
-let choosenClasses = Array.from(list.getElementsByClassName('classname'), el => {
+let chosenClasses = Array.from(list.getElementsByClassName('classname'), el => {
     el.addEventListener('click', deleteClass);
     return el;
 });
@@ -110,14 +110,14 @@ function deleteClass (evt) {
     let classRemoved;
 
     if (evt === undefined) {
-        if (choosenClasses.length > 0) {
-            classRemoved = choosenClasses.pop();
+        if (chosenClasses.length > 0) {
+            classRemoved = chosenClasses.pop();
             console.log(classRemoved);
             list.removeChild(classRemoved)
         }
     } else {
         classRemoved = evt.currentTarget;
-        choosenClasses = choosenClasses.filter((el, index, elements) => {
+        chosenClasses = chosenClasses.filter((el, index, elements) => {
             return el !== classRemoved;
         });
         list.removeChild(classRemoved)
@@ -125,12 +125,12 @@ function deleteClass (evt) {
 }
 
 function addClass (chosenClass) {
-    if (choosenClasses.length < 10) {
+    if (chosenClasses.length < 10) {
         let newClass = document.createElement('li');
         newClass.textContent = chosenClass.textContent;
         newClass.classList.add('classname');
         list.insertBefore(newClass, inputNode);
-        choosenClasses.push(newClass)
+        chosenClasses.push(newClass)
     }
 }
 inputBox.addEventListener('focus', evt => {
@@ -158,10 +158,21 @@ let form = document.querySelector('form');
 let subBtn = form.querySelector('button[type="submit"]');
 form.addEventListener('submit', evt => {
     evt.preventDefault();
+
     let formData = new FormData(evt.currentTarget);
-    formData.append('classesTeaching',)
+    chosenClasses.forEach(course => {
+        formData.append('classesTeaching', course.textContent)
+    });
+    // for (const course of formData.entries()) {
+    //     console.log(course[0] + ',' + course[1]);
+
+    // }
+
+    subForm(formData);
 })
 
-function subForm(form) {
-    
+function subForm (form) {
+    let formReq = new XMLHttpRequest();
+    formReq.open('POST', '/profile/createProfile');
+    formReq.send(form);
 }

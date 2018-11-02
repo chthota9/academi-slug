@@ -1,7 +1,7 @@
 const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
-const { getMajors } = require('../course_json_parser');
+const { getMajors, getClassID } = require('../course_json_parser');
 const { addUser, updateUser, deleteUser } = require('../mongoose');
 
 /**
@@ -28,11 +28,7 @@ router.get('/login', passport.authenticate('googleHave', { scope: ['profile', 'e
 router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
 
 router.get('/create', function(req, res) {
-    console.log(req.session);
-    res.render('createAccount', {
-        user: req.user,
-        majors: getMajors()
-    });
+    res.render('createAccount', { user: req.user, majors: getMajors() });
 });
 
 router.get('/logout', function(req, res) {
@@ -43,14 +39,7 @@ router.get('/logout', function(req, res) {
 
 router.post('/createProfile', function(req, res) {
     console.log('CREATED A PROFILE');
-    let newProfile = {
-        ...req.body,
-        'googleID': req.user.id,
-        ...req.user.extra,
-        coursesTeaching: [{ courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }]
-    }
-    // console.log(newProfile);
-
+    let profile = newProfile(req.body, req.user.id, req.user.extra);
     addUser(newProfile)
         .then(profile => {
             req.login({ id: profile.googleID }, err => {
@@ -58,7 +47,7 @@ router.post('/createProfile', function(req, res) {
             });
         })
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
-        .catch(err=>console.log(err))
+        .catch(err => console.log(err))
 });
 
 //Incomplete
@@ -96,6 +85,21 @@ router.get('/delete', (req, res) => {
 
     }
 })
+
+
+function newProfile (body, googleID, extra) {
+    return {
+        firstName: body.firstName,
+        lastName: body.lastName,
+        year: body.year,
+        college: body.college,
+        major: body.major,
+        bio: body.bio,
+        coursesTeaching: body.coursesTeaching.map(course => ({ courseNo: getClassID(course), rating: 5 })),
+        googleID,
+        email: extra.email
+    }
+}
 
 
 module.exports = router;

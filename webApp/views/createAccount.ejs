@@ -10,10 +10,12 @@
     <link rel="stylesheet" type="text/css" href="/style.css">
     <title>Academi-Slug | Sign Up</title>
 </head>
-<script src="nav-search.js"></script>
+<%- include templates/nav-search %>
 
-    <!-- <script src="nav-search.js"></script> -->
-    <%- include templates/nav-search %>
+<body class="body">
+    <div class="bg">
+        <div class="container h-100">
+            <div class="row h-100 justify-content-center align-items-center">
 
                 <div class="col-md-10">
                     <div class="card">
@@ -21,24 +23,22 @@
                             <h2 class="display-4 mb-0 h2-title">Create Account</h2>
                         </div>
                         <div class="card-body">
-                            <form target="_parent" action="/profile/createProfile" method="POST">
+                            <form id="classCreation">
 
                                 <h3 class="h3-title">Profile Information</h3>
                                 <div class="row">
                                     <div class="form-group col-md-3">
-                                        <input type="text" class="form-control" id="firstName" name="firstName"
-                                            placeholder="First name" value="<%- user.extra.firstName %>" required>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value="<%- user.extra.firstName %>" required>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <input type="text" class="form-control" id="lastName" name="lastName"
-                                            placeholder="Last name" value="<%- user.extra.lastName %>" required>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" value="<%- user.extra.lastName %>" required>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="form-group col-md-3">
                                         <select id="year" name="year" class="form-control" required>
-                                            <option selected disabled>Year</option>
+                                            <option value="" selected disabled>Year</option>
                                             <option>Freshman</option>
                                             <option>Sophomore</option>
                                             <option>Junior</option>
@@ -49,16 +49,15 @@
                                     </div>
                                     <div class="form-group col-md-5">
                                         <select id="major" name="major" class="form-control" required>
-                                            <option selected disabled>Major</option>
-                                            <option>Computer Science</option>
-                                            <!-- <% majors.forEach(major=>{ %> -->
-                                            <!-- <option><%= major %></option> -->
-                                            <!-- <%   }) %> -->
+                                            <option value="" selected disabled>Major</option>
+                                            <% majors.forEach(major=>{ %> 
+                                            <option><%= major %></option>
+                                            <%   }) %>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <select id="college" name="college" class="form-control" required>
-                                            <option selected disabled>College Affiliation</option>
+                                            <option value="" selected disabled>College Affiliation</option>
                                             <option>Cowell</option>
                                             <option>Stevenson</option>
                                             <option>Crown</option>
@@ -76,24 +75,20 @@
 
                                 <div class="row">
                                     <div class="form-group col-md-12">
-                                        <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..."
-                                            required></textarea>
+                                        <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-control classSelect">
                                     <ul class="classlist">
-                                        <li class="classname">CMPS 115</li>
-                                        <li class="classname">CMPS 112</li>
                                         <li class="classinput">
-                                            <input placeholder="Search class" type="text" name="query" autocomplete="off"
-                                                spellcheck="false">
-                                            <span data-helper="e.g cmps 115" class="querylist helper hidden">
-                                            </span>
+                                            <input placeholder="Search class" type="text" name="query" autocomplete="off" spellcheck="false">
+                                            <span data-helper="e.g cmps 115" class="querylist helper hidden"></span>
+
                                         </li>
                                     </ul>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary mt-2 float-right">Sign up</button>
+                                <button form="classCreation" type="submit" class="btn btn-primary mt-2 float-right">Sign up</button>
                             </form>
                         </div>
                     </div>

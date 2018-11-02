@@ -82,7 +82,7 @@ let userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    coursesTaught: [{
+    coursesTeaching: [{
         courseNo: {
             type: Number,
             required: true,
@@ -106,16 +106,6 @@ userSchema.virtual('fullName').get(function() {
 });
 
 
-module.exports = {
-    addUser,
-    deleteUser,
-    findUser,
-    updateUser,
-    addClass,
-    connection,
-}
-
-
 let Users = mongoose.model('Users', userSchema);
 
 function addUser (user) {
@@ -129,7 +119,7 @@ function addUser (user) {
             college: user.college,
             major: user.major,
             bio: user.bio,
-            coursesTaught: user.coursesTaught
+            coursesTeaching: user.coursesTeaching
         });
         userAdded.save((err, profile) => {
             if (err) {
@@ -144,7 +134,7 @@ function addUser (user) {
 
 //Uncomment to test
 // deleteUser(24245)
-//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 420, rating: 4 }] }))
+//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTeaching: [{ courseNo: 420, rating: 4 }] }))
 //     .then(prof => findUser(prof.googleID))
 //     .then(prof => {
 //         console.log(`BEFORE: ${prof.fullName}`);
@@ -229,22 +219,6 @@ function addTutor (googleID) {
     console.log('I am adding a tutor to a class!');
 }
 
-function testAdd () {
-    addUser({
-        googleID: 24245,
-        email: 'sammyslug@ucsc.edu',
-        firstName: 'Sammy',
-        lastName: 'Slug',
-        year: 'Junior',
-        college: 'Nine',
-        major: 'CS',
-        bio: 'Banana Slug',
-        coursesTaught: [{
-            courseNo: 'CMPS115',
-            rating: 4
-        }]
-    });
-}
 
 module.exports = {
     addUser,
