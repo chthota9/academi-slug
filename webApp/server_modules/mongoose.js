@@ -21,9 +21,10 @@ let classSchema = new mongoose.Schema({
             type: Number,
             required: true,
         },
+        name: { type: string, required: true },
         rating: {
             type: Number,
-            required:true
+            required: true
         },
         _id: {
             id: false
@@ -109,7 +110,7 @@ userSchema.virtual('fullName').get(function() {
 let Users = mongoose.model('Users', userSchema);
 
 function addUser (user) {
-    
+
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
             googleID: user.googleID,
