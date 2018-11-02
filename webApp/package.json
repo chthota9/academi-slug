@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "pm2 start ecosystem.config.js --watch",
-    "start": "pm2-runtime start ecosystem.config.js --env production "
+    "start": "pm2-runtime start ecosystem.config.js --env production ",
+    "stop": "pm2 kill"
+    
   },
   "author": "",
   "license": "ISC",

@@ -2,7 +2,7 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors } = require('../course_json_parser');
-const { addUser } = require('../mongoose');
+const { addUser, updateUser, deleteUser } = require('../mongoose');
 
 /**
  * 
@@ -11,10 +11,12 @@ const { addUser } = require('../mongoose');
  * @param {*} next 
  */
 
-router.get('/', function (req, res) {
+router.get('/', function(req, res) {
     // console.log(req.session);
     console.log('profile ' + req.isAuthenticated());
-    if (!req.isAuthenticated()) { return res.redirect('profile/login') }
+    if (!req.isAuthenticated()) {
+        return res.redirect('profile/login')
+    }
 
     console.log(req.user);
     res.render('profileView-user', { profile: req.user });
@@ -25,23 +27,27 @@ router.get('/login', passport.authenticate('googleHave', { scope: ['profile', 'e
 
 router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
 
-router.get('/create', function (req, res) {
+router.get('/create', function(req, res) {
     console.log(req.session);
-    res.render('createAccount', { user: req.user, majors: getMajors() });
+    res.render('createAccount', {
+        user: req.user,
+        majors: getMajors()
+    });
 });
 
-router.get('/logout', function (req, res) {
+router.get('/logout', function(req, res) {
     req.logout();
     console.log(req.session);
     res.redirect('/');
 });
 
-router.post('/createProfile', function (req, res) {
+router.post('/createProfile', function(req, res) {
     console.log('CREATED A PROFILE');
     let newProfile = {
-        ...req.body, 'googleID': req.user.id,
+        ...req.body,
+        'googleID': req.user.id,
         ...req.user.extra,
-        coursesTaught: [{ courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }]
+        coursesTeaching: [{ courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }, { courseNo: 0, rating: 0 }]
     }
     // console.log(newProfile);
 
@@ -51,18 +57,20 @@ router.post('/createProfile', function (req, res) {
                 res.redirect('/profile');
             });
         })
+        //TODO: SEND ERR BACK AND REDIRECT CLIENT
+        .catch(err=>console.log(err))
 });
 
 //Incomplete
-router.get('/review', function (req, res) {
+router.get('/review', function(req, res) {
     console.log('REVIEWING A CLASS');
     res.render('review', { user: req.user, class: req.body });
 });
 
 //Incomplete
-router.post('/submitReview', function(req,res) {
+router.post('/submitReview', function(req, res) {
     console.log('SUBMITTING A REVIEW');
-    var avg = sum(...req.body)/4.0;
+    var avg = sum(...req.body) / 4.0;
     console.log(avg);
 
     addReview(req.user.id, avg)
@@ -73,7 +81,8 @@ router.post('/submitReview', function(req,res) {
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
     let updatedProfile = {
-        ...req.body, 'googleID': req.user.id,
+        ...req.body,
+        'googleID': req.user.id,
         ...req.user.extra
     }
     console.log(updatedProfile);
@@ -81,6 +90,12 @@ router.post('/updateProfile', function(req, res) {
     updateUser(updatedProfile)
         .then(res.redirect('/profile'));
 });
+
+router.get('/delete', (req, res) => {
+    if (!req.isAuthenticated()) {
+
+    }
+})
 
 
 module.exports = router;
