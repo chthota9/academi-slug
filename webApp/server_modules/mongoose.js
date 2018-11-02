@@ -219,7 +219,7 @@ function addTutor(googleID){
 
 function testAdd() {
 	addUser({
-	googleID: 24245,
+	googleID: 24246,
 	email: 'sammyslug@ucsc.edu',
 	firstName: 'Sammy',
 	lastName: 'Slug',
@@ -235,10 +235,10 @@ function testAdd() {
 }
 
 async function run() {
-	// await deleteUser(24245); 
-	// await testAdd();
+	//await deleteUser(24245); 
+	//await testAdd();
 	console.log("Something to stop");
-	await updateUser(24245, {firstName: 'Elisabeth'});
+	await updateUser(24246, {'firstName': 'Elisabeth'});
 }
 
 run();
