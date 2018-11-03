@@ -45,7 +45,15 @@
 .btn-primary {
     color: white;
     background-color: #003c6c;
-    border-color: #003c6c;
+    border-color: black;
+}
+
+.btn-secondary {
+    color: white;
+    background-color: #6c2800;
+    border-color: black;
+    margin-top: 5px;
+    margin-left: -4px;
 }
 
 .btn-primary:hover{

@@ -60,6 +60,14 @@
     border-color: black;
 }
 
+.btn-secondary {
+    color: white;
+    background-color: #6c2800;
+    border-color: black;
+    margin-top: 5px;
+    margin-left: -4px;
+}
+
 .h2-title,
 .h3-title {
     font-weight: bolder;
