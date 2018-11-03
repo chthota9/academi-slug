@@ -71,7 +71,7 @@ getUCSCCourses()
 			return obj;
 		}, {});
 	})
-	.then(() => getUCSCMajors())
+	.then(getUCSCMajors)
 	.then(majors => {
 		ucscMajors = JSON.parse(majors);
 	})

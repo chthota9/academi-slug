@@ -17,13 +17,15 @@ let classSchema = new mongoose.Schema({
         alias: 'courseNo'
     },
     tutors: [{
-        googleID: {
+        _id: {
             type: Number,
             required: true,
+            alias:'googleID'
         },
+        name: { type: String, required: true },
         rating: {
             type: Number,
-            required:true
+            required: true
         },
         _id: {
             id: false
@@ -82,14 +84,15 @@ let userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    coursesTaught: [{
+    coursesTeaching: [{
         courseNo: {
             type: Number,
             required: true,
         },
         rating: {
             type: Number,
-            required: true
+            required: true,
+            Default:5
         },
         _id: {
             id: false
@@ -106,19 +109,10 @@ userSchema.virtual('fullName').get(function() {
 });
 
 
-module.exports = {
-    addUser,
-    deleteUser,
-    findUser,
-    updateUser,
-    addClass,
-    connection,
-}
-
-
 let Users = mongoose.model('Users', userSchema);
 
 function addUser (user) {
+
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
             googleID: user.googleID,
@@ -129,13 +123,13 @@ function addUser (user) {
             college: user.college,
             major: user.major,
             bio: user.bio,
-            coursesTaught: user.coursesTaught
+            coursesTeaching: user.coursesTeaching
         });
         userAdded.save((err, profile) => {
             if (err) {
                 return reject(err)
             }
-            console.log(profile);
+            // console.log(profile);
             console.log("User " + profile.googleID + " added.");
             resolve(profile);
         })
@@ -231,22 +225,6 @@ function addTutor (googleID) {
     console.log('I am adding a tutor to a class!');
 }
 
-function testAdd () {
-    addUser({
-        googleID: 24245,
-        email: 'sammyslug@ucsc.edu',
-        firstName: 'Sammy',
-        lastName: 'Slug',
-        year: 'Junior',
-        college: 'Nine',
-        major: 'CS',
-        bio: 'Banana Slug',
-        coursesTaught: [{
-            courseNo: 'CMPS115',
-            rating: 4
-        }]
-    });
-}
 
 module.exports = {
     addUser,
