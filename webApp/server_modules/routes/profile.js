@@ -51,13 +51,13 @@ router.post('/createProfile', function(req, res) {
         .catch(err => console.log(err))
 });
 
-//Incomplete
+//Untested
 router.get('/review', function(req, res) {
     console.log('REVIEWING A CLASS');
     res.render('review', { profile: req.user, class: req.body });
 });
 
-//Incomplete
+//Untested
 router.post('/submitReview', function(req, res) {
     console.log('SUBMITTING A REVIEW');
     var avg = sum(...req.body) / 4.0;
@@ -67,7 +67,7 @@ router.post('/submitReview', function(req, res) {
         .then(res.redirect('profileView-guest', { profile: req.user }));
 });
 
-//Incomplete
+//Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
 
@@ -76,7 +76,8 @@ router.post('/updateProfile', function(req, res) {
         .then(res.redirect('/profile'));
 });
 
-router.get('/delete', (req, res) => {
+//Untested
+router.get('/deleteProfile', (req, res) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/profile/login');
     }
