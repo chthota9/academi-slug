@@ -167,7 +167,7 @@ function deleteUser (googleID) {
 }
 
 function findUser (googleID) {
-    console.log("Searching for user " + googleID);
+    console.log("Searching for User " + googleID);
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
             .exec((err, userQuery) => {
@@ -206,25 +206,47 @@ function addReview (googleID, courseNo, average) {
  * add class to db with tutor under it
  */
 
-//Untested
+//Works
 function addClass (course) {
     return new Promise((resolve, reject) => {
-        let newClass = new Classes({ courseNo: course.courseNo });
+        let classAdded = new Classes({ courseNo: course.courseNo });
         classAdded.save((err, course) => {
             if (err) {
                 return reject(err)
             }
-            console.log("class " + course.courseNo + " added.");
+            console.log("Class " + course.courseNo + " added.");
             resolve(course);
         })
     })
 }
 
 //Untested
-function addTutor (googleID) {
+function addTutor (googleID, courseNo) {
     console.log('I am adding a tutor to a class!');
+    // Some function to instantiate tutor(googleID)
+    return new Promise((resolve, reject) => {
+        UserClassess.update({ 'courseNo': courseNo }, { $set: { 'tutors.$._id': googleID } })
+            .exec((err, user) => {
+                if (err) return reject(err);
+                resolve(user);
+            })
+    })
 }
 
+//Untested
+function findClass(courseNo) {
+    console.log("Searching for Class " + courseNo);
+    return new Promise((resolve, reject) => {
+        Classes.findById(courseNo)
+            .exec((err, classQuery) => {
+                if (err) { return reject(err); }
+                resolve(classQuery);
+            });
+    })
+}
+
+//Uncomment to test
+//addClass({courseNo: 250});
 
 module.exports = {
     addUser,
@@ -232,5 +254,7 @@ module.exports = {
     findUser,
     updateUser,
     addClass,
+    addTutor,
+    findClass,
     connection
 }
