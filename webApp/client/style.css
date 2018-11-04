@@ -161,6 +161,18 @@ border: 1px solid black;
 	transform: translateX(-50%);
 }
 
+.btn-del {
+    color: white;
+    background-color: #cc0000;
+    border-color: black;
+}
+
+.btn-del:hover{
+    color: white;
+    background-color: black;
+    border-color: #cc0000;
+}
+
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
