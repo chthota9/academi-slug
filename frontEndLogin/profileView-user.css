@@ -68,3 +68,21 @@
     background-color: #003c6c;
     color: white;
 }
+
+.centralize {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.btn-del {
+    color: white;
+    background-color: #cc0000;
+    border-color: black;
+}
+
+.btn-del:hover{
+    color: white;
+    background-color: black;
+    border-color: #cc0000;
+}
