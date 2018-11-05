@@ -52,6 +52,7 @@
     color: white;
     background-color: #003c6c;
     border-color: #003c6c;
+    margin-left: 15px;
 }
 
 .btn-primary:hover {
