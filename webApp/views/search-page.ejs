@@ -24,9 +24,16 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="search-text"> 
-										<span id="search-confirm"><p>You searched for______.</p></span> 
+										<span id="search-confirm"><p>You searched for</p>
+											 <body onload="document.getElementById('searchResult').innerHTML = getUrlParameter('search')" >
+												<p id="searchResult">
+												</p>
+											</body> 
+										</span> 
 										<span id="search-results"><p> ____Search Results Found</p> </span> 
+										<script src="search-results.js"></script>
 									</div>
+									
 									<div class="dropdown">
 											<button class="btn btn-sort">Sort By ↓</button>
 											<div class="dropdown-content">
