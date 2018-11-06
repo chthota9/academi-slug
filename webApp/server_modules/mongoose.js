@@ -20,16 +20,22 @@ let classSchema = new mongoose.Schema({
         _id: {
             type: Number,
             required: true,
-            alias:'googleID'
-        },
-        name: { type: String, required: true },
-        rating: {
-            type: Number,
-            required: true
-        },
-        _id: {
-            id: false
+            unique: true,
+            alias: 'googleID'
         }
+        // _id: {
+        //     type: Number,
+        //     required: true,
+        //     alias:'googleID'
+        // },
+        // name: { type: String, required: true },
+        // rating: {
+        //     type: Number,
+        //     required: true
+        // },
+        // _id: {
+        //     id: false
+        // }
     }]
 }, {
     autoIndex: false,
@@ -161,7 +167,6 @@ function deleteUser (googleID) {
             console.log("User " + googleID + " deleted.");
             resolve();
         });
-
     })
 
 }
@@ -220,17 +225,39 @@ function addClass (course) {
     })
 }
 
-//Untested
+//Seems to be working
 function addTutor (googleID, courseNo) {
     console.log('I am adding a tutor to a class!');
     // Some function to instantiate tutor(googleID)
     return new Promise((resolve, reject) => {
-        UserClassess.update({ 'courseNo': courseNo }, { $set: { 'tutors.$._id': googleID } })
+    //     UserClassess.update({ 'courseNo': courseNo }, { $set: { 'tutors.$._id': googleID } })
+    //         .exec((err, user) => {
+    //             if (err) return reject(err);
+    //             resolve(user);
+    //         })
+    // })
+
+    Classes.findByIdAndUpdate(courseNo, 
+            { $addToSet: { tutors: {googleID} }})
             .exec((err, user) => {
                 if (err) return reject(err);
-                resolve(user);
+                console.log("Tutor " + googleID + " added to class " + courseNo + ".");
             })
     })
+}
+
+//Untested
+function deleteTutor(googleID, courseNo) {
+    return new Promise((resolve, reject) => {
+        Classes.findByIdAndDelete(googleID, function(err) {
+            if (err) {
+                console.log("User with googleID " + googleID + " does not exist.");
+                return reject(err);
+            }
+            console.log("User " + googleID + " deleted.");
+            resolve();
+        });
+    }
 }
 
 //Untested
@@ -246,7 +273,26 @@ function findClass(courseNo) {
 }
 
 //Uncomment to test
-//addClass({courseNo: 250});
+function testAdd () {
+    addUser({
+        googleID: 95064,
+        email: 'sammyslug@ucsc.edu',
+        firstName: 'Sammy',
+        lastName: 'Slug',
+        year: 'Junior',
+        college: 'Nine',
+        major: 'CS',
+        bio: 'Banana Slug',
+        coursesTaught: [{
+            courseNo: 'CMPS115',
+            rating: 4
+        }]
+    });
+}
+//testAdd();
+//updateUser(95064, {'year': 'Sophomore', 'major': 'Politics'});
+//addClass({courseNo: 115});
+addTutor(95064, 115);
 
 module.exports = {
     addUser,
