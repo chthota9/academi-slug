@@ -117,9 +117,9 @@
                                                 <h2 class="display-4 mb-0 text-center">What do you need help with?</h2>
                                             </div>
                                             <div class="card-body">
-                                                <form class="form-inline" action="https://www.google.com/">
-                                                    <input class="form-control mr-sm-2 text-center col-sm-9" type="search" placeholder="Search for a Course">
-                                                    <a class="btn btn-primary" href="/searchRoute" style="margin-left: 15px" role="button">Search</a>
+                                                <form class="form-inline" action="/searchRoute" method="GET">
+                                                        <input class="form-control mr-sm-2 text-center col-sm-9" id='searchBar' type="search" placeholder="Search for a Course" name="search" >
+                                                        <input class="btn btn-primary" value="Search" type="submit">
                                                 </form>
                                             </div>
                                         </div>

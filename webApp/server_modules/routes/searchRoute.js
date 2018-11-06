@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-
 /**
  * 
  * @param {Express.Request} req 
@@ -14,9 +13,11 @@ const router = express.Router();
 //search in db for class
 //create an exception incase there aren't any tutors/the class doesnt exist in db
 //from the db youll be given obj eg - {courseNo: 1234, tutors:[{googleID:4342422331 , name : 'Sam Slug', rating : 3 }] }
+
+// this READS all
 router.get('/', function(req, res) {
-    console.log('Request for home recieved')
-    res.render('search-page')
+    console.log(req.query);
+    res.render('search-page');
 })
 
 
