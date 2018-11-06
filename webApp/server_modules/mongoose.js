@@ -22,20 +22,15 @@ let classSchema = new mongoose.Schema({
             required: true,
             unique: true,
             alias: 'googleID'
+        },
+        name: { type: String, required: true },
+        rating: {
+            type: Number,
+            required: true
+        },
+        _id: {
+            id: false
         }
-        // _id: {
-        //     type: Number,
-        //     required: true,
-        //     alias:'googleID'
-        // },
-        // name: { type: String, required: true },
-        // rating: {
-        //     type: Number,
-        //     required: true
-        // },
-        // _id: {
-        //     id: false
-        // }
     }]
 }, {
     autoIndex: false,
@@ -257,7 +252,7 @@ function deleteTutor(googleID, courseNo) {
             console.log("User " + googleID + " deleted.");
             resolve();
         });
-    }
+    });
 }
 
 //Untested
@@ -292,7 +287,7 @@ function testAdd () {
 //testAdd();
 //updateUser(95064, {'year': 'Sophomore', 'major': 'Politics'});
 //addClass({courseNo: 115});
-addTutor(95064, 115);
+// addTutor(95064, 115);
 
 module.exports = {
     addUser,
