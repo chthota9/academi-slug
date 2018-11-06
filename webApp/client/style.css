@@ -64,8 +64,12 @@
     color: white;
     background-color: #6c2800;
     border-color: black;
-    margin-top: 5px;
-    margin-left: -4px;
+}
+
+.btn-secondary:hover {
+    color: white;
+    background-color: black;
+    border-color: #6c2800;
 }
 
 .h2-title,
@@ -133,18 +137,6 @@ border: 1px solid black;
 
 #search-results {
 	font-size: 145%;
-}
-
-.btn-primary {
-    color: white;
-    background-color: #003c6c;
-    border-color: #003c6c;
-}
-
-.btn-primary:hover{
-    color: black;
-    background-color: #fdc700;
-    border-color: black;
 }
 
 .bold {
