@@ -10,9 +10,6 @@ let inputBox = inputNode.children[0];
 let infoNode = inputNode.children[1];
 let courseList;
 
-
-
-
 function setInfoHelp () {
     infoNode.classList.remove('loader');
     infoNode.classList.add('helper');
@@ -99,7 +96,6 @@ function createList (courses) {
     }
 }
 
-
 /**
  * 
  * @param {MouseEvent} evt 
@@ -152,10 +148,8 @@ inputBox.addEventListener('keydown', evt => {
     }
 })
 
-
 let form = document.querySelector('#profileForm');
 let subBtn = form.querySelector('button[type="submit"]');
-
 
 form.addEventListener('submit', evt => {
     evt.preventDefault();

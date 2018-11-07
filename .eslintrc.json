@@ -1,0 +1,18 @@
+{
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-label-var": "error",
+        "no-undef-init": "error",
+        
+
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"],
+        "array-bracket-newline": ["error", "never"],
+        "array-bracket-element": ["error", "never"],
+        "eol-last": ["error", "always"],
+        "func-style": ["error ", "declaration"],
+        "function-paren-newline": ["error", "multiline"],
+        "no-trailing-spaces": "error",
+        "padded-blocks": ["error", "always"]
+    }
+}

@@ -79,11 +79,15 @@ function requestMajors() {
         .then($ => parseHTMLMajors($))
         .then(majors => {
             return fs.writeFile('ucsc-majors.json', JSON.stringify(majors), err => {
-                if (err) { throw err }
+                if (err) {
+                    throw err
+                }
                 console.log(`Got all ${majors.length} majors at UCSC!`);
             })
         })
-        .catch(err => { throw (err) });
+        .catch(err => {
+            throw (err)
+        });
 }
 
 
@@ -95,13 +99,17 @@ function requestCourses() {
         .then(classes =>
             new Promise((resolve, reject) => {
                 fs.writeFile('ucsc-courses.json', JSON.stringify(classes), err => {
-                    if (err) { return reject(err) }
+                    if (err) {
+                        return reject(err)
+                    }
                     console.log(`Got all ${Object.keys(classes).length} courses at UCSC!`);
                     resolve();
                 })
             })
         )
-        .catch(err => { throw err });
+        .catch(err => {
+            throw err
+        });
 }
 
 requestCourses();

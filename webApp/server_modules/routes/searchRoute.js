@@ -15,7 +15,7 @@ const router = express.Router();
 //from the db youll be given obj eg - {courseNo: 1234, tutors:[{googleID:4342422331 , name : 'Sam Slug', rating : 3 }] }
 
 // this READS all
-router.get('/', function(req, res) {
+router.get('/', function (req, res) {
     console.log(req.query);
     res.render('search-page');
 })

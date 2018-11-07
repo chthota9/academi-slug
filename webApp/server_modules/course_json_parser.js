@@ -5,7 +5,7 @@ let classNames;
 let classIDs;
 let ucscMajors;
 
-function getUCSCCourses () {
+function getUCSCCourses() {
     return new Promise((resolve, reject) => {
         fs.readFile('./ucsc-courses.json', (err, data) => {
             if (err) {
@@ -17,7 +17,7 @@ function getUCSCCourses () {
     })
 }
 
-function getUCSCMajors () {
+function getUCSCMajors() {
     return new Promise((resolve, reject) => {
         fs.readFile('./ucsc-majors.json', (err, data) => {
             if (err) {
@@ -34,26 +34,26 @@ function getUCSCMajors () {
  * @param {String} className 
  * @returns {Number}
  */
-function getClassID (className) {
+function getClassID(className) {
     return classNameToID[className];
 }
 /**
  *@returns {Array<String>} 
  */
-function getAllClasses () {
+function getAllClasses() {
     return classNames;
 }
 /**
  * @param {Number} classID 
  * @returns {String}
  */
-function getClassName (classID) {
+function getClassName(classID) {
     return classIDToName[classID];
 }
 /**
  * @returns {Array<String>}
  */
-function getMajors () {
+function getMajors() {
     return ucscMajors;
 }
 
@@ -69,7 +69,7 @@ getUCSCCourses()
         classIDToName = classIDs.reduce((obj, val, i) => {
             obj[val] = classNames[i];
             return obj;
-		}, {});
+        }, {});
     })
     .then(getUCSCMajors)
     .then(majors => {

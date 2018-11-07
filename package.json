@@ -1,0 +1,24 @@
+{
+  "name": "academi-slug",
+  "version": "1.0.0",
+  "description": "Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring platform of UC Santa Cruz. Users can sign up and search for all tutors available for a particular class. After selecting a tutor based on their experience and qualifications, potential tutees can then communicate with their tutors to establish a meeting time/location. Simple and easy-to-use, Academi-Slug is your one-stop-shop for all your assistive-learning needs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tim-nguyen-cs/academi-slug.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tim-nguyen-cs/academi-slug/issues"
+  },
+  "homepage": "https://github.com/tim-nguyen-cs/academi-slug#readme",
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0"
+  }
+}
