@@ -1,7 +1,7 @@
 const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
-const { getMajors, getClassID } = require('../course_json_parser');
+const { getMajors, getClassID, getClassName } = require('../course_json_parser');
 const { addUser, updateUser, deleteUser } = require('../mongoose');
 
 /**
@@ -17,9 +17,9 @@ router.get('/', function(req, res) {
     if (!req.isAuthenticated()) {
         return res.redirect('/profile/login')
     }
-
     console.log(req.user);
-    res.render('profileView-user', { profile: req.user });
+    let courseNames = req.user.coursesTeaching.map(course => ({ courseName: getClassName(course._id) }));
+    res.render('profileView-user', { profile: req.user, courses: courseNames });
 });
 
 
@@ -85,7 +85,7 @@ router.get('/deleteProfile', (req, res) => {
         .then(() => {
             res.redirect('/');
         })
-        .catch(()=>{
+        .catch(() => {
             res.redirect('/');
         })
 })
