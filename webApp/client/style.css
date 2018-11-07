@@ -87,11 +87,12 @@
     background-color: #003c6c;
     color: white;
 }
+
 .btn-sort {
     color: white;
     background-color: black;
     border-color: black;
-    margin-left: -20px;	
+    margin-left: -20px;
 }
 
 .dropdown {
@@ -115,42 +116,49 @@
     text-decoration: none;
     display: block;
 }
-.dropdown-content a:hover {background-color: #003c6c;}
 
-.dropdown:hover .dropdown-content {display: block;}
-
-.tutor-table {
-	text-align:center;
+.dropdown-content a:hover {
+    background-color: #003c6c;
 }
 
-table, th, td {
-border: 1px solid black;
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.tutor-table {
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
 }
 
 .search-text {
-   text-align: center;
+    text-align: center;
 }
 
 #search-confirm {
-	font-size: 220%;
+    font-size: 220%;
 }
 
 #search-results {
-	font-size: 145%;
+    font-size: 145%;
 }
 
 .bold {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .text-center {
-	text-align: center;
+    text-align: center;
 }
 
 .centralize {
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .btn-del {
@@ -159,7 +167,7 @@ border: 1px solid black;
     border-color: black;
 }
 
-.btn-del:hover{
+.btn-del:hover {
     color: white;
     background-color: black;
     border-color: #cc0000;
@@ -171,35 +179,48 @@ border: 1px solid black;
 /****** Style Star Rating Widget *****/
 /* Credits to: https://codepen.io/jamesbarnett/pen/vlpkh */
 
-.rating { 
-  border: none;
-  float: left;
+.rating {
+    border: none;
+    float: left;
 }
 
-.rating > input { display: none; } 
-.rating > label:before { 
-  margin: 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
+.rating>input {
+    display: none;
 }
 
-.rating > label { 
-  color: #ddd; 
- float: right; 
+.rating>label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating>label {
+    color: #ddd;
+    float: right;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #fdc700;  } /* hover previous stars in list */
+.rating>input:checked~label,
+/* show gold star when clicked */
+.rating:not(:checked)>label:hover,
+/* hover current star */
+.rating:not(:checked)>label:hover~label {
+    color: #fdc700;
+}
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #003c6c;  } 
+/* hover previous stars in list */
+
+.rating>input:checked+label:hover,
+/* hover current star when changing rating */
+.rating>input:checked~label:hover,
+.rating>label:hover~input:checked~label,
+/* lighten current selection */
+.rating>input:checked~label:hover~label {
+    color: #003c6c;
+}
 
 /** class selector **/
 

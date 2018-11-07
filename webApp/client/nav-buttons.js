@@ -1,3 +1,4 @@
+//A navigation bar that includes 'Login" and 'Sign Up' buttons
 document.write('\
 <nav class="navbar navbar-expand-sm fixed-top">\
         <div class="container-fluid">\

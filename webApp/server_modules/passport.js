@@ -2,7 +2,10 @@ const passport = require('passport');
 const googleAuth = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const router = require('express').Router();
-const { connection, findUser } = require('./mongoose');
+const {
+    connection,
+    findUser
+} = require('./mongoose');
 const mongoStore = require('connect-mongo')(session);
 
 let sessionAge = 60 * 60 * 1000; //1 hour = mins * secs * ms
@@ -20,12 +23,15 @@ let sess = {
     }
 }
 if (process.env.NODE_ENV === 'production') {
-    sess.store = new mongoStore({ mongooseConnection: connection, ttl: sessionAge });
+    sess.store = new mongoStore({
+        mongooseConnection: connection,
+        ttl: sessionAge
+    });
 }
 
 
 
-module.exports = function(app) {
+module.exports = function (app) {
 
 
     app.use(session(sess));
@@ -36,13 +42,15 @@ module.exports = function(app) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_HAVEP_CALLBACK
-    }, function(accessToken, refreshToken, profile, cb) {
+    }, function (accessToken, refreshToken, profile, cb) {
         //Look for user in DB else redirect to sign up 
         console.log('HAS ACCT?');
         let googid = Number.parseInt(profile.id);
         findUser(googid)
             .then(prof => {
-                let sessData = { id: prof.googleID }
+                let sessData = {
+                    id: prof.googleID
+                }
                 cb(null, sessData);
             })
             .catch(err => {
@@ -55,7 +63,7 @@ module.exports = function(app) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CREATEP_CALLBACK
-    }, function(accessToken, refreshToken, profile, cb) {
+    }, function (accessToken, refreshToken, profile, cb) {
         // console.log(profile);
         console.log('CREATING ACCT');
         let sessData = {
@@ -89,13 +97,17 @@ module.exports = function(app) {
     });
 
 
-    router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/' }),
-        function(req, res) {
+    router.get('/signup', passport.authenticate('googleSignUp', {
+            failureRedirect: '/'
+        }),
+        function (req, res) {
             req.session.save(res.redirect('/profile/create'));
         });
 
-    router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/profile/signup' }),
-        function(req, res) {
+    router.get('/login', passport.authenticate('googleHave', {
+            failureRedirect: '/profile/signup'
+        }),
+        function (req, res) {
             findUser(req.user.id)
                 .then(user => {
                     if (user === null) {

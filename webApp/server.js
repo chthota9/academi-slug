@@ -4,7 +4,7 @@ const path = require('path');
 
 const passport = require('./server_modules/passport');
 const profileRoute = require('./server_modules/routes/profile');
-const searchRoute= require('./server_modules/routes/searchRoute');
+const searchRoute = require('./server_modules/routes/searchRoute');
 const bodyParser = require('body-parser');
 const classSearch = require('./server_modules/routes/classSearch');
 

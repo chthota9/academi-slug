@@ -1,3 +1,4 @@
+//A navigation bar that includes a search bar
 document.write('\
 <nav class="navbar navbar-expand-sm fixed-top justify-content-between">\
     <a class="nav-brand" href="/">\
