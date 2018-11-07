@@ -31,7 +31,7 @@
                                     <div class="form-group row">
                                         <label for="name" class="col-4 col-form-label">Name:</label>
                                         <div class="col-8">
-                                            <input type="text" class="form-control" id="name" name="name" value="<%- profile.name.firstName %> <%- profile.name.lastName %>">
+                                            <input type="text" class="form-control" id="name" name="name" value="<%- profile.name.first %> <%- profile.name.last %>">
                                         </div>
                                     </div>
 
@@ -87,7 +87,13 @@
                                             <textarea id="about" name="about" cols="40" rows="4" class="form-control"><%- profile.bio %></textarea>
                                         </div>
                                     </div>
-                                    <%- include templates/classSelect.ejs %>
+                                    <div class="form-control classSelect">
+                                        <ul class="classlist">
+                                                <% courses.forEach( course => { %>
+                                                    <li class="classname"> <%- course.courseName %> </li>
+                                              <%  }) %>
+                                        </ul>
+                                    </div>
                                     <div class="form-group row">
                                         <div class="centralize">
                                             <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
@@ -106,7 +112,6 @@
                 </div>
             </div>
         </div>
-        <script src="classSelect.js"></script>
 </body>
 
 </html>
