@@ -10,9 +10,7 @@ const classSearch = require('./server_modules/routes/classSearch');
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('client'));
 
@@ -25,16 +23,18 @@ app.use('/classSearch', classSearch);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     console.log(req.session);
     let loggedIn = req.isAuthenticated() && req.user.extra === undefined;
-    res.render('search', {
-        loggedIn: loggedIn
-    });
+    res.render('search', { loggedIn: loggedIn });
 });
+
+app.use((err, req, res, next) => {
+    res.redirect('/');
+})
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, function () {
+app.listen(PORT, function() {
     console.log(`Server started on Port ${PORT}`);
 });
