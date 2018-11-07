@@ -71,7 +71,7 @@ module.exports = function(app) {
 
     passport.serializeUser((sessData, cb) => {
         console.log('serializing');
-        console.log(JSON.stringify(sessData));
+        // console.log(JSON.stringify(sessData));
 
         return cb(null, sessData);
     });
@@ -79,7 +79,7 @@ module.exports = function(app) {
     passport.deserializeUser((sessData, cb) => {
         //search database for user
         console.log('deserializing');
-        console.log(JSON.stringify(sessData));
+        // console.log(JSON.stringify(sessData));
         if (sessData.extra != undefined) {
             cb(null, sessData);
         } else {

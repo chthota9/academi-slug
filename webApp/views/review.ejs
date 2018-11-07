@@ -5,7 +5,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-widgth, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
         <link rel="stylesheet" type="text/css" href="/style.css">
@@ -29,7 +29,8 @@
                             <div class="card-body">
                                 <div class="col-md-auto">
 									<div>
-										<p>You are rating <b>John Doe</b> for his tutoring of <b>MATH 21</b>.</p>
+										<p>You are rating <b> <%- profile.name.firstName %>
+                                        <%- profile.name.lastName %>" ></b> for their tutoring of <b><%- class.name %>></b>.</p>
 									</div>
 									<hr />
                                     <form>

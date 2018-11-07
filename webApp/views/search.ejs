@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-widgth, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
     <link rel="stylesheet" type="text/css" href="/style.css">
@@ -89,6 +89,7 @@
         <a href="login.html">Sign Up</a>
         <a href="login.html">Login</a>
     </div>
+
 </nav>
 
 
@@ -100,18 +101,10 @@
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-md-6">
 
-                    <div class="search-bar">
-
-                    </div>
-
-                    </head>
-
                     <% if(!loggedIn) { %>
                     <%- include templates/nav-buttons %>
-                    <!-- <script src="nav-buttons.js"></script> -->
                     <% } else { %>
                     <%- include templates/nav-profile %>
-                    <!-- <script src="nav-profile.js"></script> -->
                     <% } %>
 
                     <body class="body">
@@ -124,9 +117,9 @@
                                                 <h2 class="display-4 mb-0 text-center">What do you need help with?</h2>
                                             </div>
                                             <div class="card-body">
-                                                <form class="form-inline" action="https://www.google.com/">
-                                                    <input class="form-control mr-sm-2 text-center col-sm-9" type="search" placeholder="Search for a Course">
-                                                    <a class="btn btn-primary" href="/searchRoute" style="margin-left: 15px" role="button">Search</a>
+                                                <form class="form-inline" action="/searchRoute" method="GET">
+                                                        <input class="form-control mr-sm-2 text-center col-sm-9" id='searchBar' type="search" placeholder="Search for a Course" name="search" >
+                                                        <input class="btn btn-primary" value="Search" type="submit">
                                                 </form>
                                             </div>
                                         </div>
