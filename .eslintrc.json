@@ -1,0 +1,13 @@
+{
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-label-var": "error",
+        "no-undef-init": "error",
+        
+
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"],
+        "array-bracket-newline": ["error", "never"],
+        "array-bracket-element": ["error", "never"]
+    }
+}
