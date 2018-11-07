@@ -15,6 +15,7 @@ const router = express.Router();
 //from the db youll be given obj eg - {courseNo: 1234, tutors:[{googleID:4342422331 , name : 'Sam Slug', rating : 3 }] }
 
 // this READS all
+// A route used to render a user's search results
 router.get('/', function (req, res) {
     console.log(req.query);
     res.render('search-page');
