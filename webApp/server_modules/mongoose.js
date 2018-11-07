@@ -5,10 +5,35 @@ mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/acade
 });
 
 const connection = mongoose.connection;
-connection.once('open', function () {
+connection.once('open', function() {
     console.log('We\'re connected to the database!');
 });
 // connection.dropDatabase();
+
+let classTutorSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+        unique: true,
+        alias: 'googleID'
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: true
+    },
+    _id: {
+        id: false
+    }
+}, {
+    autoIndex: false,
+    versionKey: false,
+    _id: false
+});
+
 let classSchema = new mongoose.Schema({
     _id: {
         type: Number,
@@ -16,25 +41,7 @@ let classSchema = new mongoose.Schema({
         unique: true,
         alias: 'courseNo'
     },
-    tutors: [{
-        _id: {
-            type: Number,
-            required: true,
-            unique: true,
-            alias: 'googleID'
-        },
-        name: {
-            type: String,
-            required: true
-        },
-        rating: {
-            type: Number,
-            required: true
-        },
-        _id: {
-            id: false
-        }
-    }]
+    tutors: [classTutorSchema]
 }, {
     autoIndex: false,
     versionKey: false,
@@ -61,10 +68,10 @@ let courseTeachingSchema = new mongoose.Schema({
 });
 
 courseTeachingSchema.virtual('courseNo')
-    .get(function () {
+    .get(function() {
         return this._id;
     })
-    .set(function (val) {
+    .set(function(val) {
         this._id = val;
     });
 
@@ -118,14 +125,14 @@ let userSchema = new mongoose.Schema({
     _id: false
 });
 
-userSchema.virtual('fullName').get(function () {
+userSchema.virtual('fullName').get(function() {
     return this.firstName + ' ' + this.lastName;
 });
 
 
 let Users = mongoose.model('Users', userSchema);
 
-function addUser(user) {
+function addUser (user) {
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
             googleID: user.googleID,
@@ -164,9 +171,9 @@ function addUser(user) {
 //     .then(prof => console.log(`AFTER: ${prof.coursesTaught[0]}`))
 //     .catch(err => console.log(err));
 
-function deleteUser(googleID) {
+function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
-        Users.findByIdAndDelete(googleID, function (err) {
+        Users.findByIdAndDelete(googleID, function(err) {
             if (err) {
                 console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
@@ -177,7 +184,7 @@ function deleteUser(googleID) {
     });
 }
 
-function findUser(googleID) {
+function findUser (googleID) {
     console.log('Searching for User ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
@@ -190,12 +197,10 @@ function findUser(googleID) {
     });
 }
 
-function updateUser(googleID, userEdits) {
+function updateUser (googleID, userEdits) {
     console.log('Updating user ' + googleID);
     return new Promise((resolve, reject) => {
-        Users.findByIdAndUpdate(googleID, userEdits, {
-                new: true
-            })
+        Users.findByIdAndUpdate(googleID, userEdits, { new: true })
             .exec((err, user) => {
                 if (err) return reject(err);
                 resolve(user);
@@ -204,16 +209,11 @@ function updateUser(googleID, userEdits) {
 }
 
 //Untested - needed
-function addReview(googleID, courseNo, average) {
+function addReview (googleID, courseNo, average) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
-        Users.update({
-                'googleID': googleID,
-                'courseNo': courseNo
-            }, {
-                $set: {
-                    'courseNo.$.rating': average
-                }
+        Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
+                $set: { 'courseNo.$.rating': average }
             })
             .exec((err, user) => {
                 if (err) return reject(err);
@@ -229,11 +229,9 @@ function addReview(googleID, courseNo, average) {
  */
 
 //Works
-function addClass(course) {
+function addClass (course) {
     return new Promise((resolve, reject) => {
-        let classAdded = new Classes({
-            courseNo: course.courseNo
-        });
+        let classAdded = new Classes({ courseNo: course.courseNo });
         classAdded.save((err, course) => {
             if (err) {
                 return reject(err);
@@ -245,7 +243,7 @@ function addClass(course) {
 }
 
 //Seems to be working
-function addTutor(googleID, courseNo) {
+function addTutor (googleID, courseNo) {
     console.log('I am adding a tutor to a class!');
     // Some function to instantiate tutor(googleID)
     return new Promise((resolve, reject) => {
@@ -256,13 +254,7 @@ function addTutor(googleID, courseNo) {
         //         })
         // })
 
-        Classes.findByIdAndUpdate(courseNo, {
-                $addToSet: {
-                    tutors: {
-                        googleID
-                    }
-                }
-            })
+        Classes.findByIdAndUpdate(courseNo, { $addToSet: { tutors: { googleID } } })
             .exec((err, user) => {
                 if (err) return reject(err);
                 console.log('Tutor ' + googleID + ' added to class ' + courseNo);
@@ -271,9 +263,9 @@ function addTutor(googleID, courseNo) {
 }
 
 //Untested
-function deleteTutor(googleID, courseNo) {
+function deleteTutor (googleID, courseNo) {
     return new Promise((resolve, reject) => {
-        Classes.findByIdAndDelete(googleID, function (err) {
+        Classes.findByIdAndDelete(googleID, function(err) {
             if (err) {
                 console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
@@ -285,7 +277,7 @@ function deleteTutor(googleID, courseNo) {
 }
 
 //Untested
-function findClass(courseNo) {
+function findClass (courseNo) {
     console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
         Classes.findById(courseNo)

@@ -70,9 +70,7 @@ router.post('/createProfile', function(req, res) {
 
     addUser(profile)
         .then(profile => {
-            req.login({
-                id: profile.googleID
-            }, err => {
+            req.login({ id: profile.googleID }, err => {
                 if (err) return res.redirect('/');
                 res.redirect('/profile');
             });
@@ -85,10 +83,7 @@ router.post('/createProfile', function(req, res) {
 //Untested
 router.get('/review', function(req, res) {
     console.log('REVIEWING A CLASS');
-    res.render('review', {
-        profile: req.user,
-        class: req.body
-    });
+    res.render('review', { profile: req.user, class: req.body });
 });
 
 // A route used to actually submit a review to the database
