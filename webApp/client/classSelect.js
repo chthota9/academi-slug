@@ -174,7 +174,7 @@ form.addEventListener('submit', evt => {
 function subForm (data) {
     let formReq = new XMLHttpRequest();
     formReq.addEventListener('load', (ev) => {
-        document.documentElement.innerHTML =  formReq.responseText;
+        location.href =  formReq.responseURL;
     });
     formReq.open('POST', '/profile/createProfile');
     formReq.setRequestHeader('Content-type', "application/json;charset=UTF-8");
