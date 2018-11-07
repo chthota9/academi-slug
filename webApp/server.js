@@ -30,9 +30,9 @@ app.set('views', path.join(__dirname, '/views'));
 // Establish home page
 app.get('/', function (req, res) {
     console.log(req.session);
-    
+
     let loggedIn = req.isAuthenticated() && req.user.extra === undefined;
-    
+
     res.render('search', {
         loggedIn: loggedIn
     });
@@ -40,7 +40,7 @@ app.get('/', function (req, res) {
 
 app.use((err, req, res, next) => {
     res.redirect('/');
-})
+});
 
 // Sets up port connection
 const PORT = process.env.PORT || 5000;

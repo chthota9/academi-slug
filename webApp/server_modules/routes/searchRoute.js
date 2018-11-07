@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 
 /**
- * 
- * @param {Express.Request} req 
- * @param {Express.Response} res 
- * @param {*} next 
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {*} next
  */
 
 //recieve classname
@@ -19,7 +19,7 @@ const router = express.Router();
 router.get('/', function (req, res) {
     console.log(req.query);
     res.render('search-page');
-})
+});
 
 
 module.exports = router;

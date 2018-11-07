@@ -15,24 +15,24 @@ const {
 } = require('../mongoose');
 
 /**
- * 
- * @param {Express.Request} req 
- * @param {Express.Response} res 
- * @param {*} next 
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {*} next
  */
 
 // A route used when a user accesses their profile
 router.get('/', function (req, res) {
     // console.log(req.session);
     console.log('profile ' + req.isAuthenticated());
-    
+
     // Asks user to login if they are not registered
     if (!req.isAuthenticated()) {
-        return res.redirect('/profile/login')
+        return res.redirect('/profile/login');
     }
 
     console.log(req.user);
-    
+
     let courseNames = req.user.coursesTeaching.map(course => ({
         courseName: getClassName(course._id)
     }));
@@ -73,9 +73,9 @@ router.get('/logout', function (req, res) {
 // A route that will actually create a user's account within the database
 router.post('/createProfile', function (req, res) {
     console.log('CREATED A PROFILE');
-    
+
     let profile = newProfile(req.body, req.user.id, req.user.extra);
-    
+
     addUser(profile)
         .then(profile => {
             req.login({
@@ -86,7 +86,7 @@ router.post('/createProfile', function (req, res) {
             });
         })
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
 });
 
 // A route used when a user wants to submit a review for a class
@@ -134,8 +134,8 @@ router.get('/deleteProfile', (req, res) => {
         })
         .catch(() => {
             res.redirect('/');
-        })
-})
+        });
+});
 
 function newProfile(body, googleID, extra) {
     return {
@@ -151,7 +151,7 @@ function newProfile(body, googleID, extra) {
         })),
         googleID,
         email: extra.email
-    }
+    };
 }
 
 module.exports = router;

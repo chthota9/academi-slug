@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false); //Avoid deprecation warning
-mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", {
+mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug', {
     useNewUrlParser: true
-})
+});
 
 const connection = mongoose.connection;
 connection.once('open', function () {
-    console.log("We're connected to the database!");
+    console.log('We\'re connected to the database!');
 });
 // connection.dropDatabase();
 let classSchema = new mongoose.Schema({
@@ -62,10 +62,10 @@ let courseTeachingSchema = new mongoose.Schema({
 
 courseTeachingSchema.virtual('courseNo')
     .get(function () {
-        return this._id
+        return this._id;
     })
     .set(function (val) {
-        this._id = val
+        this._id = val;
     });
 
 
@@ -126,7 +126,6 @@ userSchema.virtual('fullName').get(function () {
 let Users = mongoose.model('Users', userSchema);
 
 function addUser(user) {
-
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
             googleID: user.googleID,
@@ -141,13 +140,13 @@ function addUser(user) {
         });
         userAdded.save((err, profile) => {
             if (err) {
-                return reject(err)
+                return reject(err);
             }
             // console.log(profile);
-            console.log("User " + profile.googleID + " added.");
+            console.log('User ' + profile.googleID + ' added.');
             resolve(profile);
-        })
-    })
+        });
+    });
 }
 
 //Uncomment to test
@@ -169,18 +168,17 @@ function deleteUser(googleID) {
     return new Promise((resolve, reject) => {
         Users.findByIdAndDelete(googleID, function (err) {
             if (err) {
-                console.log("User with googleID " + googleID + " does not exist.");
+                console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log("User " + googleID + " deleted.");
+            console.log('User ' + googleID + ' deleted.');
             resolve();
         });
-    })
-
+    });
 }
 
 function findUser(googleID) {
-    console.log("Searching for User " + googleID);
+    console.log('Searching for User ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
             .exec((err, userQuery) => {
@@ -189,11 +187,11 @@ function findUser(googleID) {
                 }
                 resolve(userQuery);
             });
-    })
+    });
 }
 
 function updateUser(googleID, userEdits) {
-    console.log("Updating user " + googleID);
+    console.log('Updating user ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findByIdAndUpdate(googleID, userEdits, {
                 new: true
@@ -201,13 +199,13 @@ function updateUser(googleID, userEdits) {
             .exec((err, user) => {
                 if (err) return reject(err);
                 resolve(user);
-            })
-    })
+            });
+    });
 }
 
 //Untested - needed
 function addReview(googleID, courseNo, average) {
-    console.log("Adding a review!");
+    console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         Users.update({
                 'googleID': googleID,
@@ -220,8 +218,8 @@ function addReview(googleID, courseNo, average) {
             .exec((err, user) => {
                 if (err) return reject(err);
                 resolve(user);
-            })
-    })
+            });
+    });
 }
 
 
@@ -238,12 +236,12 @@ function addClass(course) {
         });
         classAdded.save((err, course) => {
             if (err) {
-                return reject(err)
+                return reject(err);
             }
-            console.log("Class " + course.courseNo + " added.");
+            console.log('Class ' + course.courseNo + ' added.');
             resolve(course);
-        })
-    })
+        });
+    });
 }
 
 //Seems to be working
@@ -267,9 +265,9 @@ function addTutor(googleID, courseNo) {
             })
             .exec((err, user) => {
                 if (err) return reject(err);
-                console.log("Tutor " + googleID + " added to class " + courseNo + ".");
-            })
-    })
+                console.log('Tutor ' + googleID + ' added to class ' + courseNo);
+            });
+    });
 }
 
 //Untested
@@ -277,10 +275,10 @@ function deleteTutor(googleID, courseNo) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndDelete(googleID, function (err) {
             if (err) {
-                console.log("User with googleID " + googleID + " does not exist.");
+                console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log("User " + googleID + " deleted.");
+            console.log('User ' + googleID + ' deleted.');
             resolve();
         });
     });
@@ -288,7 +286,7 @@ function deleteTutor(googleID, courseNo) {
 
 //Untested
 function findClass(courseNo) {
-    console.log("Searching for Class " + courseNo);
+    console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
@@ -297,7 +295,7 @@ function findClass(courseNo) {
                 }
                 resolve(classQuery);
             });
-    })
+    });
 }
 
 module.exports = {
@@ -309,4 +307,4 @@ module.exports = {
     addTutor,
     findClass,
     connection
-}
+};
