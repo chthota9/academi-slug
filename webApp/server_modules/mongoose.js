@@ -41,6 +41,25 @@ let classSchema = new mongoose.Schema({
 
 let Classes = mongoose.model('Classes', classSchema);
 
+let courseTeachingSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
+        Default: 5
+    },
+}, {
+    autoIndex: false,
+    versionKey: false,
+    _id: false
+});
+
+courseTeachingSchema.virtual('courseNo')
+    .get(function() { return this._id })
+    .set(function(val) { this._id = val });
 
 
 let userSchema = new mongoose.Schema({
@@ -85,20 +104,7 @@ let userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    coursesTeaching: [{
-        courseNo: {
-            type: Number,
-            required: true,
-        },
-        rating: {
-            type: Number,
-            required: true,
-            Default:5
-        },
-        _id: {
-            id: false
-        }
-    }]
+    coursesTeaching: [courseTeachingSchema]
 }, {
     autoIndex: false,
     versionKey: false,
@@ -192,7 +198,7 @@ function updateUser (googleID, userEdits) {
 function addReview (googleID, courseNo, average) {
     console.log("Adding a review!");
     return new Promise((resolve, reject) => {
-        Users.update({'googleID' : googleID, 'courseNo': courseNo}, {$set: { 'courseNo.$.rating' : average }})
+        Users.update({ 'googleID': googleID, 'courseNo': courseNo }, { $set: { 'courseNo.$.rating': average } })
             .exec((err, user) => {
                 if (err) return reject(err);
                 resolve(user);
@@ -225,15 +231,14 @@ function addTutor (googleID, courseNo) {
     console.log('I am adding a tutor to a class!');
     // Some function to instantiate tutor(googleID)
     return new Promise((resolve, reject) => {
-    //     UserClassess.update({ 'courseNo': courseNo }, { $set: { 'tutors.$._id': googleID } })
-    //         .exec((err, user) => {
-    //             if (err) return reject(err);
-    //             resolve(user);
-    //         })
-    // })
+        //     UserClassess.update({ 'courseNo': courseNo }, { $set: { 'tutors.$._id': googleID } })
+        //         .exec((err, user) => {
+        //             if (err) return reject(err);
+        //             resolve(user);
+        //         })
+        // })
 
-    Classes.findByIdAndUpdate(courseNo, 
-            { $addToSet: { tutors: {googleID} }})
+        Classes.findByIdAndUpdate(courseNo, { $addToSet: { tutors: { googleID } } })
             .exec((err, user) => {
                 if (err) return reject(err);
                 console.log("Tutor " + googleID + " added to class " + courseNo + ".");
@@ -242,7 +247,7 @@ function addTutor (googleID, courseNo) {
 }
 
 //Untested
-function deleteTutor(googleID, courseNo) {
+function deleteTutor (googleID, courseNo) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndDelete(googleID, function(err) {
             if (err) {
@@ -256,7 +261,7 @@ function deleteTutor(googleID, courseNo) {
 }
 
 //Untested
-function findClass(courseNo) {
+function findClass (courseNo) {
     console.log("Searching for Class " + courseNo);
     return new Promise((resolve, reject) => {
         Classes.findById(courseNo)
@@ -266,28 +271,6 @@ function findClass(courseNo) {
             });
     })
 }
-
-//Uncomment to test
-function testAdd () {
-    addUser({
-        googleID: 95064,
-        email: 'sammyslug@ucsc.edu',
-        firstName: 'Sammy',
-        lastName: 'Slug',
-        year: 'Junior',
-        college: 'Nine',
-        major: 'CS',
-        bio: 'Banana Slug',
-        coursesTaught: [{
-            courseNo: 'CMPS115',
-            rating: 4
-        }]
-    });
-}
-//testAdd();
-//updateUser(95064, {'year': 'Sophomore', 'major': 'Politics'});
-//addClass({courseNo: 115});
-// addTutor(95064, 115);
 
 module.exports = {
     addUser,
