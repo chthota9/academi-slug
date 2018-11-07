@@ -25,9 +25,6 @@ let classTutorSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    _id: {
-        id: false
-    }
 }, {
     autoIndex: false,
     versionKey: false,
