@@ -30,6 +30,8 @@ app.get('/', function(req, res) {
 });
 
 app.use((err, req, res, next) => {
+    console.log(err);
+    
     res.redirect('/');
 })
 

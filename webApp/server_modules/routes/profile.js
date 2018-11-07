@@ -22,7 +22,7 @@ const {
  */
 
 // A route that renders the user's profile
-router.get('/', function (req, res) {
+router.get('/', function(req, res) {
     // console.log(req.session);
     console.log('profile ' + req.isAuthenticated());
     if (!req.isAuthenticated()) {
@@ -34,7 +34,8 @@ router.get('/', function (req, res) {
     }));
     res.render('profileView-user', {
         profile: req.user,
-        courses: courseNames
+        courses: courseNames,
+        majors: getMajors()
     });
 });
 
@@ -49,20 +50,21 @@ router.get('/signup', passport.authenticate('googleSignUp', {
     hd: 'ucsc.edu'
 }));
 
-router.get('/create', function (req, res) {
+router.get('/create', function(req, res) {
     res.render('createAccount', {
         user: req.user,
-        majors: getMajors()
+        majors: getMajors(),
+        formTitle: 'Profile Information'
     });
 });
 
-router.get('/logout', function (req, res) {
+router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
 
 
-router.post('/createProfile', function (req, res) {
+router.post('/createProfile', function(req, res) {
     console.log('CREATED A PROFILE');
     let profile = newProfile(req.body, req.user.id, req.user.extra);
     addUser(profile)
@@ -79,7 +81,7 @@ router.post('/createProfile', function (req, res) {
 });
 
 //Untested
-router.get('/review', function (req, res) {
+router.get('/review', function(req, res) {
     console.log('REVIEWING A CLASS');
     res.render('review', {
         profile: req.user,
@@ -88,7 +90,7 @@ router.get('/review', function (req, res) {
 });
 
 //Untested
-router.post('/submitReview', function (req, res) {
+router.post('/submitReview', function(req, res) {
     console.log('SUBMITTING A REVIEW');
     var avg = sum(...req.body) / 4.0;
     console.log(avg);
@@ -100,7 +102,7 @@ router.post('/submitReview', function (req, res) {
 });
 
 //Untested
-router.post('/updateProfile', function (req, res) {
+router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
 
 
@@ -123,7 +125,7 @@ router.get('/deleteProfile', (req, res) => {
 })
 
 
-function newProfile(body, googleID, extra) {
+function newProfile (body, googleID, extra) {
     return {
         firstName: body.firstName,
         lastName: body.lastName,
