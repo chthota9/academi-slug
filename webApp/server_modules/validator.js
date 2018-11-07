@@ -3,8 +3,7 @@ const {
 } = require('express-validator/check');
 const years = ['freshmen', 'sophmore', 'junior', 'senior'];
 const colleges = ['Oakes', 'Cowell', 'Stevenson', 'Crown', 'Merril', 'Porter',
-    'Kresge', 'Rachel Carson', 'College Nine', 'College Ten'
-];
+    'Kresge', 'Rachel Carson', 'College Nine', 'College Ten'];
 
 let checkScheme = checkSchema({
     googleID: { in: ['body'],
@@ -68,6 +67,6 @@ let checkScheme = checkSchema({
     }
 
 
-})
+});
 
 module.exports.validateForm = checkScheme;

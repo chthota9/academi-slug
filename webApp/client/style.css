@@ -1,3 +1,4 @@
+/* Navigation bar */
 .navbar {
     background-color: #fdc700;
     border-bottom: 3px solid black;
@@ -32,6 +33,7 @@
     margin-right: 15px;
 }
 
+/* Background */
 .html,
 .body {
     height: 100%;
@@ -48,6 +50,8 @@
     margin-top: 65px;
 }
 
+/* Buttons */
+/* Navigation buttons */
 .btn-primary {
     color: white;
     background-color: #003c6c;
@@ -72,11 +76,26 @@
     border-color: #6c2800;
 }
 
+/* Delete button */
+.btn-del {
+    color: white;
+    background-color: #cc0000;
+    border-color: black;
+}
+
+.btn-del:hover {
+    color: white;
+    background-color: black;
+    border-color: #cc0000;
+}
+
+/* Titles */
 .h2-title,
 .h3-title {
     font-weight: bolder;
 }
 
+/* Card body */
 .card {
     border-color: black;
     border-width: thick;
@@ -88,6 +107,25 @@
     color: white;
 }
 
+/* Search bar */
+.search-bar {
+    position: relative;
+    text-align: center;
+    top: -30px;
+
+}
+
+.heading {
+    color: black;
+    font-size: 300%;
+}
+
+.login-redirect {
+    position: relative;
+    left: 100px;
+}
+
+/* Sorting function */
 .btn-sort {
     color: white;
     background-color: black;
@@ -99,7 +137,6 @@
     position: relative;
     display: inline-block;
 }
-
 
 .dropdown-content {
     display: none;
@@ -125,6 +162,7 @@
     display: block;
 }
 
+/* Search results table */
 .tutor-table {
     text-align: center;
 }
@@ -161,22 +199,9 @@ td {
     transform: translateX(-50%);
 }
 
-.btn-del {
-    color: white;
-    background-color: #cc0000;
-    border-color: black;
-}
-
-.btn-del:hover {
-    color: white;
-    background-color: black;
-    border-color: #cc0000;
-}
-
-
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-/****** Style Star Rating Widget *****/
+/* Ratings widget */
 /* Credits to: https://codepen.io/jamesbarnett/pen/vlpkh */
 
 .rating {
@@ -201,7 +226,7 @@ td {
     float: right;
 }
 
-/***** CSS Magic to Highlight Stars on Hover *****/
+/* CSS Magic to Highlight Stars on Hover */
 
 .rating>input:checked~label,
 /* show gold star when clicked */
@@ -211,7 +236,7 @@ td {
     color: #fdc700;
 }
 
-/* hover previous stars in list */
+/* Hover previous stars in list */
 
 .rating>input:checked+label:hover,
 /* hover current star when changing rating */
@@ -222,7 +247,7 @@ td {
     color: #003c6c;
 }
 
-/** class selector **/
+/* Class Selection **/
 
 .classSelect {
     position: relative;
@@ -302,6 +327,7 @@ td {
     height: 100%;
 }
 
+/* Query */
 .querylist {
     position: absolute;
     list-style: none;

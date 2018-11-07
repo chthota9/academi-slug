@@ -74,10 +74,10 @@ inputBox.addEventListener('input', evt => {
     } else {
         setInfoHelp();
     }
-})
+});
 
 /**
- * @param {Array} courses 
+ * @param {Array} courses
  */
 function createList (courses) {
     console.log('creatingLIST');
@@ -97,8 +97,8 @@ function createList (courses) {
 }
 
 /**
- * 
- * @param {MouseEvent} evt 
+ *
+ * @param {MouseEvent} evt
  */
 function deleteClass (evt) {
     let classRemoved;
@@ -107,14 +107,14 @@ function deleteClass (evt) {
         if (chosenClasses.length > 0) {
             classRemoved = chosenClasses.pop();
             console.log(classRemoved);
-            list.removeChild(classRemoved)
+            list.removeChild(classRemoved);
         }
     } else {
         classRemoved = evt.currentTarget;
         chosenClasses = chosenClasses.filter((el, index, elements) => {
             return el !== classRemoved;
         });
-        list.removeChild(classRemoved)
+        list.removeChild(classRemoved);
     }
 }
 
@@ -125,20 +125,18 @@ function addClass (chosenClass) {
         newClass.onclick = deleteClass;
         newClass.classList.add('classname');
         list.insertBefore(newClass, inputNode);
-        chosenClasses.push(newClass)
+        chosenClasses.push(newClass);
     }
 }
 inputBox.addEventListener('focus', evt => {
     showInfo();
-
-})
+});
 inputBox.addEventListener('blur', evt => {
-
     hideInfo();
     setInfoHelp();
     removeCourseList();
     evt.currentTarget.value = '';
-})
+});
 inputBox.addEventListener('keydown', evt => {
     let key = evt.key || evt.keyCode;
     if (evt.target.value.length === 0) {
@@ -146,7 +144,7 @@ inputBox.addEventListener('keydown', evt => {
             deleteClass();
         }
     }
-})
+});
 
 let form = document.querySelector('#profileForm');
 let subBtn = form.querySelector('button[type="submit"]');
@@ -163,7 +161,7 @@ form.addEventListener('submit', evt => {
     acctData.coursesTeaching = chosenClasses.map(el => el.textContent);
 
     subForm(JSON.stringify(acctData));
-})
+});
 
 function subForm (data) {
     let formReq = new XMLHttpRequest();
@@ -171,6 +169,6 @@ function subForm (data) {
         location.href =  formReq.responseURL;
     });
     formReq.open('POST', '/profile/createProfile');
-    formReq.setRequestHeader('Content-type', "application/json;charset=UTF-8");
+    formReq.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
     formReq.send(data);
 }

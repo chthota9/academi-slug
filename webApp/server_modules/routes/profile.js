@@ -1,37 +1,32 @@
 const passport = require('passport');
 const router = require('express').Router();
-const {
-    validateForm
-} = require('../validator');
-const {
-    getMajors,
-    getClassID,
-    getClassName
-} = require('../course_json_parser');
-const {
-    addUser,
-    updateUser,
-    deleteUser
-} = require('../mongoose');
+const { validateForm } = require('../validator');
+const { getMajors, getClassID, getClassName } = require('../course_json_parser');
+const { addUser, updateUser, deleteUser } = require('../mongoose');
 
 /**
- * 
- * @param {Express.Request} req 
- * @param {Express.Response} res 
- * @param {*} next 
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {*} next
  */
 
-// A route that renders the user's profile
+// A route used when a user accesses their profile
 router.get('/', function(req, res) {
     // console.log(req.session);
     console.log('profile ' + req.isAuthenticated());
+
+    // Asks user to login if they are not registered
     if (!req.isAuthenticated()) {
-        return res.redirect('/profile/login')
+        return res.redirect('/profile/login');
     }
+
     console.log(req.user);
+
     let courseNames = req.user.coursesTeaching.map(course => ({
         courseName: getClassName(course._id)
     }));
+
     res.render('profileView-user', {
         profile: req.user,
         courses: courseNames,
@@ -39,17 +34,19 @@ router.get('/', function(req, res) {
     });
 });
 
-
+// A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
     scope: ['profile', 'email'],
     hd: 'ucsc.edu'
 }));
 
+// A route used when a user wants to sign up via Google authentication
 router.get('/signup', passport.authenticate('googleSignUp', {
     scope: ['profile', 'email'],
     hd: 'ucsc.edu'
 }));
 
+// A route used when a user creates and account
 router.get('/create', function(req, res) {
     res.render('createAccount', {
         user: req.user,
@@ -58,15 +55,19 @@ router.get('/create', function(req, res) {
     });
 });
 
+// A route used when a user logs out
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
 
 
+// A route that will actually create a user's account within the database
 router.post('/createProfile', function(req, res) {
     console.log('CREATED A PROFILE');
+
     let profile = newProfile(req.body, req.user.id, req.user.extra);
+
     addUser(profile)
         .then(profile => {
             req.login({
@@ -77,9 +78,10 @@ router.post('/createProfile', function(req, res) {
             });
         })
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
 });
 
+// A route used when a user wants to submit a review for a class
 //Untested
 router.get('/review', function(req, res) {
     console.log('REVIEWING A CLASS');
@@ -89,6 +91,7 @@ router.get('/review', function(req, res) {
     });
 });
 
+// A route used to actually submit a review to the database
 //Untested
 router.post('/submitReview', function(req, res) {
     console.log('SUBMITTING A REVIEW');
@@ -101,6 +104,7 @@ router.post('/submitReview', function(req, res) {
         }));
 });
 
+// A route used when a user wants to update their profile
 //Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
@@ -110,6 +114,7 @@ router.post('/updateProfile', function(req, res) {
         .then(res.redirect('/profile'));
 });
 
+// A route used when a user wants to delete their profile
 //Untested
 router.get('/deleteProfile', (req, res) => {
     if (!req.isAuthenticated()) {
@@ -121,9 +126,8 @@ router.get('/deleteProfile', (req, res) => {
         })
         .catch(() => {
             res.redirect('/');
-        })
-})
-
+        });
+});
 
 function newProfile (body, googleID, extra) {
     return {
@@ -139,8 +143,7 @@ function newProfile (body, googleID, extra) {
         })),
         googleID,
         email: extra.email
-    }
+    };
 }
-
 
 module.exports = router;

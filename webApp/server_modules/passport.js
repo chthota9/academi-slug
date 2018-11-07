@@ -21,7 +21,8 @@ let sess = {
         maxAge: sessionAge,
         sameSite: false
     }
-}
+};
+
 if (process.env.NODE_ENV === 'production') {
     sess.store = new mongoStore({
         mongooseConnection: connection,
@@ -29,11 +30,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-
-
 module.exports = function (app) {
-
-
     app.use(session(sess));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -43,20 +40,19 @@ module.exports = function (app) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_HAVEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
-        //Look for user in DB else redirect to sign up 
+        //Look for user in DB else redirect to sign up
         console.log('HAS ACCT?');
         let googid = Number.parseInt(profile.id);
         findUser(googid)
             .then(prof => {
                 let sessData = {
                     id: prof.googleID
-                }
+                };
                 cb(null, sessData);
             })
             .catch(err => {
                 cb(null, false);
-            })
-
+            });
     }));
 
     passport.use('googleSignUp', new googleAuth({
@@ -65,7 +61,7 @@ module.exports = function (app) {
         callbackURL: process.env.GOOGLE_CREATEP_CALLBACK
     }, function (accessToken, refreshToken, profile, cb) {
         // console.log(profile);
-        console.log('CREATING ACCT');
+        console.log('Creating Account');
         let sessData = {
             id: Number.parseInt(profile.id),
             extra: {
@@ -78,7 +74,7 @@ module.exports = function (app) {
     }));
 
     passport.serializeUser((sessData, cb) => {
-        console.log('serializing');
+        console.log('Serializing');
         // console.log(JSON.stringify(sessData));
 
         return cb(null, sessData);
@@ -92,7 +88,7 @@ module.exports = function (app) {
             cb(null, sessData);
         } else {
             findUser(sessData.id)
-                .then(user => cb(null, user))
+                .then(user => cb(null, user));
         }
     });
 
@@ -115,8 +111,8 @@ module.exports = function (app) {
                     } else {
                         req.session.save(res.redirect('/profile'));
                     }
-                })
+                });
         });
 
     return router;
-}
+};
