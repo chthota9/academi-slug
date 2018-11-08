@@ -1,7 +1,6 @@
-const {
-    checkSchema
-} = require('express-validator/check');
+const { checkSchema } = require('express-validator/check');
 const years = ['freshmen', 'sophmore', 'junior', 'senior'];
+const { getClassID, isValidCourse } = require('./course_json_parser');
 const colleges = ['Oakes', 'Cowell', 'Stevenson', 'Crown', 'Merril', 'Porter',
     'Kresge', 'Rachel Carson', 'College Nine', 'College Ten'];
 
@@ -15,25 +14,19 @@ let checkScheme = checkSchema({
         isEmail: true,
         normalizeEmail: true,
     },
-    'firstName': { in: ['body'],
+    firstName: { in: ['body'],
         trim: true
     },
-    'lastName': { in: ['body'],
+    lastName: { in: ['body'],
         trim: true
     },
     year: { in: ['body'],
         trim: true,
         custom: {
-            options: (value, {
-                req,
-                location,
-                path
-            }) => {
-                let aYear = years.includes(value);
-                if (aYear) {
-                    return Promise.resolve();
+            options: (value) => {
+                if (!years.includes(value)) {
+                    throw new Error('No such year exists');
                 }
-                return Promise.reject();
             }
         }
     },
@@ -42,15 +35,10 @@ let checkScheme = checkSchema({
         isAlpha: true,
         trim: true,
         custom: {
-            options: (value, {
-                req,
-                location,
-                path
-            }) => {
-                if (colleges.includes(value)) {
-                    return Promise.resolve();
+            options: (value) => {
+                if (!colleges.includes(value)) {
+                    throw new Error('No such college exists');
                 }
-                return Promise.reject();
             }
         }
     },
@@ -63,7 +51,22 @@ let checkScheme = checkSchema({
         escape: true,
         trim: true
     },
-    coursesTaught: { in: ['body'],
+    'coursesTeaching.*': { in: ['body'],
+        optional: true,
+        escape: true,
+        isAlpha: true,
+        custom: {
+            options: val => {
+                if (!isValidCourse(val)) {
+                    return new Error('No such course exists');
+                }
+            }
+        },
+        customSanitizer: {
+            options: val => {
+                return getClassID(val);
+            }
+        }
     }
 
 
