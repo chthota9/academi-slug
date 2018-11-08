@@ -92,21 +92,12 @@ router.post('/submitReview', function(req, res) {
     console.log('SUBMITTING A REVIEW');
     var avg = sum(...req.body) / 4.0;
     console.log(avg);
-
-    addReview(req.user.id, avg)
-        .then(res.redirect('profileView-guest', {
-            profile: req.user
-        }));
 });
 
 // A route used when a user wants to update their profile
 //Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
-
-
-    updateUser(updatedProfile)
-        .then(res.redirect('/profile'));
 });
 
 // A route used when a user wants to delete their profile
