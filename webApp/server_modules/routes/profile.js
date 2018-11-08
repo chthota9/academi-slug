@@ -99,6 +99,7 @@ function newProfile (body, googleID, extra) {
         college: body.college,
         major: body.major,
         bio: body.bio,
+        linkedIn: body.linkedIn,
         coursesTeaching: body.coursesTeaching.map(course => ({ courseNo: getClassID(course), rating: 5 })),
         googleID,
         email: extra.email

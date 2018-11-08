@@ -104,6 +104,10 @@ let userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    linkedIn: {
+        type: String,
+        required: true
+    },
     coursesTeaching: [courseTeachingSchema]
 }, {
     autoIndex: false,
@@ -130,7 +134,9 @@ function addUser (user) {
             college: user.college,
             major: user.major,
             bio: user.bio,
-            coursesTeaching: user.coursesTeaching
+            coursesTeaching: user.coursesTeaching,
+            linkedIn: user.linkedIn
+
         });
         userAdded.save((err, profile) => {
             if (err) {
