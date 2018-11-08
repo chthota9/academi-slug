@@ -115,6 +115,15 @@ router.get('/deleteProfile', (req, res) => {
         });
 });
 
+//Untested
+router.get('/userProfile', (req, res) => {
+    Users.findById(req.session.userID)
+        .exec(function (error, user) {
+            // Catch error
+            res.render('profileView-guest', {name: user.name, year: user.year, major: user.major, college: user.college, bio: user.bio });
+        });
+});
+
 function newProfile (body, googleID, extra) {
     return {
         firstName: body.firstName,
