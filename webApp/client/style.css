@@ -390,7 +390,7 @@ td {
     margin-right: auto;
     width: fit-content;
 }
-a[href]{
+a[href*="delete"]{
     background: red;
 }
 
