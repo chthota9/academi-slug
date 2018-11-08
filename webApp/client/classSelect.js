@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 var ClassSelect = (function() {
     let list = document.querySelector('.classlist');
     let inputNode = list.querySelector('.classinput');
