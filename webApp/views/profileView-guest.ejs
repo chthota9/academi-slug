@@ -16,30 +16,41 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h2 class="display-5 mb-0">John's Profile</h2>
+                            <h2 class="display-5 mb-0">
+                                <%- profile.name.first %>'s Profile</h2>
                         </div>
                         <dl class="dl-horizontal">
                             <dt class="col-sm-3 mt-4">Name:</dt>
-                            <dd class="col-sm-9">John Doe</dd>
+                            <dd class="col-sm-9">
+                                <%- profile.name %>
+                            </dd>
                             <hr>
 
                             <dt class="col-sm-3">Year:</dt>
-                            <dd class="col-sm-9">Junior</dd>
+                            <dd class="col-sm-9">
+                                <%- profile.year %>
+                            </dd>
                             <hr>
 
                             <dt class="col-sm-3">Major:</dt>
-                            <dd class="col-sm-9">Computer Science</dd>
+                            <dd class="col-sm-9">
+                                <%- profile.major %>
+                            </dd>
                             <hr>
 
                             <dt class="col-sm-3">College:</dt>
-                            <dd class="col-sm-9">Stevenson College</dd>
+                            <dd class="col-sm-9">
+                                <%- profile.college %>
+                            </dd>
                             <hr>
 
                             <dt class="col-sm-3">About:</dt>
-                            <dd class="col-sm-9">I love teaching others!</dd>
+                            <dd class="col-sm-9">
+                                <%- profile.bio %>
+                            </dd>
                             <hr>
 
-                            <dt class="col-sm-6">Courses taught:</dt>
+                            <dt class="col-sm-6">Courses Taught:</dt>
                             <ul>
                                 <p>
                                     <li>
