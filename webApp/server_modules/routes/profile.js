@@ -122,7 +122,7 @@ router.get('/userProfile', (req, res) => {
     Users.findById(req.session.userID)
         .exec(function (error, user) {
             // Catch error
-            res.render('profileView-guest', {name: user.name, year: user.year, major: user.major, college: user.college, bio: user.bio });
+            res.render('profileView-guest', {profile: user.body });
         });
 });
 

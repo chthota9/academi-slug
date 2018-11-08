@@ -36,9 +36,13 @@ app.get('/', function(req, res) {
     });
 });
 
+//Error route for non-existant path
+app.get('*', (req, res) => {
+    res.render('error');
+});
+
 app.use((err, req, res) => {
     console.log(err);
-
     res.redirect('/');
 });
 
