@@ -10,9 +10,7 @@ const classSearch = require('./server_modules/routes/classSearch');
 
 // Includes a bodyParser to parse JSON files
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Links all resources to 'client' folder
 app.use(express.static('client'));
@@ -28,7 +26,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 // Establish home page
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     console.log(req.session);
 
     let loggedIn = req.isAuthenticated() && req.user.extra === undefined;
@@ -38,14 +36,14 @@ app.get('/', function (req, res) {
     });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
     console.log(err);
-    
+
     res.redirect('/');
 });
 
 // Sets up port connection
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, function () {
+app.listen(PORT, function() {
     console.log(`Server started on Port ${PORT}`);
 });
