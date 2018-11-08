@@ -13,8 +13,7 @@
         "padded-blocks": ["error", "never"],
         "no-console": ["error", { "allow": ["log"] }],
         "camelcase": "error",
-        "no-unused-vars": "warn",
-        "brace-style": ["error", "stroustrup", { "allowSingleLine": true }]
+        "no-unused-vars": "warn"
     },
     "parserOptions": {
         "ecmaVersion": 6
