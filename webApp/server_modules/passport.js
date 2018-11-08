@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-module.exports = function (app) {
+module.exports = function(app) {
     app.use(session(sess));
     app.use(passport.initialize());
     app.use(passport.session());
@@ -39,19 +39,16 @@ module.exports = function (app) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_HAVEP_CALLBACK
-    }, function (accessToken, refreshToken, profile, cb) {
-        //Look for user in DB else redirect to sign up
-        console.log('HAS ACCT?');
-        let googid = Number.parseInt(profile.id);
-        findUser(googid)
+    }, function(accessToken, refreshToken, profile, cb) {
+        let googID = Number.parseInt(profile.id);
+        findUser(googID)
             .then(prof => {
-                let sessData = {
-                    id: prof.googleID
-                };
-                cb(null, sessData);
-            })
-            .catch(err => {
-                cb(null, false);
+                if (prof) {
+                    let sessData = { id: prof.googleID };
+                    cb(null, sessData);
+                } else {
+                    cb(null, false);
+                }
             });
     }));
 
@@ -59,18 +56,26 @@ module.exports = function (app) {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CREATEP_CALLBACK
-    }, function (accessToken, refreshToken, profile, cb) {
+    }, function(accessToken, refreshToken, profile, cb) {
         // console.log(profile);
         console.log('Creating Account');
-        let sessData = {
-            id: Number.parseInt(profile.id),
-            extra: {
-                firstName: profile.name.givenName,
-                lastName: profile.name.familyName,
-                email: profile.emails[0].value
-            }
-        };
-        cb(null, sessData);
+        let googID = Number.parseInt(profile.id);
+        findUser(googID)
+            .then(prof => {
+                if (prof) {
+                    cb(null, false);
+                } else {
+                    let sessData = {
+                        id: Number.parseInt(profile.id),
+                        extra: {
+                            firstName: profile.name.givenName,
+                            lastName: profile.name.familyName,
+                            email: profile.emails[0].value
+                        }
+                    };
+                    cb(null, sessData);
+                }
+            });
     }));
 
     passport.serializeUser((sessData, cb) => {
@@ -93,25 +98,14 @@ module.exports = function (app) {
     });
 
 
-    router.get('/signup', passport.authenticate('googleSignUp', {
-            failureRedirect: '/'
-        }),
-        function (req, res) {
-            req.session.save(res.redirect('/profile/create'));
+    router.get('/signup', passport.authenticate('googleSignUp', { failureRedirect: '/profile/login' }),
+        function(req, res) {
+            req.session.save(() => res.redirect('/profile/create'));
         });
 
-    router.get('/login', passport.authenticate('googleHave', {
-            failureRedirect: '/profile/signup'
-        }),
-        function (req, res) {
-            findUser(req.user.id)
-                .then(user => {
-                    if (user === null) {
-                        return res.redirect('/profile/signup');
-                    } else {
-                        req.session.save(res.redirect('/profile'));
-                    }
-                });
+    router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/profile/signup' }),
+        function(req, res) {
+            req.session.save(() => res.redirect('/profile'));
         });
 
     return router;

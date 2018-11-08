@@ -185,11 +185,11 @@ function findUser (googleID) {
     console.log('Searching for User ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
-            .exec((err, userQuery) => {
+            .exec((err, profile) => {
                 if (err) {
                     return reject(err);
                 }
-                resolve(userQuery);
+                resolve(profile);
             });
     });
 }
