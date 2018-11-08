@@ -9,7 +9,7 @@
         "quotes": ["error", "single"],
         "array-bracket-newline": ["error", "never"],
         "array-bracket-spacing": ["error", "never"],
-        "no-trailing-spaces": "error",
+        "no-trailing-spaces": "warn",
         "padded-blocks": ["error", "never"],
         "no-console": ["error", { "allow": ["log"] }],
         "camelcase": "error",

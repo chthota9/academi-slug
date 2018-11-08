@@ -98,6 +98,8 @@ router.post('/submitReview', function(req, res) {
 //Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
+    console.log(req.body);
+    res.redirect('back');
 });
 
 // A route used when a user wants to delete their profile
