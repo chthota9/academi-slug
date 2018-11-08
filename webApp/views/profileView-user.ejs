@@ -38,7 +38,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-3">
                                             <select id="year" name="year" class="form-control" required>
-                                                <option selected disabled><%= profile.year %></option>
+                                                <option selected hidden><%= profile.year %></option>
                                                 <option>Freshman</option>
                                                 <option>Sophomore</option>
                                                 <option>Junior</option>
@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="form-group col-md-5">
                                             <select id="major" name="major" class="form-control" required>
-                                                <option selected disabled><%= profile.major %></option>
+                                                <option selected  hidden><%= profile.major %></option>
                                                 <% majors.forEach(major=>{ %>
                                                 <option>
                                                     <%= major %>
@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="form-group col-md-3">
                                             <select id="college" name="college" class="form-control" required>
-                                                <option selected disabled><%= profile.college %></option>
+                                                <option selected hidden><%= profile.college %></option>
                                                 <option>Cowell</option>
                                                 <option>Stevenson</option>
                                                 <option>Crown</option>
@@ -81,16 +81,16 @@
                                     </div>
                                     <div>Courses you are teaching: </div>
                                     <div class="form-control classSelect">
-                                            <ul class="classlist">
-                                                <% courses.forEach(course =>{ %>
-                                                    <li class="classname"> <%= course.courseName %></li>
-                                                 <% }) %>
-                                                <li class="classinput">
-                                                    <input placeholder="Add another course" type="text" name="query" autocomplete="off" spellcheck="false">
-                                                    <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                        <ul class="classlist">
+                                            <% courses.forEach(course =>{ %>
+                                            <li class="classname"><%= course.courseName %></li>
+                                            <% }) %>
+                                            <li class="classinput">
+                                                <input placeholder="Add another course" type="text" name="query" autocomplete="off" spellcheck="false">
+                                                <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <button form="profileForm" type="submit" class="center-btn  btn btn-primary mt-2">Update Profile</button>
                                 </form>
                                 <a href="/profile/deleteProfile" class="center-btn btn btn-primary mt-2 ">Delete Profile</a>
@@ -101,7 +101,8 @@
                 </div>
             </div>
         </div>
-        <script src="/classSelect.js" defer></script>
+        <script src="/classSelect.js"></script>
+        <script src="/profileView.js"></script>
 </body>
 
 </html>
