@@ -133,6 +133,23 @@ userSchema.virtual('fullName').get(function() {
 
 let Users = mongoose.model('Users', userSchema);
 
+// //Uncomment to test
+// //UpdateUser works on Reviews, but overrides reviews.
+// deleteUser(24245)
+//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2}], linkedIn: 'test URL' }))
+//     .then(prof => findUser(prof.googleID))
+//     .then(prof => {
+//         console.log(`BEFORE: ${prof.fullName}`);
+//         return prof;
+//     })
+//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
+//     .then(prof => {
+//         console.log(`AFTER: ${prof.fullName}`);
+//         return prof;
+//     })
+//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
+//     .    catch(err => console.log(err));
+
 function addUser (user) {
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
@@ -158,23 +175,6 @@ function addUser (user) {
         });
     });
 }
-
-// //Uncomment to test
-// //UpdateUser works on Reviews, but overrides reviews.
-// deleteUser(24245)
-//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 420, rating: 4 }, { courseNo: 567, rating: 2}], linkedIn: 'test URL' }))
-//     .then(prof => findUser(prof.googleID))
-//     .then(prof => {
-//         console.log(`BEFORE: ${prof.fullName}`);
-//         return prof;
-//     })
-//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
-//     .then(prof => {
-//         console.log(`AFTER: ${prof.fullName}`);
-//         return prof;
-//     })
-//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{courseNo:  420, rating: 4.6}] })) // Will break testing unit
-//     .catch(err => console.log(err));
 
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
@@ -218,7 +218,7 @@ function addReview (googleID, courseNo, average) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
-                $set: { 'courseNo.$.rating': average }
+                $push: { 'courseNo.$.rating': average }
             })
             .exec((err, user) => {
                 if (err) return reject(err);
@@ -233,7 +233,6 @@ function addReview (googleID, courseNo, average) {
  * add class to db with tutor under it
  */
 
-//Works
 function addClass (course) {
     return new Promise((resolve, reject) => {
         let classAdded = new Classes({ courseNo: course.courseNo });
@@ -247,10 +246,22 @@ function addClass (course) {
     });
 }
 
+function deleteClass(courseNo) {
+    return new Promise((resolve, reject) => {
+        Classes.findByIdAndDelete(courseNo, function (err) {
+            if (err) {
+                console.log('User with courseNo ' + courseNo + ' does not exist.');
+                return reject(err);
+            }
+            console.log('Class ' + courseNo + ' deleted.');
+            resolve();
+        });
+    });
+}
+
 //Seems to be working
+//Should error checking when class does not exist
 function addTutor (googleID, courseNo) {
-    console.log('I am adding a tutor to a class!');
-    // Some function to instantiate tutor(googleID)
     return new Promise((resolve, reject) => {
         //     UserClassess.update({ 'courseNo': courseNo }, { $set: { 'tutors.$._id': googleID } })
         //         .exec((err, user) => {
@@ -263,6 +274,7 @@ function addTutor (googleID, courseNo) {
             .exec((err, user) => {
                 if (err) return reject(err);
                 console.log('Tutor ' + googleID + ' added to class ' + courseNo);
+                resolve(user);
             });
     });
 }
@@ -275,7 +287,7 @@ function deleteTutor (googleID, courseNo) {
                 console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log('User ' + googleID + ' deleted.');
+            console.log('Class ' + courseNo + ' deleted.');
             resolve();
         });
     });
@@ -294,6 +306,24 @@ function findClass (courseNo) {
             });
     });
 }
+
+// //Uncomment to test
+// deleteClass(456)
+//     .then(() => addClass({ courseNo: 456}))
+//     .then(() => addTutor(123, 456))
+//     .then(() => addTutor(321, 456))
+//     .then(prof => findUser(prof.googleID))
+//     .then(prof => {
+//         console.log(`BEFORE: ${prof.fullName}`);
+//         return prof;
+//     })
+//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
+//     .then(prof => {
+//         console.log(`AFTER: ${prof.fullName}`);
+//         return prof;
+//     })
+//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
+//     .    catch(err => console.log(err));
 
 module.exports = {
     addUser,
