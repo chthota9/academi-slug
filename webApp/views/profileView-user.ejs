@@ -79,7 +79,13 @@
                                             <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Class experience" required><%= profile.bio %></textarea>
                                         </div>
                                     </div>
-                                    <div>Courses you are teaching: </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-7">
+                                            <input type="text" class="form-control" id="linkedIn" placeholder="LinkedIn URL">
+                                        </div>
+                                    </div>
+
                                     <div class="form-control classSelect">
                                         <ul class="classlist">
                                             <% courses.forEach(course =>{ %>
