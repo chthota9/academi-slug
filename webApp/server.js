@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Links all resources to 'client' folder
 app.use(express.static('client'));
 
-// inclues all routes
+// Includes all routes
 app.use('/google', passport(app));
 app.use('/profile', profileRoute);
 app.use('/searchRoute', searchRoute);
