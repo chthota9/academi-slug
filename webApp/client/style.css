@@ -1,3 +1,4 @@
+/* Navigation bar */
 .navbar {
     background-color: #fdc700;
     border-bottom: 3px solid black;
@@ -32,6 +33,7 @@
     margin-right: 15px;
 }
 
+/* Background */
 .html,
 .body {
     height: 100%;
@@ -48,6 +50,8 @@
     margin-top: 65px;
 }
 
+/* Buttons */
+/* Navigation buttons */
 .btn-primary {
     color: white;
     background-color: #003c6c;
@@ -72,11 +76,26 @@
     border-color: #6c2800;
 }
 
+/* Delete button */
+.btn-del {
+    color: white;
+    background-color: #cc0000;
+    border-color: black;
+}
+
+.btn-del:hover {
+    color: white;
+    background-color: black;
+    border-color: #cc0000;
+}
+
+/* Titles */
 .h2-title,
 .h3-title {
     font-weight: bolder;
 }
 
+/* Card body */
 .card {
     border-color: black;
     border-width: thick;
@@ -87,18 +106,37 @@
     background-color: #003c6c;
     color: white;
 }
+
+/* Search bar */
+.search-bar {
+    position: relative;
+    text-align: center;
+    top: -30px;
+
+}
+
+.heading {
+    color: black;
+    font-size: 300%;
+}
+
+.login-redirect {
+    position: relative;
+    left: 100px;
+}
+
+/* Sorting function */
 .btn-sort {
     color: white;
     background-color: black;
     border-color: black;
-    margin-left: -20px;	
+    margin-left: -20px;
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
 }
-
 
 .dropdown-content {
     display: none;
@@ -115,98 +153,107 @@
     text-decoration: none;
     display: block;
 }
-.dropdown-content a:hover {background-color: #003c6c;}
 
-.dropdown:hover .dropdown-content {display: block;}
-
-.tutor-table {
-	text-align:center;
+.dropdown-content a:hover {
+    background-color: #003c6c;
 }
 
-table, th, td {
-border: 1px solid black;
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Search results table */
+.tutor-table {
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
 }
 
 .search-text {
-   text-align: center;
+    text-align: center;
 }
 
 #search-confirm {
-	font-size: 220%;
+    font-size: 220%;
 }
 
 #search-results {
-	font-size: 145%;
+    font-size: 145%;
 }
 
 .bold {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .text-center {
-	text-align: center;
+    text-align: center;
 }
 
 .centralize {
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
-
-.btn-del {
-    color: white;
-    background-color: #cc0000;
-    border-color: black;
-}
-
-.btn-del:hover{
-    color: white;
-    background-color: black;
-    border-color: #cc0000;
-}
-
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-/****** Style Star Rating Widget *****/
+/* Ratings widget */
 /* Credits to: https://codepen.io/jamesbarnett/pen/vlpkh */
 
-.rating { 
-  border: none;
-  float: left;
+.rating {
+    border: none;
+    float: left;
 }
 
-.rating > input { display: none; } 
-.rating > label:before { 
-  margin: 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
+.rating>input {
+    display: none;
 }
 
-.rating > label { 
-  color: #ddd; 
- float: right; 
+.rating>label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
 }
 
-/***** CSS Magic to Highlight Stars on Hover *****/
+.rating>label {
+    color: #ddd;
+    float: right;
+}
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #fdc700;  } /* hover previous stars in list */
+/* CSS Magic to Highlight Stars on Hover */
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #003c6c;  } 
+.rating>input:checked~label,
+/* show gold star when clicked */
+.rating:not(:checked)>label:hover,
+/* hover current star */
+.rating:not(:checked)>label:hover~label {
+    color: #fdc700;
+}
 
-/** class selector **/
+/* Hover previous stars in list */
+
+.rating>input:checked+label:hover,
+/* hover current star when changing rating */
+.rating>input:checked~label:hover,
+.rating>label:hover~input:checked~label,
+/* lighten current selection */
+.rating>input:checked~label:hover~label {
+    color: #003c6c;
+}
+
+/* Class Selection **/
 
 .classSelect {
     position: relative;
     margin: 0;
     padding: 0;
+    height: 50px;
 }
 
 .classlist {
@@ -281,6 +328,7 @@ border: 1px solid black;
     height: 100%;
 }
 
+/* Query */
 .querylist {
     position: absolute;
     list-style: none;
@@ -335,6 +383,16 @@ border: 1px solid black;
 
 .hidden {
     display: none;
+}
+
+.center-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+a[href*="delete"]{
+    background: red;
 }
 
 @keyframes loading {

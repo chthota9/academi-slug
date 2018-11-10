@@ -1,0 +1,28 @@
+{
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-label-var": "error",
+        "no-undef-init": "error",
+
+
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"],
+        "array-bracket-newline": ["error", "never"],
+        "array-bracket-spacing": ["error", "never"],
+        "no-trailing-spaces": "warn",
+        "padded-blocks": ["error", "never"],
+        "no-console": ["error", { "allow": ["log"] }],
+        "camelcase": "error",
+        "no-unused-vars": "warn"
+    },
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "env": {
+        "browser": true,
+        "node": true,
+        "es6": true,
+        "mongo": true,
+        "mocha": true
+    }
+}

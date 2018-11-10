@@ -3,13 +3,10 @@
 <html class="html">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <%- include templates/header %>
     <title>Academi-Slug | Sign Up</title>
 </head>
+
 <%- include templates/nav-search %>
 
 <body class="body">
@@ -74,7 +71,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="row">
                                     <div class="form-group col-md-12">
                                         <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
@@ -82,8 +78,8 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-md-3">
-                                        <input type="text" class="form-control" id="linkedIn" name="linkedIn" placeholder="Linked In URL" value="<%- user.extra.linkedin %>">
+                                    <div class="form-group col-md-7">
+                                        <input type="text" class="form-control" id="linkedIn" name="linkedIn" placeholder="LinkedIn URL" value="<%- user.extra.linkedin %>">
                                     </div>
                                 </div>
 
@@ -95,6 +91,7 @@
                                         </li>
                                     </ul>
                                 </div>
+                                
                                 <button form="profileForm" type="submit" class="btn btn-primary mt-2 float-right">Sign up</button>
                             </form>
                         </div>
@@ -103,7 +100,7 @@
             </div>
         </div>
     </div>
-    <script src="/classSelect.js"></script>
-    </body>
+    <script src="/profileCreate.js" defer></script>
+</body>
 
 </html>

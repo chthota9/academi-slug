@@ -3,11 +3,7 @@
 <html class="html">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-    <link rel="stylesheet" type="text/css" href="/style.css">
+    <%- include templates/header %>
     <title>Academi-Slug | Profile</title>
 </head>
 
@@ -27,21 +23,22 @@
                         </div>
                         <div class="card-body">
                             <div class="col-md-auto">
-                                <form id="profileForm" action="/profile/updateProfile">
-                                    <div class="form-group row">
-                                        <label for="name" class="col-4 col-form-label">Name:</label>
-                                        <div class="col-8">
-                                            <input type="text" class="form-control" id="name" name="name" value="<%- profile.name.first %> <%- profile.name.last %>">
+                                <form id="profileForm">
+
+                                    <h3 class="h3-title">Your Profile</h3>
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value="<%- profile.name.first %>" required>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" value="<%- profile.name.last %>" required>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
-                                        <label for="year" class="col-4 col-form-label">Year:</label>
-                                        <div class="col-8">
-                                            <select id="year" name="year" class="custom-select">
-                                                <option selected disabled>
-                                                    <%- profile.year %>
-                                                </option>
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <select id="year" name="year" class="form-control" required>
+                                                <option selected hidden><%= profile.year %></option>
                                                 <option>Freshman</option>
                                                 <option>Sophomore</option>
                                                 <option>Junior</option>
@@ -50,15 +47,19 @@
                                                 <option>Other</option>
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="college" class="col-4 col-form-label">College:</label>
-                                        <div class="col-8">
-                                            <select id="college" name="college" class="custom-select">
-                                                <option selected disabled>
-                                                    <%- profile.college %>
+                                        <div class="form-group col-md-5">
+                                            <select id="major" name="major" class="form-control" required>
+                                                <option selected  hidden><%= profile.major %></option>
+                                                <% majors.forEach(major=>{ %>
+                                                <option>
+                                                    <%= major %>
                                                 </option>
+                                                <%   }) %>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <select id="college" name="college" class="form-control" required>
+                                                <option selected hidden><%= profile.college %></option>
                                                 <option>Cowell</option>
                                                 <option>Stevenson</option>
                                                 <option>Crown</option>
@@ -73,45 +74,33 @@
                                             </select>
                                         </div>
                                     </div>
-
-                                    <div class="form-group row">
-                                        <label for="major" class="col-4 col-form-label">Major:</label>
-                                        <div class="col-8">
-                                            <input id="major" name="major" class="form-control" type="text" value="<%- profile.major %>" disabled>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="about" class="col-4 col-form-label">About Me:</label>
-                                        <div class="col-8">
-                                            <textarea id="about" name="about" cols="40" rows="4" class="form-control"><%- profile.bio %></textarea>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Class experience" required><%= profile.bio %></textarea>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-md-7">
                                             <input type="text" class="form-control" id="linkedIn" placeholder="LinkedIn URL">
+                                            <%- profile.extra.linkedin %>
                                         </div>
                                     </div>
 
                                     <div class="form-control classSelect">
                                         <ul class="classlist">
-                                                <% courses.forEach( course => { %>
-                                                    <li class="classname"> <%- course.courseName %> </li>
-                                              <%  }) %>
+                                            <% courses.forEach(course =>{ %>
+                                            <li class="classname"><%= course.courseName %></li>
+                                            <% }) %>
+                                            <li class="classinput">
+                                                <input placeholder="Add another course" type="text" name="query" autocomplete="off" spellcheck="false">
+                                                <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                                            </li>
                                         </ul>
                                     </div>
-                                    <div class="form-group row">
-                                        <div class="centralize">
-                                            <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="centralize">
-                                            <a class="btn btn-secondary" href="/profile/deleteProfile" role="button">Delete My Account</a>
-                                        </div>
-                                    </div>
+                                    <button form="profileForm" type="submit" class="center-btn  btn btn-primary mt-2">Update Profile</button>
                                 </form>
+                                <a href="/profile/deleteProfile" class="center-btn btn btn-primary mt-2 ">Delete Profile</a>
                             </div>
                         </div>
                     </div>
@@ -119,6 +108,8 @@
                 </div>
             </div>
         </div>
+        <script src="/classSelect.js"></script>
+        <script src="/profileView.js"></script>
 </body>
 
 </html>

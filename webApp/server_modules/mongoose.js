@@ -1,14 +1,36 @@
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false); //Avoid deprecation warning
-mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", {
+mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug', {
     useNewUrlParser: true
-})
+});
 
 const connection = mongoose.connection;
 connection.once('open', function() {
-    console.log("We're connected to the database!");
+    console.log('We\'re connected to the database!');
 });
 // connection.dropDatabase();
+
+let classTutorSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+        unique: true,
+        alias: 'googleID'
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: true
+    },
+}, {
+    autoIndex: false,
+    versionKey: false,
+    _id: false
+});
+
 let classSchema = new mongoose.Schema({
     _id: {
         type: Number,
@@ -16,22 +38,7 @@ let classSchema = new mongoose.Schema({
         unique: true,
         alias: 'courseNo'
     },
-    tutors: [{
-        _id: {
-            type: Number,
-            required: true,
-            unique: true,
-            alias: 'googleID'
-        },
-        name: { type: String, required: true },
-        rating: {
-            type: Number,
-            required: true
-        },
-        _id: {
-            id: false
-        }
-    }]
+    tutors: [classTutorSchema]
 }, {
     autoIndex: false,
     versionKey: false,
@@ -58,8 +65,12 @@ let courseTeachingSchema = new mongoose.Schema({
 });
 
 courseTeachingSchema.virtual('courseNo')
-    .get(function() { return this._id })
-    .set(function(val) { this._id = val });
+    .get(function() {
+        return this._id;
+    })
+    .set(function(val) {
+        this._id = val;
+    });
 
 
 let userSchema = new mongoose.Schema({
@@ -122,8 +133,24 @@ userSchema.virtual('fullName').get(function() {
 
 let Users = mongoose.model('Users', userSchema);
 
-function addUser (user) {
+// //Uncomment to test
+// //UpdateUser works on Reviews, but overrides reviews.
+// deleteUser(24245)
+//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2}], linkedIn: 'test URL' }))
+//     .then(prof => findUser(prof.googleID))
+//     .then(prof => {
+//         console.log(`BEFORE: ${prof.fullName}`);
+//         return prof;
+//     })
+//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
+//     .then(prof => {
+//         console.log(`AFTER: ${prof.fullName}`);
+//         return prof;
+//     })
+//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
+//     .    catch(err => console.log(err));
 
+function addUser (user) {
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
             googleID: user.googleID,
@@ -140,76 +167,64 @@ function addUser (user) {
         });
         userAdded.save((err, profile) => {
             if (err) {
-                return reject(err)
+                return reject(err);
             }
             // console.log(profile);
-            console.log("User " + profile.googleID + " added.");
+            console.log('User ' + profile.googleID + ' added.');
             resolve(profile);
-        })
-    })
+        });
+    });
 }
-
-//Uncomment to test
-//UpdateUser works on Reviews, but overrides reviews.
-// deleteUser(24245)
-//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 420, rating: 4 }, { courseNo: 567, rating: 2}] }))
-//     .then(prof => findUser(prof.googleID))
-//     .then(prof => {
-//         console.log(`BEFORE: ${prof.fullName}`);
-//         return prof;
-//     })
-//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
-//     .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{courseNo:  420, rating: 4.6}] }))
-//     .then(prof => console.log(`AFTER: ${prof.fullName}`))
-//     .then(prof => console.log(`AFTER: ${prof.coursesTaught[0]}`))
-//     .catch(err => console.log(err));
 
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findByIdAndDelete(googleID, function(err) {
             if (err) {
-                console.log("User with googleID " + googleID + " does not exist.");
+                console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log("User " + googleID + " deleted.");
+            console.log('User ' + googleID + ' deleted.');
             resolve();
         });
-    })
-
+    });
 }
 
 function findUser (googleID) {
-    console.log("Searching for User " + googleID);
+    console.log('Searching for User ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
-            .exec((err, userQuery) => {
-                if (err) { return reject(err); }
-                resolve(userQuery);
+            .exec((err, profile) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(profile);
             });
-    })
+    });
 }
 
 function updateUser (googleID, userEdits) {
-    console.log("Updating user " + googleID);
+    console.log('Updating user ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findByIdAndUpdate(googleID, userEdits, { new: true })
             .exec((err, user) => {
                 if (err) return reject(err);
                 resolve(user);
-            })
-    })
+            });
+    });
 }
 
 //Untested - needed
 function addReview (googleID, courseNo, average) {
-    console.log("Adding a review!");
+    console.log('Adding a review!');
     return new Promise((resolve, reject) => {
-        Users.update({ 'googleID': googleID, 'courseNo': courseNo }, { $set: { 'courseNo.$.rating': average } })
+        Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
+                $push: { 'courseNo.$.rating': average }
+            })
             .exec((err, user) => {
                 if (err) return reject(err);
                 resolve(user);
-            })
-    })
+            });
+    });
 }
 
 
@@ -218,24 +233,35 @@ function addReview (googleID, courseNo, average) {
  * add class to db with tutor under it
  */
 
-//Works
 function addClass (course) {
     return new Promise((resolve, reject) => {
         let classAdded = new Classes({ courseNo: course.courseNo });
         classAdded.save((err, course) => {
             if (err) {
-                return reject(err)
+                return reject(err);
             }
-            console.log("Class " + course.courseNo + " added.");
+            console.log('Class ' + course.courseNo + ' added.');
             resolve(course);
-        })
-    })
+        });
+    });
+}
+
+function deleteClass(courseNo) {
+    return new Promise((resolve, reject) => {
+        Classes.findByIdAndDelete(courseNo, function (err) {
+            if (err) {
+                console.log('User with courseNo ' + courseNo + ' does not exist.');
+                return reject(err);
+            }
+            console.log('Class ' + courseNo + ' deleted.');
+            resolve();
+        });
+    });
 }
 
 //Seems to be working
+//Should error checking when class does not exist
 function addTutor (googleID, courseNo) {
-    console.log('I am adding a tutor to a class!');
-    // Some function to instantiate tutor(googleID)
     return new Promise((resolve, reject) => {
         //     UserClassess.update({ 'courseNo': courseNo }, { $set: { 'tutors.$._id': googleID } })
         //         .exec((err, user) => {
@@ -247,9 +273,10 @@ function addTutor (googleID, courseNo) {
         Classes.findByIdAndUpdate(courseNo, { $addToSet: { tutors: { googleID } } })
             .exec((err, user) => {
                 if (err) return reject(err);
-                console.log("Tutor " + googleID + " added to class " + courseNo + ".");
-            })
-    })
+                console.log('Tutor ' + googleID + ' added to class ' + courseNo);
+                resolve(user);
+            });
+    });
 }
 
 //Untested
@@ -257,10 +284,10 @@ function deleteTutor (googleID, courseNo) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndDelete(googleID, function(err) {
             if (err) {
-                console.log("User with googleID " + googleID + " does not exist.");
+                console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log("User " + googleID + " deleted.");
+            console.log('Class ' + courseNo + ' deleted.');
             resolve();
         });
     });
@@ -268,15 +295,35 @@ function deleteTutor (googleID, courseNo) {
 
 //Untested
 function findClass (courseNo) {
-    console.log("Searching for Class " + courseNo);
+    console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
-                if (err) { return reject(err); }
+                if (err) {
+                    return reject(err);
+                }
                 resolve(classQuery);
             });
-    })
+    });
 }
+
+// //Uncomment to test
+// deleteClass(456)
+//     .then(() => addClass({ courseNo: 456}))
+//     .then(() => addTutor(123, 456))
+//     .then(() => addTutor(321, 456))
+//     .then(prof => findUser(prof.googleID))
+//     .then(prof => {
+//         console.log(`BEFORE: ${prof.fullName}`);
+//         return prof;
+//     })
+//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
+//     .then(prof => {
+//         console.log(`AFTER: ${prof.fullName}`);
+//         return prof;
+//     })
+//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
+//     .    catch(err => console.log(err));
 
 module.exports = {
     addUser,
@@ -287,4 +334,4 @@ module.exports = {
     addTutor,
     findClass,
     connection
-}
+};

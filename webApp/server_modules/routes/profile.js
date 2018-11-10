@@ -5,41 +5,69 @@ const { getMajors, getClassID, getClassName } = require('../course_json_parser')
 const { addUser, updateUser, deleteUser } = require('../mongoose');
 
 /**
- * 
- * @param {Express.Request} req 
- * @param {Express.Response} res 
- * @param {*} next 
+ *
+ * @param {Express.Request} req
+ * @param {Express.Response} res
+ * @param {*} next
  */
 
+// A route used when a user accesses their profile
 router.get('/', function(req, res) {
     // console.log(req.session);
     console.log('profile ' + req.isAuthenticated());
+
+    // Asks user to login if they are not registered
     if (!req.isAuthenticated()) {
-        return res.redirect('/profile/login')
+        return res.redirect('/profile/login');
     }
+
     console.log(req.user);
-    let courseNames = req.user.coursesTeaching.map(course => ({ courseName: getClassName(course._id) }));
-    res.render('profileView-user', { profile: req.user, courses: courseNames });
+
+    let courseNames = req.user.coursesTeaching.map(course => ({
+        courseName: getClassName(course._id)
+    }));
+
+    res.render('profileView-user', {
+        profile: req.user,
+        courses: courseNames,
+        majors: getMajors()
+    });
 });
 
+// A route used when a user wants to log in
+router.get('/login', passport.authenticate('googleHave', {
+    scope: ['profile', 'email'],
+    hd: 'ucsc.edu'
+}));
 
-router.get('/login', passport.authenticate('googleHave', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
+// A route used when a user wants to sign up via Google authentication
+router.get('/signup', passport.authenticate('googleSignUp', {
+    scope: ['profile', 'email'],
+    hd: 'ucsc.edu'
+}));
 
-router.get('/signup', passport.authenticate('googleSignUp', { scope: ['profile', 'email'], hd: 'ucsc.edu' }));
-
+// A route used when a user creates and account
 router.get('/create', function(req, res) {
-    res.render('createAccount', { user: req.user, majors: getMajors() });
+    res.render('createAccount', {
+        user: req.user,
+        majors: getMajors(),
+        formTitle: 'Profile Information'
+    });
 });
 
+// A route used when a user logs out
 router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
 });
 
 
+// A route that will actually create a user's account within the database
 router.post('/createProfile', function(req, res) {
     console.log('CREATED A PROFILE');
+
     let profile = newProfile(req.body, req.user.id, req.user.extra);
+
     addUser(profile)
         .then(profile => {
             req.login({ id: profile.googleID }, err => {
@@ -48,34 +76,33 @@ router.post('/createProfile', function(req, res) {
             });
         })
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
 });
 
+// A route used when a user wants to submit a review for a class
 //Untested
 router.get('/review', function(req, res) {
     console.log('REVIEWING A CLASS');
     res.render('review', { profile: req.user, class: req.body });
 });
 
+// A route used to actually submit a review to the database
 //Untested
 router.post('/submitReview', function(req, res) {
     console.log('SUBMITTING A REVIEW');
     var avg = sum(...req.body) / 4.0;
     console.log(avg);
-
-    addReview(req.user.id, avg)
-        .then(res.redirect('profileView-guest', { profile: req.user }));
 });
 
+// A route used when a user wants to update their profile
 //Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
-
-
-    updateUser(updatedProfile)
-        .then(res.redirect('/profile'));
+    console.log(req.body);
+    res.redirect('back');
 });
 
+// A route used when a user wants to delete their profile
 //Untested
 router.get('/deleteProfile', (req, res) => {
     if (!req.isAuthenticated()) {
@@ -87,9 +114,17 @@ router.get('/deleteProfile', (req, res) => {
         })
         .catch(() => {
             res.redirect('/');
-        })
-})
+        });
+});
 
+//Untested
+router.get('/userProfile', (req, res) => {
+    Users.findById(req.session.userID)
+        .exec(function (error, user) {
+            // Catch error
+            res.render('profileView-guest', {profile: user.body });
+        });
+});
 
 function newProfile (body, googleID, extra) {
     return {
@@ -103,8 +138,7 @@ function newProfile (body, googleID, extra) {
         coursesTeaching: body.coursesTeaching.map(course => ({ courseNo: getClassID(course), rating: 5 })),
         googleID,
         email: extra.email
-    }
+    };
 }
-
 
 module.exports = router;

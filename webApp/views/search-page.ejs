@@ -1,66 +1,67 @@
 <!DOCTYPE html>
 
 <html class="html">
-    <head>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="/style.css">
-        	<link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">		
-		<title>Academi-Slug | Search Results</title>
-    </head>
-    <%- include templates/nav-buttons %>
-	<!-- <script src="nav-buttons.js"></script> -->
-               
-	<body class="body">
-		<div class="bg">    
-			<div class="container h-100">
-				<div class="row h-100 justify-content-center align-items-center">
-					<div class="col-md-auto">
-						<div class="card">
-							<div class="card-header">
-								<div class="search-text"> 
-									<h4>You searched for: </h4>
-											<body onload="document.getElementById('searchResult').innerHTML = getUrlParameter('search')" >
-											<h4 id="searchResult">
-											</h4>
-										</body> 
-								<h4> ____ search results found</h4> 
-									<script src="search-results.js"></script>
-								</div>
-								
-								<div class="dropdown">
-									<button class="btn btn-sort">Sort By ↓</button>
-									<div class="dropdown-content">
-										<a href="#">Alphabetically</a>
-										<a href="#">Ratings</a>
-									</div>
+
+<head>
+	<%- include templates/header %>
+	<title>Academi-Slug | Search Results</title>
+</head>
+
+<!-- <script src="nav-buttons.js"></script> -->
+<%- include templates/nav-buttons %>
+
+<body class="body">
+	<div class="bg">
+		<div class="container h-100">
+			<div class="row h-100 justify-content-center align-items-center">
+				<div class="col-md-auto">
+					<div class="card">
+						<div class="card-header">
+							<div class="search-text">
+								<h4>You searched for: </h4>
+
+								<body onload="document.getElementById('searchResult').innerHTML = getUrlParameter('search')">
+									<h4 id="searchResult">
+									</h4>
+								</body>
+								<h4> ____ search results found</h4>
+								<script src="search-results.js"></script>
+							</div>
+
+							<div class="dropdown">
+								<button class="btn btn-sort">Sort By ↓</button>
+								<div class="dropdown-content">
+									<a href="#">Alphabetically</a>
+									<a href="#">Ratings</a>
 								</div>
 							</div>
-							<div class="card-body col-md-auto">
-								<div class="tutor-table">
-									<table class="centralize">
-											<tr>
-												<th>Last, First</th>
-												<th>Courses</th>
-												<th>Ratings</th>
-											</tr>
-											<tr>
-												<td>Slug, Sammy</td>
-												<td>CMPS 115, CMPS 112, CMPS 101</td> 
-												<td>* * * *</td>
-											</tr>
-											<tr>
-												<td>Bluementhall, George</td>
-												<td>CMPS 11, CMPS 12B, CMPS 5J</td> 
-												<td>* * *</td>
-											</tr>
-									</table>
-								</div>
+						</div>
+						<div class="card-body col-md-auto">
+							<div class="tutor-table">
+								<table class="centralize">
+									<tr>
+										<th>Last, First</th>
+										<th>Courses</th>
+										<th>Ratings</th>
+									</tr>
+									<tr>
+										<td>Slug, Sammy</td>
+										<td>CMPS 115, CMPS 112, CMPS 101</td>
+										<td>* * * *</td>
+									</tr>
+									<tr>
+										<td>Bluementhall, George</td>
+										<td>CMPS 11, CMPS 12B, CMPS 5J</td>
+										<td>* * *</td>
+									</tr>
+								</table>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
+
 </html>
