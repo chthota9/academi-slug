@@ -22,7 +22,7 @@
                         <dl class="dl-horizontal">
                             <dt class="col-sm-3 mt-4">Name:</dt>
                             <dd class="col-sm-9">
-                                <%- profile.name %>
+                            <%- profile.name.first %> <%- profile.name.last %>
                             </dd>
                             <hr>
 
@@ -44,12 +44,6 @@
                             </dd>
                             <hr>
 
-                            <dt class="col-sm-3">About:</dt>
-                            <dd class="col-sm-9">
-                                <%- profile.bio %>
-                            </dd>
-                            <hr>
-                            
                             <dt class="col-sm-3">About:</dt>
                             <dd class="col-sm-9">
                                 <%- profile.bio %>

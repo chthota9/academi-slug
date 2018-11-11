@@ -2,7 +2,7 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
-const { addUser, updateUser, deleteUser } = require('../mongoose');
+const { addUser, updateUser, deleteUser, findUser } = require('../mongoose');
 
 /**
  *
@@ -119,12 +119,10 @@ router.get('/deleteProfile', (req, res) => {
 
 //Untested
 router.get('/userProfile', (req, res) => {
-    Users.findById(req.session.userID)
-        .exec(function (error, user) {
-            // Catch error
-            res.render('profileView-guest', {profile: user.body });
-        });
+    var testUser = { googleID: 24245, email: 'sammyslub@ucsc.edu', name: { first: 'Sammy', last: 'Slug' }, year: 'Junior', college: 'College Nine', major: 'CS', bio: 'Banana Slug', coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }], linkedIn: 'https://www.linkedin.com/in/rybojad/' };
+    res.render('profileView-guest', {profile: testUser });
 });
+
 
 function newProfile (body, googleID, extra) {
     return {
