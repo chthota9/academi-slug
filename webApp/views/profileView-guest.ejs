@@ -15,11 +15,10 @@
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">
-                            <h2 class="display-5 mb-0">
-                                <%- profile.name.first %>'s Profile</h2>
-                                <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-                                <script type="IN/MemberProfile" data-id= <%- profile.linkedIn %></script> data-format="inline" data-related="false"></script>
+                        <div class="card-header d-flex justify-content-between align-items-end">
+                            <h2 class="display-5 mb-0 "><%- profile.name.first %>'s Profile</h2>
+                            <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+                            <script type="IN/MemberProfile" data-id="<%- profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
                         </div>
                         <dl class="dl-horizontal">
                             <dt class="col-sm-3 mt-4">Name:</dt>
@@ -52,41 +51,24 @@
                             </dd>
                             <hr>
 
-                            <dt class="col-sm-6">Courses Taught:</dt>
+                            <dt class="col-sm-6">Courses Teaching:</dt>
                             <ul>
-                                <p>
-                                    <li>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">MATH 113</label>
-                                            <div class="col">
-                                                <button type="button" class="btn btn-warning">Leave Review</button>
+                                <% profile.coursesTeaching.forEach(course=>{ %>
+                                    <p>
+                                        <li>
+                                            <div class="form-group row">
+                                                <label class="col-4 col-form-label">
+                                                    <%= course._id %>
+                                                </label>
+                                                <div class="col">
+                                                    <button type="button" class="btn btn-tertiary">Leave Review</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </p>
-                                <p>
-                                    <li>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">CMPS 115</label>
-                                            <div class="col-8">
-                                                <button type="button" class="btn btn-warning">Leave Review</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </p>
-                                <p>
-                                    <li>
-                                        <div class="form-group row">
-                                            <label class="col-4 col-form-label">AMS 11</label>
-                                            <div class="col-8">
-                                                <button type="button" class="btn btn-warning">Leave Review</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </p>
-
+                                        </li>
+                                    </p>
+                                <%   }) %>
+                            </ul>
                         </dl>
-
                     </div>
                 </div>
             </div>
