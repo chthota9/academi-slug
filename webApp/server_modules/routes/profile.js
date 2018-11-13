@@ -130,17 +130,6 @@ router.get('/deleteProfile', (req, res) => {
         });
 });
 
-//Tester route
-router.get('/userProfile', (req, res) => {
-    var testUser = { googleID: 24245, email: 'sammyslub@ucsc.edu', name: { first: 'Sammy', last: 'Slug' }, year: 'Junior', college: 'College Nine', major: 'CS', bio: 'Banana Slug', coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }], linkedIn: 'https://www.linkedin.com/in/rybojad/' };
-    res.render('profileView-guest', { profile: testUser });
-});
-
-// Another tester route
-router.get('/testerProfile', (req, res) => {
-    res.render('search-page');
-});
-
 
 function newProfile (body, googleID, extra) {
     return {
