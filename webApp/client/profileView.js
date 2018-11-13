@@ -6,8 +6,10 @@ form.addEventListener('submit', evt => {
     evt.preventDefault();
 
     let newProf = diffProf(formDataToObj(new FormData(form)));
-    console.log(newProf);
-    // sendUpdate(newProf);
+    console.log(JSON.stringify(newProf));
+    if(Object.keys(newProf).length > 0){
+        // sendUpdate(newProf);
+    }
 });
 
 function sendUpdate (formData) {
@@ -35,11 +37,32 @@ function diffProf (updatedProf) {
     for (const key in updatedProf) {
         const newVal = updatedProf[key];
         const oldVal = oldProf[key];
-        if(oldVal !== newVal){
-            newProf[key] = newVal;
+        if (newVal.constructor === Array) {
+            let updatedCourses = compareCourses(oldVal, newVal);
+            if(updatedCourses.length > 0){
+                newProf[key] = updatedCourses;
+            }
+        } else {
+            if (oldVal !== newVal) {
+                newProf[key] = newVal;
+            }
         }
     }
     return newProf;
+}
+
+function compareCourses (oldVal, newVal) {
+    if(newVal.length !== oldVal.length){
+        return newVal;
+    }
+    for (let i = 0; i < newVal.length; i++) {
+        const oldCourse = oldVal[i];
+        const newCourse = newVal[i];
+        if (oldCourse !== newCourse) {
+            return newVal;
+        }
+    }
+    return [];
 }
 
 function formDataToObj (formData) {
