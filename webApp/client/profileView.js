@@ -1,21 +1,13 @@
 let form = document.getElementById('profileForm');
 // eslint-disable-next-line no-undef
 let classSelect = ClassSelect;
-
+let oldProf = formDataToObj(new FormData(form));
 form.addEventListener('submit', evt => {
     evt.preventDefault();
-    let updatedProf = {};
-    let formData = new FormData(form);
-    let courses = classSelect.getCourses();
-    for (const data of formData.entries()) {
-        if (data[0] != 'query') {
-            updatedProf[data[0]] = data[1];
-        }
-    }
-    updatedProf.coursesTeaching = courses;
-    console.log(JSON.stringify(updatedProf, null, 3));
 
-    sendUpdate(updatedProf);
+    let newProf = diffProf(formDataToObj(new FormData(form)));
+    console.log(newProf);
+    // sendUpdate(newProf);
 });
 
 function sendUpdate (formData) {
@@ -36,4 +28,28 @@ function sendUpdate (formData) {
         .catch(err => {
             console.log(err);
         });
+}
+
+function diffProf (updatedProf) {
+    let newProf = {};
+    for (const key in updatedProf) {
+        const newVal = updatedProf[key];
+        const oldVal = oldProf[key];
+        if(oldVal !== newVal){
+            newProf[key] = newVal;
+        }
+    }
+    return newProf;
+}
+
+function formDataToObj (formData) {
+    let updatedProf = {};
+    let courses = classSelect.getCourses();
+    for (const data of formData.entries()) {
+        if (data[0] != 'query') {
+            updatedProf[data[0]] = data[1];
+        }
+    }
+    updatedProf.coursesTeaching = courses;
+    return updatedProf;
 }

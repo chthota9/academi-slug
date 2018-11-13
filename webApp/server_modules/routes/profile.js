@@ -5,13 +5,8 @@ const { getMajors, getClassID, getClassName } = require('../course_json_parser')
 const { addUser, updateUser, deleteUser, findUser } = require('../mongoose');
 
 /**
- *
- * @param {Express.Request} req
- * @param {Express.Response} res
- * @param {*} next
+ * A route used when a user accesses their profile
  */
-
-// A route used when a user accesses their profile
 router.get('/', function(req, res) {
     // console.log(req.session);
     console.log('profile ' + req.isAuthenticated());
@@ -34,6 +29,14 @@ router.get('/', function(req, res) {
     });
 });
 
+router.get('/user/:id', (req, res) => {
+    let googleID = req.params.id;
+    findUser(googleID)
+        .then(prof => {
+            
+        });
+    res.send(req.params.id);
+});
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
     scope: ['profile', 'email'],
