@@ -231,7 +231,6 @@ function addReview (googleID, courseNo, average) {
  * func should add tutor under class but if class is not in database
  * add class to db with tutor under it
  */
-
 function addClass (courseNo) {
     return new Promise((resolve, reject) => {
         let classAdded = new Classes({ courseNo, tutors: [] });
