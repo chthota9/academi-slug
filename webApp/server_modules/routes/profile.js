@@ -35,7 +35,7 @@ router.get('/user/:id', (req, res) => {
     let googleID = req.params.id;
     findUser(googleID)
         .then(prof => {
-            res.render('profileView-guest', {profile: prof});
+            res.render('profileView-guest', { profile: prof });
         });
 });
 
@@ -103,7 +103,9 @@ router.post('/submitReview', function(req, res) {
 //Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
-    console.log(req.body);
+    if (Object.keys(req.body).length > 0) {
+        console.log(req.body);
+    }
     res.redirect('back');
 });
 
@@ -125,7 +127,7 @@ router.get('/deleteProfile', (req, res) => {
 //Tester route
 router.get('/userProfile', (req, res) => {
     var testUser = { googleID: 24245, email: 'sammyslub@ucsc.edu', name: { first: 'Sammy', last: 'Slug' }, year: 'Junior', college: 'College Nine', major: 'CS', bio: 'Banana Slug', coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }], linkedIn: 'https://www.linkedin.com/in/rybojad/' };
-    res.render('profileView-guest', {profile: testUser });
+    res.render('profileView-guest', { profile: testUser });
 });
 
 // Another tester route
