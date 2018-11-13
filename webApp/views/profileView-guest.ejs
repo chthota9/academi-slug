@@ -19,7 +19,7 @@
                             <h2 class="display-5 mb-0 "><%- profile.name.first %>'s Profile</h2>
 
                             <% if (profile.linkedIn != "") { %>
-                                <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+                                <script src="//platform.linkedin.com/in.js" type="text/javascript" defer></script>
                                 <script type="IN/MemberProfile" data-id="<%- profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
                             <% } %>
 
@@ -61,9 +61,7 @@
                                     <p>
                                         <li>
                                             <div class="form-group row">
-                                                <label class="col-4 col-form-label">
-                                                    <%= course._id %>
-                                                </label>
+                                                <label class="col-4 col-form-label"><%= course._id %></label>
                                                 <div class="col">
                                                     <button type="button" class="btn btn-tertiary">Leave Review</button>
                                                 </div>

@@ -117,7 +117,6 @@ let userSchema = new mongoose.Schema({
     },
     linkedIn: {
         type: String,
-        required: true
     },
     coursesTeaching: [courseTeachingSchema]
 }, {

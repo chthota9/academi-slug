@@ -116,7 +116,7 @@ router.get('/deleteProfile', (req, res) => {
             res.redirect('/');
         })
         .catch(() => {
-            res.redirect('/');
+            throw new Error('There was a problem with deleting the acct.');
         });
 });
 
