@@ -39,6 +39,7 @@ app.use((req, res, next) => {
     next();
 });
 
+// eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
     res.render('error', { err: error.message });
 });

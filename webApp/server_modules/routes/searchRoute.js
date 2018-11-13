@@ -16,9 +16,13 @@ const router = express.Router();
 
 // this READS all
 // A route used to render a user's search results
-router.get('/', function (req, res) {
-    console.log(req.query);
-    res.render('search-page');
+router.get('/', function(req, res) {
+    console.log(req.query.search);
+    let classSearched = {
+        name: 'CMPS 115',
+        tutors: [{ googleID: 4321, name: 'Sammy Slug', rating: 4 }, { googleID: 5555, name: 'George Bluementhall', rating: 2 }]
+    };
+    res.render('search-page', { classSearched });
 });
 
 
