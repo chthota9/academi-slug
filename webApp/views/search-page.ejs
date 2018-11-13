@@ -46,7 +46,7 @@
 									</tr>
 									<% classSearched.tutors.forEach(tutor =>{ %>
 										<tr>
-											<td><a href="/profile/users/<%- tutor.googleID %>"> <%= tutor.name %> </a></td>
+											<td><a href="/profile/user/<%= tutor.googleID %>"> <%= tutor.name %> </a></td>
 											<td><%= '*'.repeat(tutor.rating);  %></td>
 										</tr>	
 									<% }) %>

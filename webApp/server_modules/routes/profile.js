@@ -35,7 +35,13 @@ router.get('/user/:id', (req, res) => {
     let googleID = req.params.id;
     findUser(googleID)
         .then(prof => {
-            res.render('profileView-guest', { profile: prof });
+            let courses = prof.coursesTeaching.map(course => ({
+                courseName: getClassName(course._id),
+                rating: course.rating
+            }));
+            res.render('profileView-guest', { profile: prof, courses });
+        }).catch(() => {
+            throw new Error(`No such profile ${googleID}`);
         });
 });
 

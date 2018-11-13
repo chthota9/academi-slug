@@ -27,41 +27,41 @@
                         <dl class="dl-horizontal">
                             <dt class="col-sm-3 mt-4">Name:</dt>
                             <dd class="col-sm-9">
-                            <%- profile.name.first %> <%- profile.name.last %>
+                            <%= profile.name.first %> <%= profile.name.last %>
                             </dd>
                             <hr>
 
                             <dt class="col-sm-3">Year:</dt>
                             <dd class="col-sm-9">
-                                <%- profile.year %>
+                                <%= profile.year %>
                             </dd>
                             <hr>
 
                             <dt class="col-sm-3">Major:</dt>
                             <dd class="col-sm-9">
-                                <%- profile.major %>
+                                <%= profile.major %>
                             </dd>
                             <hr>
 
                             <dt class="col-sm-3">College:</dt>
                             <dd class="col-sm-9">
-                                <%- profile.college %>
+                                <%= profile.college %>
                             </dd>
                             <hr>
 
                             <dt class="col-sm-3">About:</dt>
                             <dd class="col-sm-9">
-                                <%- profile.bio %>
+                                <%= profile.bio %>
                             </dd>
                             <hr>
 
                             <dt class="col-sm-6">Courses Teaching:</dt>
                             <ul>
-                                <% profile.coursesTeaching.forEach(course=>{ %>
+                                <% courses.forEach(course=>{ %>
                                     <p>
                                         <li>
                                             <div class="form-group row">
-                                                <label class="col-4 col-form-label"><%= course._id %></label>
+                                                <label class="col-4 col-form-label"><%= course.courseName %></label>
                                                 <div class="col">
                                                     <button type="button" class="btn btn-tertiary">Leave Review</button>
                                                 </div>
