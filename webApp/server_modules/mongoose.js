@@ -1,14 +1,36 @@
 const mongoose = require('mongoose');
 mongoose.set('useFindAndModify', false); //Avoid deprecation warning
-mongoose.connect("mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug", {
+mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug', {
     useNewUrlParser: true
-})
+});
 
 const connection = mongoose.connection;
 connection.once('open', function() {
-    console.log("We're connected to the database!");
+    console.log('We\'re connected to the database!');
 });
 // connection.dropDatabase();
+
+let classTutorSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+        unique: true,
+        alias: 'googleID'
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: true
+    },
+}, {
+    autoIndex: false,
+    versionKey: false,
+    _id: false
+});
+
 let classSchema = new mongoose.Schema({
     _id: {
         type: Number,
@@ -16,19 +38,7 @@ let classSchema = new mongoose.Schema({
         unique: true,
         alias: 'courseNo'
     },
-    tutors: [{
-        googleID: {
-            type: Number,
-            required: true,
-        },
-        rating: {
-            type: Number,
-            required:true
-        },
-        _id: {
-            id: false
-        }
-    }]
+    tutors: [classTutorSchema]
 }, {
     autoIndex: false,
     versionKey: false,
@@ -38,6 +48,29 @@ let classSchema = new mongoose.Schema({
 
 let Classes = mongoose.model('Classes', classSchema);
 
+let courseTeachingSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+    },
+    rating: {
+        type: Number,
+        required: true,
+        Default: 5
+    },
+}, {
+    autoIndex: false,
+    versionKey: false,
+    _id: false
+});
+
+courseTeachingSchema.virtual('courseNo')
+    .get(function() {
+        return this._id;
+    })
+    .set(function(val) {
+        this._id = val;
+    });
 
 
 let userSchema = new mongoose.Schema({
@@ -82,19 +115,10 @@ let userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    coursesTaught: [{
-        courseNo: {
-            type: Number,
-            required: true,
-        },
-        rating: {
-            type: Number,
-            required: true
-        },
-        _id: {
-            id: false
-        }
-    }]
+    linkedIn: {
+        type: String,
+    },
+    coursesTeaching: [courseTeachingSchema]
 }, {
     autoIndex: false,
     versionKey: false,
@@ -106,17 +130,24 @@ userSchema.virtual('fullName').get(function() {
 });
 
 
-module.exports = {
-    addUser,
-    deleteUser,
-    findUser,
-    updateUser,
-    addClass,
-    connection,
-}
-
-
 let Users = mongoose.model('Users', userSchema);
+
+// //Uncomment to test
+// //UpdateUser works on Reviews, but overrides reviews.
+// deleteUser(24245)
+//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2}], linkedIn: 'test URL' }))
+//     .then(prof => findUser(prof.googleID))
+//     .then(prof => {
+//         console.log(`BEFORE: ${prof.fullName}`);
+//         return prof;
+//     })
+//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
+//     .then(prof => {
+//         console.log(`AFTER: ${prof.fullName}`);
+//         return prof;
+//     })
+//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
+//     .    catch(err => console.log(err));
 
 function addUser (user) {
     return new Promise((resolve, reject) => {
@@ -129,79 +160,70 @@ function addUser (user) {
             college: user.college,
             major: user.major,
             bio: user.bio,
-            coursesTaught: user.coursesTaught
+            coursesTeaching: user.coursesTeaching,
+            linkedIn: user.linkedIn
+
         });
         userAdded.save((err, profile) => {
             if (err) {
-                return reject(err)
+                return reject(err);
             }
-            console.log(profile);
-            console.log("User " + profile.googleID + " added.");
+            // console.log(profile);
+            console.log('User ' + profile.googleID + ' added.');
             resolve(profile);
-        })
-    })
+        });
+    });
 }
-
-//Uncomment to test
-// deleteUser(24245)
-//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTaught: [{ courseNo: 420, rating: 4 }] }))
-//     .then(prof => findUser(prof.googleID))
-//     .then(prof => {
-//         console.log(`BEFORE: ${prof.fullName}`);
-//         return prof;
-//     })
-//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
-//     .then(prof => console.log(`AFTER: ${prof.fullName}`))
-//     .catch(err => console.log(err));
-
-
-
-
 
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findByIdAndDelete(googleID, function(err) {
             if (err) {
-                console.log("User with googleID " + googleID + " does not exist.");
+                console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log("User " + googleID + " deleted.");
+            console.log('User ' + googleID + ' deleted.');
             resolve();
         });
-
-    })
-
+    });
 }
 
-
-//Works
 function findUser (googleID) {
-    console.log("Searching for user " + googleID);
+    console.log('Searching for User ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
-            .exec((err, userQuery) => {
-                if (err) { return reject(err); }
-                resolve(userQuery);
+            .exec((err, profile) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(profile);
             });
-    })
+    });
 }
 
-
-//Tested works
 function updateUser (googleID, userEdits) {
-    console.log("Updating user " + googleID);
+    console.log('Updating user ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findByIdAndUpdate(googleID, userEdits, { new: true })
             .exec((err, user) => {
                 if (err) return reject(err);
                 resolve(user);
-            })
-    })
+            });
+    });
 }
 
-//Untested - probably not needed
-function addReview (user, average) {
-    console.log("Adding a review!");
+//Untested - needed
+function addReview (googleID, courseNo, average) {
+    console.log('Adding a review!');
+    return new Promise((resolve, reject) => {
+        Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
+                $push: { 'courseNo.$.rating': average }
+            })
+            .exec((err, user) => {
+                if (err) return reject(err);
+                resolve(user);
+            });
+    });
 }
 
 
@@ -209,42 +231,94 @@ function addReview (user, average) {
  * func should add tutor under class but if class is not in database
  * add class to db with tutor under it
  */
-
-//Untested
-function addClass (course) {
+function addClass (courseNo) {
     return new Promise((resolve, reject) => {
-        let newClass = new Classes({ courseNo: course.courseNo });
+        let classAdded = new Classes({ courseNo, tutors: [] });
         classAdded.save((err, course) => {
             if (err) {
-                return reject(err)
+                return reject(err);
             }
-            console.log("class " + course.courseNo + " added.");
+            console.log('Class ' + course.courseNo + ' added.');
             resolve(course);
-        })
-    })
+        });
+    });
+}
+
+function deleteClass (courseNo) {
+    return new Promise((resolve, reject) => {
+        Classes.findByIdAndDelete(courseNo, function(err) {
+            if (err) {
+                console.log('User with courseNo ' + courseNo + ' does not exist.');
+                return reject(err);
+            }
+            console.log('Class ' + courseNo + ' deleted.');
+            resolve();
+        });
+    });
+}
+
+//Seems to be working
+//Should error checking when class does not exist
+function addTutor (courseNo, tutor) {
+    return new Promise((resolve, reject) => {
+
+        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutor } })
+            .exec((err, user) => {
+                if (err) return reject(err);
+                console.log('Tutor ' + tutor._id + ' added to class ' + courseNo);
+                resolve(user);
+            });
+    });
 }
 
 //Untested
-function addTutor (googleID) {
-    console.log('I am adding a tutor to a class!');
-}
-
-function testAdd () {
-    addUser({
-        googleID: 24245,
-        email: 'sammyslug@ucsc.edu',
-        firstName: 'Sammy',
-        lastName: 'Slug',
-        year: 'Junior',
-        college: 'Nine',
-        major: 'CS',
-        bio: 'Banana Slug',
-        coursesTaught: [{
-            courseNo: 'CMPS115',
-            rating: 4
-        }]
+function deleteTutor (googleID, courseNo) {
+    return new Promise((resolve, reject) => {
+        Classes.findByIdAndDelete(googleID, function(err) {
+            if (err) {
+                console.log('User with googleID ' + googleID + ' does not exist.');
+                return reject(err);
+            }
+            console.log('Class ' + courseNo + ' deleted.');
+            resolve();
+        });
     });
 }
+
+//Untested
+function findClass (courseNo) {
+    console.log('Searching for Class ' + courseNo);
+    return new Promise((resolve, reject) => {
+        Classes.findById(courseNo)
+            .exec((err, classQuery) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(classQuery);
+            });
+    });
+}
+
+// //Uncomment to test
+// deleteClass(456)
+//     .then(() => addClass({ courseNo: 456}))
+//     .then(() => addTutor(123, 456))
+//     .then(() => addTutor(321, 456))
+//     .then(prof => findUser(prof.googleID))
+//     .then(prof => {
+//         console.log(`BEFORE: ${prof.fullName}`);
+//         return prof;
+//     })
+//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
+//     .then(prof => {
+//         console.log(`AFTER: ${prof.fullName}`);
+//         return prof;
+//     })
+//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
+//     .    catch(err => console.log(err));
+// addClass(21451)
+//     .then(() => addTutor(21451, { _id: 4321, name: 'Sammy Slug', rating: 4 }))
+//     .then(() => addTutor(21451, { _id: 5555, name: 'George Bluementhall', rating: 3 }));
 
 module.exports = {
     addUser,
@@ -252,5 +326,7 @@ module.exports = {
     findUser,
     updateUser,
     addClass,
+    addTutor,
+    findClass,
     connection
-}
+};

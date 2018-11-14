@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-widgth, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/3/w3.css">
-        <link rel="stylesheet" type="text/css" href="profileView-guest.css">
+        <link rel="stylesheet" type="text/css" href="profileView-user.css">
         <title>Academi-Slug | Profile</title>
     </head>
 
@@ -29,7 +29,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h2 class="display-4 mb-0">Your Profile</h2>
+                                <h2 class="display-4 mb-0 centralize">Your Profile</h2>
                             </div>
                             <div class="card-body">
                                 <div class="col-md-auto">
@@ -89,10 +89,30 @@
                                               <textarea id="about" name="about" cols="40" rows="4" class="form-control"></textarea>
                                             </div>
                                         </div>
+                                        
+                                        
+                                        <div class="form-group row">
+                                            <label for="linkedIn" class="col-4 col-form-label">Linked In Profile:</label> 
+                                            <div class="col-8">
+                                                <input type="text" class="form-control" id="linkedIn">
+                                            </div>
+                                        </div>
+    
+                                        <div class="form-control classSelect">
+                                            <ul class="classlist">
+                                                <li class="classname"> CMPS 115 </li>
+                                                  
+                                            </ul>
+                                        </div>
 
                                         <div class="form-group row">
-                                            <div class="offset-4 col-8">
+                                            <div class="centralize">
                                                 <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="centralize">
+                                                <a class="btn btn-secondary" href="http://www.google.com" role="button">Delete My Account</a>
                                             </div>
                                         </div>
                                     </form>

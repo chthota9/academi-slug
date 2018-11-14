@@ -1,3 +1,4 @@
+/* Navigation bar */
 .navbar {
     background-color: #fdc700;
     border-bottom: 3px solid black;
@@ -6,7 +7,7 @@
 .nav-brand {
     font-size: 30px;
     font-weight: bolder;
-    margin-left: -15px;
+    margin-left: -20px;
 }
 
 .btn-nav {
@@ -32,6 +33,7 @@
     margin-right: 15px;
 }
 
+/* Background */
 .html,
 .body {
     height: 100%;
@@ -48,10 +50,20 @@
     margin-top: 65px;
 }
 
+.bg-bigger {
+    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
+    height: 150%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 65px;
+}
+
+/* Buttons */
 .btn-primary {
     color: white;
     background-color: #003c6c;
-    border-color: #003c6c;
+    border-color: black;
 }
 
 .btn-primary:hover {
@@ -60,11 +72,38 @@
     border-color: black;
 }
 
+.btn-secondary {
+    color: white;
+    background-color: #6c2800;
+    border-color: black;
+}
+
+.btn-secondary:hover {
+    color: white;
+    background-color: black;
+    border-color: #6c2800;
+}
+
+.btn-tertiary {
+    color: black;
+    background-color: #fdc700;
+    border-color: black;
+}
+
+.btn-tertiary:hover {
+    color: white;
+    background-color: #003c6c;
+    border-color: black;
+}
+
+
+/* Titles */
 .h2-title,
 .h3-title {
     font-weight: bolder;
 }
 
+/* Card body */
 .card {
     border-color: black;
     border-width: thick;
@@ -75,18 +114,37 @@
     background-color: #003c6c;
     color: white;
 }
+
+/* Search bar */
+.search-bar {
+    position: relative;
+    text-align: center;
+    top: -30px;
+
+}
+
+.heading {
+    color: black;
+    font-size: 300%;
+}
+
+.login-redirect {
+    position: relative;
+    left: 100px;
+}
+
+/* Sorting function */
 .btn-sort {
     color: white;
     background-color: black;
     border-color: black;
-    margin-left: -20px;	
+    margin-left: -20px;
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
 }
-
 
 .dropdown-content {
     display: none;
@@ -103,88 +161,258 @@
     text-decoration: none;
     display: block;
 }
-.dropdown-content a:hover {background-color: #003c6c;}
 
-.dropdown:hover .dropdown-content {display: block;}
-
-.tutor-table {
-	text-align:center;
+.dropdown-content a:hover {
+    background-color: #003c6c;
 }
 
-table, th, td {
-border: 1px solid black;
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Search results table */
+.tutor-table {
+    text-align: center;
+}
+
+table,
+th,
+td {
+    border: 3px solid black;
 }
 
 .search-text {
-   text-align: center;
+    text-align: center;
 }
 
 #search-confirm {
-	font-size: 220%;
+    font-size: 220%;
 }
 
 #search-results {
-	font-size: 145%;
-}
-
-.btn-primary {
-    color: white;
-    background-color: #003c6c;
-    border-color: #003c6c;
-}
-
-.btn-primary:hover{
-    color: black;
-    background-color: #fdc700;
-    border-color: black;
+    font-size: 145%;
 }
 
 .bold {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .text-center {
-	text-align: center;
+    text-align: center;
 }
 
 .centralize {
-	position: relative;
-	left: 50%;
-	transform: translateX(-50%);
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
-
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-/****** Style Star Rating Widget *****/
+/* Ratings widget */
 /* Credits to: https://codepen.io/jamesbarnett/pen/vlpkh */
 
-.rating { 
-  border: none;
-  float: left;
+.rating {
+    border: none;
+    float: left;
 }
 
-.rating > input { display: none; } 
-.rating > label:before { 
-  margin: 5px;
-  font-size: 1.25em;
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f005";
+.rating>input {
+    display: none;
 }
 
-.rating > label { 
-  color: #ddd; 
- float: right; 
+.rating>label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
 }
 
-/***** CSS Magic to Highlight Stars on Hover *****/
+.rating>label {
+    color: #ddd;
+    float: right;
+}
 
-.rating > input:checked ~ label, /* show gold star when clicked */
-.rating:not(:checked) > label:hover, /* hover current star */
-.rating:not(:checked) > label:hover ~ label { color: #fdc700;  } /* hover previous stars in list */
+/* CSS Magic to Highlight Stars on Hover */
 
-.rating > input:checked + label:hover, /* hover current star when changing rating */
-.rating > input:checked ~ label:hover,
-.rating > label:hover ~ input:checked ~ label, /* lighten current selection */
-.rating > input:checked ~ label:hover ~ label { color: #003c6c;  } 
+.rating>input:checked~label,
+/* show gold star when clicked */
+.rating:not(:checked)>label:hover,
+/* hover current star */
+.rating:not(:checked)>label:hover~label {
+    color: #fdc700;
+}
+
+/* Hover previous stars in list */
+
+.rating>input:checked+label:hover,
+/* hover current star when changing rating */
+.rating>input:checked~label:hover,
+.rating>label:hover~input:checked~label,
+/* lighten current selection */
+.rating>input:checked~label:hover~label {
+    color: #003c6c;
+}
+
+/* Class Selection **/
+
+.classSelect {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 50px;
+}
+
+.classlist {
+    list-style: none;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.classlist>li {
+    margin: 0 0 0 5px;
+    position: relative;
+    top: 50%;
+    left: 0;
+    display: inline-block;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+
+.classname {
+    color: white;
+    background: #014d8b;
+    border-radius: .25em;
+    padding: 0.25em;
+}
+
+.classname::before {
+    content: '';
+    position: relative;
+    top: -.30em;
+    left: 0;
+    display: inline-block;
+    background: white;
+    width: 1em;
+    height: 0.10em;
+    transform: rotateZ(45deg);
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+}
+
+.classname::after {
+    content: '';
+    position: absolute;
+    top: 0.90em;
+    left: .2em;
+    display: inline-block;
+    background: white;
+    width: 1em;
+    height: 0.10em;
+    transform: rotateZ(-45deg);
+    -webkit-transform: rotateZ(-45deg);
+}
+
+.classname:hover {
+    cursor: pointer;
+}
+
+.classname:hover::after,
+.classname:hover::before {
+    background: red;
+}
+
+.classinput {
+    padding: 0;
+    width: 9em;
+    height: 2em;
+}
+
+.classinput>input {
+    width: 100%;
+    height: 100%;
+}
+
+/* Query */
+.querylist {
+    position: absolute;
+    list-style: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    background: white;
+    overflow-y: auto;
+    height: auto;
+    max-height: 7em;
+    border-left: solid 1px grey;
+    border-right: solid 1px grey;
+    border-bottom: solid 1px grey;
+}
+
+.querylist.loader::after {
+    content: '';
+    --borderWidth: 4px;
+    width: 2em;
+    height: 2em;
+    margin: 0.2em;
+    padding: 0;
+    display: inline-block;
+    border-radius: 50%;
+    border: var(--borderWidth) solid whitesmoke;
+    border-top: var(--borderWidth) solid #003c6c;
+    border-bottom: var(--borderWidth) solid #003c6c;
+    position: relative;
+    animation: loading 1.5s ease-in-out 0s infinite;
+}
+
+.querylist.helper::after {
+    content: attr(data-helper);
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border-width: 0;
+    animation: none;
+}
+
+
+.querylist>li:hover {
+    background: #014d8b;
+    color: white;
+    cursor: pointer;
+}
+
+
+.hidden {
+    display: none;
+}
+
+.center-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+a[href*="delete"]{
+    background: red;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+    }
+}

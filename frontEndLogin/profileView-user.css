@@ -45,7 +45,13 @@
 .btn-primary {
     color: white;
     background-color: #003c6c;
-    border-color: #003c6c;
+    border-color: black;
+}
+
+.btn-secondary {
+    color: white;
+    background-color: #6c2800;
+    border-color: black;
 }
 
 .btn-primary:hover{
@@ -67,4 +73,22 @@
 .card-header {
     background-color: #003c6c;
     color: white;
+}
+
+.centralize {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.btn-del {
+    color: white;
+    background-color: #cc0000;
+    border-color: black;
+}
+
+.btn-del:hover{
+    color: white;
+    background-color: black;
+    border-color: #cc0000;
 }

@@ -1,139 +1,150 @@
-let list = document.querySelector('.classlist');
-let inputNode = list.querySelector('.classinput');
-let choosenClasses = Array.from(list.getElementsByClassName('classname'), el => {
-    el.addEventListener('click', deleteClass);
-    return el;
-});
-let inputTimer;
-let inputTimeout = 1000;
-let inputBox = inputNode.children[0];
-let helperList = inputNode.children[1];
-let emptyqueryList = queryList.cloneNode(false);
-let courseList;
-let helper = queryList.children[0];
-
-let req;
-function sendQuery(param) {
-    req = new XMLHttpRequest();
-    // req.setRequestHeader('Content-type',"application/x-www-form-urlencoded");
-    console.log(`/classsearch/?q=${param}`);
-    req.open('GET', `/classSearch/?q=${param}`);
-    req.addEventListener('loadend', ev => {
-        if (req.status === 404) {
-            helper.classList.add('helper');
-            console.log(req.responseText + '404');
-            return;
-        }
-        console.log(req.responseText);
-        console.log(document.activeElement);
-        
-        let results = JSON.parse(req.responseText);
-
-        createList(results);
-
-        //display list
+// eslint-disable-next-line no-unused-vars
+var ClassSelect = (function() {
+    let list = document.querySelector('.classlist');
+    let inputNode = list.querySelector('.classinput');
+    let chosenClasses = Array.from(list.getElementsByClassName('classname'), el => {
+        el.addEventListener('click', deleteClass);
+        return el;
     });
-    req.addEventListener('abort',evt =>{
-        console.log('aborted!');
-        
-    })
-    req.addEventListener('error', evt => {
-        console.log(req.responseText + 'err');
-        helper.classList.add('helper');
-    });
-    req.send(null);
-}
-
-inputBox.addEventListener('input', evt => {
-    let param = evt.currentTarget.value;
-    console.log('called');
-
-    if (param.length > 0) {
-        helper.classList.remove('helper');
+    let inputTimer = null;
+    let inputTimeout = 1000;
+    let inputBox = inputNode.children[0];
+    let infoNode = inputNode.children[1];
+    let courseList = null;
+    inputBox.addEventListener('input', evt => {
+        let param = evt.currentTarget.value;
         clearTimeout(inputTimer);
-        inputTimer = setTimeout(() => sendQuery(param), inputTimeout);
-    } else {
-        helper.classList.add('helper');
-        clearList()
-
-    }
-})
-
-
-/**
- * @param {Array} courses 
- */
-function createList(courses) {
-    console.log('creatingLIST');
-    courses.forEach(course => {
-        let newClassNode = document.createElement('li');
-        newClassNode.textContent = course;
-        queryList.appendChild(newClassNode);
-    })
-
-}
-
-function clearList() {
-    if (queryList.childElementCount > 1) {
-        let cleanList = emptyqueryList.cloneNode(true);
-        queryList.parentNode.replaceChild(cleanList, queryList);
-        queryList = cleanList;
-        helper = queryList.children[0];
-    }
-}
-
-/**
- * 
- * @param {MouseEvent} evt 
- */
-function deleteClass(evt) {
-    let classRemoved;
-
-    if (evt === undefined) {
-        if (choosenClasses.length > 0) {
-            classRemoved = choosenClasses.pop();
-            console.log(classRemoved);
-            list.removeChild(classRemoved)
+        removeCourseList();
+        showInfo();
+        if (param.length > 0) {
+            setInfoLoad();
+            inputTimer = setTimeout(() => sendClassQuery(param), inputTimeout);
+        } else {
+            setInfoHelp();
         }
-    } else {
-        classRemoved = evt.currentTarget;
-        choosenClasses = choosenClasses.filter((el, index, elements) => {
-            return el !== classRemoved;
+    });
+    inputBox.addEventListener('focus', () => {
+        showInfo();
+    });
+    inputBox.addEventListener('blur', evt => {
+        hideInfo();
+        setInfoHelp();
+        removeCourseList();
+        evt.currentTarget.value = '';
+    });
+    inputBox.addEventListener('keydown', evt => {
+        let key = evt.key || evt.keyCode;
+        if (evt.target.value.length === 0) {
+            if (key === 'Backspace' || key === 'Delete' || key === 46 || key === 8) {
+                deleteClass();
+            }
+        }
+    });
+
+
+    function setInfoHelp () {
+        infoNode.classList.remove('loader');
+        infoNode.classList.add('helper');
+    }
+
+    function showInfo () {
+        infoNode.classList.remove('hidden');
+    }
+
+    function hideInfo () {
+        infoNode.classList.add('hidden');
+    }
+
+    function setInfoLoad () {
+        infoNode.classList.remove('helper');
+        infoNode.classList.add('loader');
+    }
+
+    function removeCourseList () {
+        if (courseList && inputNode.contains(courseList)) {
+            inputNode.removeChild(courseList);
+        } else {
+            courseList = null;
+        }
+    }
+
+    function sendClassQuery (param) {
+        let req = new XMLHttpRequest();
+        req.open('GET', `/classSearch/?q=${param}`);
+        req.addEventListener('loadend', () => {
+            if (req.status === 404) {
+                hideInfo();
+                console.log(req.responseText + '404');
+                return;
+            }
+            hideInfo();
+            let results = JSON.parse(req.responseText);
+
+            createList(results);
         });
-        list.removeChild(classRemoved)
+        req.addEventListener('error', () => {
+            console.log(req.responseText + 'err');
+            infoNode.classList.add('helper');
+        });
+        req.send(null);
     }
-}
 
-function addClass(chosenClass) {
-    if (choosenClasses.length < 10) {
-        let newClass = document.createElement('li');
-        newClass.textContent = chosenClass.name;
-        newClass.classList.add('classname');
-        newClass.addEventListener('click', deleteClass);
-        list.insertBefore(newClass, inputNode);
-        choosenClasses.push(newClass)
-    }
-}
-inputBox.addEventListener('focus', evt => {
-    queryList.classList.remove('hidden');
-})
-inputBox.addEventListener('blur', evt => {
-    queryList.classList.add('hidden');
-    helper.classList.add('helper');
-    clearList();
-    evt.currentTarget.value = '';
-    if(req){
-        
-    }
-})
-inputBox.addEventListener('keydown', evt => {
-    let key = evt.key || evt.keyCode;
 
-    if (evt.target.value.length === 0) {
-        if (key === 'Backspace' || key === 'Delete' || key === 46 || key === 8) {
-            deleteClass();
+
+    /**
+     * @param {Array} courses
+     */
+    function createList (courses) {
+        let listNode = document.createElement('ul');
+        listNode.classList.add('querylist');
+        courseList = listNode;
+        courses.forEach(course => {
+            let newClassNode = document.createElement('li');
+            newClassNode.textContent = course;
+            newClassNode.onmousedown = (evt) => addClass(evt.target);
+            listNode.appendChild(newClassNode);
+        });
+
+        if (courseList == listNode) {
+            inputNode.appendChild(listNode);
         }
-
     }
 
-})
+    /**
+     *
+     * @param {MouseEvent} evt
+     */
+    function deleteClass (evt) {
+        let classRemoved;
+
+        if (evt === undefined) {
+            if (chosenClasses.length > 0) {
+                classRemoved = chosenClasses.pop();
+                list.removeChild(classRemoved);
+            }
+        } else {
+            classRemoved = evt.currentTarget;
+            chosenClasses = chosenClasses.filter(el => {
+                return el !== classRemoved;
+            });
+            list.removeChild(classRemoved);
+        }
+    }
+
+    function addClass (chosenClass) {
+        if (chosenClasses.length < 10) {
+            let newClass = document.createElement('li');
+            newClass.textContent = chosenClass.textContent;
+            newClass.onclick = deleteClass;
+            newClass.classList.add('classname');
+            list.insertBefore(newClass, inputNode);
+            chosenClasses.push(newClass);
+        }
+    };
+
+    this.getCourses = function() {
+        return chosenClasses.map(el => el.textContent);
+    };
+
+    return this;
+})();
