@@ -189,6 +189,14 @@
     text-align: center;
 }
 
+.search-bar-text{
+    text-align: center;
+}
+
+.search-title {
+    text-align: center;
+}
+
 .search-link {
     color: #006aad;
     text-decoration-line: underline;
