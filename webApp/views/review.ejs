@@ -12,7 +12,7 @@
 <%- include templates/nav-search %>
 
 <body>
-    <div class="bg">
+    <div class="bg-bigger">
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
 
@@ -25,12 +25,10 @@
                             <div class="col-md-auto">
                                 <div>
                                     <p>You are rating <b>
-                                            <%- profile.name.firstName %>
-                                            <%- profile.name.lastName %>" ></b> for their tutoring of <b>
-                                            <%- class.name %>></b>.</p>
+                                            <%= profile.firstName %> <%= profile.lastName %></b> for their tutoring of <b><%= courseName %></b>.</p>
                                 </div>
                                 <hr />
-                                <form>
+                                <form action='/profile/user/<%= profile.googleID %>/review/<%= classID %>/submit'>
                                     <div class="form-group row">
                                         <label for="quality_of_teaching" class="col-5 col-form-label bold">Quality of
                                             Teaching:</label>

@@ -36,6 +36,7 @@ router.get('/user/:id', (req, res) => {
     findUser(googleID)
         .then(prof => {
             let courses = prof.coursesTeaching.map(course => ({
+                _id: course._id,
                 courseName: getClassName(course._id),
                 rating: course.rating
             }));
@@ -43,10 +44,28 @@ router.get('/user/:id', (req, res) => {
         }).catch(() => {
             throw new Error(`No such profile ${googleID}`);
         });
-})
-.use('/review',(req,res)=>{
-    console.log('REVIEWING A CLASS');
-    res.render('review', { profile: req.user, class: req.body });
+});
+
+// Tested - works
+router.get('/user/:id/review/:course', (req, res) =>{
+    let googleID = req.params.id;
+    let classID = req.params.course;
+    findUser(googleID)
+        .then(prof => {
+            let courseName = getClassName(classID)
+            res.render('review', { profile: prof, classID, courseName })
+        }).catch(() => {
+            throw new Error(`No such profile ${googleID}`);
+        });
+
+});
+
+router.post('/user/:id/review/:course/submit', (req, res) => {
+    let googleID = req.params.id;
+    let classID = req.params.course;
+
+    // Calls some function
+
 });
 
 // A route used when a user wants to log in
@@ -93,13 +112,6 @@ router.post('/createProfile', function(req, res) {
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
         .catch(err => console.log(err));
 });
-
-// A route used when a user wants to submit a review for a class
-//Untested
-// router.get('/review', function(req, res) {
-//     console.log('REVIEWING A CLASS');
-//     res.render('review', { profile: req.user, class: req.body });
-// });
 
 // A route used to actually submit a review to the database
 //Untested
