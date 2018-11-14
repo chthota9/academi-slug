@@ -26,7 +26,7 @@
                                     </h4>
                                 </body>
                                 <h4>
-                                    <%- classSearched.tutors.length %> tutors found</h4>
+                                    <%- classSearched.tutors.length %> tutors found.</h4>
                             </div>
 
                             <div class="dropdown">
@@ -43,13 +43,15 @@
                                     <tr>
                                         <th>Last, First</th>
                                         <th>Ratings</th>
-									</tr>
+                                    </tr>
+                                    
 									<% classSearched.tutors.forEach(tutor =>{ %>
 										<tr>
 											<td><a href="/profile/user/<%= tutor.googleID %>"> <%= tutor.name %> </a></td>
 											<td><%= '*'.repeat(tutor.rating);  %></td>
 										</tr>	
-									<% }) %>
+                                    <% }) %>
+                                    
                                 </table>
                             </div>
                         </div>
