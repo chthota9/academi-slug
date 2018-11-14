@@ -15,18 +15,18 @@
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-md-auto">
-                    <div class="card">
+                    <div class="card" style="width: 500px;">
                         <div class="card-header">
                             <div class="search-text">
-                                <h4>You searched for: </h4>
+                                <h2>You searched for: </h2>
 
                                 <body>
-                                    <h4>
+                                    <h2>
                                         <%= classSearched.name %>
-                                    </h4>
+                                    </h2>
                                 </body>
-                                <h4>
-                                    <%- classSearched.tutors.length %> tutors found.</h4>
+                                <h2>
+                                    <%- classSearched.tutors.length %> tutors found.</h2>
                             </div>
 
                             <div class="dropdown">
@@ -39,19 +39,19 @@
                         </div>
                         <div class="card-body col-md-auto">
                             <div class="tutor-table">
-                                <table class="centralize">
-                                    <tr>
-                                        <th>Last, First</th>
-                                        <th>Ratings</th>
+                                <table class="table centralize">
+                                    <tr class="tr">
+                                        <th class="th">Name</th>
+                                        <th class="th">Ratings</th>
                                     </tr>
                                     
 									<% classSearched.tutors.forEach(tutor =>{ %>
-										<tr>
-                                            <td><a href="/profile/user/<%= tutor.googleID %>"> <%= tutor.name %> </a></td>
+										<tr class="tr">
+                                            <td class="td"><a href="/profile/user/<%= tutor.googleID %>"> <%= tutor.name %> </a></td>
                                             <% let rating = tutor.rating; %>
                                             <% let rounded = Math.round(rating); %>
                                             <% let maxRating = 5; %>
-                                            <td>
+                                            <td class="td">
                                                 <% for (star = 0; star <= rounded; star++) { %>
                                                     <span class="fa fa-star checked"></span>
                                                 <% } %>
@@ -59,7 +59,7 @@
                                                     <span class="fa fa-star"></span>
                                                 <% } %>
                                                 </td>
-											<!-- <td><%= '*'.repeat(tutor.rating);  %></td> -->
+											<!-- <td class="td"><%= '*'.repeat(tutor.rating);  %></td> -->
 										</tr>	
                                     <% }) %>
                                     
