@@ -193,10 +193,6 @@ td {
     font-size: 145%;
 }
 
-.bold {
-    font-weight: bold;
-}
-
 .text-center {
     text-align: center;
 }
@@ -205,6 +201,11 @@ td {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.rating-title {
+    font-weight: bold;
+    text-align: center;
 }
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
