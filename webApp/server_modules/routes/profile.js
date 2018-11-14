@@ -43,6 +43,10 @@ router.get('/user/:id', (req, res) => {
         }).catch(() => {
             throw new Error(`No such profile ${googleID}`);
         });
+})
+.use('/review',(req,res)=>{
+    console.log('REVIEWING A CLASS');
+    res.render('review', { profile: req.user, class: req.body });
 });
 
 // A route used when a user wants to log in
@@ -92,18 +96,18 @@ router.post('/createProfile', function(req, res) {
 
 // A route used when a user wants to submit a review for a class
 //Untested
-router.get('/review', function(req, res) {
-    console.log('REVIEWING A CLASS');
-    res.render('review', { profile: req.user, class: req.body });
-});
+// router.get('/review', function(req, res) {
+//     console.log('REVIEWING A CLASS');
+//     res.render('review', { profile: req.user, class: req.body });
+// });
 
 // A route used to actually submit a review to the database
 //Untested
-router.post('/submitReview', function(req, res) {
-    console.log('SUBMITTING A REVIEW');
-    var avg = sum(...req.body) / 4.0;
-    console.log(avg);
-});
+// router.post('/submitReview', function(req, res) {
+//     console.log('SUBMITTING A REVIEW');
+//     var avg = sum(...req.body) / 4.0;
+//     console.log(avg);
+// });
 
 // A route used when a user wants to update their profile
 //Untested

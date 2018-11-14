@@ -231,10 +231,9 @@ function addReview (googleID, courseNo, average) {
  * func should add tutor under class but if class is not in database
  * add class to db with tutor under it
  */
-
-function addClass (course) {
+function addClass (courseNo) {
     return new Promise((resolve, reject) => {
-        let classAdded = new Classes({ courseNo: course.courseNo });
+        let classAdded = new Classes({ courseNo, tutors: [] });
         classAdded.save((err, course) => {
             if (err) {
                 return reject(err);
@@ -245,9 +244,9 @@ function addClass (course) {
     });
 }
 
-function deleteClass(courseNo) {
+function deleteClass (courseNo) {
     return new Promise((resolve, reject) => {
-        Classes.findByIdAndDelete(courseNo, function (err) {
+        Classes.findByIdAndDelete(courseNo, function(err) {
             if (err) {
                 console.log('User with courseNo ' + courseNo + ' does not exist.');
                 return reject(err);
@@ -260,19 +259,13 @@ function deleteClass(courseNo) {
 
 //Seems to be working
 //Should error checking when class does not exist
-function addTutor (googleID, courseNo) {
+function addTutor (courseNo, tutor) {
     return new Promise((resolve, reject) => {
-        //     UserClassess.update({ 'courseNo': courseNo }, { $set: { 'tutors.$._id': googleID } })
-        //         .exec((err, user) => {
-        //             if (err) return reject(err);
-        //             resolve(user);
-        //         })
-        // })
 
-        Classes.findByIdAndUpdate(courseNo, { $addToSet: { tutors: { googleID } } })
+        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutor } })
             .exec((err, user) => {
                 if (err) return reject(err);
-                console.log('Tutor ' + googleID + ' added to class ' + courseNo);
+                console.log('Tutor ' + tutor._id + ' added to class ' + courseNo);
                 resolve(user);
             });
     });
@@ -323,7 +316,9 @@ function findClass (courseNo) {
 //     })
 //     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
 //     .    catch(err => console.log(err));
-
+// addClass(21451)
+//     .then(() => addTutor(21451, { _id: 4321, name: 'Sammy Slug', rating: 4 }))
+//     .then(() => addTutor(21451, { _id: 5555, name: 'George Bluementhall', rating: 3 }));
 
 module.exports = {
     addUser,
