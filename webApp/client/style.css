@@ -230,13 +230,15 @@ td {
 }
 
 .rating>label {
-    color: #ddd;
+    color: #B3B3B3;
     float: right;
 }
 
 /* CSS Magic to Highlight Stars on Hover */
 
-.rating>input:checked~label,
+.rating>input:checked~label{
+    color: #003c6c;
+}
 /* show gold star when clicked */
 .rating:not(:checked)>label:hover,
 /* hover current star */
@@ -245,7 +247,6 @@ td {
 }
 
 /* Hover previous stars in list */
-
 .rating>input:checked+label:hover,
 /* hover current star when changing rating */
 .rating>input:checked~label:hover,
