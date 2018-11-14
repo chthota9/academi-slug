@@ -51,7 +51,7 @@
                                             <% let rounded = Math.round(rating); %>
                                             <% let maxRating = 5; %>
                                             <td>
-                                                <% for (star = 1; star <= rounded; star++) { %>
+                                                <% for (star = 0; star <= rounded; star++) { %>
                                                     <span class="fa fa-star checked"></span>
                                                 <% } %>
                                                 <% for (star = rounded; star <= maxRating - rounded; star++) { %>
