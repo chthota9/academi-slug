@@ -52,12 +52,13 @@
                                             <% let rounded = Math.round(rating); %>
                                             <% let maxRating = 5; %>
                                             <td>
-                                                <% for (star = 1; i <= rounded; star++) { %>
+                                                <% for (star = 0; star <= rounded; star++) { %>
                                                     <span class="fa fa-star checked"></span>
                                                 <% } %>
-                                                <% for (star = rounded; i <= maxRating - rounded; star++) { %>
+                                                <% for (star = rounded; star <= maxRating - rounded; star++) { %>
                                                     <span class="fa fa-star"></span>
                                                 <% } %>
+                                                </td>
 											<!-- <td><%= '*'.repeat(tutor.rating);  %></td> -->
 										</tr>	
                                     <% }) %>
