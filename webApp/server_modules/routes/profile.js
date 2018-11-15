@@ -46,27 +46,37 @@ router.get('/user/:id', (req, res) => {
         });
 });
 
+// A route that accesses a user's review page for a particular class.
 // Tested - works
 router.get('/user/:id/review/:course', (req, res) =>{
     let googleID = req.params.id;
     let classID = req.params.course;
     findUser(googleID)
         .then(prof => {
-            let courseName = getClassName(classID)
-            res.render('review', { profile: prof, classID, courseName })
+            let courseName = getClassName(classID);
+            res.render('review', { profile: prof, classID, courseName });
         }).catch(() => {
             throw new Error(`No such profile ${googleID}`);
         });
-
 });
 
-router.post('/user/:id/review/:course/submit', (req, res) => {
+// Probably not right
+router.post('/user/:id/review/:course/submit*', (req, res) => {
     let googleID = req.params.id;
     let classID = req.params.course;
 
     // Calls some function
 
 });
+
+// A route used to actually submit a review to the database
+//Untested
+// router.post('/submitReview', function(req, res) {
+//     console.log('SUBMITTING A REVIEW');
+//     var avg = sum(...req.body) / 4.0;
+//     console.log(avg);
+// });
+
 
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
@@ -112,14 +122,6 @@ router.post('/createProfile', function(req, res) {
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
         .catch(err => console.log(err));
 });
-
-// A route used to actually submit a review to the database
-//Untested
-// router.post('/submitReview', function(req, res) {
-//     console.log('SUBMITTING A REVIEW');
-//     var avg = sum(...req.body) / 4.0;
-//     console.log(avg);
-// });
 
 // A route used when a user wants to update their profile
 //Untested
