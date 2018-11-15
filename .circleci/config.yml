@@ -20,7 +20,7 @@ jobs:
       - checkout
       - run: 
           name: change-directory
-          command: cd webApp
+          command: cd webApp 
       - run: 
           name: install-dependencies
           command: npm install
