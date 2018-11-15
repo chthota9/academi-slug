@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client'));
 
 // Includes all routes
-app.use('/google', paport(app));
+app.use('/google', passport(app));
 app.use('/profile', profileRoute);
 app.use('/searchRoute', searchRoute);
 app.use('/classSearch', classSearch);
