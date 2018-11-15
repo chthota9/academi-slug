@@ -14,14 +14,16 @@ jobs:
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mongo:3.4.4
 
-    working_directory: ~/academi-slug/webApp
+    working_directory: ~/academi-slug
 
     steps:
       - checkout
       - run: 
           name: install-dependencies
           command: npm install
-      - run: ls -l ~/academi-slug/webApp
+      - run: 
+          name: list files
+          command: ls -l ~/academi-slug
       - run: 
           name: run test
           command: npm test
