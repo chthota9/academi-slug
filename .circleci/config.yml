@@ -20,7 +20,10 @@ jobs:
       - checkout
       - run: 
           name: change-directory
-          command: cd webApp 
+          command: cd ~/academi-slug/webApp 
+      - run:
+          name: list-directory
+          command: pwd
       - run: 
           name: install-dependencies
           command: npm install
