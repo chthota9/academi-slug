@@ -21,6 +21,7 @@ jobs:
       - run: 
           name: install-dependencies
           command: npm install
+      - run: ls -l ~/academi-slug/webApp
       - run: 
           name: run test
           command: npm test
