@@ -24,7 +24,7 @@ jobs:
           command: npm install
       - run: 
           name: run app
-          command: npm test
+          command: npm start
       - run:
           name: kill app
-          command: pm2 kill
+          command: npm stop
