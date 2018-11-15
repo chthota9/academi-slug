@@ -23,5 +23,8 @@ jobs:
           name: install-dependencies
           command: npm install
       - run: 
-          name: run test
+          name: run app
           command: npm test
+      - run:
+          name: kill app
+          command: pm2 kill
