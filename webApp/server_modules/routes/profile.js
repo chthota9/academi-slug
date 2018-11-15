@@ -61,13 +61,17 @@ router.get('/user/:id/review/:course', (req, res) =>{
 });
 
 // Probably not right
-router.post('/user/:id/review/:course/submit*', (req, res) => {
-    let googleID = req.params.id;
-    let classID = req.params.course;
-
-    // Calls some function
-
-});
+// router.post('/user/:id/review/:course/submit', (req, res) => {
+//     let googleID = req.params.id;
+//     let classID = req.params.course;
+//     let quality = req.params.quality_of_teaching.value;
+//     let punctuality = req.params.punctuality.value;
+//     let politeness = req.params.politeness.value;
+//     let organization = req.params.organization.value;
+//     var avg = sum(quality, punctuality,politeness,organization)/4.0;
+//     res.render('search');
+//     console.log(avg);
+// });
 
 // A route used to actually submit a review to the database
 //Untested
