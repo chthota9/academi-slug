@@ -9,7 +9,7 @@ router.post('/', (req, res) => {
 });
 
 router.post('/allclasses',(req,res)=>{
-    res.json(JSON.stringify(getAllClasses()));
+    res.json(getAllClasses());
 });
 
 module.exports = router;

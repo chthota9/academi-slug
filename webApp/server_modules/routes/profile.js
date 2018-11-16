@@ -31,7 +31,8 @@ router.get('/', function(req, res) {
 
 // A route used to access a user's profile
 // Tested
-router.get('/user/:id', (req, res) => {
+// eslint-disable-next-line no-useless-escape
+router.get('/user/:id(\\d+)', (req, res) => {
     let googleID = req.params.id;
     findUser(googleID)
         .then(prof => {
@@ -45,10 +46,17 @@ router.get('/user/:id', (req, res) => {
         });
 });
 
-router.get('/user/:id/review', (req, res) => {
-    console.log(`REVIEWING A CLASS by ${req.param.id}`);
-    res.json({ id: req.param.id });
-});
+
+router.route('/user/:id(\\d+)/review')
+    .post((req, res) => {
+        res.json({ q: req.body.p });
+    })
+    .get((req, res) => {
+        findUser(req.params.id)
+            .then(prof => {
+                res.render('review', { profile: prof, className: 'CMPS115' });
+            });
+    });
 
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
