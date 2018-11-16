@@ -31,7 +31,8 @@ router.get('/', function(req, res) {
 
 // A route used to access a user's profile
 // Tested
-router.get('/user/:id', (req, res) => {
+// eslint-disable-next-line no-useless-escape
+router.get('/user/:id(\\d+)', (req, res) => {
     let googleID = req.params.id;
     findUser(googleID)
         .then(prof => {
@@ -46,19 +47,21 @@ router.get('/user/:id', (req, res) => {
         });
 });
 
-// A route that accesses a user's review page for a particular class.
-// Tested - works
-router.get('/user/:id/review/:course', (req, res) =>{
-    let googleID = req.params.id;
-    let classID = req.params.course;
-    findUser(googleID)
-        .then(prof => {
-            let courseName = getClassName(classID);
-            res.render('review', { profile: prof, classID, courseName });
-        }).catch(() => {
-            throw new Error(`No such profile ${googleID}`);
-        });
-});
+// We are not sure which route we will use
+
+// // A route that accesses a user's review page for a particular class.
+// // Tested - works
+// router.get('/user/:id/review/:course', (req, res) =>{
+//     let googleID = req.params.id;
+//     let classID = req.params.course;
+//     findUser(googleID)
+//         .then(prof => {
+//             let courseName = getClassName(classID);
+//             res.render('review', { profile: prof, classID, courseName });
+//         }).catch(() => {
+//             throw new Error(`No such profile ${googleID}`);
+//         });
+// });
 
 // Probably not right
 // router.post('/user/:id/review/:course/submit', (req, res) => {
@@ -81,6 +84,17 @@ router.get('/user/:id/review/:course', (req, res) =>{
 //     console.log(avg);
 // });
 
+
+router.route('/user/:id(\\d+)/review')
+    .post((req, res) => {
+        res.json({ q: req.body.p });
+    })
+    .get((req, res) => {
+        findUser(req.params.id)
+            .then(prof => {
+                res.render('review', { profile: prof, className: 'CMPS115' });
+            });
+    });
 
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {

@@ -15,7 +15,7 @@
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
 
-                <div class="col-md-6">
+                <div class="col-sm-12 col-md-10 col-lg-8">
                     <div class="card">
                         <div class="card-header">
                             <h2 class="display-4 mb-0 rating-title">Rate Your Tutor</h2>
@@ -23,13 +23,12 @@
                         <div class="card-body">
                             <div class="col-md-auto">
                                 <div>
-                                    <p>You are rating <b>
-                                            <%= profile.firstName %> <%= profile.lastName %></b> for their tutoring of <b><%= courseName %></b>.</p>
+                                    <p>You are rating <%= profile.name.first %> <%= profile.name.last %> for their teaching of <%= className %>.</p>
                                 </div>
                                 <hr />
-                                <form action='/profile/user/<%= profile.googleID %>/review/<%= classID %>/submit'>
+                                <form id="reviewForm">
                                     <div class="form-group row">
-                                        <label for="quality_of_teaching" class="col-5 col-form-label h2-title">Quality of
+                                        <label for="quality_of_teaching" class="col-5 &#9733col-form-label bold">Quality of
                                             Teaching:</label>
                                         <div class="col-7">
                                             <fieldset class="rating" id="quality_of_teaching">
@@ -126,7 +125,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row category">
                                         <div class="centralize">
                                             <button name="submit" type="submit" class="btn btn-primary h2-title">Submit Your
                                                 Review</button>
@@ -141,6 +140,7 @@
             </div>
         </div>
     </div>
+    <script src="/profileReview.js" defer></script>
 </body>
 
 </html>

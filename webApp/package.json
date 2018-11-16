@@ -4,9 +4,10 @@
   "description": "CMPS 115 Project",
   "main": "server.js",
   "scripts": {
-    "test": "pm2 start ecosystem.config.js --watch",
+    "test": "pm2-runtime start ecosystem.config.js --watch",
     "start": "pm2-runtime start ecosystem.config.js --env production ",
-    "stop": "pm2 kill"
+    "stop": "pm2 kill",
+    "buildtest": "pm2-runtime start ecosystem.config.js --env build"
   },
   "author": "",
   "license": "ISC",
