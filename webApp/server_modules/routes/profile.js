@@ -43,10 +43,11 @@ router.get('/user/:id', (req, res) => {
         }).catch(() => {
             throw new Error(`No such profile ${googleID}`);
         });
-})
-.use('/review',(req,res)=>{
-    console.log('REVIEWING A CLASS');
-    res.render('review', { profile: req.user, class: req.body });
+});
+
+router.get('/user/:id/review', (req, res) => {
+    console.log(`REVIEWING A CLASS by ${req.param.id}`);
+    res.json({ id: req.param.id });
 });
 
 // A route used when a user wants to log in
