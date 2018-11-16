@@ -4,18 +4,11 @@ mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/acade
     useNewUrlParser: true
 });
 
-const { exec} = require('child_process');
-
-
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log('We\'re connected to the database!');
-    console.log(process.env.NODE_ENV);
-    
     if (process.env.NODE_ENV === 'buildTest') {
         setTimeout(() => {
-            console.log('END');
-            exec('npm stop');
         }, 3000);
     }
 });
