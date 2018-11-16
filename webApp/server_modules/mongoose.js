@@ -296,14 +296,16 @@ function deleteTutor (googleID, courseNo) {
     });
 }
 
-//Untested
+// works, returns NULL if class is not found
 function findClass (courseNo) {
     console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
+        console.log(courseNo)
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
                 if (err) {
                     return reject(err);
+                 
                 }
                 resolve(classQuery);
             });
