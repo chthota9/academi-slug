@@ -16,7 +16,7 @@
         <div class="container h-100">
             <div class="row h-100 justify-content-center align-items-center">
 
-                <div class="col-md-6">
+                <div class="col-sm-12 col-md-10 col-lg-8">
                     <div class="card">
                         <div class="card-header">
                             <h2 class="display-4 mb-0 text-center h2-title">Rate Your Tutor</h2>
@@ -24,15 +24,12 @@
                         <div class="card-body">
                             <div class="col-md-auto">
                                 <div>
-                                    <p>You are rating <b>
-                                            <%- profile.name.firstName %>
-                                            <%- profile.name.lastName %>" ></b> for their tutoring of <b>
-                                            <%- class.name %>></b>.</p>
+                                    <p>You are rating <%= profile.name.first %> <%= profile.name.last %> <%= className %>.</p>
                                 </div>
                                 <hr />
-                                <form>
+                                <form id="reviewForm">
                                     <div class="form-group row">
-                                        <label for="quality_of_teaching" class="col-5 col-form-label bold">Quality of
+                                        <label for="quality_of_teaching" class="col-5 &#9733col-form-label bold">Quality of
                                             Teaching:</label>
                                         <div class="col-7">
                                             <fieldset class="rating" id="quality_of_teaching">
@@ -68,7 +65,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row ">
                                         <label for="politeness" class="col-5 col-form-label bold">Politeness:</label>
                                         <div class="col-7">
                                             <fieldset class="rating" id="politeness">
@@ -80,13 +77,13 @@
                                                     class="full" for="star3.3"></label>
                                                 <input type="radio" id="star3.2" name="politeness" value="2" /><label
                                                     class="full" for="star3.2"></label>
-                                                <input type="radio" id="star3.1" name="politeness" value="1" /><label
+                                                <input type="radio" id="star3.1" name="politeness" value="1"/><label
                                                     class="full" for="star3.1"></label>
                                             </fieldset>
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row ">
                                         <label for="organization" class="col-5 col-form-label bold">Organizational
                                             Skills:</label>
                                         <div class="col-7">
@@ -105,7 +102,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group row">
+                                    <div class="form-group row category">
                                         <div class="centralize">
                                             <button name="submit" type="submit" class="btn btn-primary">Submit Your
                                                 Review</button>
@@ -120,6 +117,7 @@
             </div>
         </div>
     </div>
+    <script src="/profileReview.js" defer></script>
 </body>
 
 </html>
