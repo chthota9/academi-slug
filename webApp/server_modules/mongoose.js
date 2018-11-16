@@ -35,6 +35,7 @@ let classTutorSchema = new mongoose.Schema({
     _id: false
 });
 
+//do this class schema part 
 let classSchema = new mongoose.Schema({
     _id: {
         type: Number,
@@ -51,6 +52,7 @@ let classSchema = new mongoose.Schema({
 
 
 let Classes = mongoose.model('Classes', classSchema);
+
 
 let courseTeachingSchema = new mongoose.Schema({
     _id: {
@@ -336,3 +338,4 @@ module.exports = {
     findClass,
     connection
 };
+
