@@ -136,9 +136,13 @@
 /* Sorting function */
 .btn-sort {
     color: white;
+    font-weight: bold;
     background-color: black;
-    border-color: black;
     margin-left: -20px;
+}
+
+.sort-style {
+    font-weight: bold;
 }
 
 .dropdown {
@@ -163,7 +167,7 @@
 }
 
 .dropdown-content a:hover {
-    background-color: #003c6c;
+    background-color: #f29813;
 }
 
 .dropdown:hover .dropdown-content {
@@ -175,22 +179,31 @@
     text-align: center;
 }
 
-table,
-th,
-td {
+.table, .th, .td {
     border: 3px solid black;
+    font-size: large;
+    table-layout: auto;
 }
 
 .search-text {
     text-align: center;
 }
 
-#search-confirm {
-    font-size: 220%;
+.search-bar-text{
+    text-align: center;
 }
 
-#search-results {
-    font-size: 145%;
+.search-title {
+    text-align: center;
+}
+
+.search-link {
+    color: #006aad;
+    text-decoration-line: underline;
+}
+
+.search-link:hover {
+    color: black;
 }
 
 .bold {

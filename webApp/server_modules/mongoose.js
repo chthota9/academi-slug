@@ -7,6 +7,10 @@ mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/acade
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log('We\'re connected to the database!');
+    if (process.env.NODE_ENV === 'buildTest') {
+        setTimeout(() => {
+        }, 3000);
+    }
 });
 // connection.dropDatabase();
 
@@ -285,14 +289,16 @@ function deleteTutor (googleID, courseNo) {
     });
 }
 
-//Untested
+// works, returns NULL if class is not found
 function findClass (courseNo) {
     console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
+        console.log(courseNo)
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
                 if (err) {
                     return reject(err);
+                 
                 }
                 resolve(classQuery);
             });
