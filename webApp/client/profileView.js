@@ -4,7 +4,6 @@ let classSelect = ClassSelect;
 let oldProf = formDataToObj(new FormData(form));
 form.addEventListener('submit', evt => {
     evt.preventDefault();
-
     let newProf = diffProf(formDataToObj(new FormData(form)));
     console.log(JSON.stringify(newProf));
     sendUpdate(newProf);
@@ -48,29 +47,31 @@ function diffProf (updatedProf) {
     }
     return newProf;
 }
-
+/**
+ * @param {Array} oldVal 
+ * @param {Array} newVal 
+ */
 function compareCourses (oldVal, newVal) {
-    if (newVal.length !== oldVal.length) {
-        return newVal;
-    }
-    for (let i = 0; i < newVal.length; i++) {
-        const oldCourse = oldVal[i];
-        const newCourse = newVal[i];
-        if (oldCourse !== newCourse) {
-            return newVal;
+    //see if theres new courses compared to old
+    //see if any of the old courses were removed
+    let courses;
+    courses = newVal.filter(el => oldVal.indexOf(el) < 0);
+    oldVal.forEach(el => {
+        if (!newVal.includes(el)) {
+            courses.push('-' + el);
         }
-    }
-    return null;
+    });
+    return courses;
 }
 
 function formDataToObj (formData) {
-    let updatedProf = {};
+    let prof = {};
     let courses = classSelect.getCourses();
     for (const data of formData.entries()) {
         if (data[0] != 'query') {
-            updatedProf[data[0]] = data[1];
+            prof[data[0]] = data[1];
         }
     }
-    updatedProf.coursesTeaching = courses;
-    return updatedProf;
+    prof.coursesTeaching = courses;
+    return prof;
 }

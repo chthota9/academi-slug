@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const { getClassID } = require('./course_json_parser');
+
 mongoose.set('useFindAndModify', false); //Avoid deprecation warning
 mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug', {
     useNewUrlParser: true
@@ -8,8 +10,7 @@ const connection = mongoose.connection;
 connection.once('open', function() {
     console.log('We\'re connected to the database!');
     if (process.env.NODE_ENV === 'buildTest') {
-        setTimeout(() => {
-        }, 3000);
+        setTimeout(() => {}, 3000);
     }
 });
 // connection.dropDatabase();
@@ -60,7 +61,7 @@ let courseTeachingSchema = new mongoose.Schema({
     rating: {
         type: Number,
         required: true,
-        Default: 5
+        default: 5
     },
 }, {
     autoIndex: false,
@@ -205,14 +206,71 @@ function findUser (googleID) {
     });
 }
 
-function updateUser (googleID, userEdits) {
+function updateUser (googleID, updates) {
     console.log('Updating user ' + googleID);
     return new Promise((resolve, reject) => {
-        Users.findByIdAndUpdate(googleID, userEdits, { new: true })
-            .exec((err, user) => {
-                if (err) return reject(err);
-                resolve(user);
-            });
+        let keys = Object.keys(updates);
+        let profileUpdate = {};
+        if (keys.includes('coursesTeaching')) {
+            for (const key in updates) {
+                if (key !== 'coursesTeaching') {
+                    profileUpdate[key] = updates[key];
+                }
+            }
+        }
+        let courses = updates.coursesTeaching || [];
+        let delCourses = [];
+        let newCourses = [];
+        for (let i = 0; i < courses.length; i++) {
+            let course = courses[i];
+            if (course.includes('-')) {
+                course = course.substring(1);
+                delCourses.push({ _id: getClassID(course) });
+                continue;
+            }
+            newCourses.push({ _id: getClassID(course) });
+        }
+        console.log(delCourses);
+        console.log(newCourses);
+
+
+
+        let update = {
+            $set: profileUpdate,
+        };
+
+        if (delCourses.length > 0 && newCourses.length > 0) {
+            update['$addToSet'] = { coursesTeaching: newCourses };
+            let prom1 = Users.findByIdAndUpdate(googleID, update, { upsert: true, new: true, setDefaultsOnInsert: true }).exec();
+            let prom2 = Users.findByIdAndUpdate(googleID, { $pull: { coursesTeaching: delCourses } }, { upsert: true, new: true, setDefaultsOnInsert: true }).exec();
+            Promise.all([prom1, prom2])
+                .then(output => {
+                    console.log(output);
+                    resolve(output[1]);
+                })
+                .catch(err => reject(err));
+        } else if (delCourses.length > 0 || newCourses.length > 0) {
+            if (delCourses.length > 0) {
+                console.log('JUST DELETEING');
+                update['$pullAll'] = { coursesTeaching: delCourses };
+            } else {
+                console.log('JUST ADDING');
+                update['$addToSet'] = { coursesTeaching: newCourses };
+            }
+            console.log(update);
+            
+            Users.findByIdAndUpdate(googleID, update, { upsert: true, new: true, setDefaultsOnInsert: true })
+                .exec((err, prof) => {
+                    if (err) return reject(err);
+                    resolve(prof);
+                });
+        } else {
+            Users.findByIdAndUpdate(googleID, update, { upsert: true, new: true, setDefaultsOnInsert: true })
+                .exec((err, prof) => {
+                    if (err) return reject(err);
+                    resolve(prof);
+                });
+        }
     });
 }
 
@@ -298,7 +356,7 @@ function findClass (courseNo) {
             .exec((err, classQuery) => {
                 if (err) {
                     return reject(err);
-                 
+
                 }
                 resolve(classQuery);
             });
