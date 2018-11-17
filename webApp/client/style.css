@@ -115,6 +115,11 @@
     color: white;
 }
 
+.course-element{
+    margin-top: 15px;
+    margin-bottom: -10px;
+}
+
 /* Search bar */
 .search-bar {
     position: relative;

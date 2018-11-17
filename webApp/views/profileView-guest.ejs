@@ -24,6 +24,7 @@
                             <% } %>
 
                         </div>
+
                         <dl class="dl-horizontal">
                             <dt class="col-sm-3 mt-4">Name:</dt>
                             <dd class="col-sm-9">
@@ -57,17 +58,24 @@
 
                             <dt class="col-sm-6">Courses Teaching:</dt>
                             <ul>
-                                <% courses.forEach(course=>{ %>
-                                    <p>
-                                        <li>
-                                            <div class="form-group row">
-                                                <label class="col-4 col-form-label"><%= course.courseName %></label>
-                                                <div class="col">
-                                                    <button type="button" class="btn btn-tertiary">Leave Review</button>
-                                                </div>
+                                <% courses.forEach(course =>{ %>
+                                    <li>
+                                        <div class="form-group row">
+                                            <div class="col-2 course-element">
+                                            <label><%= course.courseName %></label>
                                             </div>
-                                        </li>
-                                    </p>
+
+                                            <div class="col-2 course-element">
+                                            <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
+                                                <span class="fa fa-star checked"></span>
+                                            <% } %>
+                                            </div>
+
+                                            <div class="col-2 course-element">
+                                            <button type="button" class="btn btn-tertiary">Leave Review</button>
+                                            </div>
+                                        </div>
+                                    </li>
                                 <%   }) %>
                             </ul>
                         </dl>
