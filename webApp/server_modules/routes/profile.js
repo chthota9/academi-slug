@@ -122,10 +122,13 @@ router.post('/createProfile', function(req, res) {
 //Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
-    if (Object.keys(req.body).length > 0) {
+    if(Object.keys(req.body).length > 0){
         console.log(req.body);
     }
-    res.redirect('back');
+    updateUser(req.user,req.body)
+    .then(() => {
+        res.redirect('back');
+    });
 });
 
 // A route used when a user wants to delete their profile
