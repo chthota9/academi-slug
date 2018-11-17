@@ -2,7 +2,7 @@
 console.log("sorting-before");
 function alphaSort() {
   console.log("sorting-after");
-  rows, switching, i, x, y, shouldSwitch;
+  var rows, switching, i, x, y, shouldSwitch;
   rows = document.getElementsByTagName("tr");
   console.log(rows);
   switching = true;
