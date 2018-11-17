@@ -230,9 +230,6 @@ function updateUser (user, updates) {
             }
             newCourses.push({ _id: getClassID(course) });
         }
-        console.log(delCourses);
-        console.log(newCourses);
-        console.log(user);
         delCourses.forEach(course => {
             user.coursesTeaching.pull(course);
         });
@@ -245,7 +242,6 @@ function updateUser (user, updates) {
                 user[field] = newResult;
             }
         }
-        console.log(user);
         user.save(function(err) {
             if (err) return reject(err);
             resolve();
