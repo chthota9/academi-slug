@@ -24,9 +24,7 @@ router.get('/', function(req, res) {
     console.log(searched);
     let courseNo = getClassID(req.query.search);
     findClass(courseNo).then(course =>{
-        console.log("hello world")
         if(course == null){
-            console.log("course is null")
             res.render('search-page-error');
         }
         let classSearched = {
