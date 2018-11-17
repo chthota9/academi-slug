@@ -206,8 +206,8 @@ function findUser (googleID) {
     });
 }
 
-function updateUser (googleID, updates) {
-    console.log('Updating user ' + googleID);
+function updateUser (user, updates) {
+    console.log('Updating user ' + user.id);
     return new Promise((resolve, reject) => {
         let keys = Object.keys(updates);
         let profileUpdate = {};
@@ -232,45 +232,24 @@ function updateUser (googleID, updates) {
         }
         console.log(delCourses);
         console.log(newCourses);
-
-
-
-        let update = {
-            $set: profileUpdate,
-        };
-
-        if (delCourses.length > 0 && newCourses.length > 0) {
-            update['$addToSet'] = { coursesTeaching: newCourses };
-            let prom1 = Users.findByIdAndUpdate(googleID, update, { upsert: true, new: true, setDefaultsOnInsert: true }).exec();
-            let prom2 = Users.findByIdAndUpdate(googleID, { $pull: { coursesTeaching: delCourses } }, { upsert: true, new: true, setDefaultsOnInsert: true }).exec();
-            Promise.all([prom1, prom2])
-                .then(output => {
-                    console.log(output);
-                    resolve(output[1]);
-                })
-                .catch(err => reject(err));
-        } else if (delCourses.length > 0 || newCourses.length > 0) {
-            if (delCourses.length > 0) {
-                console.log('JUST DELETEING');
-                update['$pullAll'] = { coursesTeaching: delCourses };
-            } else {
-                console.log('JUST ADDING');
-                update['$addToSet'] = { coursesTeaching: newCourses };
+        console.log(user);
+        delCourses.forEach(course => {
+            user.coursesTeaching.pull(course);
+        });
+        newCourses.forEach(course => {
+            user.coursesTeaching.addToSet(course);
+        });
+        for (const field in updates) {
+            if (field !== 'coursesTeaching') {
+                const newResult = updates[field];
+                user[field] = newResult;
             }
-            console.log(update);
-            
-            Users.findByIdAndUpdate(googleID, update, { upsert: true, new: true, setDefaultsOnInsert: true })
-                .exec((err, prof) => {
-                    if (err) return reject(err);
-                    resolve(prof);
-                });
-        } else {
-            Users.findByIdAndUpdate(googleID, update, { upsert: true, new: true, setDefaultsOnInsert: true })
-                .exec((err, prof) => {
-                    if (err) return reject(err);
-                    resolve(prof);
-                });
         }
+        console.log(user);
+        user.save(function(err) {
+            if (err) return reject(err);
+            resolve();
+        });
     });
 }
 
