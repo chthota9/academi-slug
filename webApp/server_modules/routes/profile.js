@@ -68,8 +68,8 @@ router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
                 throw new Error('No such Profile!');
             }
 
-            let courseName = getClassName(classID);
-            res.render('review', { profile: prof, classID, courseName });
+            let className = getClassName(classID);
+            res.render('review', { profile: prof, classID, className });
         }).catch((err) => {
             throw err;
         });
