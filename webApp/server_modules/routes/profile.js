@@ -31,55 +31,59 @@ router.get('/', function(req, res) {
 
 // A route used to access a user's profile
 // Tested
-router.get('/user/:id', (req, res) => {
+// eslint-disable-next-line no-useless-escape
+router.get('/user/:id(\\d+)', (req, res) => {
     let googleID = req.params.id;
     findUser(googleID)
         .then(prof => {
+            if (!prof) {
+                throw new Error('No such Profile!');
+            }
             let courses = prof.coursesTeaching.map(course => ({
                 _id: course._id,
                 courseName: getClassName(course._id),
                 rating: course.rating
             }));
             res.render('profileView-guest', { profile: prof, courses });
-        }).catch(() => {
-            throw new Error(`No such profile ${googleID}`);
+        }).catch((err) => {
+            throw err;
         });
 });
 
-// A route that accesses a user's review page for a particular class.
-// Tested - works
-router.get('/user/:id/review/:course', (req, res) =>{
+router.get('/user/:id(\\d+)/review', (req, res) => {
+    findUser(req.params.id)
+        .then(prof => {
+            res.render('review', { profile: prof, className: 'CMPS115' });
+        });
+});
+
+// // A route that accesses a user's review page for a particular class.
+// // Tested - works
+router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
     let googleID = req.params.id;
     let classID = req.params.course;
     findUser(googleID)
         .then(prof => {
+            if (!prof) {
+                throw new Error('No such Profile!');
+            }
+
             let courseName = getClassName(classID);
             res.render('review', { profile: prof, classID, courseName });
-        }).catch(() => {
-            throw new Error(`No such profile ${googleID}`);
+        }).catch((err) => {
+            throw err;
         });
 });
 
 // Probably not right
-// router.post('/user/:id/review/:course/submit', (req, res) => {
-//     let googleID = req.params.id;
-//     let classID = req.params.course;
-//     let quality = req.params.quality_of_teaching.value;
-//     let punctuality = req.params.punctuality.value;
-//     let politeness = req.params.politeness.value;
-//     let organization = req.params.organization.value;
-//     var avg = sum(quality, punctuality,politeness,organization)/4.0;
-//     res.render('search');
-//     console.log(avg);
-// });
+router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
+    let googleID = req.params.id;
+    let classID = req.params.course;
+    let reviews = req.body; // will contain an object with each reviewed category the object 
+                            // the object's fields will depend on how its sent from the client
+    res.render('search');
+});
 
-// A route used to actually submit a review to the database
-//Untested
-// router.post('/submitReview', function(req, res) {
-//     console.log('SUBMITTING A REVIEW');
-//     var avg = sum(...req.body) / 4.0;
-//     console.log(avg);
-// });
 
 
 // A route used when a user wants to log in
