@@ -60,8 +60,13 @@ let courseTeachingSchema = new mongoose.Schema({
     rating: {
         type: Number,
         required: true,
-        Default: 5
+        default: 5
     },
+    reviewCount: {
+        type: Number,
+        required: true,
+        default: 0
+    }
 }, {
     autoIndex: false,
     versionKey: false,
@@ -122,11 +127,7 @@ let userSchema = new mongoose.Schema({
     linkedIn: {
         type: String,
     },
-    coursesTeaching: [courseTeachingSchema],
-    reviewCount: {
-        type: Number,
-        required = true;
-    }
+    coursesTeaching: [courseTeachingSchema]
 }, {
     autoIndex: false,
     versionKey: false,

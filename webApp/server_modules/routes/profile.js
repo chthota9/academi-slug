@@ -77,7 +77,7 @@ router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
 
 // Probably not right
 router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
-    var thisRating;
+    var thisRating, prevCount;
     let googleID = req.params.id;
     let classID = req.params.course;
     let reviews = req.body; // will contain an object with each reviewed category the object 
@@ -89,12 +89,11 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
     for (var i = 0; i < thisUser.coursesTeaching.length; i++) {
         if (thisUser.coursesTeaching[i]._id == classID) {
             thisRating = thisUser.coursesTeaching[i].rating;
+            prevCount = thisUser.coursesTeaching[i].reviewCount;
         }
     }
 
     let newRating = 4; //not done yet - get new value of all reviews
-    let prevCount = thisUser.reviewCount;
-
     let newValue = (newRating+thisRating)/(prevCount+1);
 
     addReview(googleID, classID, newValue);
