@@ -2,7 +2,7 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
-const { addUser, updateUser, deleteUser, findUser } = require('../mongoose');
+const { addUser, updateUser, deleteUser, findUser, addReview } = require('../mongoose');
 
 /**
  * A route used when a user accesses their profile
@@ -77,10 +77,29 @@ router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
 
 // Probably not right
 router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
+    var thisRating;
     let googleID = req.params.id;
     let classID = req.params.course;
     let reviews = req.body; // will contain an object with each reviewed category the object 
                             // the object's fields will depend on how its sent from the client
+    console.log(JSON.stringify(req.body));
+    let thisUser = findUser(googleID);
+
+    // Loop through array of coursesTeaching to find rating for the specific course
+    for (var i = 0; i < thisUser.coursesTeaching.length; i++) {
+        if (thisUser.coursesTeaching[i]._id == classID) {
+            thisRating = thisUser.coursesTeaching[i].rating;
+        }
+    }
+
+    let newRating = 4; //not done yet - get new value of all reviews
+    let prevCount = thisUser.reviewCount;
+
+    let newValue = (newRating+thisRating)/(prevCount+1);
+
+    addReview(googleID, classID, newValue);
+    // Increase review count
+
     res.render('search');
 });
 
