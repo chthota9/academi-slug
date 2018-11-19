@@ -44,8 +44,6 @@ let classSchema = new mongoose.Schema({
     versionKey: false,
     _id: false
 });
-
-
 let Classes = mongoose.model('Classes', classSchema);
 
 let courseTeachingSchema = new mongoose.Schema({
@@ -71,7 +69,6 @@ courseTeachingSchema.virtual('courseNo')
     .set(function(val) {
         this._id = val;
     });
-
 
 let userSchema = new mongoose.Schema({
     _id: {
