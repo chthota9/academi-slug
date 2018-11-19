@@ -61,7 +61,6 @@ courseTeachingSchema.virtual('courseNo')
         this._id = val;
     });
 
-
 let userSchema = new mongoose.Schema({
     _id: {
         type: Number,
