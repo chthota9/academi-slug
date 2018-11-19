@@ -81,23 +81,24 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
     let classID = req.params.course;
     let reviews = req.body; // will contain an object with each reviewed category the object 
                             // the object's fields will depend on how its sent from the client
-    let newRating = 0;
+    
     console.log(JSON.stringify(req.body));
     findUser(googleID)
         .then(thisUser => {
 
             // Loop through array of coursesTeaching to find rating for the specific course
             let thisClass = thisUser.coursesTeaching.id(classID);
-            let thisRating = thisClass.rating;
-            let prevCount = thisClass.reviewCount;
-
-            console.log(reviews);
-            for (var number in reviews)
-                new; //not done yet - get new value of all reviews
-            return (newRating+thisRating)/(prevCount+1);
-        }).then( (newValue) => {
-            addReview(googleID, classID, newValue);
-            // Increase review count
+            let oldRating = thisClass.rating;
+            let newRating = 0;
+            for (var category in reviews) {
+                newRating += reviews[category];
+            }
+            newRating /= 4;
+            
+            // Increments the reviewCount before division.
+            thisClass.rating = (newRating + oldRating) / (++thisClass.reviewCount);
+            thisUser.save();
+        }).then( () => {         
             res.render('search', { loggedIn: req.isAuthenticated() });
         }).catch((err) => {
             throw err;
