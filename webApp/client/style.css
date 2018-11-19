@@ -38,7 +38,7 @@
 .body {
     height: 100%;
     background-color: black;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .bg {
@@ -54,7 +54,7 @@
     background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
     height: 150%;
     background-position: center center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
     margin-top: 65px;
 }
@@ -129,7 +129,6 @@
 .search-bar {
     position: relative;
     text-align: center;
-    top: -30px;
 
 }
 
@@ -141,6 +140,37 @@
 .login-redirect {
     position: relative;
     left: 100px;
+}
+
+*{
+    box-sizing: border-box;
+}
+.autocomplete {
+/*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    font-size: 16px;
+    position: absolute;
+    border: 3px solid #ffdb00;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: yellow;
+    border-bottom: 1px solid #ffdb00; 
+}
+
+.autocomplete-items div:hover {
+    background-color: blue;
+    color: yellow;
 }
 
 /* Sorting function */
