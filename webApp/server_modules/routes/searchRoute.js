@@ -32,6 +32,7 @@ router.get('/', function(req, res) {
             tutors: course.tutors
         };
         console.log("after let")
+        console.log(JSON.stringify(classSearched));
         res.render('search-page', { classSearched });
     });
 });

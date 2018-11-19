@@ -86,6 +86,7 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
     let thisUser = findUser(googleID);
 
     // Loop through array of coursesTeaching to find rating for the specific course
+    console.log("We are here!");
     for (var i = 0; i < thisUser.coursesTeaching.length; i++) {
         if (thisUser.coursesTeaching[i]._id == classID) {
             thisRating = thisUser.coursesTeaching[i].rating;
