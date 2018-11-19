@@ -339,5 +339,6 @@ module.exports = {
     addClass,
     addTutor,
     findClass,
+    addReview,
     connection
 };
