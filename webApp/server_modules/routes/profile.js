@@ -96,7 +96,7 @@ router.post('/createProfile', function(req, res) {
         .then(profile => {
             req.login({ id: profile.googleID }, err => {
                 if (err) return res.redirect('/');
-                res.redirect('/profile');
+                res.redirect('/');
             });
         })
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
