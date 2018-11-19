@@ -170,6 +170,7 @@ function addUser (user) {
             linkedIn: user.linkedIn
 
         });
+        
         userAdded.save((err, profile) => {
             if (err) {
                 return reject(err);
