@@ -90,10 +90,18 @@
                                         <% courses.forEach(course =>{ %>
                                         <li class="classname"><%= course.courseName %></li>
                                         <% }) %>
-                                        <li class="classinput">
-                                            <input placeholder="Add another course" type="text" name="query" autocomplete="off" spellcheck="false">
-                                            <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
-                                        </li>
+
+                                        <% if (courses.length == 0){ %>
+                                            <li class="classinput">
+                                                <input placeholder="Add Course" type="text" name="query" autocomplete="off" spellcheck="false">
+                                                <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                                            </li>
+                                        <% } else { %>
+                                            <li class="classinput">
+                                                <input placeholder="Add Another Course" type="text" name="query" autocomplete="off" spellcheck="false">
+                                                <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                                            </li>
+                                        <% } %>
                                     </ul>
                                 </div>
                                 <button form="profileForm" type="submit" class="center-btn  btn btn-primary mt-2">Update Profile</button>
