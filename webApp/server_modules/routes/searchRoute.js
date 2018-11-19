@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const {isValidCourse, getMajors, getClassID, getClassName } = require('../course_json_parser');
+const {findClass,} = require(`../mongoose.js`);
 
 /**
  *
@@ -16,10 +18,23 @@ const router = express.Router();
 
 // this READS all
 // A route used to render a user's search results
-router.get('/', function (req, res) {
-    console.log(req.query);
-    res.render('search-page');
+router.get('/', function(req, res) {
+    var searched = req.query.search;
+    console.log(req.query.search);
+    console.log(searched);
+    let courseNo = getClassID(req.query.search);
+    findClass(courseNo).then(course =>{
+        if(course == null){
+            res.render('search-page-error');
+        }
+        let classSearched = {
+            name: getClassName(course._id),
+            tutors: course.tutors
+        };
+        res.render('search-page', { classSearched });
+    });
 });
+
 
 
 module.exports = router;

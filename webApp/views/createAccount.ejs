@@ -76,11 +76,23 @@
                                         <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
                                     </div>
                                 </div>
-                                <div>Classes you would like to teach (For tutors) </div>
-                                <%- include templates/classSelect.ejs %>
+
+                                <div class="row">
+                                    <div class="form-group col-md-7">
+                                        <input type="text" class="form-control" id="linkedIn" name="linkedIn" placeholder="LinkedIn URL">
+                                    </div>
+                                </div>
+
+                                <div class="form-control classSelect">
+                                    <ul class="classlist">
+                                        <li class="classinput">
+                                            <input placeholder="Search for class" type="text" name="query" autocomplete="off" spellcheck="false">
+                                            <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                                        </li>
+                                    </ul>
+                                </div>
                                 
-                                <button form="profileForm" type="submit" class="btn btn-primary mt-2 float-right">Sign
-                                    up</button>
+                                <button form="profileForm" type="submit" class="btn btn-primary mt-2 float-right">Sign up</button>
                             </form>
                         </div>
                     </div>
@@ -88,6 +100,7 @@
             </div>
         </div>
     </div>
+    <script src="/classSelect.js" defer></script>
     <script src="/profileCreate.js" defer></script>
 </body>
 

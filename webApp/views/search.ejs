@@ -6,7 +6,7 @@
     <title>Academi-Slug | Search</title>
 
     <style type="text/css">
-        }
+        
     </style>
 </head>
 
@@ -17,6 +17,12 @@
             <div class="row h-100 justify-content-center align-items-center">
                 <div class="col-md-6">
 
+                    <div class="search-bar">
+
+                    </div>
+
+                    </head>
+
                     <% if(!loggedIn) { %>
                     <%- include templates/nav-buttons %>
                     <% } else { %>
@@ -24,20 +30,18 @@
                     <% } %>
 
                     <body class="body">
-                        <div class="bg">
+                        <div >
                             <div class="container h-100">
                                 <div class="row h-100 justify-content-center align-items-center">
                                     <div class="col-md-auto">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h2 class="display-4 mb-0 text-center">What do you need help with?</h2>
+                                                <h2 class="display-4 mb-0 search-title">What do you need help with?</h2>
                                             </div>
                                             <div class="card-body">
-                                                <form autocomplete = "off" class="form-inline" action="/searchRoute" method="GET">
-                                                <div class = "autocomplete">
-                                                    <input style = "width:500px;"class="form-control mr-sm-2 text-center col-sm-9" id='searchBar'
-                                                        type="search" placeholder="Search for a Course" name="search">
-                                                    </div>
+                                                <form class="form-inline" action="/searchRoute" method="GET">
+                                                    <input class="form-control mr-sm-2 text-center col-sm-9" id='searchBar'
+                                                        type="search" placeholder="Search For Course (i.e. CMPS 115)" name="search">
                                                     <input class="btn btn-primary" value="Search" type="submit">
                                                 </form>
                                             </div>

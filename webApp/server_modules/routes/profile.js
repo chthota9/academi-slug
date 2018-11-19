@@ -2,16 +2,11 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
-const { addUser, updateUser, deleteUser } = require('../mongoose');
+const { addUser, updateUser, deleteUser, findUser } = require('../mongoose');
 
 /**
- *
- * @param {Express.Request} req
- * @param {Express.Response} res
- * @param {*} next
+ * A route used when a user accesses their profile
  */
-
-// A route used when a user accesses their profile
 router.get('/', function(req, res) {
     // console.log(req.session);
     console.log('profile ' + req.isAuthenticated());
@@ -33,6 +28,35 @@ router.get('/', function(req, res) {
         majors: getMajors()
     });
 });
+
+// A route used to access a user's profile
+// Tested
+// eslint-disable-next-line no-useless-escape
+router.get('/user/:id(\\d+)', (req, res) => {
+    let googleID = req.params.id;
+    findUser(googleID)
+        .then(prof => {
+            let courses = prof.coursesTeaching.map(course => ({
+                courseName: getClassName(course._id),
+                rating: course.rating
+            }));
+            res.render('profileView-guest', { profile: prof, courses });
+        }).catch(() => {
+            throw new Error(`No such profile ${googleID}`);
+        });
+});
+
+
+router.route('/user/:id(\\d+)/review')
+    .post((req, res) => {
+        res.json({ q: req.body.p });
+    })
+    .get((req, res) => {
+        findUser(req.params.id)
+            .then(prof => {
+                res.render('review', { profile: prof, className: 'CMPS115' });
+            });
+    });
 
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
@@ -81,25 +105,30 @@ router.post('/createProfile', function(req, res) {
 
 // A route used when a user wants to submit a review for a class
 //Untested
-router.get('/review', function(req, res) {
-    console.log('REVIEWING A CLASS');
-    res.render('review', { profile: req.user, class: req.body });
-});
+// router.get('/review', function(req, res) {
+//     console.log('REVIEWING A CLASS');
+//     res.render('review', { profile: req.user, class: req.body });
+// });
 
 // A route used to actually submit a review to the database
 //Untested
-router.post('/submitReview', function(req, res) {
-    console.log('SUBMITTING A REVIEW');
-    var avg = sum(...req.body) / 4.0;
-    console.log(avg);
-});
+// router.post('/submitReview', function(req, res) {
+//     console.log('SUBMITTING A REVIEW');
+//     var avg = sum(...req.body) / 4.0;
+//     console.log(avg);
+// });
 
 // A route used when a user wants to update their profile
 //Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
-    console.log(req.body);
-    res.redirect('back');
+    if(Object.keys(req.body).length > 0){
+        console.log(req.body);
+    }
+    updateUser(req.user,req.body)
+    .then(() => {
+        res.redirect('back');
+    });
 });
 
 // A route used when a user wants to delete their profile
@@ -113,18 +142,10 @@ router.get('/deleteProfile', (req, res) => {
             res.redirect('/');
         })
         .catch(() => {
-            res.redirect('/');
+            throw new Error('There was a problem with deleting the acct.');
         });
 });
 
-//Untested
-router.get('/userProfile', (req, res) => {
-    Users.findById(req.session.userID)
-        .exec(function (error, user) {
-            // Catch error
-            res.render('profileView-guest', {profile: user.body });
-        });
-});
 
 function newProfile (body, googleID, extra) {
     return {
@@ -134,10 +155,8 @@ function newProfile (body, googleID, extra) {
         college: body.college,
         major: body.major,
         bio: body.bio,
-        coursesTeaching: body.coursesTeaching.map(course => ({
-            courseNo: getClassID(course),
-            rating: 5
-        })),
+        linkedIn: body.linkedIn,
+        coursesTeaching: body.coursesTeaching.map(course => ({ courseNo: getClassID(course), rating: 5 })),
         googleID,
         email: extra.email
     };

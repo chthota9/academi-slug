@@ -79,7 +79,13 @@
                                             <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Class experience" required><%= profile.bio %></textarea>
                                         </div>
                                     </div>
-                                    <div>Courses you are teaching: </div>
+
+                                    <div class="row">
+                                        <div class="form-group col-md-7">
+                                            <input type="text" name="linkedIn" class="form-control" id="linkedIn" placeholder="LinkedIn URL" value="<%= profile.linkedIn %>">
+                                        </div>
+                                    </div>
+
                                     <div class="form-control classSelect">
                                         <ul class="classlist">
                                             <% courses.forEach(course =>{ %>
@@ -93,7 +99,7 @@
                                     </div>
                                     <button form="profileForm" type="submit" class="center-btn  btn btn-primary mt-2">Update Profile</button>
                                 </form>
-                                <a href="/profile/deleteProfile" class="center-btn btn btn-primary mt-2 ">Delete Profile</a>
+                                <a href="/profile/deleteProfile" class="center-btn btn btn-secondary mt-2 ">Delete Profile</a>
                             </div>
                         </div>
                     </div>

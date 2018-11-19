@@ -65,10 +65,6 @@ function getMajors () {
     return ucscMajors;
 }
 
-
-
-
-
 getUCSCCourses()
     .then(data => {
         classNameToID = JSON.parse(data);
@@ -84,7 +80,6 @@ getUCSCCourses()
         ucscMajors = JSON.parse(majors);
     })
     .catch(err => console.log(err));
-
 
 module.exports = {
     getClassID,
