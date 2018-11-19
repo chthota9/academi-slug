@@ -315,15 +315,17 @@ function findClass (courseNo) {
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
                 if (err) return reject(err);
+                
                 let tutors = [];
-                classQuery.tutors.forEach(tutorDoc => {
-                    let tutor = {
-                        googleID: tutorDoc.googleID,
-                        name: { first: tutorDoc.firstName, last: tutorDoc.lastName },
-                        rating: tutorDoc.coursesTeaching.id(courseNo).rating
-                    };
-                    tutors.push(tutor);
-                });
+                if (classQuery != null)
+                    classQuery.tutors.forEach(tutorDoc => {
+                        let tutor = {
+                            googleID: tutorDoc.googleID,
+                            name: { first: tutorDoc.firstName, last: tutorDoc.lastName },
+                            rating: tutorDoc.coursesTeaching.id(courseNo).rating
+                        };
+                        tutors.push(tutor);
+                    });
                 resolve(tutors);
             });
     });
