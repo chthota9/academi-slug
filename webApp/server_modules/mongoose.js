@@ -226,7 +226,7 @@ function addReview (googleID, courseNo, average) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
-                $push: { 'courseNo.$.rating': average }
+                $addToSet: { 'courseNo.$.rating': average }
             })
             .exec((err, user) => {
                 if (err) return reject(err);
