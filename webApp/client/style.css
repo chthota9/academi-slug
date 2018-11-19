@@ -142,6 +142,8 @@
     left: 100px;
 }
 
+
+/* Autocomplete elements */
 *{
     box-sizing: border-box;
 }
@@ -154,7 +156,7 @@
 .autocomplete-items {
     font-size: 16px;
     position: absolute;
-    border: 3px solid #ffdb00;
+    border: 3px solid black;
     z-index: 99;
     top: 100%;
     left: 0;
@@ -164,13 +166,13 @@
 .autocomplete-items div {
     padding: 10px;
     cursor: pointer;
-    background-color: yellow;
-    border-bottom: 1px solid #ffdb00; 
+    background-color: #fdc700;
+    border-bottom: 2px solid black; 
 }
 
 .autocomplete-items div:hover {
-    background-color: blue;
-    color: yellow;
+    background-color: #003c6c;
+    color: #fdc700;
 }
 
 /* Sorting function */
