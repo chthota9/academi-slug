@@ -43,7 +43,7 @@
 
 .bg {
     background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
-    height: 100%;
+    height: 100vh;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -113,6 +113,11 @@
 .card-header {
     background-color: #003c6c;
     color: white;
+}
+
+.course-element{
+    margin-top: 15px;
+    margin-bottom: -10px;
 }
 
 /* Search bar */

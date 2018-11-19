@@ -19,19 +19,18 @@ const {findClass,} = require(`../mongoose.js`);
 // this READS all
 // A route used to render a user's search results
 router.get('/', function(req, res) {
+    var searched = req.query.search;
     console.log(req.query.search);
+    console.log(searched);
     let courseNo = getClassID(req.query.search);
     findClass(courseNo).then(course =>{
-        console.log("hello world")
         if(course == null){
-            console.log("course is null")
             res.render('search-page-error');
         }
         let classSearched = {
             name: getClassName(course._id),
             tutors: course.tutors
         };
-        console.log("after let")
         res.render('search-page', { classSearched });
     });
 });
