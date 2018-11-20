@@ -47,7 +47,6 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: 65px;
 }
 
 .bg-bigger {
@@ -421,6 +420,17 @@
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
+}
+
+.msg{
+    display: inline-block;
+    position: absolute;
+    width: 90%;
+    height: 5%;
+    top: 10%;
+}
+.msg>span::before{
+    content: attr(data-msg);
 }
 
 @keyframes loading {
