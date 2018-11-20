@@ -1,5 +1,6 @@
 let form = document.getElementById('profileForm');
 let alertBox = document.getElementById('alert');
+let subBtn = document.querySelector('button[form="profileForm"]');
 let alertTimer;
 // eslint-disable-next-line no-undef
 let classSelect = ClassSelect;
@@ -13,6 +14,7 @@ form.addEventListener('submit', evt => {
 });
 
 function sendUpdate (formData) {
+    subBtn.disabled = true;
     fetch('/profile/updateProfile', {
             method: 'POST',
             mode: 'same-origin',
@@ -32,10 +34,12 @@ function sendUpdate (formData) {
             let res = JSON.parse(data);
             if (res.sucessful) {
                 alertBox.children[0].textContent = 'Updated profile successful';
+                oldProf = formDataToObj(new FormData(form));
             } else {
                 alertBox.children[0].textContent = 'Something went wrong with the update';
             }
             alertBox.classList.remove('hidden');
+            subBtn.disabled = false;
             if (alertTimer) {
                 clearTimeout(alertTimer);
             }
