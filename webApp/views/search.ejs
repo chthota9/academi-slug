@@ -13,22 +13,20 @@
 
 <body class="body">
     <div class="bg">
-        <div class="container h-100">
-            <div class="row h-100 justify-content-center align-items-center">
-                <%- include templates/alert %>
-                <div class="col-md-auto">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="display-4 mb-0 search-title">What do you need help with?</h2>
-                        </div>
-                        <div class="card-body">
-                                <form class="form-inline" action="/searchRoute" autocomplete = "off" method="GET">
-                                    <input class="form-control mr-sm-2 text-center col-sm-9" id='searchBar'
-                                        type="search" placeholder="Search For Course (i.e. CMPS 115)" name="search">
-                                    <input class="btn btn-primary" value="Search" type="submit">
-                                </form>
-                            </div>
+        <div class="row h-100 justify-content-center align-items-center">
+            <%- include templates/alert %>
+            <div class="col-md-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="display-4 mb-0 search-title">What do you need help with?</h2>
                     </div>
+                    <div class="card-body">
+                            <form class="form-inline" action="/searchRoute" autocomplete = "off" method="GET">
+                                <input class="form-control mr-sm-2 text-center col-sm-9" id='searchBar'
+                                    type="search" placeholder="Search For Course (i.e. CMPS 115)" name="search">
+                                <input class="btn btn-primary" value="Search" type="submit">
+                            </form>
+                        </div>
                 </div>
             </div>
         </div>
