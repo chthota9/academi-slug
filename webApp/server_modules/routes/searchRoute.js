@@ -23,13 +23,13 @@ router.get('/', function(req, res) {
     console.log(req.query.search);
     console.log(searched);
     let courseNo = getClassID(req.query.search);
-    findClass(courseNo).then(course =>{
-        if(course == null){
+    findClass(courseNo).then(tutors =>{
+        if(tutors.length < 1){
             res.render('search-page-error');
         }
         let classSearched = {
-            name: getClassName(course._id),
-            tutors: course.tutors
+            name: searched,
+            tutors: tutors
         };
         res.render('search-page', { classSearched });
     });

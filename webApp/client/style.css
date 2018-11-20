@@ -36,27 +36,36 @@
 /* Background */
 .html,
 .body {
-    height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)),
+    url("background.png");
+    background-size: cover;
     background-color: black;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .bg {
-    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
     height: 100vh;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    width: 100vw;
     margin-top: 65px;
+    /* background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png"); */
+    /* background-position: center center; */
+    /* background-repeat: repeat; */
+    /* background-size: cover; */
 }
 
 .bg-bigger {
-    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
+    height: 150vh;
+    width: 150vw;
+    margin-top: 65px;
+    /* background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
     height: 150%;
     background-position: center center;
     background-repeat: repeat;
-    background-size: cover;
-    margin-top: 65px;
+    background-size: cover; */
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 /* Buttons */
@@ -129,7 +138,6 @@
 .search-bar {
     position: relative;
     text-align: center;
-
 }
 
 .heading {
