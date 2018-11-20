@@ -257,10 +257,6 @@
     color: black;
 }
 
-.bold {
-    font-weight: bold;
-}
-
 .text-center {
     text-align: center;
 }
@@ -269,6 +265,11 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+}
+
+.rating-title {
+    font-weight: bold;
+    text-align: center;
 }
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
@@ -294,13 +295,15 @@
 }
 
 .rating>label {
-    color: #ddd;
+    color: #B3B3B3;
     float: right;
 }
 
 /* CSS Magic to Highlight Stars on Hover */
 
-.rating>input:checked~label,
+.rating>input:checked~label{
+    color: #003c6c;
+}
 /* show gold star when clicked */
 .rating:not(:checked)>label:hover,
 /* hover current star */
@@ -309,7 +312,6 @@
 }
 
 /* Hover previous stars in list */
-
 .rating>input:checked+label:hover,
 /* hover current star when changing rating */
 .rating>input:checked~label:hover,
