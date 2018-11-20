@@ -1,5 +1,9 @@
-<% if(typeof alert !== 'undefined') {%>
-<div class=" msg container-fluid alert alert-success d-flex flex-row justify-content-center align-items-center">
-    <span data-msg="<%= alert %>" class="align-middle" role="alert"></span>
+<% if(typeof deleted === 'undefined'){ %>
+<div id="alert" class=" hidden msg view container-fluid alert alert-success">
+    <span class="align-middle" role="alert"></span>
+</div>
+<% } else if (deleted === true) { %>
+<div id="alert" class=" msg deleted container-fluid alert alert-success">
+    <span class="align-middle" role="alert">Profile deleted!</span>
 </div>
 <% } %>

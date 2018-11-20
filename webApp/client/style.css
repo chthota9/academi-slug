@@ -119,7 +119,7 @@
     color: white;
 }
 
-.course-element{
+.course-element {
     margin-top: 15px;
     margin-bottom: -10px;
 }
@@ -188,7 +188,9 @@
     text-align: center;
 }
 
-.table, .th, .td {
+.table,
+.th,
+.td {
     border: 3px solid black;
     font-size: large;
     table-layout: auto;
@@ -198,7 +200,7 @@
     text-align: center;
 }
 
-.search-bar-text{
+.search-bar-text {
     text-align: center;
 }
 
@@ -410,27 +412,55 @@
     cursor: pointer;
 }
 
-
-.hidden {
-    display: none;
-}
-
-.center-btn{
+.center-btn {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
 }
 
-.msg{
-    display: inline-block;
+.msg {
+    z-index: 1;
+    display: inline-flex;
     position: absolute;
     width: 90%;
-    height: 5%;
-    top: 10%;
+    height: 3em;
+    top: 15%;
+    margin: 0;
+    align-content: center;
+    justify-content: center;
+    flex-flow: row;
+    transform-origin: top;
 }
-.msg>span::before{
-    content: attr(data-msg);
+
+.msg.view {
+    transform: scaleY(1);
+    transition: transform 0.3s;
+}
+
+.msg.deleted {
+    animation: close 2s ease-in-out 0s forwards;
+}
+
+.hidden {
+    display: none;
+}
+
+.msg.hidden {
+    display: inherit;
+    transform: scaleY(0);
+}
+
+@keyframes close {
+    0% {
+        transform: scaleY(1);
+    }
+    80%{
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0)
+    }
 }
 
 @keyframes loading {
