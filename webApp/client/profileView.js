@@ -1,17 +1,21 @@
 let form = document.getElementById('profileForm');
+let alertBox = document.getElementById('alert');
+let alertTimer;
 // eslint-disable-next-line no-undef
 let classSelect = ClassSelect;
 let oldProf = formDataToObj(new FormData(form));
 form.addEventListener('submit', evt => {
     evt.preventDefault();
     let newProf = diffProf(formDataToObj(new FormData(form)));
-    console.log(JSON.stringify(newProf));
-    sendUpdate(newProf);
+    if (Object.keys(newProf).length > 0) {
+        sendUpdate(newProf);
+    }
 });
 
 function sendUpdate (formData) {
     fetch('/profile/updateProfile', {
             method: 'POST',
+            mode: 'same-origin',
             body: JSON.stringify(formData),
             headers: {
                 'Content-type': 'application/json'
@@ -19,10 +23,23 @@ function sendUpdate (formData) {
         })
         .then(res => {
             if (res.ok) {
-                window.location.href = res.url;
+                return res.text();
             } else {
                 throw new Error(res.statusText);
             }
+        })
+        .then(data => {
+            let res = JSON.parse(data);
+            if (res.sucessful) {
+                alertBox.children[0].textContent = 'Updated profile successful';
+            } else {
+                alertBox.children[0].textContent = 'Something went wrong with the update';
+            }
+            alertBox.classList.remove('hidden');
+            if (alertTimer) {
+                clearTimeout(alertTimer);
+            }
+            alertTimer = setTimeout(() => alertBox.classList.add('hidden'), 1000);
         })
         .catch(err => {
             console.log(err);
@@ -36,7 +53,7 @@ function diffProf (updatedProf) {
         const oldVal = oldProf[key];
         if (newVal.constructor === Array) {
             let updatedCourses = compareCourses(oldVal, newVal);
-            if (updatedCourses !== null) {
+            if (updatedCourses.length > 0) {
                 newProf[key] = updatedCourses;
             }
         } else {

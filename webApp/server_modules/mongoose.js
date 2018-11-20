@@ -47,6 +47,11 @@ let courseTeachingSchema = new mongoose.Schema({
         required: true,
         default: 5
     },
+    reviewCount: {
+        type: Number,
+        required: true,
+        default: 0
+    }
 }, {
     autoIndex: false,
     versionKey: false,
@@ -147,10 +152,10 @@ function addUser (user) {
             year: user.year,
             college: user.college,
             major: user.major,
-            bio: user.bio,
+            bio: user.bio, 
+            linkedIn: user.linkedIn,
             coursesTeaching: user.coursesTeaching,
-            linkedIn: user.linkedIn
-
+            reviewCount: 0
         });
         userAdded.save((err, profile) => {
             if (err) {
@@ -233,16 +238,32 @@ function updateUser (user, updates) {
 }
 
 //Untested - needed
-function addReview (googleID, courseNo, average) {
+function addReview (googleID, classID, reviews) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
-        Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
-                $push: { 'courseNo.$.rating': average }
-            })
-            .exec((err, user) => {
-                if (err) return reject(err);
-                resolve(user);
-            });
+        // Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
+        //         $addToSet: { 'courseNo.$.rating': average }
+        //     })
+        //     .exec((err, user) => {
+        //         if (err) return reject(err);
+        //         resolve(user);
+        //     });
+        findUser(googleID)
+        .then(thisUser => {
+
+            // Loop through array of coursesTeaching to find rating for the specific course
+            let thisClass = thisUser.coursesTeaching.id(classID);
+            let oldRating = thisClass.rating;
+            let newRating = 0;
+            for (var category in reviews) {
+                newRating += reviews[category];
+            }
+            newRating /= 4;
+            
+            // Increments the reviewCount before division.
+            thisClass.rating = (newRating + oldRating) / (++thisClass.reviewCount);
+            thisUser.save();
+        });
     });
 }
 
@@ -360,5 +381,6 @@ module.exports = {
     addClass,
     addTutor,
     findClass,
+    addReview,
     connection
 };

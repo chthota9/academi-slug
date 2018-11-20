@@ -2,7 +2,7 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
-const { addUser, updateUser, deleteUser, findUser } = require('../mongoose');
+const { addUser, updateUser, deleteUser, findUser, addReview } = require('../mongoose');
 
 /**
  * A route used when a user accesses their profile
@@ -36,27 +36,55 @@ router.get('/user/:id(\\d+)', (req, res) => {
     let googleID = req.params.id;
     findUser(googleID)
         .then(prof => {
+            if (!prof) {
+                throw new Error('No such Profile!');
+            }
             let courses = prof.coursesTeaching.map(course => ({
+                _id: course._id,
                 courseName: getClassName(course._id),
                 rating: course.rating
             }));
             res.render('profileView-guest', { profile: prof, courses });
-        }).catch(() => {
-            throw new Error(`No such profile ${googleID}`);
+        }).catch((err) => {
+            throw err;
         });
 });
 
+// // A route that accesses a user's review page for a particular class.
+// // Tested - works
+router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
+    let googleID = req.params.id;
+    let classID = req.params.course;
+    findUser(googleID)
+        .then(prof => {
+            if (!prof) {
+                throw new Error('No such Profile!');
+            }
 
-router.route('/user/:id(\\d+)/review')
-    .post((req, res) => {
-        res.json({ q: req.body.p });
-    })
-    .get((req, res) => {
-        findUser(req.params.id)
-            .then(prof => {
-                res.render('review', { profile: prof, className: 'CMPS115' });
-            });
+            let className = getClassName(classID);
+            res.render('review', { profile: prof, classID, className });
+        }).catch((err) => {
+            throw err;
+        });
+});
+
+// Probably not right
+router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
+    let googleID = req.params.id;
+    let classID = req.params.course;
+    let reviews = req.body; // will contain an object with each reviewed category the object 
+                            // the object's fields will depend on how its sent from the client
+    
+    console.log(JSON.stringify(req.body));
+    addReview(googleID, classID, reviews).
+        then( () => {         
+        res.render('search', { loggedIn: req.isAuthenticated() });
+    }).catch((err) => {
+        throw err;
     });
+});
+
+
 
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
@@ -103,32 +131,16 @@ router.post('/createProfile', function(req, res) {
         .catch(err => console.log(err));
 });
 
-// A route used when a user wants to submit a review for a class
-//Untested
-// router.get('/review', function(req, res) {
-//     console.log('REVIEWING A CLASS');
-//     res.render('review', { profile: req.user, class: req.body });
-// });
-
-// A route used to actually submit a review to the database
-//Untested
-// router.post('/submitReview', function(req, res) {
-//     console.log('SUBMITTING A REVIEW');
-//     var avg = sum(...req.body) / 4.0;
-//     console.log(avg);
-// });
-
 // A route used when a user wants to update their profile
 //Untested
 router.post('/updateProfile', function(req, res) {
-    console.log('UPDATED A PROFILE');
-    if(Object.keys(req.body).length > 0){
-        console.log(req.body);
+    console.log(req.body);
+    if (Object.keys(req.body).length < 1) {
+        return res.json({ successful: true });
     }
-    updateUser(req.user,req.body)
-    .then(() => {
-        res.redirect('back');
-    });
+    updateUser(req.user, req.body)
+        .then(() => res.json({ sucessful: true }))
+        .catch(() => res.json({ sucessful: false }));
 });
 
 // A route used when a user wants to delete their profile
@@ -139,7 +151,10 @@ router.get('/deleteProfile', (req, res) => {
     }
     deleteUser(req.user.id)
         .then(() => {
-            res.redirect('/');
+            console.log(req.session);
+            req.session.passport = null;
+            req.session.deleted = true;
+            req.session.save(() => res.redirect('/'));
         })
         .catch(() => {
             throw new Error('There was a problem with deleting the acct.');
