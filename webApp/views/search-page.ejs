@@ -4,65 +4,55 @@
 
 <head>
     <%- include templates/header %>
+    <%- include templates/nav-buttons %>
     <title>Academi-Slug | Search Results</title>
 </head>
 
-<!-- <script src="nav-buttons.js"></script> -->
-<%- include templates/nav-buttons %>
-
 <body class="body">
-    <div class="bg">
-        <div class="row h-100 justify-content-center align-items-center">
-            <div class="col-md-auto">
-                <div class="card" style="width: 500px;">
-                    
-                    <div class="card-header">
-                        <div class="search-text">
-                            <body>
-                                <h2>You searched for: </h2>
-                                <h2 class="h2-title"><%= classSearched.name %></h2>
-                                <h2><%- classSearched.tutors.length %> tutors found.</h2>
-                            </body>
-                        </div>
+    <div class="bg d-flex justify-content-center align-items-center">
+        <div class="card" style="width: 500px;">
+            <div class="card-header">
+                <div class="search-text">
+                        <h2>You searched for: </h2>
+                        <h2 class="h2-title"><%= classSearched.name %></h2>
+                        <h2><%- classSearched.tutors.length %> tutors found.</h2>
+                </div>
 
-                        <div class="dropdown">
-                            <button class="btn btn-sort">Sort By ↓</button>
-                            <div class="dropdown-content">
-                                    <a href="#" class="sort-style" onclick="alphaSort()">Name</a>
-                                    <a href="#" class="sort-style" onclick="numSort()">Rating</a>
-                            </div>
-                        </div>
+                <div class="dropdown">
+                    <button class="btn btn-sort">Sort By ↓</button>
+                    <div class="dropdown-content">
+                            <a href="#" class="sort-style" onclick="alphaSort()">Name</a>
+                            <a href="#" class="sort-style" onclick="numSort()">Rating</a>
                     </div>
+                </div>
+            </div>
 
-                    <div class="card-body col-md-auto">
-                        <div class="tutor-table">
-                            <table class="table centralize">
-                                <tr class="tr">
-                                    <th class="th">Name</th>
-                                    <th class="th">Rating</th>
-                                </tr>
+            <div class="card-body">
+                <div class="tutor-table">
+                    <table class="table centralize">
+                        <tr class="tr">
+                            <th class="th">Name</th>
+                            <th class="th">Rating</th>
+                        </tr>
 
-                                <% classSearched.tutors.forEach(tutor =>{ %>
-                                    <tr class="tr">
-                                        <td class="td"><a href="/profile/user/<%= tutor.googleID %>" class="search-link"> <%= tutor.name.first %> <%= tutor.name.last %> </a></td>
-                                        
-                                        <td class="td">
-                                            <% for (starNum = 0; starNum < Math.round(tutor.rating); starNum++) { %>
-                                                <span class="fa fa-star checked"></span>
-                                            <% } %>
+                        <% classSearched.tutors.forEach(tutor =>{ %>
+                            <tr class="tr">
+                                <td class="td"><a href="/profile/user/<%= tutor.googleID %>" class="search-link"> <%= tutor.name.first %> <%= tutor.name.last %> </a></td>
+                                
+                                <td class="td">
+                                    <% for (starNum = 0; starNum < Math.round(tutor.rating); starNum++) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } %>
 
-                                            <!-- Includes empty stars
-                                            <% let maxRating = 5; %>
-                                            <% for (star = Math.round(tutor.rating); star < maxRating; star++) { %>
-                                                <span class="fa fa-star-o"></span>
-                                            <% } %> -->
-                                        </td>
-                                    </tr>	
-                                <% }) %>   
-
-                            </table>
-                        </div>
-                    </div>
+                                    <!-- Includes empty stars
+                                    <% let maxRating = 5; %>
+                                    <% for (star = Math.round(tutor.rating); star < maxRating; star++) { %>
+                                        <span class="fa fa-star-o"></span>
+                                    <% } %> -->
+                                </td>
+                            </tr>	
+                        <% }) %>   
+                    </table>
                 </div>
             </div>
         </div>
