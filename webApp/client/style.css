@@ -36,26 +36,38 @@
 /* Background */
 .html,
 .body {
-    height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)),
+    url("background.png");
+    background-size: cover;
     background-color: black;
     overflow: auto;
 }
 
 .bg {
-    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
     height: 100vh;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    width: 100vw;
+    /* background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png"); */
+    /* background-position: center center; */
+    /* background-repeat: repeat; */
+    /* background-size: cover; */
 }
 
 .bg-bigger {
-    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
+    height: 150vh;
+    width: 150vw;
+    margin-top: 65px;
+    /* background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
     height: 150%;
     background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-top: 65px;
+    background-repeat: repeat;
+    background-size: cover; */
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 /* Buttons */
@@ -128,8 +140,6 @@
 .search-bar {
     position: relative;
     text-align: center;
-    top: -30px;
-
 }
 
 .heading {
@@ -140,6 +150,39 @@
 .login-redirect {
     position: relative;
     left: 100px;
+}
+
+
+/* Autocomplete elements */
+*{
+    box-sizing: border-box;
+}
+.autocomplete {
+/*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    font-size: 16px;
+    position: absolute;
+    border: 3px solid black;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fdc700;
+    border-bottom: 2px solid black; 
+}
+
+.autocomplete-items div:hover {
+    background-color: #003c6c;
+    color: #fdc700;
 }
 
 /* Sorting function */
