@@ -260,7 +260,7 @@ function addReview (googleID, classID, reviews) {
                 newRating /= 4;
                 
                 // Increments the reviewCount before division.
-                thisClass.rating = (newRating + oldRating) / (++thisClass.reviewCount);
+                thisClass.rating = (oldRating*thisClass.reviewCount + newRating) / (++thisClass.reviewCount);
                 thisUser.save();
             });
     });
