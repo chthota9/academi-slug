@@ -78,8 +78,6 @@ var ClassSelect = (function() {
                 return;
             }
             hideInfo();
-            console.log(req.responseText);
-            
             let results = JSON.parse(req.responseText);
 
             createList(results);
