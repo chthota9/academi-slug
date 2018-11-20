@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
@@ -12,3 +13,5 @@ mongoose.connection.once('open', function(){
 }).on('error', function(error){
     console.log('Connection error:', error);
 });
+
+
