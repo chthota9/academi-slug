@@ -4,28 +4,24 @@ const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
 const { addUser, updateUser, deleteUser, findUser, addReview } = require('../mongoose');
 
-/**
- * A route used when a user accesses their profile
- */
-router.get('/', function(req, res) {
-    // console.log(req.session);
-    console.log('profile ' + req.isAuthenticated());
+// A route used when a user wants to log in
+router.get('/login', passport.authenticate('googleHave', {
+    scope: ['profile', 'email'],
+    hd: 'ucsc.edu'
+}));
 
-    // Asks user to login if they are not registered
-    if (!req.isAuthenticated()) {
-        return res.redirect('/profile/login');
-    }
+// A route used when a user wants to sign up via Google authentication
+router.get('/signup', passport.authenticate('googleSignUp', {
+    scope: ['profile', 'email'],
+    hd: 'ucsc.edu'
+}));
 
-    console.log(req.user);
-
-    let courseNames = req.user.coursesTeaching.map(course => ({
-        courseName: getClassName(course._id)
-    }));
-
-    res.render('profileView-user', {
-        profile: req.user,
-        courses: courseNames,
-        majors: getMajors()
+// A route used when a user creates and account
+router.get('/create', function(req, res) {
+    res.render('createAccount', {
+        user: req.user,
+        majors: getMajors(),
+        formTitle: 'Profile Information'
     });
 });
 
@@ -50,6 +46,61 @@ router.get('/user/:id(\\d+)', (req, res) => {
         });
 });
 
+// A route used when a user logs out
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
+
+router.post('/createProfile', function(req, res) {
+    console.log('CREATED A PROFILE');
+
+    let profile = newProfile(req.body, req.user.id, req.user.extra);
+
+    addUser(profile)
+        .then(profile => {
+            req.login({ id: profile.googleID }, err => {
+                if (err) return res.redirect('/');
+                res.redirect('/');
+            });
+        })
+        //TODO: SEND ERR BACK AND REDIRECT CLIENT
+        .catch(err => console.log(err));
+});
+
+
+/**
+ * Every route past this requires the user to be logged in!
+ */
+router.use((req, res, next) => {
+    console.log('profile is auth' + req.isAuthenticated());
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/profile/login');
+});
+
+
+/**
+ * A route used when a user accesses their profile
+ */
+router.get('/', function(req, res) {
+    // console.log(req.session);
+
+    console.log(req.user);
+
+    let courseNames = req.user.coursesTeaching.map(course => ({
+        courseName: getClassName(course._id)
+    }));
+
+    res.render('profileView-user', {
+        profile: req.user,
+        courses: courseNames,
+        majors: getMajors()
+    });
+});
+
+
 // // A route that accesses a user's review page for a particular class.
 // // Tested - works
 router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
@@ -72,13 +123,13 @@ router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
 router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
     let googleID = req.params.id;
     let classID = req.params.course;
-    let reviews = req.body; // will contain an object with each reviewed category the object 
-                            // the object's fields will depend on how its sent from the client
+    let reviews = req.body; // will contain an object with each reviewed category the object
+    // the object's fields will depend on how its sent from the client
 
     console.log(JSON.stringify(req.body));
     addReview(googleID, classID, reviews)
-        .then( () => {
-            res.render('search', { loggedIn: req.isAuthenticated() });
+        .then(() => {
+            res.redirect('/');
         }).catch((err) => {
             throw err;
         });
@@ -86,50 +137,8 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
 
 
 
-// A route used when a user wants to log in
-router.get('/login', passport.authenticate('googleHave', {
-    scope: ['profile', 'email'],
-    hd: 'ucsc.edu'
-}));
-
-// A route used when a user wants to sign up via Google authentication
-router.get('/signup', passport.authenticate('googleSignUp', {
-    scope: ['profile', 'email'],
-    hd: 'ucsc.edu'
-}));
-
-// A route used when a user creates and account
-router.get('/create', function(req, res) {
-    res.render('createAccount', {
-        user: req.user,
-        majors: getMajors(),
-        formTitle: 'Profile Information'
-    });
-});
-
-// A route used when a user logs out
-router.get('/logout', function(req, res) {
-    req.logout();
-    res.redirect('/');
-});
-
-
 // A route that will actually create a user's account within the database
-router.post('/createProfile', function(req, res) {
-    console.log('CREATED A PROFILE');
 
-    let profile = newProfile(req.body, req.user.id, req.user.extra);
-
-    addUser(profile)
-        .then(profile => {
-            req.login({ id: profile.googleID }, err => {
-                if (err) return res.redirect('/');
-                res.redirect('/');
-            });
-        })
-        //TODO: SEND ERR BACK AND REDIRECT CLIENT
-        .catch(err => console.log(err));
-});
 
 // A route used when a user wants to update their profile
 //Untested
@@ -146,9 +155,6 @@ router.post('/updateProfile', function(req, res) {
 // A route used when a user wants to delete their profile
 //Untested
 router.get('/deleteProfile', (req, res) => {
-    if (!req.isAuthenticated()) {
-        return res.redirect('/profile/login');
-    }
     deleteUser(req.user.id)
         .then(() => {
             console.log(req.session);
