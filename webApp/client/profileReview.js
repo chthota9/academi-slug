@@ -1,5 +1,6 @@
 let categories = document.getElementsByClassName('rating'); //get all categories
 let reviewForm = document.querySelector('#reviewForm'); //get form
+let subBtn = reviewForm.querySelector('button[type="submit"]');
 let finalRating = {}; //the final ratings that will be sent to the server on submit
 
 //sets up the radios to do something when they are clicked/changed
@@ -9,7 +10,7 @@ for (let i = 0; i < categories.length; i++) {
     let radios = category.children; // get all radios under category
     for (let j = 0; j < radios.length; j++) {
         const radio = radios[j];
-        radio.addEventListener('change', function(evt) {
+        radio.addEventListener('change', function() {
             //on radio click apply rating to category
             finalRating[categoryName] = Number.parseInt(this.value);
             console.log(`${categoryName} = ${this.value}`);
@@ -25,15 +26,21 @@ reviewForm.addEventListener('submit', evt => {
     let classID = parseInt(pathArray[5]);
 
     let formReq = new XMLHttpRequest();
-    formReq.open('POST', '/profile/user/' + userID + '/review/' + classID + '/sub');
+    formReq.open('POST', `/profile/user/${userID}/review/${classID}/sub`);
+    formReq.addEventListener('load', () => {
+        if (formReq.status === 200) {
+            location.href = formReq.responseURL;
+        } else {
+            throw new Error('Failed to send review');
+        }
+    });
     formReq.setRequestHeader('Content-Type', 'application/json');
     formReq.send(JSON.stringify(finalRating));
 });
 
-function validateForm() {
-    let formValidated = (Object.keys(finalRating).length == 4);
-    if (formValidated) {
-        document.getElementById("submitBut").innerHTML =
-            "<a href='/' class='btn btn-primary h2-title'>Submit Your Review</a>";
+function validateForm () {
+    let allCatFilled = (Object.keys(finalRating).length == 4);
+    if (allCatFilled) {
+        subBtn.disabled = false;
     }
 }

@@ -50,7 +50,7 @@ let courseTeachingSchema = new mongoose.Schema({
     reviewCount: {
         type: Number,
         required: true,
-        default: 0
+        default: 1
     }
 }, {
     autoIndex: false,
@@ -152,7 +152,7 @@ function addUser (user) {
             year: user.year,
             college: user.college,
             major: user.major,
-            bio: user.bio, 
+            bio: user.bio,
             linkedIn: user.linkedIn,
             coursesTeaching: user.coursesTeaching,
             reviewCount: 0
@@ -241,13 +241,6 @@ function updateUser (user, updates) {
 function addReview (googleID, classID, reviews) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
-        // Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
-        //         $addToSet: { 'courseNo.$.rating': average }
-        //     })
-        //     .exec((err, user) => {
-        //         if (err) return reject(err);
-        //         resolve(user);
-        //     });
         findUser(googleID)
             .then(thisUser => {
                 // Loop through array of coursesTeaching to find rating for the specific course
@@ -258,10 +251,13 @@ function addReview (googleID, classID, reviews) {
                     newRating += reviews[category];
                 }
                 newRating /= 4;
-                
+
                 // Increments the reviewCount before division.
-                thisClass.rating = (oldRating*thisClass.reviewCount + newRating) / (++thisClass.reviewCount);
-                thisUser.save();
+                thisClass.rating = (oldRating * thisClass.reviewCount + newRating) / (++thisClass.reviewCount);
+                thisUser.save((err) => {
+                    if (err) return reject(err);
+                    resolve();
+                });
             });
     });
 }
@@ -335,7 +331,7 @@ function findClass (courseNo) {
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
                 if (err) return reject(err);
-                
+
                 let tutors = [];
                 if (classQuery != null)
                     classQuery.tutors.forEach(tutorDoc => {
