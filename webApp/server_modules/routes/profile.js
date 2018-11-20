@@ -50,13 +50,6 @@ router.get('/user/:id(\\d+)', (req, res) => {
         });
 });
 
-router.get('/user/:id(\\d+)/review', (req, res) => {
-    findUser(req.params.id)
-        .then(prof => {
-            res.render('review', { profile: prof, className: 'CMPS115' });
-        });
-});
-
 // // A route that accesses a user's review page for a particular class.
 // // Tested - works
 router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
