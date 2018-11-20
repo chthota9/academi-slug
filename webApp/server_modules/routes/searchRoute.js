@@ -19,10 +19,8 @@ const {findClass,} = require(`../mongoose.js`);
 // this READS all
 // A route used to render a user's search results
 router.get('/', function(req, res) {
-    var searched = req.query.search;
-    console.log(req.query.search);
-    console.log(searched);
-    let courseNo = getClassID(req.query.search);
+    var searched = req.query.search.toUpperCase();
+    let courseNo = getClassID(searched);
     findClass(courseNo).then(tutors =>{
         if(tutors.length < 1){
             res.render('search-page-error');
