@@ -121,14 +121,13 @@ router.post('/createProfile', function(req, res) {
 // A route used when a user wants to update their profile
 //Untested
 router.post('/updateProfile', function(req, res) {
-    console.log('UPDATED A PROFILE');
-    if(Object.keys(req.body).length > 0){
-        console.log(req.body);
+    console.log(req.body);
+    if (Object.keys(req.body).length < 1) {
+        return res.json({ successful: true });
     }
-    updateUser(req.user,req.body)
-    .then(() => {
-        res.redirect('back');
-    });
+    updateUser(req.user, req.body)
+        .then(() => res.json({ sucessful: true }))
+        .catch(() => res.json({ sucessful: false }));
 });
 
 // A route used when a user wants to delete their profile
@@ -139,7 +138,10 @@ router.get('/deleteProfile', (req, res) => {
     }
     deleteUser(req.user.id)
         .then(() => {
-            res.redirect('/');
+            console.log(req.session);
+            req.session.passport = null;
+            req.session.deleted = true;
+            req.session.save(() => res.redirect('/'));
         })
         .catch(() => {
             throw new Error('There was a problem with deleting the acct.');
