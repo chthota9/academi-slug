@@ -131,7 +131,7 @@ router.post('/createProfile', function(req, res) {
         .then(profile => {
             req.login({ id: profile.googleID }, err => {
                 if (err) return res.redirect('/');
-                res.redirect('/profile');
+                res.redirect('/');
             });
         })
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
@@ -142,17 +142,13 @@ router.post('/createProfile', function(req, res) {
 //Untested
 router.post('/updateProfile', function(req, res) {
     console.log('UPDATED A PROFILE');
-  
+    if(Object.keys(req.body).length > 0){
         console.log(req.body);
-    updateUser(req.user.id, req.body)
-        .then(profile => {
-            req.login({ id: profile.googleID }, err => {
-                if (err) return res.redirect('/');
-                res.redirect('back');
-            });
-        })
-        //TODO: SEND ERR BACK AND REDIRECT CLIENT
-        .catch(err => console.log(err));
+    }
+    updateUser(req.user,req.body)
+    .then(() => {
+        res.redirect('back');
+    });
 });
 
 // A route used when a user wants to delete their profile

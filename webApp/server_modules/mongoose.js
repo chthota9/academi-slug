@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const { getClassID } = require('./course_json_parser');
+
 mongoose.set('useFindAndModify', false); //Avoid deprecation warning
 mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug', {
     useNewUrlParser: true
@@ -8,32 +10,10 @@ const connection = mongoose.connection;
 connection.once('open', function() {
     console.log('We\'re connected to the database!');
     if (process.env.NODE_ENV === 'buildTest') {
-        setTimeout(() => {
-        }, 3000);
+        setTimeout(() => {}, 3000);
     }
 });
 // connection.dropDatabase();
-
-let classTutorSchema = new mongoose.Schema({
-    _id: {
-        type: Number,
-        required: true,
-        unique: true,
-        alias: 'googleID'
-    },
-    name: {
-        type: String,
-        required: true
-    },
-    rating: {
-        type: Number,
-        required: true
-    },
-}, {
-    autoIndex: false,
-    versionKey: false,
-    _id: false
-});
 
 let classSchema = new mongoose.Schema({
     _id: {
@@ -42,7 +22,7 @@ let classSchema = new mongoose.Schema({
         unique: true,
         alias: 'courseNo'
     },
-    tutors: [classTutorSchema]
+    tutors: [{ type: Number, ref: 'Users' }]
 }, {
     autoIndex: false,
     versionKey: false,
@@ -50,7 +30,12 @@ let classSchema = new mongoose.Schema({
 });
 
 
+classSchema.pre('findOne', function() {
+    this.populate('tutors', 'name _id coursesTeaching');
+});
+
 let Classes = mongoose.model('Classes', classSchema);
+
 
 let courseTeachingSchema = new mongoose.Schema({
     _id: {
@@ -80,7 +65,6 @@ courseTeachingSchema.virtual('courseNo')
     .set(function(val) {
         this._id = val;
     });
-
 
 let userSchema = new mongoose.Schema({
     _id: {
@@ -210,14 +194,46 @@ function findUser (googleID) {
     });
 }
 
-function updateUser (googleID, userEdits) {
-    console.log('Updating user ' + googleID);
+function updateUser (user, updates) {
+    console.log('Updating user ' + user.id);
     return new Promise((resolve, reject) => {
-        Users.findByIdAndUpdate(googleID, userEdits, { new: true })
-            .exec((err, user) => {
-                if (err) return reject(err);
-                resolve(user);
-            });
+        let keys = Object.keys(updates);
+        let profileUpdate = {};
+        if (keys.includes('coursesTeaching')) {
+            for (const key in updates) {
+                if (key !== 'coursesTeaching') {
+                    profileUpdate[key] = updates[key];
+                }
+            }
+        }
+        let courses = updates.coursesTeaching || [];
+        let delCourses = [];
+        let newCourses = [];
+        for (let i = 0; i < courses.length; i++) {
+            let course = courses[i];
+            if (course.includes('-')) {
+                course = course.substring(1);
+                delCourses.push({ _id: getClassID(course) });
+                continue;
+            }
+            newCourses.push({ _id: getClassID(course) });
+        }
+        delCourses.forEach(course => {
+            user.coursesTeaching.pull(course);
+        });
+        newCourses.forEach(course => {
+            user.coursesTeaching.addToSet(course);
+        });
+        for (const field in updates) {
+            if (field !== 'coursesTeaching') {
+                const newResult = updates[field];
+                user[field] = newResult;
+            }
+        }
+        user.save(function(err) {
+            if (err) return reject(err);
+            resolve();
+        });
     });
 }
 
@@ -310,18 +326,28 @@ function deleteTutor (googleID, courseNo) {
     });
 }
 
-// works, returns NULL if class is not found
+/**
+ * @param {Number} courseNo 
+ * @returns {Promise<Array>} tutors
+ */
 function findClass (courseNo) {
     console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
-        console.log(courseNo)
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
-                if (err) {
-                    return reject(err);
-                 
-                }
-                resolve(classQuery);
+                if (err) return reject(err);
+                
+                let tutors = [];
+                if (classQuery != null)
+                    classQuery.tutors.forEach(tutorDoc => {
+                        let tutor = {
+                            googleID: tutorDoc.googleID,
+                            name: { first: tutorDoc.firstName, last: tutorDoc.lastName },
+                            rating: tutorDoc.coursesTeaching.id(courseNo).rating
+                        };
+                        tutors.push(tutor);
+                    });
+                resolve(tutors);
             });
     });
 }

@@ -36,27 +36,36 @@
 /* Background */
 .html,
 .body {
-    height: 100%;
+    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)),
+    url("background.png");
+    background-size: cover;
     background-color: black;
     overflow: auto;
 }
 
 .bg {
-    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
     height: 100vh;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    width: 100vw;
     margin-top: 65px;
+    /* background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png"); */
+    /* background-position: center center; */
+    /* background-repeat: repeat; */
+    /* background-size: cover; */
 }
 
 .bg-bigger {
-    background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
+    height: 150vh;
+    width: 150vw;
+    margin-top: 65px;
+    /* background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png");
     height: 150%;
     background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-top: 65px;
+    background-repeat: repeat;
+    background-size: cover; */
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 /* Buttons */
@@ -64,38 +73,43 @@
     color: white;
     background-color: #003c6c;
     border-color: black;
+    border-width: 2px;
 }
 
 .btn-primary:hover {
     color: black;
     background-color: #fdc700;
     border-color: black;
+    border-width: 2px;
 }
 
 .btn-secondary {
-    color: white;
-    background-color: #6c2800;
+    color: black;
+    background-color: #fdc700;
     border-color: black;
+    border-width: 2px;
 }
 
 .btn-secondary:hover {
     color: white;
-    background-color: black;
-    border-color: #6c2800;
-}
-
-.btn-tertiary {
-    color: black;
-    background-color: #fdc700;
-    border-color: black;
-}
-
-.btn-tertiary:hover {
-    color: white;
     background-color: #003c6c;
     border-color: black;
+    border-width: 2px;
 }
 
+.btn-delete {
+    color: white;
+    background-color: #6c2800;
+    border-color: black;
+    border-width: 2px;
+}
+
+.btn-delete:hover {
+    color: white;
+    background-color: black;
+    border-color: #6c2800;
+    border-width: 2px;
+}
 
 /* Titles */
 .h2-title,
@@ -115,12 +129,15 @@
     color: white;
 }
 
+.course-element{
+    margin-top: 15px;
+    margin-bottom: -10px;
+}
+
 /* Search bar */
 .search-bar {
     position: relative;
     text-align: center;
-    top: -30px;
-
 }
 
 .heading {
@@ -131,6 +148,39 @@
 .login-redirect {
     position: relative;
     left: 100px;
+}
+
+
+/* Autocomplete elements */
+*{
+    box-sizing: border-box;
+}
+.autocomplete {
+/*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    font-size: 16px;
+    position: absolute;
+    border: 3px solid black;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fdc700;
+    border-bottom: 2px solid black; 
+}
+
+.autocomplete-items div:hover {
+    background-color: #003c6c;
+    color: #fdc700;
 }
 
 /* Sorting function */
@@ -413,9 +463,6 @@
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
-}
-a[href*="delete"]{
-    background: red;
 }
 
 @keyframes loading {

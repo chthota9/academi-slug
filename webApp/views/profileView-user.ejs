@@ -13,102 +13,100 @@
 
 <body class="body">
     <div class="bg">
-        <div class="container h-100">
-            <div class="row h-100 justify-content-center align-items-center">
+        <div class="row h-100 justify-content-center align-items-center">
 
-                <div class="col-md-10">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="display-4 mb-0">Your Profile</h2>
-                        </div>
-                        <div class="card-body">
-                            <div class="col-md-auto">
-                                <form id="profileForm">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="display-4 mb-0">Your Profile</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-md-auto">
+                            <form id="profileForm">
 
-                                    <h3 class="h3-title">Your Profile</h3>
-                                    <div class="row">
-                                        <div class="form-group col-md-3">
-                                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value="<%- profile.name.first %>" required>
-                                        </div>
-                                        <div class="form-group col-md-4">
-                                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" value="<%- profile.name.last %>" required>
-                                        </div>
+                                <h3 class="h3-title">Your Profile</h3>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value="<%- profile.name.first %>" required>
                                     </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" value="<%- profile.name.last %>" required>
+                                    </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="form-group col-md-3">
-                                            <select id="year" name="year" class="form-control" required>
-                                                <option selected hidden><%= profile.year %></option>
-                                                <option>Freshman</option>
-                                                <option>Sophomore</option>
-                                                <option>Junior</option>
-                                                <option>Senior</option>
-                                                <option>Transfer</option>
-                                                <option>Other</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-5">
-                                            <select id="major" name="major" class="form-control" required>
-                                                <option selected  hidden><%= profile.major %></option>
-                                                <% majors.forEach(major=>{ %>
-                                                <option>
-                                                    <%= major %>
-                                                </option>
-                                                <%   }) %>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <select id="college" name="college" class="form-control" required>
-                                                <option selected hidden><%= profile.college %></option>
-                                                <option>Cowell</option>
-                                                <option>Stevenson</option>
-                                                <option>Crown</option>
-                                                <option>Merrill</option>
-                                                <option>College Nine</option>
-                                                <option>College Ten</option>
-                                                <option>Kresge</option>
-                                                <option>Porter</option>
-                                                <option>Rachel Carson</option>
-                                                <option>Oakes</option>
-                                                <option>Other</option>
-                                            </select>
-                                        </div>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <select id="year" name="year" class="form-control" required>
+                                            <option selected hidden><%= profile.year %></option>
+                                            <option>Freshman</option>
+                                            <option>Sophomore</option>
+                                            <option>Junior</option>
+                                            <option>Senior</option>
+                                            <option>Transfer</option>
+                                            <option>Other</option>
+                                        </select>
                                     </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-12">
-                                            <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Class experience" required><%= profile.bio %></textarea>
-                                        </div>
+                                    <div class="form-group col-md-5">
+                                        <select id="major" name="major" class="form-control" required>
+                                            <option selected  hidden><%= profile.major %></option>
+                                            <% majors.forEach(major=>{ %>
+                                            <option>
+                                                <%= major %>
+                                            </option>
+                                            <%   }) %>
+                                        </select>
                                     </div>
+                                    <div class="form-group col-md-3">
+                                        <select id="college" name="college" class="form-control" required>
+                                            <option selected hidden><%= profile.college %></option>
+                                            <option>Cowell</option>
+                                            <option>Stevenson</option>
+                                            <option>Crown</option>
+                                            <option>Merrill</option>
+                                            <option>College Nine</option>
+                                            <option>College Ten</option>
+                                            <option>Kresge</option>
+                                            <option>Porter</option>
+                                            <option>Rachel Carson</option>
+                                            <option>Oakes</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-12">
+                                        <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Class experience" required><%= profile.bio %></textarea>
+                                    </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="form-group col-md-7">
-                                            <input type="text" class="form-control" id="linkedIn" placeholder="LinkedIn URL" value="<%= profile.linkedIn %>">
-                                        </div>
+                                <div class="row">
+                                    <div class="form-group col-md-7">
+                                        <input type="text" name="linkedIn" class="form-control" id="linkedIn" placeholder="LinkedIn URL" value="<%= profile.linkedIn %>">
                                     </div>
+                                </div>
 
-                                    <div class="form-control classSelect">
-                                        <ul class="classlist">
-                                            <% courses.forEach(course =>{ %>
-                                            <li class="classname"><%= course.courseName %></li>
-                                            <% }) %>
-                                            <li class="classinput">
-                                                <input placeholder="Add another course" type="text" name="query" autocomplete="off" spellcheck="false">
-                                                <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <a href="" class="center-btn  btn btn-primary mt-2">Update Profile</a>
-                                </form>
-                                <a href="/profile/deleteProfile" class="center-btn btn btn-secondary mt-2 ">Delete Profile</a>
-                            </div>
+                                <div class="form-control classSelect">
+                                    <ul class="classlist">
+                                        <% courses.forEach(course =>{ %>
+                                        <li class="classname"><%= course.courseName %></li>
+                                        <% }) %>
+                                        <li class="classinput">
+                                            <input placeholder="Add another course" type="text" name="query" autocomplete="off" spellcheck="false">
+                                            <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button form="profileForm" type="submit" class="center-btn  btn btn-primary mt-2">Update Profile</button>
+                            </form>
+                            <a href="/profile/deleteProfile" class="center-btn btn btn-delete mt-2 ">Delete Profile</a>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
-        <script src="/classSelect.js"></script>
-        <script src="/profileView.js"></script>
+    <script src="/classSelect.js"></script>
+    <script src="/profileView.js"></script>
 </body>
 
 </html>
