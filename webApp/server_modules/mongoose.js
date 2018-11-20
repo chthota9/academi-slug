@@ -249,21 +249,20 @@ function addReview (googleID, classID, reviews) {
         //         resolve(user);
         //     });
         findUser(googleID)
-        .then(thisUser => {
-
-            // Loop through array of coursesTeaching to find rating for the specific course
-            let thisClass = thisUser.coursesTeaching.id(classID);
-            let oldRating = thisClass.rating;
-            let newRating = 0;
-            for (var category in reviews) {
-                newRating += reviews[category];
-            }
-            newRating /= 4;
-            
-            // Increments the reviewCount before division.
-            thisClass.rating = (newRating + oldRating) / (++thisClass.reviewCount);
-            thisUser.save();
-        });
+            .then(thisUser => {
+                // Loop through array of coursesTeaching to find rating for the specific course
+                let thisClass = thisUser.coursesTeaching.id(classID);
+                let oldRating = thisClass.rating;
+                let newRating = 0;
+                for (var category in reviews) {
+                    newRating += reviews[category];
+                }
+                newRating /= 4;
+                
+                // Increments the reviewCount before division.
+                thisClass.rating = (newRating + oldRating) / (++thisClass.reviewCount);
+                thisUser.save();
+            });
     });
 }
 

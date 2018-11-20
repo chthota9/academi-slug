@@ -12,19 +12,19 @@
 
 <body class="body">
     <div class="bg d-flex justify-content-center align-items-center">
-        <div class="card w-75">
+        <div class="card w-50">
             <div class="card-header">
                 <h2 class="display-4 mb-0 text-center h2-title">Rate Your Tutor</h2>
             </div>
             <div class="card-body">
                 <div class="col-md-auto">
                     <div>
-                        <p>You are rating <%= profile.name.first %> <%= profile.name.last %> <%= className %>. Please be sure to leave ratings for all categories; otherwise, submitting will no work.</p>
+                        <p>You are rating <b><%= profile.firstName %> <%= profile.lastName %></b> for their tutoring of <b><%= className %></b>. Please be sure to leave ratings for all categories; otherwise, submitting will no work.</p>
                     </div>
-                    <hr />
+                    <hr style="">
                     <form id="reviewForm">
                         <div class="form-group row">
-                            <label for="quality_of_teaching" class="col-5 &#9733col-form-label bold">Quality of
+                            <label for="quality_of_teaching" class="col-5 &#9733col-form-label review-title">Quality of
                                 Teaching:</label>
                             <div class="col-7">
                                 <fieldset class="rating" id="quality_of_teaching">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="punctuality" class="col-5 col-form-label bold">Punctuality:</label>
+                            <label for="punctuality" class="col-5 col-form-label review-title">Punctuality:</label>
                             <div class="col-7">
                                 <fieldset class="rating" id="punctuality">
                                     <input type="radio" id="star2.5" name="punctuality" value="5" /><label
@@ -61,7 +61,7 @@
 
 
                         <div class="form-group row ">
-                            <label for="politeness" class="col-5 col-form-label bold">Politeness:</label>
+                            <label for="politeness" class="col-5 col-form-label review-title">Politeness:</label>
                             <div class="col-7">
                                 <fieldset class="rating" id="politeness">
                                     <input type="radio" id="star3.5" name="politeness" value="5" /><label
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                         <div class="form-group row ">
-                            <label for="organization" class="col-5 col-form-label bold">Organizational
+                            <label for="organization" class="col-5 col-form-label review-title">Organizational
                                 Skills:</label>
                             <div class="col-7">
                                 <fieldset class="rating" id="organization">
@@ -98,8 +98,7 @@
 
                         <div class="form-group row category">
                             <div class="centralize">
-                                <button name="submit" type="submit" class="btn btn-primary">Submit Your
-                                    Review</button>
+                                <button name="submit" type="submit" class="btn btn-primary" style="font-weight: bold;">Submit Your Review </button>
                             </div>
                         </div>
                     </form>

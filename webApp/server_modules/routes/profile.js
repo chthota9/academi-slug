@@ -74,14 +74,14 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
     let classID = req.params.course;
     let reviews = req.body; // will contain an object with each reviewed category the object 
                             // the object's fields will depend on how its sent from the client
-    
+
     console.log(JSON.stringify(req.body));
-    addReview(googleID, classID, reviews).
-        then( () => {         
-        res.render('search', { loggedIn: req.isAuthenticated() });
-    }).catch((err) => {
-        throw err;
-    });
+    addReview(googleID, classID, reviews)
+        .then( () => {
+            res.render('search', { loggedIn: req.isAuthenticated() });
+        }).catch((err) => {
+            throw err;
+        });
 });
 
 

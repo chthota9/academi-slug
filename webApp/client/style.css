@@ -312,6 +312,10 @@
     color: #003c6c;
 }
 
+.review-title{
+    font-weight: bolder;
+}
+
 /* Class Selection **/
 
 .classSelect {
