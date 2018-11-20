@@ -330,6 +330,7 @@ function findClass (courseNo) {
 //     .then(() => addTutor(21451, { _id: 5555, name: 'George Bluementhall', rating: 3 }));
 
 module.exports = {
+    Users,
     addUser,
     deleteUser,
     findUser,
