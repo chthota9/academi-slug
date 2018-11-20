@@ -5,7 +5,6 @@ fetch('/classSearch/allClasses/',{method:'POST'})
 .then((res) => res.text())
 .then((data) => {
   classNames = JSON.parse(data);
-  console.log(classNames.length);
   autocomplete(document.getElementById('searchBar'), classNames);
   });
 
