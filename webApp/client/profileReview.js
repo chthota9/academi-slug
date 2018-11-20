@@ -10,9 +10,10 @@ for (let i = 0; i < categories.length; i++) {
     for (let j = 0; j < radios.length; j++) {
         const radio = radios[j];
         radio.addEventListener('change', function(evt) {
-            //on radio click appy rating to category
+            //on radio click apply rating to category
             finalRating[categoryName] = Number.parseInt(this.value);
             console.log(`${categoryName} = ${this.value}`);
+            validateForm();
         });
     }
 }
@@ -28,3 +29,11 @@ reviewForm.addEventListener('submit', evt => {
     formReq.setRequestHeader('Content-Type', 'application/json');
     formReq.send(JSON.stringify(finalRating));
 });
+
+function validateForm() {
+    let formValidated = (Object.keys(finalRating).length == 4);
+    if (formValidated) {
+        document.getElementById("submitBut").innerHTML =
+            "<a href='/' class='btn btn-primary h2-title'>Submit Your Review</a>";
+    }
+}
