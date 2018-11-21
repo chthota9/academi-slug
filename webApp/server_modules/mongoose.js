@@ -157,6 +157,7 @@ function addUser (user) {
             coursesTeaching: user.coursesTeaching,
             reviewCount: 0
         });
+        
         userAdded.save((err, profile) => {
             if (err) {
                 return reject(err);
@@ -369,6 +370,7 @@ function findClass (courseNo) {
 //     .then(() => addTutor(21451, { _id: 5555, name: 'George Bluementhall', rating: 3 }));
 
 module.exports = {
+    Users,
     addUser,
     deleteUser,
     findUser,
@@ -379,3 +381,4 @@ module.exports = {
     addReview,
     connection
 };
+
