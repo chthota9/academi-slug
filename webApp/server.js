@@ -16,10 +16,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('client'));
 
 // Includes all routes
+app.use('/classSearch', classSearch);
 app.use('/google', passport(app));
 app.use('/profile', profileRoute);
 app.use('/searchRoute', searchRoute);
-app.use('/classSearch', classSearch);
 // Establishes EJS view engine in 'views' folder
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
@@ -27,9 +27,14 @@ app.set('views', path.join(__dirname, '/views'));
 app.get('/', function(req, res) {
     console.log(req.session);
 
-    let loggedIn = req.isAuthenticated() && req.user.extra === undefined;
-
-    res.render('search', { loggedIn: loggedIn });
+    let input = {
+        loggedIn: req.isAuthenticated() && req.user.extra === undefined,
+    };
+    if (req.session.deleted) {
+        input['deleted'] = req.session.deleted;
+        req.session.deleted = null;
+    }
+    res.render('search', input);
 });
 
 app.use((req, res, next) => {
@@ -41,6 +46,8 @@ app.use((req, res, next) => {
 
 // eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
+    console.log(error);
+
     res.render('error', { err: error.message });
 });
 

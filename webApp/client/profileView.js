@@ -1,18 +1,23 @@
 let form = document.getElementById('profileForm');
+let alertBox = document.getElementById('alert');
+let subBtn = document.querySelector('button[form="profileForm"]');
+let alertTimer;
 // eslint-disable-next-line no-undef
 let classSelect = ClassSelect;
 let oldProf = formDataToObj(new FormData(form));
 form.addEventListener('submit', evt => {
     evt.preventDefault();
-
     let newProf = diffProf(formDataToObj(new FormData(form)));
-    console.log(JSON.stringify(newProf));
-    sendUpdate(newProf);
+    if (Object.keys(newProf).length > 0) {
+        sendUpdate(newProf);
+    }
 });
 
 function sendUpdate (formData) {
+    subBtn.disabled = true;
     fetch('/profile/updateProfile', {
             method: 'POST',
+            mode: 'same-origin',
             body: JSON.stringify(formData),
             headers: {
                 'Content-type': 'application/json'
@@ -20,10 +25,25 @@ function sendUpdate (formData) {
         })
         .then(res => {
             if (res.ok) {
-                window.location.href = res.url;
+                return res.text();
             } else {
                 throw new Error(res.statusText);
             }
+        })
+        .then(data => {
+            let res = JSON.parse(data);
+            if (res.sucessful) {
+                alertBox.children[0].textContent = 'Updated profile successful';
+                oldProf = formDataToObj(new FormData(form));
+            } else {
+                alertBox.children[0].textContent = 'Something went wrong with the update';
+            }
+            alertBox.classList.remove('hidden');
+            subBtn.disabled = false;
+            if (alertTimer) {
+                clearTimeout(alertTimer);
+            }
+            alertTimer = setTimeout(() => alertBox.classList.add('hidden'), 1000);
         })
         .catch(err => {
             console.log(err);
@@ -37,7 +57,7 @@ function diffProf (updatedProf) {
         const oldVal = oldProf[key];
         if (newVal.constructor === Array) {
             let updatedCourses = compareCourses(oldVal, newVal);
-            if (updatedCourses !== null) {
+            if (updatedCourses.length > 0) {
                 newProf[key] = updatedCourses;
             }
         } else {
@@ -48,29 +68,31 @@ function diffProf (updatedProf) {
     }
     return newProf;
 }
-
+/**
+ * @param {Array} oldVal 
+ * @param {Array} newVal 
+ */
 function compareCourses (oldVal, newVal) {
-    if (newVal.length !== oldVal.length) {
-        return newVal;
-    }
-    for (let i = 0; i < newVal.length; i++) {
-        const oldCourse = oldVal[i];
-        const newCourse = newVal[i];
-        if (oldCourse !== newCourse) {
-            return newVal;
+    //see if theres new courses compared to old
+    //see if any of the old courses were removed
+    let courses;
+    courses = newVal.filter(el => oldVal.indexOf(el) < 0);
+    oldVal.forEach(el => {
+        if (!newVal.includes(el)) {
+            courses.push('-' + el);
         }
-    }
-    return null;
+    });
+    return courses;
 }
 
 function formDataToObj (formData) {
-    let updatedProf = {};
+    let prof = {};
     let courses = classSelect.getCourses();
     for (const data of formData.entries()) {
         if (data[0] != 'query') {
-            updatedProf[data[0]] = data[1];
+            prof[data[0]] = data[1];
         }
     }
-    updatedProf.coursesTeaching = courses;
-    return updatedProf;
+    prof.coursesTeaching = courses;
+    return prof;
 }

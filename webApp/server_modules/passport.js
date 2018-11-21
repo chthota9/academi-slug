@@ -2,10 +2,7 @@ const passport = require('passport');
 const googleAuth = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const router = require('express').Router();
-const {
-    connection,
-    findUser
-} = require('./mongoose');
+const { connection, findUser } = require('./mongoose');
 const mongoStore = require('connect-mongo')(session);
 
 let sessionAge = 60 * 60 * 1000; //1 hour = mins * secs * ms
@@ -105,7 +102,7 @@ module.exports = function(app) {
 
     router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/profile/signup' }),
         function(req, res) {
-            req.session.save(() => res.redirect('/profile'));
+            req.session.save(() => res.redirect('/'));
         });
 
     return router;
