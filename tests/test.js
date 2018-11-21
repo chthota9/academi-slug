@@ -7,7 +7,7 @@ let testUser = new database.Users({
     googleID: Math.random(),
     email: 'testUser@gmail.com',
     firstName: 'Test',
-    lastName: 'User',
+    lastName: 'Usr',
     year: 'Sophoomre',
     college: 'Kresge',
     major: 'Computer Science',
