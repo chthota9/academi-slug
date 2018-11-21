@@ -22,6 +22,8 @@ jobs:
       - run: 
           name: run-tests
           command: |
+                cd ../tests
                 npm install
-                npm install ../tests/package.json
+                cd ../webApp
+                npm install
                 npm run main-test
