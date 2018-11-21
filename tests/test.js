@@ -7,7 +7,7 @@ let testUser = new database.Users({
     googleID: Math.random(),
     email: 'testUser@gmail.com',
     firstName: 'Test',
-    lastName: 'Usr',
+    lastName: 'User',
     year: 'Sophoomre',
     college: 'Kresge',
     major: 'Computer Science',
@@ -44,7 +44,7 @@ describe('user', () => {
             while (nonGoogleID == testUser.googleID)
                 nonGoogleID = Math.random();
 
-            database.Users.findById(nonGoogleID)
+            database.Users.findById(testUser.googleID)
                 .then( profile => {
                     return expect(profile).to.be.null;
             });
