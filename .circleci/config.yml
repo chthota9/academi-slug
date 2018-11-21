@@ -22,14 +22,9 @@ jobs:
       - run: 
           name: install-dependencies
           command: npm install
-
-      - run: cd ../tests
-      - run: npm install
-      - run: cd ../webApp
-      
       - run: 
           name: run tests
-          command: npm run main-test
+          command: ./runTest.sh
       - run:
           name: kill app
           command: npm stop
