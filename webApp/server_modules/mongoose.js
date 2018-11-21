@@ -157,7 +157,7 @@ function addUser (user) {
             coursesTeaching: user.coursesTeaching,
             reviewCount: 0
         });
-        
+
         userAdded.save((err, profile) => {
             if (err) {
                 return reject(err);
@@ -183,7 +183,6 @@ function deleteUser (googleID) {
 }
 
 function findUser (googleID) {
-    console.log('Searching for User ' + googleID);
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
             .exec((err, profile) => {
@@ -238,7 +237,6 @@ function updateUser (user, updates) {
     });
 }
 
-//Untested - needed
 function addReview (googleID, classID, reviews) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
