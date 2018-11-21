@@ -6,7 +6,7 @@ const data = require('../webApp/server_modules/mongoose');
 mongoose.Promise = global.Promise;
 
 // Connect to db before tests
-before(function(done){
+before(function(done) {
 
     // Connect to mongodb
 
@@ -14,7 +14,7 @@ before(function(done){
         useNewUrlParser: true,
     });
 
-       
+
 
 });
 
@@ -31,35 +31,26 @@ describe('addUser', () => {
             college: 'Nine',
             major: 'CS',
             bio: 'Banana Slug',
-            coursesTeaching:  [
+            coursesTeaching: [
                 {
-                
-                    "_id": 21451,
-                    "rating": 3
+
+                    '_id': 21451,
+                    'rating': 3
                 },
                 {
-                    "_id": 21451,
-                    "rating": 5
+                    '_id': 21451,
+                    'rating': 5
                 }
             ],
             linkedIn: 'https://www.linkedin.com/in/rybojad/'
         });
         done();
-       
     });
-    
 });
 
-    
 
+// Connect to mongodb
 
-
-
-
-
-
-
-
-
-
-    
+mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/academi-slug', {
+    useNewUrlParser: true,
+});

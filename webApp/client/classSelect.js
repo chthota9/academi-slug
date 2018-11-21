@@ -132,7 +132,7 @@ var ClassSelect = (function() {
     }
 
     function addClass (chosenClass) {
-        if (chosenClasses.length < 10) {
+        if (chosenClasses.length < 10 && !containClass(chosenClass.textContent)) {
             let newClass = document.createElement('li');
             newClass.textContent = chosenClass.textContent;
             newClass.onclick = deleteClass;
@@ -140,11 +140,21 @@ var ClassSelect = (function() {
             list.insertBefore(newClass, inputNode);
             chosenClasses.push(newClass);
         }
-    };
+    }
 
     this.getCourses = function() {
         return chosenClasses.map(el => el.textContent);
     };
+
+    function containClass(courseName){
+        for (let i = 0; i < chosenClasses.length; i++) {
+            const element = chosenClasses[i].textContent;
+            if(element === courseName){
+                return true;
+            }
+        }
+        return false;
+    }
 
     return this;
 })();
