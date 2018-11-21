@@ -23,8 +23,8 @@ jobs:
           name: install-dependencies
           command: npm install
       - run: 
-          name: run app
-          command: npm run buildtest
+          name: run tests
+          command: npm run main-test
       - run:
           name: kill app
           command: npm stop

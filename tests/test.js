@@ -10,9 +10,9 @@ let testUser = new database.Users({
     year: 'Sophoomre',
     college: 'Kresge',
     major: 'Computer Science',
-    bio: 'I like to teach!',
-    coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }],
-    linkedIn: 'test URL'
+    bio: 'I like to teach!', 
+    linkedIn: 'test URL',
+    coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }]
 });
 
 describe('user', () => {    
