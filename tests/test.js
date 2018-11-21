@@ -1,5 +1,5 @@
 var chai = require('chai');
-require('chai').should();
+var should = chai.should();
 var expect = require('chai').expect;
 const database = require('../webApp/server_modules/mongoose');
 
