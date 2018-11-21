@@ -23,4 +23,5 @@ jobs:
           name: run-tests
           command: |
                 npm install
+                npm install ../tests/package.json
                 npm run main-test
