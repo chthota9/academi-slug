@@ -1,5 +1,6 @@
 var chai = require('chai');
-var should = chai.should();
+chai.use(require('chai-as-promised'));
+chai.should();
 var expect = require('chai').expect;
 const database = require('../webApp/server_modules/mongoose');
 
@@ -18,14 +19,17 @@ let testUser = new database.Users({
 
 describe('user', () => {    
     describe('#save()', () => {
-        it('should save without error', () => {
-            return testUser.save();
+        it('should save without error', done => {
+            testUser.save(err  => {
+                if (err) done(err);
+                else done();
+            });
         });
 
         it('should save correct document into database', () => {
             return database.Users.findById(testUser.googleID)
                 .then(thisUser =>{
-                    JSON.stringify(thisUser).should.equal(JSON.stringify(testUser));
+                    JSON.stringify(thisUser).should.equal("apple");
                 });
         });
 
@@ -51,65 +55,65 @@ describe('user', () => {
         });
     });
 
-    describe('#delete()', () => {
-        it('should delete without error', () => {
-            return database.Users.deleteOne(testUser);
-        });
+    // describe('#delete()', () => {
+    //     it('should delete without error', () => {
+    //         return database.Users.deleteOne(testUser);
+    //     });
 
-        it('user deleted should not be in database', () => {
-            database.Users.findById(testUser.googleID)
-                .then(profile => {
-                    return expect(profile).to.be.null;
-                });
-        });
-    });
+    //     it('user deleted should not be in database', () => {
+    //         database.Users.findById(testUser.googleID)
+    //             .then(profile => {
+    //                 return chai.expect(expect(profile).to.be.null).to.be.rejected;
+    //             });
+    //     });
+    // });
 
-    describe('#addUser()', () => {
-        it('should add user without error', () => {
-            return database.addUser(testUser);
-        });
+    // describe('#addUser()', () => {
+    //     it('should add user without error', () => {
+    //         return database.addUser(testUser);
+    //     });
 
-        it('should save correct user into database', () => {
-            return database.Users.findById(testUser.googleID)
-                .then(thisUser => {
-                    JSON.stringify(thisUser).should.equal(JSON.stringify(testUser));
-                });
-        });
+    //     it('should save correct user into database', () => {
+    //         return database.Users.findById(testUser.googleID)
+    //             .then(thisUser => {
+    //                 JSON.stringify(thisUser).should.equal(JSON.stringify(testUser));
+    //             });
+    //     });
 
-        // still need to catch rejection
-        // it('should not add two Users with the same googleID', () => {
-        //     return expect(function() { database.addUser(testUser).then(database.addUser(testUser)); }).to.throw(Error);
-        // });
+    //     // still need to catch rejection
+    //     // it('should not add two Users with the same googleID', () => {
+    //     //     return expect(function() { database.addUser(testUser).then(database.addUser(testUser)); }).to.throw(Error);
+    //     // });
 
-    });
+    // });
 
-    describe('#findUser()', () => {
-        it('should find user without error', () => {
-            return database.findUser(testUser.googleID);
-        });
+    // describe('#findUser()', () => {
+    //     it('should find user without error', () => {
+    //         return database.findUser(testUser.googleID);
+    //     });
 
-        it('should retun null on invalid googleID', () => {
-            let nonGoogleID = Math.random();
-            while (nonGoogleID == testUser.googleID)
-                nonGoogleID = Math.random();
+    //     it('should retun null on invalid googleID', () => {
+    //         let nonGoogleID = Math.random();
+    //         while (nonGoogleID == testUser.googleID)
+    //             nonGoogleID = Math.random();
 
-            database.findUser(nonGoogleID)
-                .then(profile => {
-                    return expect(profile).to.be.null;
-                });
-        });
-    });
+    //         database.findUser(nonGoogleID)
+    //             .then(profile => {
+    //                 return expect(profile).to.be.null;
+    //             });
+    //     });
+    // });
 
-    describe('#deleteUser()', () => {
-        it('should delete user without error', () => {
-            return database.deleteUser(testUser.googleID);
-        });
+    // describe('#deleteUser()', () => {
+    //     it('should delete user without error', () => {
+    //         return database.deleteUser(testUser.googleID);
+    //     });
 
-        it('user deleted should not be in database', () => {
-            database.findUser(testUser.googleID)
-                .then(profile => {
-                    return expect(profile).to.be.null;
-                });
-        });
-    });
+    //     it('user deleted should not be in database', () => {
+    //         database.findUser(testUser.googleID)
+    //             .then(profile => {
+    //                 return expect(profile).to.be.null;
+    //             });
+    //     });
+    // });
 });
