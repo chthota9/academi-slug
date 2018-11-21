@@ -111,4 +111,31 @@ describe('user', () => {
                 });
         });
     });
+
+    
+    describe('#updateUser()', () => {
+        
+        it('should update user', () => {
+           return database.updateUser(testUser.googleID);
+            });
+        });
+   
+
+    describe('#addClass()', () => {
+        it('should add a class', () => {
+            return database.addClass._id;
+        });
+    });
+
+    describe('#deleteClass()', () => {
+        it('should delete a class', () => {
+            return database.deleteClass._id;
+        });
+    });
+
+    describe('#addReview()', () => {
+        it('should add a review', () => {
+            return database.addReview(testUser.googleID);
+        });
+    });
 });

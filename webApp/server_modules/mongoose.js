@@ -220,7 +220,7 @@ function updateUser (googleID, userEdits) {
 }
 
 //Untested - needed
-function addReview (googleID, courseNo, average) {
+function addReview(googleID, courseNo, average) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         Users.update({ 'googleID': googleID, 'courseNo': courseNo }, {
@@ -329,6 +329,7 @@ function findClass (courseNo) {
 //     .then(() => addTutor(21451, { _id: 4321, name: 'Sammy Slug', rating: 4 }))
 //     .then(() => addTutor(21451, { _id: 5555, name: 'George Bluementhall', rating: 3 }));
 
+//exported addReview and deleteClass
 module.exports = {
     Users,
     addUser,
@@ -338,6 +339,8 @@ module.exports = {
     addClass,
     addTutor,
     findClass,
-    connection
+    connection, 
+    addReview,
+    deleteClass
 };
 
