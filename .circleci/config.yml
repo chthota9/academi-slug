@@ -19,17 +19,15 @@ jobs:
     steps:
       - checkout:
           path: ~/academi-slug
-    #   - run: 
-    #       name: install-dependencies
-    #       command: npm install
-    #   - run:
-    #       name: install-chai
-    #       command: npm install --save chai
+      - run: 
+          name: install-dependencies
+          command: npm install
+      - run:
+          name: install-chai
+          command: npm install --save chai
       - run: 
           name: run tests
-          command:  npm install
-                    npm install --save chai
-                    npm run main-test
+          command: npm run main-test
       - run:
           name: kill app
           command: npm stop
