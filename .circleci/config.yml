@@ -20,14 +20,7 @@ jobs:
       - checkout:
           path: ~/academi-slug
       - run: 
-          name: install-dependencies
-          command: npm install
-      - run:
-          name: edit-access
-          command: chmod a+rx runTest.sh
-      - run: 
           name: run-tests
-          command: ./runTest.sh
-      - run:
-          name: kill-app
-          command: npm stop
+          command: |
+                npm install
+                npm run main-test
