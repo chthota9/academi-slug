@@ -77,11 +77,12 @@
     border-width: 2px;
 }
 
-.btn-delete {
+.btn-delete, .btn:disabled {
     color: white;
     background-color: #6c2800;
     border-color: black;
     border-width: 2px;
+    opacity: 1.0;
 }
 
 .btn-delete:hover {
