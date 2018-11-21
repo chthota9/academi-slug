@@ -45,6 +45,17 @@
 
 .bg {
     height: 100vh;
+    width: 100vw;
+    margin-top: 65px;
+    margin-bottom: 50px;
+    /* background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)), url("background.png"); */
+    /* background-position: center center; */
+    /* background-repeat: repeat; */
+    /* background-size: cover; */
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 
