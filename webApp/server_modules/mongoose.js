@@ -326,7 +326,7 @@ function deleteTutor (googleID, courseNo) {
  * @param {Number} courseNo 
  * @returns {Promise<Array>} tutors
  */
-function findClass (courseNo) {
+function findClass (courseNo) { 
     console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
         Classes.findById(courseNo)
