@@ -141,7 +141,6 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
 
 
 // A route used when a user wants to update their profile
-//Untested
 router.post('/updateProfile', function(req, res) {
     console.log(req.body);
     if (Object.keys(req.body).length < 1) {
@@ -153,7 +152,6 @@ router.post('/updateProfile', function(req, res) {
 });
 
 // A route used when a user wants to delete their profile
-//Untested
 router.get('/deleteProfile', (req, res) => {
     deleteUser(req.user.id)
         .then(() => {
