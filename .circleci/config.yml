@@ -24,7 +24,7 @@ jobs:
           command: npm install
       - run:
           name: install-chai
-          command: npm install chai
+          command: npm install --save-dev chai
       - run: 
           name: run tests
           command: npm run main-test
