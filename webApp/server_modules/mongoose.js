@@ -50,7 +50,7 @@ let courseTeachingSchema = new mongoose.Schema({
     reviewCount: {
         type: Number,
         required: true,
-        default: 1
+        default: 0
     }
 }, {
     autoIndex: false,
