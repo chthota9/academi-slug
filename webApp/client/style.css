@@ -44,10 +44,17 @@
 }
 
 .bg {
+    height: 100vh;
+    width: 100vw;
+    margin-top: 65px;
+    margin-bottom: 50px;
+}
+
+.bg-tutorial {
     display: flex;
     flex-direction: column;
 
-    height: 110vh;
+    height: 130vh;
     width: 100vw;
     margin-top: 65px;
     margin-bottom: 50px;
