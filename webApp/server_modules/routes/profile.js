@@ -16,7 +16,7 @@ router.get('/signup', passport.authenticate('googleSignUp', {
     hd: 'ucsc.edu'
 }));
 
-// A route used when a user creates and account
+// A route used when a user creates an account
 router.get('/create', function(req, res) {
     res.render('createAccount', {
         user: req.user,
@@ -54,7 +54,6 @@ router.get('/logout', function(req, res) {
 
 router.post('/createProfile', function(req, res) {
     console.log('CREATED A PROFILE');
-
     let profile = newProfile(req.body, req.user.id, req.user.extra);
 
     addUser(profile)
@@ -64,6 +63,7 @@ router.post('/createProfile', function(req, res) {
                 res.redirect('/');
             });
         })
+    
         //TODO: SEND ERR BACK AND REDIRECT CLIENT
         .catch(err => console.log(err));
 });
@@ -92,7 +92,9 @@ router.get('/', function(req, res) {
     let courseNames = req.user.coursesTeaching.map(course => ({
         courseName: getClassName(course._id)
     }));
-
+    
+    console.log(courseNames[0]);
+    
     res.render('profileView-user', {
         profile: req.user,
         courses: courseNames,
