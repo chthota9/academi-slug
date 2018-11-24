@@ -144,16 +144,6 @@
     top: 200px;
 }
 
-.heading {
-    color: black;
-    font-size: 300%;
-}
-
-.login-redirect {
-    position: relative;
-    left: 100px;
-}
-
 /* Tutorial elements */
 .tutorial-main {
     display: flex;
