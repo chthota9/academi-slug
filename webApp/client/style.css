@@ -60,48 +60,6 @@
     margin-bottom: 50px;
 }
 
-.tutorial-main{
-    display: flex;
-    flex-direction: column;
-
-    margin-top: 80px;
-    padding-bottom: 20px;
-
-    font-weight: bolder;
-    text-align: center;
-
-    background-color: rgba(0, 0, 0, 0.35);
-    border-radius: 7px;
-}
-
-.tutorial-subsection{
-    display: flex;
-    flex-direction: row;
-
-    font-weight: bolder;
-    text-align: left;
-}
-
-.tutorial-card {
-    width: 500px;
-    margin-left: 30px;
-    margin-right: 30px;
-}
-
-.tutorial-card-header{
-    background-color: #93c02d;
-    color: black;
-}
-
-.role-title{
-    margin-bottom: 0px;
-    margin-left:  10px;
-}
-
-.tutorial-item{
-    margin-bottom: 5px;
-}
-
 ::-webkit-scrollbar {
     display: none;
 }
@@ -182,7 +140,8 @@
 }
 
 .search-card {
-    margin-top: 50px;
+    position: absolute; 
+    top: 200px;
 }
 
 .heading {
@@ -195,11 +154,53 @@
     left: 100px;
 }
 
+/* Tutorial elements */
+.tutorial-main {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 450px;
+
+    padding-bottom: 30px;
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 7px;
+}
+
+.tutorial-subsection {
+    display: flex;
+    flex-direction: row;
+
+    text-align: left;
+}
+
+.tutorial-card {
+    width: 500px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.tutorial-card-header {
+    background-color: #93c02d;
+    color: black;
+}
+
+.role-title {
+    margin-bottom: 0px;
+    margin-left: 10px;
+}
+
+.tutorial-item {
+    font-weight: normal;
+    margin-bottom: 5px;
+}
 
 /* Autocomplete elements */
 *{
     box-sizing: border-box;
 }
+
 .autocomplete {
 /*the container must be positioned relative:*/
     position: relative;
