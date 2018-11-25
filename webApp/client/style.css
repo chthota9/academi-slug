@@ -469,7 +469,7 @@
 .msg {
     z-index: 99;
     display: inline-flex;
-    position: absolute;
+    position: fixed;
     width: 90%;
     height: 3em;
     top: 15%;
