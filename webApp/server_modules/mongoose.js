@@ -9,11 +9,7 @@ mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/acade
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log('We\'re connected to the database!');
-    if (process.env.NODE_ENV === 'buildTest') {
-        setTimeout(() => {}, 3000);
-    }
 });
-// connection.dropDatabase();
 
 let classSchema = new mongoose.Schema({
     _id: {
@@ -124,23 +120,6 @@ userSchema.virtual('fullName').get(function() {
 
 
 let Users = mongoose.model('Users', userSchema);
-
-// //Uncomment to test
-// //UpdateUser works on Reviews, but overrides reviews.
-// deleteUser(24245)
-//     .then(() => addUser({ googleID: 24245, email: 'sammyslub@ucsc.edu', firstName: 'Sammy', lastName: 'Slug', year: 'Junior', college: 'Nine', major: 'CS', bio: 'Banana Slug', coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2}], linkedIn: 'test URL' }))
-//     .then(prof => findUser(prof.googleID))
-//     .then(prof => {
-//         console.log(`BEFORE: ${prof.fullName}`);
-//         return prof;
-//     })
-//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
-//     .then(prof => {
-//         console.log(`AFTER: ${prof.fullName}`);
-//         return prof;
-//     })
-//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
-//     .    catch(err => console.log(err));
 
 function addUser (user) {
     return new Promise((resolve, reject) => {
@@ -324,7 +303,7 @@ function deleteTutor (googleID, courseNo) {
  * @param {Number} courseNo 
  * @returns {Promise<Array>} tutors
  */
-function findClass (courseNo) { 
+function findClass (courseNo) {
     console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
         Classes.findById(courseNo)
@@ -379,4 +358,3 @@ module.exports = {
     addReview,
     connection
 };
-
