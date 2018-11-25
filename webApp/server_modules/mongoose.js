@@ -300,6 +300,7 @@ function addTutor (courseNo, tutor) {
         Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutor } })
             .exec((err, user) => {
                 if (err) return reject(err);
+                console.log(courseNo);
                 console.log('Tutor ' + tutor._id + ' added to class ' + courseNo);
                 resolve(user);
             });
@@ -374,6 +375,7 @@ module.exports = {
     findUser,
     updateUser,
     addClass,
+    deleteClass,
     addTutor,
     findClass,
     addReview,
