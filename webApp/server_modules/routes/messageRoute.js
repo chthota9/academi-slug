@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
         loggedIn: req.isAuthenticated() && req.user.extra === undefined,
     };
     console.log('User connected!');
-    res.render('message', { input });
+    res.render('message', input);
 });
 
 router.get('/messages', (req, res) => {
