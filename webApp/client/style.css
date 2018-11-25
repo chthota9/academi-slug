@@ -54,6 +54,9 @@
     display: none;
 }
 
+.message-title {
+    margin-bottom: 0px;
+}
 
 /* Buttons */
 .btn-primary {
