@@ -294,14 +294,12 @@ function deleteClass (courseNo) {
 
 //Seems to be working
 //Should error checking when class does not exist
-function addTutor (courseNo, tutor) {
+function addTutor (courseNo, tutorID) {
     return new Promise((resolve, reject) => {
-
-        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutor } })
+        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutorID } })
             .exec((err, user) => {
                 if (err) return reject(err);
-                console.log(courseNo);
-                console.log('Tutor ' + tutor._id + ' added to class ' + courseNo);
+                console.log('Tutor ' + tutorID + ' added to class ' + courseNo);
                 resolve(user);
             });
     });
@@ -374,12 +372,12 @@ module.exports = {
     deleteUser,
     findUser,
     updateUser,
+    Classes,
     addClass,
     findClass,
     deleteTutor,
     deleteClass,
     addTutor,
-    findClass,
     addReview,
     connection
 };
