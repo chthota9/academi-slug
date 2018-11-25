@@ -395,6 +395,7 @@ module.exports = {
     addTutor,
     findClass,
     addReview,
+    Messages,
     connection
 };
 

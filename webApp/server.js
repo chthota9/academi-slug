@@ -7,6 +7,7 @@ const profileRoute = require('./server_modules/routes/profile');
 const searchRoute = require('./server_modules/routes/searchRoute');
 const bodyParser = require('body-parser');
 const classSearch = require('./server_modules/routes/classSearch');
+const messageRoute = require('./server_modules/routes/message');
 
 // Includes a bodyParser to parse JSON files
 app.use(bodyParser.json());
@@ -20,6 +21,8 @@ app.use('/classSearch', classSearch);
 app.use('/google', passport(app));
 app.use('/profile', profileRoute);
 app.use('/searchRoute', searchRoute);
+app.use('/message', messageRoute);
+
 // Establishes EJS view engine in 'views' folder
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
