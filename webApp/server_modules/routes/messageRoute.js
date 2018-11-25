@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
     let input = {
         loggedIn: req.isAuthenticated() && req.user.extra === undefined,
     };
-
+    console.log('User connected!');
     res.render('message', { input });
 });
 
