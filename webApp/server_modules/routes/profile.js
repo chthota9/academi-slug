@@ -167,7 +167,7 @@ router.post('/updateProfile', function(req, res) {
                     .then( () => addTutor(ClassToAdd, req.user))
                     .catch(err => console.log(err))
             }
-            if(tutors.length > 1){
+            if(tutors.length >= 1){
             addTutor(ClassToAdd, req.user)
             }
         });      
