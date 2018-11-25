@@ -68,11 +68,10 @@ router.use((req, res, next) => {
  * A route used when a user accesses their profile
  */
 router.get('/', function(req, res) {
-   
     let courseNames = req.user.coursesTeaching.map(course => ({
         courseName: getClassName(course._id)
     }));
-    
+
     res.render('profileView-user', {
         profile: req.user,
         courses: courseNames,
@@ -164,9 +163,16 @@ router.post('/updateProfile', function(req, res) {
     console.log("here" + req.user);
     for(var i = 0; i<updatingClass.coursesTeaching.length; i++){
         let ClassToAdd = getClassID(updatingClass.coursesTeaching[i])
-        addClass(ClassToAdd)
-            .then( () => addTutor(ClassToAdd, req.user))
-            .catch(err => console.log(err));
+        findClass(ClassToAdd).then(tutors =>{
+            if(tutors.length < 1){
+                addClass(ClassToAdd)
+                    .then( () => addTutor(ClassToAdd, req.user))
+                    .catch(err => console.log(err))
+            }
+            if(tutors.length > 1){
+            addTutor(ClassToAdd, req.user)
+            }
+        });      
     }    
 });
 

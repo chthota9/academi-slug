@@ -374,6 +374,7 @@ module.exports = {
     updateUser,
     Classes,
     addClass,
+    findClass,
     deleteClass,
     addTutor,
     findClass,
