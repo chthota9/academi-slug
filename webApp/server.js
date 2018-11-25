@@ -7,7 +7,7 @@ const profileRoute = require('./server_modules/routes/profile');
 const searchRoute = require('./server_modules/routes/searchRoute');
 const bodyParser = require('body-parser');
 const classSearch = require('./server_modules/routes/classSearch');
-const messageRoute = require('./server_modules/routes/message');
+const messageRoute = require('./server_modules/routes/messageRoute');
 
 // Includes a bodyParser to parse JSON files
 app.use(bodyParser.json());
