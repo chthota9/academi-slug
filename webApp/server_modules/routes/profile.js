@@ -2,7 +2,7 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
-const { addUser, updateUser, deleteUser, findUser, addReview, addClass, addTutor } = require('../mongoose');
+const { addUser, updateUser, deleteUser, findUser, addReview, addClass, findClass, addTutor, Classes } = require('../mongoose');
 
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
@@ -119,36 +119,36 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
 
 // A route that will actually create a user's account within the database
 router.post('/createProfile', function(req, res) {
-    console.log('CREATED A PROFILE');
     let profile = newProfile(req.body, req.user.id, req.user.extra);
-    console.log(req.body);
-    var adding = req.body;
-    console.log(adding.coursesTeaching.length);
-    console.log(getClassID(adding.coursesTeaching[0]));
-    console.log("adding class");
-    console.log(profile);
-    console.log("added class");
     addUser(profile)
         .then(profile => {
             req.login({ id: profile.googleID }, err => {
                 if (err) return res.redirect('/');
                 res.redirect('/');
-            });        
-        })    
-        //TODO: SEND ERR BACK AND REDIRECT CLIENT
+            });
+
+             for (var i = 0; i < profile.coursesTeaching.length; i++) {
+                let thisClassID = profile.coursesTeaching[i]._id;
+                Classes.findById(thisClassID)
+                    .then(thisClass => {
+                        console.log('This class is ' + JSON.stringify(thisClass));
+
+                        // May even addTutor without class existing
+                        if (thisClass == null) {
+                            console.log('Class does not exist!');
+                            addClass(thisClassID)
+                                .then(addTutor(thisClassID, profile.googleID))
+                                .catch(err => console.log(err));
+                        } else {
+                            console.log('Class exists!');
+                            addTutor(thisClassID, profile.googleID)
+                                .catch(err => console.log(err));
+                        }
+                    });
+             }
+        })
         .catch(err => console.log(err));
-
-        console.log("AFTER EVERYTHINGp" + profile);
-
-        for(var i = 0; i<adding.coursesTeaching.length; i++){
-            let ClassToBeAdded = getClassID(adding.coursesTeaching[i])
-            addClass(ClassToBeAdded)
-                .then( () => addTutor(ClassToBeAdded, req.user ))
-                .catch(err => console.log(err));
-        }
-   
 });
-
 
 // A route used when a user wants to update their profile
 router.post('/updateProfile', function(req, res) {
@@ -159,7 +159,7 @@ router.post('/updateProfile', function(req, res) {
     updateUser(req.user, req.body)
         .then(() => res.json({ sucessful: true }))
         .catch(() => res.json({ sucessful: false }));
-    
+
     var updatingClass = req.body;
     console.log("here" + req.user);
     for(var i = 0; i<updatingClass.coursesTeaching.length; i++){
