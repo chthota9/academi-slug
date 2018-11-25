@@ -372,16 +372,18 @@ let messageSchema = new mongoose.Schema({
     _id: {
         type: Number,
         required: true,
-        unique: true,
+        unique: true
     },
-    message: { 
+    message: {
         type: String, 
-        required:true
-    }, {
-        autoIndex: false,
-        versionKey: false,
-        _id: false
-    });
+        required: true
+    }
+}, {
+    autoIndex: false,
+    versionKey: false,
+    _id: false
+});
+
 
 let Messages = mongoose.model('Messages', messageSchema);
 
