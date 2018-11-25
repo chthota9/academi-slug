@@ -136,11 +136,11 @@ router.post('/createProfile', function(req, res) {
                         if (thisClass == null) {
                             console.log('Class does not exist!');
                             addClass(thisClassID)
-                                .then(addTutor(thisClassID, profile.googleID))
+                                .then(addTutor(thisClassID, profile))
                                 .catch(err => console.log(err));
                         } else {
                             console.log('Class exists!');
-                            addTutor(thisClassID, profile.googleID)
+                            addTutor(thisClassID, profile)
                                 .catch(err => console.log(err));
                         }
                     });
