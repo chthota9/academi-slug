@@ -130,17 +130,15 @@ router.post('/createProfile', function(req, res) {
                 let thisClassID = profile.coursesTeaching[i]._id;
                 Classes.findById(thisClassID)
                     .then(thisClass => {
-                        console.log('This class is ' + JSON.stringify(thisClass));
-
                         // May even addTutor without class existing
                         if (thisClass == null) {
                             console.log('Class does not exist!');
                             addClass(thisClassID)
-                                .then(addTutor(thisClassID, profile))
+                                .then(addTutor(thisClassID, profile.googleID))
                                 .catch(err => console.log(err));
                         } else {
                             console.log('Class exists!');
-                            addTutor(thisClassID, profile)
+                            addTutor(thisClassID, profile.googleID)
                                 .catch(err => console.log(err));
                         }
                     });
