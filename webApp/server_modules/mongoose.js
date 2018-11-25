@@ -367,6 +367,24 @@ function findClass (courseNo) {
 //     .then(() => addTutor(21451, { _id: 4321, name: 'Sammy Slug', rating: 4 }))
 //     .then(() => addTutor(21451, { _id: 5555, name: 'George Bluementhall', rating: 3 }));
 
+
+let messageSchema = new mongoose.Schema({
+    _id: {
+        type: Number,
+        required: true,
+        unique: true,
+    },
+    message: { 
+        type: String, 
+        required:true
+    }, {
+        autoIndex: false,
+        versionKey: false,
+        _id: false
+    });
+
+let Messages = mongoose.model('Messages', messageSchema);
+
 module.exports = {
     Users,
     addUser,
