@@ -2,7 +2,7 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
-const { addUser, updateUser, deleteUser, findUser, addReview, addClass, findClass, addTutor, Classes } = require('../mongoose');
+const { addUser, updateUser, deleteUser, findUser, addReview, addClass, findClass, addTutor, Classes, deleteTutor } = require('../mongoose');
 
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
@@ -160,6 +160,15 @@ router.post('/updateProfile', function(req, res) {
     var updatingClass = req.body;
     console.log("here" + req.user);
     for(var i = 0; i<updatingClass.coursesTeaching.length; i++){
+        if(updatingClass.coursesTeaching[i].includes('-')){
+            let course = updatingClass.coursesTeaching[i]
+            console.log(course);
+            courseName = course.substring(1)
+            console.log(courseName)
+            console.log(req.user.googleID)
+            deleteTutor(req.user.googleID, getClassID(courseName))
+                    .catch(err => console.log(err));
+        }
         let ClassToAdd = getClassID(updatingClass.coursesTeaching[i])
         findClass(ClassToAdd).then(tutors =>{
             if(tutors.length < 1){
