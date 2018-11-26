@@ -23,14 +23,12 @@ var ClassSelect = (function() {
             setInfoHelp();
         }
     });
+
     inputBox.addEventListener('focus', () => {
         showInfo();
     });
     inputBox.addEventListener('blur', evt => {
-        hideInfo();
-        setInfoHelp();
-        removeCourseList();
-        evt.currentTarget.value = '';
+        resetInputBox(evt);
     });
     inputBox.addEventListener('keydown', evt => {
         let key = evt.key || evt.keyCode;
@@ -38,6 +36,9 @@ var ClassSelect = (function() {
             if (key === 'Backspace' || key === 'Delete' || key === 46 || key === 8) {
                 deleteClass();
             }
+        } else if (key === 'Enter' && courseList.children.length === 1) {
+            addClass(courseList.children[0]);
+            resetInputBox(evt);
         }
     });
 
@@ -66,6 +67,13 @@ var ClassSelect = (function() {
         } else {
             courseList = null;
         }
+    }
+
+    function resetInputBox (evt) {
+        hideInfo();
+        setInfoHelp();
+        removeCourseList();
+        evt.currentTarget.value = '';
     }
 
     function sendClassQuery (param) {
@@ -146,10 +154,10 @@ var ClassSelect = (function() {
         return chosenClasses.map(el => el.textContent);
     };
 
-    function containClass(courseName){
+    function containClass (courseName) {
         for (let i = 0; i < chosenClasses.length; i++) {
             const element = chosenClasses[i].textContent;
-            if(element === courseName){
+            if (element === courseName) {
                 return true;
             }
         }

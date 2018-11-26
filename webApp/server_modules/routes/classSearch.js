@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     if (result.includes(null)) {
         return res.json([]);
     }
-    res.json(courses.slice(result[0], result[1]));
+    res.json(courses.slice(result[0], result[1] + 1));
 });
 
 /**

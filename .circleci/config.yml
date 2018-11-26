@@ -20,11 +20,10 @@ jobs:
       - checkout:
           path: ~/academi-slug
       - run: 
-          name: install-dependencies
-          command: npm install
-      - run: 
-          name: run app
-          command: npm run buildtest
-      - run:
-          name: kill app
-          command: npm stop
+          name: run-tests
+          command: |
+                cd ../tests
+                npm install
+                cd ../webApp
+                npm install
+                npm run main-test
