@@ -4,17 +4,10 @@
 
 <head>
     <%- include templates/header %>
-    <% if(!loggedIn) { %>
-    <%- include templates/nav-buttons %>
-    <% } else { %>
     <%- include templates/nav-profile %>
-    <% } %>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <title>Academi-Slug | Messages</title>
 </head>
-
-<%- include templates/nav-buttons %>
 
 <body class="body">
     <div class="bg d-flex justify-content-center align-items-center">
@@ -23,19 +16,46 @@
                 <h2 class="display-4 message-title">Send Message</h2>
             </div>
             <div class="card-body">
-                    <div class="jumbotron">
-                        <div id="messages">
-                        </div>
-                        <input id="name" class="form-control" placeholder="Name">
-                        <br>
-                        <textarea id="message" class="form-control" placeholder="Your Message Here">
-                        </textarea>
-                        <br>
-                        <button id="send" class="btn btn-success">Send</button>
+                <div class="jumbotron">
+                    <div id="messages">
                     </div>
+                    <input id="name" class="form-control" placeholder="Name">
+                    <br>
+                    <textarea id="message" class="form-control" placeholder="Your Message Here">
+                        </textarea>
+                    <br>
+                    <button id="send" class="btn btn-success">Send</button>
+                </div>
             </div>
         </div>
-        <script type="module" src="/message.js"></script>
+        <script>
+            $(() => {
+                $('#send').click(() => {
+                    console.log('Here!');
+                    sendMessage({
+                        name: $('#name').val(),
+                        message: $('#message').val()
+                    });
+                });
+                getMessages();
+            });
+
+            function addMessages (message) {
+                $('#messages').append(`
+                <h4> ${message.name} </h4>
+                <p> ${message.message} </p>`)
+            }
+
+            function getMessages () {
+                $.get('http://localhost:5000/message', (data) => {
+                    data.forEach(addMessages);
+                });
+            }
+
+            function sendMessage (message) {
+                $.post('http://localhost:5000/message', message);
+            }
+        </script>
     </div>
 </body>
 

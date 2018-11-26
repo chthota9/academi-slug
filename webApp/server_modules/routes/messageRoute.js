@@ -10,11 +10,8 @@ const {Messages,} = require('../mongoose.js');
  */
 
 router.get('/', function(req, res) {
-    let input = {
-        loggedIn: req.isAuthenticated() && req.user.extra === undefined,
-    };
     console.log('User connected!');
-    res.render('message', input);
+    res.render('message');
 });
 
 router.get('/messages', (req, res) => {

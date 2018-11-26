@@ -375,7 +375,7 @@ let messageSchema = new mongoose.Schema({
         unique: true
     },
     message: {
-        type: String, 
+        type: String,
         required: true
     }
 }, {

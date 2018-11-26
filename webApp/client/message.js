@@ -1,25 +1,25 @@
 $(() => {
-    $("#send").click(() => {
+    $('#send').click(() => {
         sendMessage({
-            name: $("#name").val(),
-            message: $("#message").val()
+            name: $('#name').val(),
+            message: $('#message').val()
         });
-    })
-    getMessages()
-})
+    });
+    getMessages();
+});
 
 function addMessages (message) {
-    $(“#messages”).append(`
+    $('#messages').append(`
                <h4> ${message.name} </h4>
                <p> ${message.message} </p>`)
 }
 
 function getMessages () {
-    $.get(‘http: //localhost:3000/messages', (data) => {
+    $.get('http://localhost:5000/message', (data) => {
         data.forEach(addMessages);
-    })
+    });
 }
 
 function sendMessage (message) {
-    $.post(‘http: //localhost:3000/messages', message)
-    }
+    $.post('http://localhost:5000/message', message);
+}
