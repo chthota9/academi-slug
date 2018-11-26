@@ -158,19 +158,15 @@ router.post('/updateProfile', function(req, res) {
         .catch(() => res.json({ sucessful: false }));
 
     var updatingClass = req.body;
-    console.log("here" + req.user);
     for(var i = 0; i<updatingClass.coursesTeaching.length; i++){
         if(updatingClass.coursesTeaching[i].includes('-')){
             let course = updatingClass.coursesTeaching[i]
-            console.log(course);
-            courseName = course.substring(1)
-            console.log(courseName)
-            console.log(req.user.googleID)
+            let courseName = course.substring(1);
             deleteTutor(req.user.googleID, getClassID(courseName))
                     .catch(err => console.log(err));
         }
         else {
-            let ClassToAdd = getClassID(updatingClass.coursesTeaching[i])
+            let ClassToAdd = getClassID(updatingClass.coursesTeaching[i]._id);
             findClass(ClassToAdd).then(tutors =>{
                 if(tutors.length < 0){
                     addClass(ClassToAdd)
@@ -180,22 +176,20 @@ router.post('/updateProfile', function(req, res) {
                 if(tutors.length >= 1){
                 addTutor(ClassToAdd, req.user)
                 }
-            });  
-        }    
-    }    
+            });
+        }
+    }
 });
 
 // A route used when a user wants to delete their profile
 router.get('/deleteProfile', (req, res) => {
     var deletingClass = req.user;
-    console.log("here" + req.user);
     for(var i = 0; i<deletingClass.coursesTeaching.length; i++){
             let delCourse = deletingClass.coursesTeaching[i]._id
             console.log(req.user.googleID)
             console.log(delCourse)
             deleteTutor(req.user.googleID, delCourse)
                     .catch(err => console.log(err));
-        
     }
     deleteUser(req.user.id)
         .then(() => {
