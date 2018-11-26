@@ -33,6 +33,7 @@
     margin-right: 15px;
 }
 
+/* Footer Styling */
 .footer {
     display: flex;
     justify-content: space-between;
@@ -44,6 +45,11 @@
 
     background-color: rgba(242, 152, 19, .25);
     text-align: center;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #003c6c;
 }
 
 /* Background */
