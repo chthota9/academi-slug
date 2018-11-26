@@ -138,4 +138,29 @@ describe('user', () => {
             return database.addReview(testUser.googleID);
         });
     });
+
+    describe('#deleteTutor()', () => {
+        it('should delete a tutor', () => {
+            return database.deleteTutor(testUser.googleID, testUser.coursesTeaching._id);
+        });
+
+        it('should set invalid googleID to null', () => {
+            let nonGoogleID = Math.random();
+            while (nonGoogleID == testUser.googleID)
+                nonGoogleID = Math.random();
+
+            database.findUser(nonGoogleID)
+                .then(profile => {
+                    return expect(profile).to.be.null;
+                });
+        });
+    });
+
+    //having trouble testing this method
+    describe('#findClass()', () => {
+        it('should find a class', () => {
+            return database.findById(Classes._id);
+        });
+
+    });
 });

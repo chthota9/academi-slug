@@ -381,6 +381,8 @@ module.exports = {
     findClass,
     connection, 
     addReview,
-    deleteClass
+    deleteClass,
+    deleteTutor,
+    Classes
 };
 
