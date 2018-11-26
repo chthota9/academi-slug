@@ -24,6 +24,22 @@
     color: white !important;
 }
 
+.navbar-submit {
+    background-color: black;
+    border-color: #003c6c;
+    border-width: 2px;
+    color: white !important;
+    margin-left: 10px;
+}
+
+.navbar-submit:hover {
+    background-color: #003c6c;
+    border-color: black;
+    border-width: 2px;
+    color: white;
+    margin-left: 10px;
+}
+
 .navbar a:hover {
     text-decoration: none;
     color: black;
