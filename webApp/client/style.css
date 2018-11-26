@@ -124,6 +124,11 @@
     font-weight: bolder;
 }
 
+.horizontal-row {
+    height:1px;
+    background-color:black;
+}
+
 /* Card body */
 .card {
     border-color: black;
@@ -404,8 +409,9 @@
 }
 
 .classinput {
+    border-style: double;
+    border-width: 5px;
     padding: 0;
-    width: 9em;
     height: 2em;
 }
 
