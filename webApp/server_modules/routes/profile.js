@@ -187,18 +187,15 @@ router.post('/updateProfile', function(req, res) {
 
 // A route used when a user wants to delete their profile
 router.get('/deleteProfile', (req, res) => {
-    var deletingClass = req.body;
+    var deletingClass = req.user;
     console.log("here" + req.user);
     for(var i = 0; i<deletingClass.coursesTeaching.length; i++){
-        if(deletingClass.coursesTeaching[i].includes('-')){
-            let delCourse = deletingClass.coursesTeaching[i]
-            console.log(delCourse);
-            tutorNametoDel = delCourse.substring(1)
-            console.log(tutorNametoDel)
+            let delCourse = deletingClass.coursesTeaching[i]._id
             console.log(req.user.googleID)
-            deleteTutor(req.user.googleID, getClassID(tutorNametoDel))
+            console.log(delCourse)
+            deleteTutor(req.user.googleID, delCourse)
                     .catch(err => console.log(err));
-        }
+        
     }
     deleteUser(req.user.id)
         .then(() => {
