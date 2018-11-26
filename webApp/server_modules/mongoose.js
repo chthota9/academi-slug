@@ -308,14 +308,24 @@ function addTutor (courseNo, tutorID) {
 //Untested
 function deleteTutor (googleID, courseNo) {
     return new Promise((resolve, reject) => {
-        Classes.findByIdAndDelete(googleID, function(err) {
+        Classes.findByIdAndUpdate(courseNo, { $pull: { tutors: googleID }})
+            .exec((err, user) => {
             if (err) {
                 console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log('Class ' + courseNo + ' deleted.');
-            resolve();
+            console.log('Tutor ' + googleID + ' deleted from ' + courseNo);
+            resolve(user);
         });
+        // Classes.findByIdAndDelete(googleID, function(err) {
+        //     if (err) {
+        //         console.log('User with googleID ' + googleID + ' does not exist.');
+        //         return reject(err);
+        //     }
+        //     console.log('Class ' + courseNo + ' deleted.');
+        //     resolve();
+        // }
+        // );
     });
 }
 
