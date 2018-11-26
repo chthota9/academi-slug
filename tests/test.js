@@ -135,7 +135,7 @@ describe('user', () => {
 
     describe('#addReview()', () => {
         it('should add a review', () => {
-            return database.addReview(testUser.googleID);
+            return database.addReview(testUser.googleID, database.findClass(420));
         });
     });
 
@@ -159,7 +159,7 @@ describe('user', () => {
     //having trouble testing this method
     describe('#findClass()', () => {
         it('should find a class', () => {
-            return database.findById(Classes._id);
+            return database.Classes.findById(_id);
         });
 
     });
