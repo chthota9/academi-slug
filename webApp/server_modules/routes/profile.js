@@ -132,12 +132,10 @@ router.post('/createProfile', function(req, res) {
                     .then(thisClass => {
                         // May even addTutor without class existing
                         if (thisClass == null) {
-                            console.log('Class does not exist!');
                             addClass(thisClassID)
                                 .then( () => addTutor(thisClassID, profile.googleID))
                                 .catch(err => console.log(err));
                         } else {
-                            console.log('Class exists!');
                             addTutor(thisClassID, profile.googleID)
                                 .catch(err => console.log(err));
                         }
@@ -160,23 +158,24 @@ router.post('/updateProfile', function(req, res) {
     var updatingClass = req.body;
     for(var i = 0; i<updatingClass.coursesTeaching.length; i++){
         if(updatingClass.coursesTeaching[i].includes('-')){
-            let course = updatingClass.coursesTeaching[i]
+            let course = updatingClass.coursesTeaching[i];
             let courseName = course.substring(1);
             deleteTutor(req.user.googleID, getClassID(courseName))
                     .catch(err => console.log(err));
         }
         else {
-            let ClassToAdd = getClassID(updatingClass.coursesTeaching[i]._id);
-            findClass(ClassToAdd).then(tutors =>{
-                if(tutors.length < 0){
-                    addClass(ClassToAdd)
-                        .then( () => addTutor(ClassToAdd, req.user))
-                        .catch(err => console.log(err))
-                }
-                if(tutors.length >= 1){
-                addTutor(ClassToAdd, req.user)
-                }
-            });
+            let course = updatingClass.coursesTeaching[i];
+            let courseID = getClassID(course);
+            Classes.findById(courseID)
+                .then(thisClass => {
+                    if(thisClass == null){
+                        addClass(courseID)
+                            .then(() => addTutor(courseID, req.user))
+                            .catch(err => console.log(err));
+                    } else {
+                        addTutor(courseID, req.user);
+                    }
+                });
         }
     }
 });
@@ -185,9 +184,7 @@ router.post('/updateProfile', function(req, res) {
 router.get('/deleteProfile', (req, res) => {
     var deletingClass = req.user;
     for(var i = 0; i<deletingClass.coursesTeaching.length; i++){
-            let delCourse = deletingClass.coursesTeaching[i]._id
-            console.log(req.user.googleID)
-            console.log(delCourse)
+            let delCourse = deletingClass.coursesTeaching[i]._id;
             deleteTutor(req.user.googleID, delCourse)
                     .catch(err => console.log(err));
     }
