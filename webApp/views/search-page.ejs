@@ -44,9 +44,9 @@
                                         <p><b>N/A</b></p>
                                     <% } else { %> -->
                                         <% for (starNum = 0; starNum < Math.round(tutor.rating); starNum++) { %>
-                                            <span class="fa fa-star checked"></span>
-                                        <% } %>
-
+                                            <span class="fa fa-star checked">  </span>
+                                        <% } %>  
+                                        (<%- Math.round(tutor.rating) %>)
                                         <!-- Includes empty stars
                                         <% let maxRating = 5; %>
                                         <% for (star = Math.round(tutor.rating); star < maxRating; star++) { %>
