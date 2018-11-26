@@ -169,22 +169,37 @@ router.post('/updateProfile', function(req, res) {
             deleteTutor(req.user.googleID, getClassID(courseName))
                     .catch(err => console.log(err));
         }
-        let ClassToAdd = getClassID(updatingClass.coursesTeaching[i])
-        findClass(ClassToAdd).then(tutors =>{
-            if(tutors.length < 1){
-                addClass(ClassToAdd)
-                    .then( () => addTutor(ClassToAdd, req.user))
-                    .catch(err => console.log(err))
-            }
-            if(tutors.length >= 1){
-            addTutor(ClassToAdd, req.user)
-            }
-        });      
+        else {
+            let ClassToAdd = getClassID(updatingClass.coursesTeaching[i])
+            findClass(ClassToAdd).then(tutors =>{
+                if(tutors.length < 0){
+                    addClass(ClassToAdd)
+                        .then( () => addTutor(ClassToAdd, req.user))
+                        .catch(err => console.log(err))
+                }
+                if(tutors.length >= 1){
+                addTutor(ClassToAdd, req.user)
+                }
+            });  
+        }    
     }    
 });
 
 // A route used when a user wants to delete their profile
 router.get('/deleteProfile', (req, res) => {
+    var deletingClass = req.body;
+    console.log("here" + req.user);
+    for(var i = 0; i<deletingClass.coursesTeaching.length; i++){
+        if(deletingClass.coursesTeaching[i].includes('-')){
+            let delCourse = deletingClass.coursesTeaching[i]
+            console.log(delCourse);
+            tutorNametoDel = delCourse.substring(1)
+            console.log(tutorNametoDel)
+            console.log(req.user.googleID)
+            deleteTutor(req.user.googleID, getClassID(tutorNametoDel))
+                    .catch(err => console.log(err));
+        }
+    }
     deleteUser(req.user.id)
         .then(() => {
             console.log(req.session);
