@@ -33,6 +33,19 @@
     margin-right: 15px;
 }
 
+.footer {
+    display: flex;
+    justify-content: space-between;
+
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: .5rem;
+
+    background-color: rgba(242, 152, 19, .25);
+    text-align: center;
+}
+
 /* Background */
 .html,
 .body {
