@@ -13,6 +13,13 @@ form.addEventListener('submit', evt => {
     }
 });
 
+form.addEventListener('keydown',function (evt) {
+    var key = evt.key || evt.keyCode;
+    if(key === 'Enter'){
+        evt.preventDefault();
+    }
+});
+
 function sendUpdate (formData) {
     subBtn.disabled = true;
     fetch('/profile/updateProfile', {

@@ -86,7 +86,7 @@
                             <input type="text" name="linkedIn" class="form-control" id="linkedIn" placeholder="LinkedIn URL" value="<%= profile.linkedIn %>">
                         </div>
                     </div>
-
+                    <label for="classInput" >Classes Currently Tutoring:</label>
                         <div class="form-control classSelect">
                             <ul class="classlist">
                                 <% courses.forEach(course =>{ %>
@@ -95,12 +95,12 @@
 
                                 <% if (courses.length == 0){ %>
                                     <li class="classinput" style="border-style: double; border-width: 5px">
-                                        <input placeholder="Add Course" type="text" name="query" autocomplete="off" spellcheck="false">
+                                        <input placeholder="Add Course" type="text" name="query" autocomplete="off" spellcheck="false" id="classInput">
                                         <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
                                     </li>
                                 <% } else { %>
                                     <li class="classinput" style="border-style: double; border-width: 5px">
-                                        <input placeholder="Add Another Course" type="text" name="query" autocomplete="off" spellcheck="false">
+                                        <input placeholder="Add Another Course" type="text" name="query" autocomplete="off" spellcheck="false" id="classInput">
                                         <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
                                     </li>
                                 <% } %>

@@ -413,6 +413,18 @@
     border-bottom: solid 1px grey;
 }
 
+.querylist::-webkit-scrollbar, .querylist::-webkit-scrollbar-thumb {
+    display: initial;
+    width:auto;
+    height:auto;
+    background: whitesmoke;
+}
+.querylist::-webkit-scrollbar-thumb{
+    background: rgb(175, 175, 175);
+    border: 1px solid black;
+    border-radius: 0.3em;
+}
+
 .querylist.loader::after {
     content: '';
     --borderWidth: 4px;
@@ -457,7 +469,7 @@
 .msg {
     z-index: 99;
     display: inline-flex;
-    position: absolute;
+    position: fixed;
     width: 90%;
     height: 3em;
     top: 15%;
