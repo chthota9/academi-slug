@@ -90,7 +90,7 @@
     display: flex;
     flex-direction: column;
 
-    height: 130vh;
+    height: 150vh;
     width: 100vw;
     margin-top: 65px;
     margin-bottom: 50px;
@@ -193,7 +193,7 @@
 
 .search-card {
     position: absolute; 
-    top: 200px;
+    top: 300px;
 }
 
 /* Tutorial elements */
@@ -201,9 +201,10 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 450px;
+    top: 550px;
 
-    padding-bottom: 30px;
+    padding-bottom: 50px;
+    margin-bottom: 75px;
     text-align: center;
 
     background-color: rgba(0, 0, 0, 0.35);
