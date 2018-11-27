@@ -16,7 +16,7 @@ chatLinks.forEach(link => {
 
 inputBox.addEventListener('keydown', evt => {
     var key = evt.key || evt.keyCode;
-    if (key === 'Enter') {
+    if (key === 'Enter' && currChat) {
         socket.emit('sendPrivate', { msg: inputBox.value, to: currChat });
         var node = document.createElement('div');
         var textnode = document.createTextNode(inputBox.value);
@@ -46,6 +46,7 @@ function addChat (id) {
             chattingWith[id] = name;
             chatNameTitle.textContent = name;
             currChat = id;
+            inputBox.disabled = false;
         }
     });
 }
