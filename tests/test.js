@@ -177,6 +177,7 @@ describe('user', () => {
             return database.addReview(testUser.googleID, database.findClass(420));
         });
     });
+    
 
     describe('#deleteTutor()', () => {
         it('should delete a tutor', () => {
