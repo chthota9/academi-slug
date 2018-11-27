@@ -31,7 +31,7 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 
 ##### To Start Server:
 - `cd` into `\webApp\` directory
-- In `\webApp\` directory
+- In `\webApp\` directory:
    1. Check if Node is installed by typing `node -v` this should print Node's version number. It should be v8.x.x.
    2. Check if NPM is installed by typing `npm -v` this should print the NPM's version number. It should be 5.x.x.
    3. To get all dependencies:
@@ -53,33 +53,33 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 ---
 #### Server Routes
 - Places routes in `href` attributes to access: 
- - `/` ~ directs user to the homepage
+	- `/` ~ directs user to the homepage
  
- - `/profile/` ~ views a user's profile
- - `/profile/signup` ~ directs a user to sign up with their Google account
- - `/profile/create` ~ allows a user to create an account
- - `/profile/login` ~ allows a user to log in
- - `/profile/logout` ~ allows a user to log out
- - `/profile/user/:id` ~ views another user's profile
- - `profile/user/:id/review/:course` ~ accesses a user's review page for a particular class
+	- `/profile/` ~ views a user's profile
+	- `/profile/signup` ~ directs a user to sign up with their Google account
+	- `/profile/create` ~ allows a user to create an account
+	- `/profile/login` ~ allows a user to log in
+	- `/profile/logout` ~ allows a user to log out
+	- `/profile/user/:id` ~ views another user's profile
+	- `profile/user/:id/review/:course` ~ accesses a user's review page for a particular class
 
- - `/searchRoute/`~ renders the results page of a user's search
+	- `/searchRoute/`~ renders the results page of a user's search
 
- - `/classSearch/` ~ a routes used to search for a class
+	- `/classSearch/` ~ a routes used to search for a class
 
 ---
 #### Mongoose Schemas
 
-- Sample UserSchema:
-	googleID: 123456789,
-	email: "samslug@ucsc.edu",	
-	name: {firstName: "Sammy", lastName: "Slug"},
-	year: "Senior",
-	college: "Oakes",
-	major: "Computer Science",
-	bio: {"I am Sammy, and I take things slow."},
-	coursesTeaching: [{classid:1243,rating:0, reviewCount: 4}, {_id:15435, rating:3, reviewCount: 1}, {classid:53453, rating:2, reviewCount: 7}]
+- Sample UserSchema:\
+	googleID: 123456789,\
+	email: "samslug@ucsc.edu",\
+	name: {firstName: "Sammy", lastName: "Slug"},\
+	year: "Senior",\
+	college: "Oakes",\
+	major: "Computer Science",\
+	bio: {"I am Sammy, and I take things slow."},\
+	coursesTeaching: [{classid:1243,rating:0, reviewCount: 4}, {_id:15435, rating:3,\ reviewCount: 1}, {classid:53453, rating:2, reviewCount: 7}]\
 
-- Sample ClassSchema:
-	courseNo: 21594,
+- Sample ClassSchema:\
+	courseNo: 21594,\
 	tutors: [{3123, 2454, 123456789}]
