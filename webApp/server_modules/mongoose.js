@@ -41,12 +41,12 @@ let courseTeachingSchema = new mongoose.Schema({
     rating: {
         type: Number,
         required: true,
-        default: 5
+        default: 0
     },
     reviewCount: {
         type: Number,
         required: true,
-        default: 1
+        default: 0
     }
 }, {
     autoIndex: false,
@@ -134,7 +134,6 @@ function addUser (user) {
             bio: user.bio,
             linkedIn: user.linkedIn,
             coursesTeaching: user.coursesTeaching,
-            reviewCount: 0
         });
 
         userAdded.save((err, profile) => {
