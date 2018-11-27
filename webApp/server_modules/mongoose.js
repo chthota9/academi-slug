@@ -215,8 +215,7 @@ function updateUser (user, updates) {
     });
 }
 
-//Untested - needed
-function addReview(googleID, courseNo, average) {
+function addReview(googleID, classID, reviews) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         findUser(googleID)
