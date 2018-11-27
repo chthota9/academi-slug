@@ -20,6 +20,7 @@ app.use('/classSearch', classSearch);
 app.use('/google', passport(app));
 app.use('/profile', profileRoute);
 app.use('/searchRoute', searchRoute);
+
 // Establishes EJS view engine in 'views' folder
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
@@ -37,6 +38,7 @@ app.get('/', function(req, res) {
     res.render('search', input);
 });
 
+// Error route for non-existant routes
 app.use((req, res, next) => {
     if (!req.route) {
         return next(new Error(`No route ${req.originalUrl}`));
@@ -44,13 +46,13 @@ app.use((req, res, next) => {
     next();
 });
 
+// Error route for run-time errors
 // eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
     console.log(error);
 
     res.render('error', { err: error.message });
 });
-
 
 // Sets up port connection
 const PORT = process.env.PORT || 5000;

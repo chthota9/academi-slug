@@ -11,6 +11,7 @@ var ClassSelect = (function() {
     let inputBox = inputNode.children[0];
     let infoNode = inputNode.children[1];
     let courseList = null;
+    
     inputBox.addEventListener('input', evt => {
         let param = evt.currentTarget.value;
         clearTimeout(inputTimer);
@@ -23,14 +24,12 @@ var ClassSelect = (function() {
             setInfoHelp();
         }
     });
+
     inputBox.addEventListener('focus', () => {
         showInfo();
     });
     inputBox.addEventListener('blur', evt => {
-        hideInfo();
-        setInfoHelp();
-        removeCourseList();
-        evt.currentTarget.value = '';
+        resetInputBox(evt);
     });
     inputBox.addEventListener('keydown', evt => {
         let key = evt.key || evt.keyCode;
@@ -38,9 +37,11 @@ var ClassSelect = (function() {
             if (key === 'Backspace' || key === 'Delete' || key === 46 || key === 8) {
                 deleteClass();
             }
+        } else if (key === 'Enter' && courseList.children.length === 1) {
+            addClass(courseList.children[0]);
+            resetInputBox(evt);
         }
     });
-
 
     function setInfoHelp () {
         infoNode.classList.remove('loader');
@@ -68,6 +69,13 @@ var ClassSelect = (function() {
         }
     }
 
+    function resetInputBox (evt) {
+        hideInfo();
+        setInfoHelp();
+        removeCourseList();
+        evt.currentTarget.value = '';
+    }
+
     function sendClassQuery (param) {
         let req = new XMLHttpRequest();
         req.open('GET', `/classSearch/?q=${param}`);
@@ -88,8 +96,6 @@ var ClassSelect = (function() {
         });
         req.send(null);
     }
-
-
 
     /**
      * @param {Array} courses
@@ -146,10 +152,10 @@ var ClassSelect = (function() {
         return chosenClasses.map(el => el.textContent);
     };
 
-    function containClass(courseName){
+    function containClass (courseName) {
         for (let i = 0; i < chosenClasses.length; i++) {
             const element = chosenClasses[i].textContent;
-            if(element === courseName){
+            if (element === courseName) {
                 return true;
             }
         }
