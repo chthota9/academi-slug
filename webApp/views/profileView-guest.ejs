@@ -3,11 +3,11 @@
 <html class="html">
 
 <head>
-    <%= include ./templates/header %>
+    <%- include templates/header %>
+    <%- include templates/nav-search %>
+    <%- include templates/footer %>
     <title>Academi-Slug | Profile</title>
 </head>
-
-<%= include ./templates/nav-search %>
 
 <body class="body">
     <div class="bg d-flex justify-content-center align-items-center">
@@ -19,7 +19,7 @@
                     <script src="//platform.linkedin.com/in.js" type="text/javascript" defer></script>
                     <script type="IN/MemberProfile" data-id="<%= profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
                 <% } %>
-            <div><a href="mailto:<%= profile.email %>?subject=I need help in a class!">Email Tutor</a></div>
+            <div><a href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send Me a Message!</a></div>
             </div>
             <dl class="dl-horizontal">
                 <dt class="col-sm-3 mt-4">Name:</dt>
@@ -76,7 +76,6 @@
             </dl>
         </div>
     </div>
-    <%- include templates/footer %>
 </body>
 
 </html>
