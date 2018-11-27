@@ -337,7 +337,8 @@ function findClass (courseNo) {
                         let tutor = {
                             googleID: tutorDoc.googleID,
                             name: { first: tutorDoc.firstName, last: tutorDoc.lastName },
-                            rating: tutorDoc.coursesTeaching.id(courseNo).rating
+                            rating: tutorDoc.coursesTeaching.id(courseNo).rating,
+                            reviewCount: tutorDoc.coursesTeaching.id(courseNo).reviewCount
                         };
                         tutors.push(tutor);
                     });
