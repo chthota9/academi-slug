@@ -360,10 +360,7 @@ module.exports = {
     deleteTutor,
     deleteClass,
     addTutor,
-    connection, 
+    connection,
     addReview,
-    deleteClass,
-    deleteTutor,
-    Classes
 };
 

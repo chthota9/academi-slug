@@ -95,7 +95,7 @@
                                 <% }) %>
 
                                 <% if (courses.length == 0){ %>
-                                <li class="classinput" style="width: 9em;">
+                                <li class="classinput" style="width: 9em;">`
                                         <input placeholder="Add Course" type="text" name="query" autocomplete="off" spellcheck="false" id="classInput">
                                         <span data-helper="e.g CMPS 115" class="querylist helper hidden"></span>
                                     </li>
@@ -114,7 +114,7 @@
             </div>
         </div>
     </div>
-    <%- include templates/footer %>
+    <%- include templates/chat %>
     <script src="/classSelect.js"></script>
     <script src="/profileView.js"></script>
 </body>

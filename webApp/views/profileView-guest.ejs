@@ -4,8 +4,11 @@
 
 <head>
     <%- include templates/header %>
-    <%- include templates/nav-search %>
-    <%- include templates/footer %>
+    <% if(!loggedIn) { %>
+        <%- include templates/nav-buttons %>
+        <% } else { %>
+        <%- include templates/nav-profile %>
+    <% } %>
     <title>Academi-Slug | Profile</title>
 </head>
 
@@ -19,7 +22,10 @@
                         <script src="//platform.linkedin.com/in.js" type="text/javascript" defer></script>
                         <script type="IN/MemberProfile" data-id="<%= profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
                     <% } %>
-                    <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send Me a Message!</a>
+                    <% if (loggedIn) {%>
+                    <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send me an Email!</a>
+                    <span class="chat-link" onclick="addChat(<%= profile.googleID %>)">Ask for Help!</span>  
+                    <% } %>
                 </div>
             </div>
             <dl class="dl-horizontal">
@@ -77,6 +83,7 @@
             </dl>
         </div>
     </div>
+    <%- include templates/chat %>
 </body>
 
 </html>
