@@ -152,6 +152,10 @@
     background-color:black;
 }
 
+.profile-link:hover {
+    color: #fdc700;
+}
+
 /* Card body */
 .card {
     border-color: black;

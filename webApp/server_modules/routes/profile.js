@@ -156,26 +156,28 @@ router.post('/updateProfile', function(req, res) {
         .catch(() => res.json({ sucessful: false }));
 
     var updatingClass = req.body;
-    for(var i = 0; i<updatingClass.coursesTeaching.length; i++){
-        if(updatingClass.coursesTeaching[i].includes('-')){
-            let course = updatingClass.coursesTeaching[i];
-            let courseName = course.substring(1);
-            deleteTutor(req.user.googleID, getClassID(courseName))
-                    .catch(err => console.log(err));
-        }
-        else {
-            let course = updatingClass.coursesTeaching[i];
-            let courseID = getClassID(course);
-            Classes.findById(courseID)
-                .then(thisClass => {
-                    if(thisClass == null){
-                        addClass(courseID)
-                            .then(() => addTutor(courseID, req.user))
-                            .catch(err => console.log(err));
-                    } else {
-                        addTutor(courseID, req.user);
-                    }
-                });
+    if (updatingClass.coursesTeaching != null){
+        for(var i = 0; i<updatingClass.coursesTeaching.length; i++){
+            if(updatingClass.coursesTeaching[i].includes('-')){
+                let course = updatingClass.coursesTeaching[i];
+                let courseName = course.substring(1);
+                deleteTutor(req.user.googleID, getClassID(courseName))
+                        .catch(err => console.log(err));
+            }
+            else {
+                let course = updatingClass.coursesTeaching[i];
+                let courseID = getClassID(course);
+                Classes.findById(courseID)
+                    .then(thisClass => {
+                        if(thisClass == null){
+                            addClass(courseID)
+                                .then(() => addTutor(courseID, req.user))
+                                .catch(err => console.log(err));
+                        } else {
+                            addTutor(courseID, req.user);
+                        }
+                    });
+            }
         }
     }
 });
