@@ -46,7 +46,7 @@
                                         <% for (starNum = 0; starNum < Math.round(tutor.rating); starNum++) { %>
                                             <span class="fa fa-star checked">  </span>
                                         <% } %>  
-                                        <% if (tutor.reviewCount > 1) {%>
+                                        <% if (tutor.reviewCount >= 1) {%>
                                             (<%-tutor.reviewCount%>) 
                                             <% } %> 
                                         <!-- Includes empty stars
