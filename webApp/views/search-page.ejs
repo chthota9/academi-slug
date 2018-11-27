@@ -17,12 +17,13 @@
                         <h2 class="h2-title"><%= classSearched.name %></h2>
                         <h2><%- classSearched.tutors.length %> tutors found.</h2>
                 </div>
-
+                
                 <div class="dropdown">
                     <button class="btn btn-sort">Sort By ↓</button>
                     <div class="dropdown-content">
                             <a href="#" class="sort-style" onclick="alphaSort()">Name</a>
                             <a href="#" class="sort-style" onclick="numSort()">Rating</a>
+                            <a href="#" class="sort-style" onclick="reviewCountSort()">Review Count</a>
                     </div>
                 </div>
             </div>
@@ -66,6 +67,7 @@
     <%- include templates/footer %>
     <script src="../alphasort.js"></script>
     <script src="../numsort.js"></script>
+    <script src="../reviewCountSort.js"></script>
 </body>
 
 </html>
