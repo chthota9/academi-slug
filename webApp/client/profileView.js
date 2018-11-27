@@ -5,6 +5,7 @@ let alertTimer;
 // eslint-disable-next-line no-undef
 let classSelect = ClassSelect;
 let oldProf = formDataToObj(new FormData(form));
+
 form.addEventListener('submit', evt => {
     evt.preventDefault();
     let newProf = diffProf(formDataToObj(new FormData(form)));
@@ -75,6 +76,7 @@ function diffProf (updatedProf) {
     }
     return newProf;
 }
+
 /**
  * @param {Array} oldVal 
  * @param {Array} newVal 

@@ -216,7 +216,8 @@ function updateUser (user, updates) {
     });
 }
 
-function addReview (googleID, classID, reviews) {
+//Untested - needed
+function addReview(googleID, courseNo, average) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         findUser(googleID)
@@ -273,29 +274,29 @@ function deleteClass (courseNo) {
 
 //Seems to be working
 //Should error checking when class does not exist
-function addTutor (courseNo, tutor) {
+function addTutor (courseNo, tutorID) {
     return new Promise((resolve, reject) => {
-
-        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutor } })
+        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutorID } })
             .exec((err, user) => {
                 if (err) return reject(err);
-                console.log('Tutor ' + tutor._id + ' added to class ' + courseNo);
+                console.log('Tutor ' + tutorID + ' added to class ' + courseNo);
                 resolve(user);
             });
     });
 }
 
-//Untested
 function deleteTutor (googleID, courseNo) {
     return new Promise((resolve, reject) => {
-        Classes.findByIdAndDelete(googleID, function(err) {
+        Classes.findByIdAndUpdate(courseNo, { $pull: { tutors: googleID }})
+            .exec((err, user) => {
             if (err) {
                 console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log('Class ' + courseNo + ' deleted.');
-            resolve();
+            console.log('Tutor ' + googleID + ' deleted from ' + courseNo);
+            resolve(user);
         });
+
     });
 }
 
@@ -346,15 +347,23 @@ function findClass (courseNo) {
 //     .then(() => addTutor(21451, { _id: 4321, name: 'Sammy Slug', rating: 4 }))
 //     .then(() => addTutor(21451, { _id: 5555, name: 'George Bluementhall', rating: 3 }));
 
+//exported addReview and deleteClass
 module.exports = {
     Users,
     addUser,
     deleteUser,
     findUser,
     updateUser,
+    Classes,
     addClass,
-    addTutor,
     findClass,
+    deleteTutor,
+    deleteClass,
+    addTutor,
+    connection, 
     addReview,
-    connection
+    deleteClass,
+    deleteTutor,
+    Classes
 };
+

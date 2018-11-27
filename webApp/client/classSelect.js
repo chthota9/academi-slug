@@ -11,6 +11,7 @@ var ClassSelect = (function() {
     let inputBox = inputNode.children[0];
     let infoNode = inputNode.children[1];
     let courseList = null;
+    
     inputBox.addEventListener('input', evt => {
         let param = evt.currentTarget.value;
         clearTimeout(inputTimer);
@@ -41,7 +42,6 @@ var ClassSelect = (function() {
             resetInputBox(evt);
         }
     });
-
 
     function setInfoHelp () {
         infoNode.classList.remove('loader');
@@ -96,8 +96,6 @@ var ClassSelect = (function() {
         });
         req.send(null);
     }
-
-
 
     /**
      * @param {Array} courses
