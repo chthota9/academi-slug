@@ -5,11 +5,19 @@ let alertTimer;
 // eslint-disable-next-line no-undef
 let classSelect = ClassSelect;
 let oldProf = formDataToObj(new FormData(form));
+
 form.addEventListener('submit', evt => {
     evt.preventDefault();
     let newProf = diffProf(formDataToObj(new FormData(form)));
     if (Object.keys(newProf).length > 0) {
         sendUpdate(newProf);
+    }
+});
+
+form.addEventListener('keydown',function (evt) {
+    var key = evt.key || evt.keyCode;
+    if(key === 'Enter'){
+        evt.preventDefault();
     }
 });
 
@@ -68,6 +76,7 @@ function diffProf (updatedProf) {
     }
     return newProf;
 }
+
 /**
  * @param {Array} oldVal 
  * @param {Array} newVal 

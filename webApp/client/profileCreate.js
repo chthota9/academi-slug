@@ -15,6 +15,13 @@ form.addEventListener('submit', evt => {
     subForm(JSON.stringify(acctData));
 });
 
+form.addEventListener('keydown',function (evt) {
+    var key = evt.key || evt.keyCode;
+    if(key === 'Enter'){
+        evt.preventDefault();
+    }
+});
+
 function subForm (data) {
     let formReq = new XMLHttpRequest();
     formReq.addEventListener('load', () => {
