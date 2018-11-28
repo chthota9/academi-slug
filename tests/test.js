@@ -220,11 +220,12 @@ describe('class', () => {
 describe('parserFunctions', () => {
     describe('#getClassID()', () => {
         it('should return class ID without error', done => {
-            return classes.getClassID("CMPS 115");
+            classes.getClassID("CMPS 115");
+            done();
         })
 
-        it('should return null on invalid class name', done => {
-            expect(classes.getClassID("DOBRA 302")).to.be.null;
+        it('should return undefined on invalid class name', done => {
+            expect(classes.getClassID("DOBRA 302")).to.be.undefined;
             done();
         }) 
     })
