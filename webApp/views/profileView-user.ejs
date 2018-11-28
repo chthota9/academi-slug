@@ -21,7 +21,7 @@
             <div class="card-body">
                 <div class="col-md-auto">
                     <form id="profileForm">
-                    <h3 class="h3-title">Your Profile</h3>
+                    <h3 class="h3-title">Profile Information</h3>
                     <div class="row">
                         <div class="form-group col-md-3">
                             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value="<%- profile.name.first %>" required>
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <hr class="horizontal-row">
-                    <label for="classInput" ><b>Classes Currently Tutoring:</b></label>
+                    <h3 class="h3-title">Courses Currently Tutoring:</h3>
                         <div class="form-control classSelect">
                             <ul class="classlist">
                                 <% courses.forEach(course =>{ %>
