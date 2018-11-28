@@ -5,6 +5,7 @@ chai.use(require('chai-as-promised'));
 chai.should();
 var expect = require('chai').expect;
 const database = require('../webApp/server_modules/mongoose');
+const classes = require('../webApp/server_modules/course_json_parser');
 
 let testUser = new database.Users({
     googleID: Math.random(),
@@ -200,6 +201,51 @@ describe('user', () => {
         it('should find a class', () => {
             return database.Classes.findById(_id);
         });
-
     });
+
+    describe('#getClassID()', () => {
+        it('should return class ID', () => {
+            return classes.getClassID
+        })
+
+        it('should return null on invalid classID', () => {
+
+        }) 
+    })
+
+    describe('#isValidCourse()', () => {
+        it('should return true', () => {
+
+        })
+
+        it('should return false', () => {
+
+        })
+    })
+
+    describe('#getClassName()', () => {
+        it('should return class name by classID without error', done => {
+            database.Classes.getClassName
+            done();
+        });
+
+        it('should return the correct class name given a classID', done => {
+            database.Users.findById(testUser.googleID, (err, user) => {
+                JSON.stringify(user).should.equal(JSON.stringify(testUser));
+                done();
+            });
+        });
+
+        it('should return null on invalid classID', done => {
+            let nonGoogleID = Math.random();
+            while (nonGoogleID == testUser.googleID)
+                nonGoogleID = Math.random();
+
+            database.Users.findById(nonGoogleID, (err,user) => {
+                expect(user).to.be.null;
+                done();
+            });
+        });
+    })
+        
 });
