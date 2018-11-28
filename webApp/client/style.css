@@ -52,13 +52,8 @@
 /* Footer Styling */
 .footer {
     display: flex;
-    justify-content: space-between;
-
-    position: fixed;
-    bottom: 0;
     width: 100%;
     padding: .5rem;
-
     background-color: rgba(242, 152, 19, .25);
     text-align: center;
     text-decoration: none;
@@ -633,9 +628,9 @@
     bottom:0;
     right: 0;
     width: 45%;
-    height: 40%;
+    height: 50%;
     max-width: 30em;
-    max-height: 25em;
+    max-height: 27em;
     background: white;
 }
 

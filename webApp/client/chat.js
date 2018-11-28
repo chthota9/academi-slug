@@ -16,13 +16,15 @@ chatLinks.forEach(link => {
 
 inputBox.addEventListener('keydown', evt => {
     var key = evt.key || evt.keyCode;
-    if (key === 'Enter' && currChat) {
-        socket.emit('sendPrivate', { msg: inputBox.value, to: currChat });
+    let msg = inputBox.value;
+    if (key === 'Enter' && currChat && msg !== '') {
+        socket.emit('sendPrivate', { msg , to: currChat });
         var node = document.createElement('div');
-        var textnode = document.createTextNode(inputBox.value);
+        var textnode = document.createTextNode(msg);
         node.classList.add('chat', 'send');
         node.appendChild(textnode);
         chatContainer.appendChild(node);
+        node.scrollIntoView();
         inputBox.value = '';
     }
 });
@@ -65,6 +67,7 @@ socket.on('recvPrivate', function(data) {
     node.classList.add('chat', 'recv');
     node.appendChild(textnode);
     chatContainer.appendChild(node);
+    node.scrollIntoView();
     inputBox.disabled = false;
 });
 
