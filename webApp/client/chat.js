@@ -65,7 +65,7 @@ socket.on('recvPrivate', function(data) {
     node.classList.add('chat', 'recv');
     node.appendChild(textnode);
     chatContainer.appendChild(node);
-
+    inputBox.disabled = false;
 });
 
 // socket.on('syncChats', function(data) {
