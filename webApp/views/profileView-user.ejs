@@ -12,7 +12,7 @@
 
 
 <body class="body">
-    <div class="bg d-flex justify-content-center align-items-center">
+    <div class="bg-bigger d-flex justify-content-center align-items-center">
         <%- include templates/alert %>
         <div class="card w-75">
             <div class="card-header">
@@ -86,7 +86,8 @@
                             <input type="text" name="linkedIn" class="form-control" id="linkedIn" placeholder="LinkedIn URL" value="<%= profile.linkedIn %>">
                         </div>
                     </div>
-                    <label for="classInput" >Classes Currently Tutoring:</label>
+                    <hr class="horizontal-row">
+                    <label for="classInput" ><b>Classes Currently Tutoring:</b></label>
                         <div class="form-control classSelect">
                             <ul class="classlist">
                                 <% courses.forEach(course =>{ %>
@@ -94,14 +95,14 @@
                                 <% }) %>
 
                                 <% if (courses.length == 0){ %>
-                                    <li class="classinput" style="border-style: double; border-width: 5px">
+                                <li class="classinput" style="width: 9em;">`
                                         <input placeholder="Add Course" type="text" name="query" autocomplete="off" spellcheck="false" id="classInput">
-                                        <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                                        <span data-helper="e.g CMPS 115" class="querylist helper hidden"></span>
                                     </li>
                                 <% } else { %>
-                                    <li class="classinput" style="border-style: double; border-width: 5px">
+                                    <li class="classinput" style="width: 13em;">
                                         <input placeholder="Add Another Course" type="text" name="query" autocomplete="off" spellcheck="false" id="classInput">
-                                        <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                                        <span data-helper="e.g CMPS 115" class="querylist helper hidden"></span>
                                     </li>
                                 <% } %>
                             </ul>
@@ -113,6 +114,7 @@
             </div>
         </div>
     </div>
+    <%- include templates/chat %>
     <script src="/classSelect.js"></script>
     <script src="/profileView.js"></script>
 </body>
