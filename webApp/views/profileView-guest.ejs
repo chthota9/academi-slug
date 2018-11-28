@@ -23,8 +23,8 @@
                         <script type="IN/MemberProfile" data-id="<%= profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
                     <% } %>
                     <% if (loggedIn) {%>
-                    <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send me an Email!</a>
-                    <span class="chat-link" onclick="addChat(<%= profile.googleID %>)">Ask For Help!</span>  
+                        <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send me an Email!</a>
+                        <span class="chat-link" onclick="addChat(<%= profile.googleID %>)">Ask For Help!</span>  
                     <% } %>
                 </div>
             </div>
@@ -62,24 +62,24 @@
                 <ul>
                    <% courses.forEach(course =>{ %>
                         <li>
-                            <div class="form-group row">
+                            <div class="form-group row align-items-baseline">
                                 <div class="col-4 course-element">
-                                <label><%= course.courseName %></label>
+                                    <label><%= course.courseName %></label>
                                 </div>
                                 <% if (course.reviewCount == 0) {%>
-                                    <b>N/A</b>
+                                    <div class="col-2 course-element">
+                                        <b>N/A</b>
+                                    </div>
                                 <% } else { %>
-                                <div class="col-4 course-element">
-
-                                <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
-                                    <span class="fa fa-star checked"></span>
+                                    <div class="col-4 course-element">
+                                        <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } %>
+                                        (<%-course.reviewCount%>)
+                                    </div>
                                 <% } %>
-                                (<%-course.reviewCount%>)
-                                <% } %>
-                                </div>
-
-                                <div class="col-3 course-element">
-                                <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary">Leave Review</a>
+                                <div class="course-element">
+                                    <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary">Leave Review</a>
                                 </div>
                             </div>
                         </li>
@@ -90,7 +90,6 @@
     </div>
     <%- include templates/chat %>
     <%- include templates/footer %>
-
 </body>
 
 </html>
