@@ -626,20 +626,30 @@
 .chatBox{
     position: fixed;
     bottom:0;
-    right: 0;
-    width: 45%;
-    height: 50%;
-    max-width: 30em;
-    max-height: 27em;
+    right: 1%;
+
+    width: 25%;
+    height: 60%;
+    max-width: 25em;
+    max-height: 30em;
+
     background: white;
+    border-left: solid;
+    border-right: solid;
+    border-top: solid;
+    border-color: black;
+    border-radius: 3px 3px 0px 0px;
+    border-width: 3px;
 }
 
 .chatBox.minimized{
     top: calc(100% - 1.5em);
 }
 .chatNameTitle{
-    text-align: center;
-    background: #f29813;
+    text-align: left;
+    font-weight: bold;
+    padding-left: 15px;
+    background: rgba(19, 165, 220, .25);
     overflow: hidden;
     white-space: nowrap;
 }
@@ -649,7 +659,7 @@
 
 .minimize{
     position: absolute;
-    right: 1em;
+    right: .5em;
 }
 .minimize::after{
     font-family: FontAwesome;
@@ -657,15 +667,14 @@
 }
 .minimize:hover{
     cursor: pointer;
-    color: red;
+    color: #6c2800;
 }
 .chatBox.minimized>.minimize::after{
     content: '\f2d0';
 }
 .chatContainer{
     height: calc(100% - 4em);
-    overflow-x: hidden;
-    overflow-y: scroll;
+    overflow: hidden;
     /* background: grey; */
 }
 .inputBox{

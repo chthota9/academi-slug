@@ -1,12 +1,12 @@
 <% if(typeof loggedIn !== 'undefined'){ %>
     <% if(loggedIn){ %>
         <div class="chatBox minimized">
-                <div class="minimize"></div>
-                <div class="chatNameTitle">Find a tutor to chat with!</div>
-                <div class="chatContainer"></div>
-                <input class="inputBox"type="text" placeholder="Message..." disabled>
-            </div>
-            <script src="/socket.io/socket.io.js"></script>
-            <script src="/chat.js"></script>
+            <div class="minimize"></div>
+            <div class="chatNameTitle">Live Chat</div>
+            <div class="chatContainer"></div>
+            <input class="inputBox"type="text" placeholder="Message..." disabled>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/chat.js"></script>
     <% } %>
 <% }%>
