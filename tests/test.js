@@ -224,6 +224,11 @@ describe('parserFunctions', () => {
             done();
         })
 
+        it('should return a correct class ID', done => {
+            classes.getClassID("CMPS 115").should.equal(21451);
+            done();
+        })
+
         it('should return undefined on invalid class name', done => {
             expect(classes.getClassID("DOBRA 302")).to.be.undefined;
             done();
