@@ -66,10 +66,15 @@
                                 <div class="col-4 course-element">
                                 <label><%= course.courseName %></label>
                                 </div>
-
+                                <% if (course.reviewCount == 0) {%>
+                                    <b>N/A</b>
+                                <% } else { %>
                                 <div class="col-4 course-element">
+
                                 <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
                                     <span class="fa fa-star checked"></span>
+                                <% } %>
+                                (<%-course.reviewCount%>)
                                 <% } %>
                                 </div>
 

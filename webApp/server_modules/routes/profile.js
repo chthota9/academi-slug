@@ -38,7 +38,8 @@ router.get('/user/:id(\\d+)', (req, res) => {
             let courses = prof.coursesTeaching.map(course => ({
                 _id: course._id,
                 courseName: getClassName(course._id),
-                rating: course.rating
+                rating: course.rating,
+                reviewCount: course.reviewCount
             }));
             res.render('profileView-guest', { profile: prof, courses, loggedIn: req.isAuthenticated() });
         }).catch((err) => {
