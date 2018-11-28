@@ -167,55 +167,65 @@ describe('user', () => {
 });
 
 describe('class', () => {
-        describe('#addClass()', () => {
-            it('should add a class', () => {
-                return database.addClass._id;
-            });
-        });
-
-        describe('#deleteClass()', () => {
-            it('should delete a class', () => {
-                return database.deleteClass._id;
-            });
-        });
-
-        describe('#addReview()', () => {
-            reviews = [2, 3, 4, 5];
-            it('should add a review', () => {
-                database.addReview(testUser.googleID, database.findClass(420), reviews)
-                    .then(user => {
-                        expect(user.findClass(420).rating).to.be(3.75);
-                        done();
-                    });
-            });
-        });
-
-
-        describe('#deleteTutor()', () => {
-            it('should delete a tutor', () => {
-                return database.deleteTutor(testUser.googleID, testUser.coursesTeaching._id);
-            });
-
-            it('should set invalid googleID to null', () => {
-                let nonGoogleID = Math.random();
-                while (nonGoogleID == testUser.googleID)
-                    nonGoogleID = Math.random();
-
-                database.findUser(nonGoogleID)
-                    .then(profile => {
-                        return expect(profile).to.be.null;
-                    });
-            });
+    describe('#addClass()', () => {
+        it('should add a class', () => {
+            return database.addClass._id;
         });
     });
 
+    describe('#deleteClass()', () => {
+        it('should delete a class', () => {
+            return database.deleteClass._id;
+        });
+    });
+
+    //having trouble testing this method
+    describe('#findClass()', () => {
+        it('should find a class', () => {
+            return database.Classes.findById(testUser._id);
+        });
+    });
+
+    describe('#addReview()', () => {
+        reviews = [2, 3, 4, 5];
+        it('should add a review', () => {
+            database.addReview(testUser.googleID, database.findClass(420), reviews)
+                .then(user => {
+                    expect(user.findClass(420).rating).to.be(3.75);
+                    done();
+                });
+        });
+    });
+
+
+    describe('#deleteTutor()', () => {
+        it('should delete a tutor', () => {
+            return database.deleteTutor(testUser.googleID, testUser.coursesTeaching._id);
+        });
+
+        it('should set invalid googleID to null', () => {
+            let nonGoogleID = Math.random();
+            while (nonGoogleID == testUser.googleID)
+                nonGoogleID = Math.random();
+
+            database.findUser(nonGoogleID)
+                .then(profile => {
+                    return expect(profile).to.be.null;
+                });
+        });
+    });
+});
+
+
+describe('parserFunctions', () => {
     describe('#getClassID()', () => {
-        it('should return class ID', () => {
-            return classes.getClassID
+        it('should return class ID without error', done => {
+            return classes.getClassID("CMPS 115");
         })
 
-        it('should return null on invalid classID', () => {
-
+        it('should return null on invalid class name', done => {
+            expect(classes.getClassID("DOBRA 302")).to.be.null;
+            done();
         }) 
     })
 
@@ -252,12 +262,5 @@ describe('class', () => {
                 done();
             });
         });
-    })
-        
-
-    //having trouble testing this method
-    describe('#findClass()', () => {
-        it('should find a class', () => {
-            return database.Classes.findById(testUser._id);
-        });
     });
+});
