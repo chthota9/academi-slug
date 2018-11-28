@@ -2,7 +2,7 @@ const passport = require('passport');
 const router = require('express').Router();
 const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
-const { addUser, updateUser, deleteUser, findUser, addReview, addClass, findClass, addTutor, Classes, deleteTutor } = require('../mongoose');
+const { addUser, updateUser, deleteUser, findUser, addReview, addClass, addTutor, Classes, deleteTutor } = require('../mongoose');
 
 // A route used when a user wants to log in
 router.get('/login', passport.authenticate('googleHave', {
@@ -40,7 +40,7 @@ router.get('/user/:id(\\d+)', (req, res) => {
                 courseName: getClassName(course._id),
                 rating: course.rating
             }));
-            res.render('profileView-guest', { profile: prof, courses });
+            res.render('profileView-guest', { profile: prof, courses, loggedIn: req.isAuthenticated() });
         }).catch((err) => {
             throw err;
         });
@@ -73,6 +73,7 @@ router.get('/', function(req, res) {
     }));
 
     res.render('profileView-user', {
+        loggedIn: req.isAuthenticated(),
         profile: req.user,
         courses: courseNames,
         majors: getMajors()
@@ -92,7 +93,7 @@ router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
             }
 
             let className = getClassName(classID);
-            res.render('review', { profile: prof, classID, className });
+            res.render('review', { profile: prof, classID, className, loggedIn: req.isAuthenticated() });
         }).catch((err) => {
             throw err;
         });
@@ -126,21 +127,21 @@ router.post('/createProfile', function(req, res) {
                 res.redirect('/');
             });
 
-             for (var i = 0; i < profile.coursesTeaching.length; i++) {
+            for (var i = 0; i < profile.coursesTeaching.length; i++) {
                 let thisClassID = profile.coursesTeaching[i]._id;
                 Classes.findById(thisClassID)
                     .then(thisClass => {
                         // May even addTutor without class existing
                         if (thisClass == null) {
                             addClass(thisClassID)
-                                .then( () => addTutor(thisClassID, profile.googleID))
+                                .then(() => addTutor(thisClassID, profile.googleID))
                                 .catch(err => console.log(err));
                         } else {
                             addTutor(thisClassID, profile.googleID)
                                 .catch(err => console.log(err));
                         }
                     });
-             }
+            }
         })
         .catch(err => console.log(err));
 });
@@ -156,20 +157,19 @@ router.post('/updateProfile', function(req, res) {
         .catch(() => res.json({ sucessful: false }));
 
     var updatingClass = req.body;
-    if (updatingClass.coursesTeaching != null){
-        for(var i = 0; i<updatingClass.coursesTeaching.length; i++){
-            if(updatingClass.coursesTeaching[i].includes('-')){
+    if (updatingClass.coursesTeaching != null) {
+        for (var i = 0; i < updatingClass.coursesTeaching.length; i++) {
+            if (updatingClass.coursesTeaching[i].includes('-')) {
                 let course = updatingClass.coursesTeaching[i];
                 let courseName = course.substring(1);
                 deleteTutor(req.user.googleID, getClassID(courseName))
-                        .catch(err => console.log(err));
-            }
-            else {
+                    .catch(err => console.log(err));
+            } else {
                 let course = updatingClass.coursesTeaching[i];
                 let courseID = getClassID(course);
                 Classes.findById(courseID)
                     .then(thisClass => {
-                        if(thisClass == null){
+                        if (thisClass == null) {
                             addClass(courseID)
                                 .then(() => addTutor(courseID, req.user))
                                 .catch(err => console.log(err));
@@ -185,10 +185,10 @@ router.post('/updateProfile', function(req, res) {
 // A route used when a user wants to delete their profile
 router.get('/deleteProfile', (req, res) => {
     var deletingClass = req.user;
-    for(var i = 0; i<deletingClass.coursesTeaching.length; i++){
-            let delCourse = deletingClass.coursesTeaching[i]._id;
-            deleteTutor(req.user.googleID, delCourse)
-                    .catch(err => console.log(err));
+    for (var i = 0; i < deletingClass.coursesTeaching.length; i++) {
+        let delCourse = deletingClass.coursesTeaching[i]._id;
+        deleteTutor(req.user.googleID, delCourse)
+            .catch(err => console.log(err));
     }
     deleteUser(req.user.id)
         .then(() => {

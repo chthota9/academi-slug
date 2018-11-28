@@ -28,10 +28,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 module.exports = function(app) {
-    app.use(session(sess));
+    let sessionMid = session(sess);
+    app.use(sessionMid);
     app.use(passport.initialize());
     app.use(passport.session());
-
     passport.use('googleHave', new googleAuth({
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -105,5 +105,5 @@ module.exports = function(app) {
             req.session.save(() => res.redirect('/'));
         });
 
-    return router;
+    return { sessionMid, router };
 };
