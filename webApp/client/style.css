@@ -69,13 +69,24 @@
 .body {
     background: linear-gradient(rgba(255, 255, 255, .5), rgba(255, 255, 255, .5)),
     url("background.png");
+    background-position: center;
     background-size: cover;
     background-color: black;
     overflow: auto;
 }
 
 .bg {
-    height: 100vh;
+    height: 110vh;
+    width: 100vw;
+    margin-top: 65px;
+    margin-bottom: 50px;
+}
+
+.bg-tutorial {
+    display: flex;
+    flex-direction: column;
+
+    height: 150vh;
     width: 100vw;
     margin-top: 65px;
     margin-bottom: 50px;
@@ -138,6 +149,7 @@
 }
 
 /* Titles */
+.h1.title,
 .h2-title,
 .h3-title {
     font-weight: bolder;
@@ -175,21 +187,59 @@
     text-align: center;
 }
 
-.heading {
+.search-card {
+    position: absolute; 
+    top: 300px;
+}
+
+/* Tutorial elements */
+.tutorial-main {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 550px;
+
+    padding-bottom: 50px;
+    margin-bottom: 75px;
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 7px;
+}
+
+.tutorial-subsection {
+    display: flex;
+    flex-direction: row;
+
+    text-align: left;
+}
+
+.tutorial-card {
+    width: 500px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.tutorial-card-header {
+    background-color: #93c02d;
     color: black;
-    font-size: 300%;
 }
 
-.login-redirect {
-    position: relative;
-    left: 100px;
+.role-title {
+    margin-bottom: 0px;
+    margin-left: 10px;
 }
 
+.tutorial-item {
+    font-weight: normal;
+    margin-bottom: 5px;
+}
 
 /* Autocomplete elements */
 *{
     box-sizing: border-box;
 }
+
 .autocomplete {
 /*the container must be positioned relative:*/
     position: relative;
@@ -281,6 +331,7 @@
 }
 
 .search-title {
+    margin-bottom: 0px;
     text-align: center;
 }
 
