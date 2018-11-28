@@ -238,10 +238,12 @@ describe('parserFunctions', () => {
     describe('#isValidCourse()', () => {
         it('should return true for a real class name', done => {
             expect(classes.isValidCourse('CMPS 101')).to.be.true;
+            done();
         })
 
         it('should return false if we take a fake class name', done => {
             expect(classes.isValidCourse('THIS_IS_NOT_A_CLASSNAME 101')).to.be.false;
+            done();
         })
     })
 
