@@ -17,12 +17,13 @@
                         <h2 class="h2-title"><%= classSearched.name %></h2>
                         <h2><%- classSearched.tutors.length %> tutors found.</h2>
                 </div>
-
+                
                 <div class="dropdown">
                     <button class="btn btn-sort">Sort By ↓</button>
                     <div class="dropdown-content">
                             <a href="#" class="sort-style" onclick="alphaSort()">Name</a>
                             <a href="#" class="sort-style" onclick="numSort()">Rating</a>
+                            <a href="#" class="sort-style" onclick="reviewCountSort()">Review Count</a>
                     </div>
                 </div>
             </div>
@@ -32,7 +33,7 @@
                     <table class="table centralize">
                         <tr class="tr">
                             <th class="th">Name</th>
-                            <th class="th">Rating</th>
+                            <th class="th">Rating (Review Count)</th>
                         </tr>
 
                         <% classSearched.tutors.forEach(tutor =>{ %>
@@ -40,15 +41,20 @@
                                 <td class="td"><a href="/profile/user/<%= tutor.googleID %>" class="search-link"> <%= tutor.name.first %> <%= tutor.name.last %> </a></td>
                                 
                                 <td class="td">
-                                    <% for (starNum = 0; starNum < Math.round(tutor.rating); starNum++) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } %>
+                                     <% if (tutor.reviewCount == 0) {%>
+                                        <b>N/A</b>
+                                    <% } else { %>
+                                        <% for (starNum = 0; starNum < Math.round(tutor.rating); starNum++) { %>
+                                            <span class="fa fa-star checked">  </span>
+                                        <% } %>  
 
-                                    <!-- Includes empty stars
-                                    <% let maxRating = 5; %>
-                                    <% for (star = Math.round(tutor.rating); star < maxRating; star++) { %>
-                                        <span class="fa fa-star-o"></span>
-                                    <% } %> -->
+                                        <!-- Includes empty stars
+                                        <% let maxRating = 5; %>
+                                        <% for (star = Math.round(tutor.rating); star < maxRating; star++) { %>
+                                            <span class="fa fa-star-o"></span>
+                                        <% } %> -->
+                                        (<%-tutor.reviewCount%>)
+                                    <% } %>
                                 </td>
                             </tr>	
                         <% }) %>   
@@ -61,6 +67,7 @@
     <%- include templates/chat %>
     <script src="../alphasort.js"></script>
     <script src="../numsort.js"></script>
+    <script src="../reviewCountSort.js"></script>
 </body>
 
 </html>
