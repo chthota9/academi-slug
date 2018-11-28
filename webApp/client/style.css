@@ -597,6 +597,9 @@
     overflow: hidden;
     white-space: nowrap;
 }
+.chatNameTitle:hover{
+    cursor: pointer;
+}
 
 .minimize{
     position: absolute;

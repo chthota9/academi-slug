@@ -1,5 +1,5 @@
 let clients = {};
-const {findUser} = require('./mongoose');
+const { findUser } = require('./mongoose');
 
 module.exports = function(server, session) {
     const io = require('socket.io')(server);
@@ -18,39 +18,40 @@ module.exports = function(server, session) {
     });
 
     io.on('connection', socket => {
-        if(socket.loggedIn){
+        if (socket.loggedIn) {
             findUser(socket.googleID)
-            .then(prof =>{
-                socket.name = prof.fullName;
-                clients[socket.googleID] = socket;
-                // console.log(clients);
-                socket.on('disconnect', () => {
-                    console.log('Disconnect');
-                    delete clients[socket.googleID];
-                });
-                
-                socket.on('sendPrivate', function(data) {
-                    console.log(`from : ${socket.googleID} to ${data.to} : ${data.msg}`);
-                    let recvSocket = clients[data.to];
-                    io.to(recvSocket.id).emit('recvPrivate',{from:{id: socket.googleID, name: socket.name}, msg:data.msg});
-                });
+                .then(prof => {
+                    socket.name = prof.fullName;
+                    clients[socket.googleID] = socket;
+                    // console.log(clients);
+                    socket.on('disconnect', () => {
+                        console.log('Disconnect');
+                        delete clients[socket.googleID];
+                    });
 
-                socket.emit('syncChats',socket.request.session.chattingWith);
+                    socket.on('sendPrivate', function(data) {
+                        console.log(`from : ${socket.googleID} to ${data.to} : ${data.msg}`);
+                        if (typeof clients[data.to] !== 'undefined') {
+                            let recvSocket = clients[data.to];
+                            io.to(recvSocket.id).emit('recvPrivate', { from: { id: socket.googleID, name: socket.name }, msg: data.msg });
+                        }
+                    });
 
-                socket.on('addChat', (id,cb) => {
-                    console.log(id);
-                    if(typeof clients[id] !== undefined){
-                        let rcvSocket = clients[id];
-                        let clientName = rcvSocket.name;
-                        socket.request.session.chattingWith[id] = clientName;
-                        cb(clientName);
-                    }
-                    else{
-                        cb(null);
-                    }
+                    socket.emit('syncChats', socket.request.session.currChat);
+
+                    socket.on('addChat', (id, cb) => {
+                        console.log(id);
+                        if (typeof clients[id] !== undefined) {
+                            let rcvSocket = clients[id];
+                            let clientName = rcvSocket.name;
+                            socket.request.session.currChat = id;
+                            cb(clientName);
+                        } else {
+                            cb(null);
+                        }
+                    });
+
                 });
-
-            });
         }
     });
 };

@@ -28,7 +28,7 @@ inputBox.addEventListener('keydown', evt => {
 });
 
 miniIcon.addEventListener('click', changeChatBoxState);
-
+chatNameTitle.addEventListener('click',changeChatBoxState);
 function changeChatBoxState () {
     if (minimized) {
         chatBox.classList.remove('minimized');
@@ -42,11 +42,14 @@ function changeChatBoxState () {
 function addChat (id) {
     socket.emit('addChat', id, function(name) {
         if (name) {
-            console.log(name);
             chattingWith[id] = name;
             chatNameTitle.textContent = name;
             currChat = id;
             inputBox.disabled = false;
+            inputBox.focus();
+            if(minimized){
+                changeChatBoxState();
+            }
         }
     });
 }
