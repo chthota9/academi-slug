@@ -14,10 +14,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Links all resources to 'client' folder
 app.use(express.static('client'));
+let { sessionMid, router: passportRouter } = passport(app);
+
 
 // Includes all routes
 app.use('/classSearch', classSearch);
-app.use('/google', passport(app));
+app.use('/google', passportRouter);
 app.use('/profile', profileRoute);
 app.use('/searchRoute', searchRoute);
 
@@ -27,7 +29,6 @@ app.set('views', path.join(__dirname, '/views'));
 // Establish home page
 app.get('/', function(req, res) {
     console.log(req.session);
-
     let input = {
         loggedIn: req.isAuthenticated() && req.user.extra === undefined,
     };
@@ -56,6 +57,7 @@ app.use((error, req, res, next) => {
 
 // Sets up port connection
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, function() {
+let server = app.listen(PORT, function() {
     console.log(`Server started on Port ${PORT}`);
 });
+const io = require('./server_modules/socket.js')(server, sessionMid);

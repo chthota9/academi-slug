@@ -3,23 +3,30 @@
 <html class="html">
 
 <head>
-    <%= include ./templates/header %>
+    <%- include templates/header %>
+    <% if(!loggedIn) { %>
+        <%- include templates/nav-buttons %>
+        <% } else { %>
+        <%- include templates/nav-profile %>
+    <% } %>
     <title>Academi-Slug | Profile</title>
 </head>
 
-<%= include ./templates/nav-search %>
-
 <body class="body">
-    <div class="bg d-flex justify-content-center align-items-center">
+    <div class="bg-bigger d-flex justify-content-center align-items-center">
         <div class="card w-50">
             <div class="card-header d-flex justify-content-between align-items-end">
                 <h2 class="display-5 mb-0 "><%= profile.name.first %>'s Profile</h2>
-
-                <% if (profile.linkedIn != "") { %>
-                    <script src="//platform.linkedin.com/in.js" type="text/javascript" defer></script>
-                    <script type="IN/MemberProfile" data-id="<%= profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
-                <% } %>
-            <div><a href="mailto:<%= profile.email %>?subject=I need help in a class!">Email Tutor</a></div>
+                <div class="d-flex flex-column align-items-end justify-content-end">
+                    <% if (profile.linkedIn != "") { %>
+                        <script src="//platform.linkedin.com/in.js" type="text/javascript" defer></script>
+                        <script type="IN/MemberProfile" data-id="<%= profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
+                    <% } %>
+                    <% if (loggedIn) {%>
+                    <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send me an Email!</a>
+                    <span class="chat-link" onclick="addChat(<%= profile.googleID %>)">Ask for Help!</span>  
+                    <% } %>
+                </div>
             </div>
             <dl class="dl-horizontal">
                 <dt class="col-sm-3 mt-4">Name:</dt>
@@ -76,7 +83,7 @@
             </dl>
         </div>
     </div>
-    <%- include templates/footer %>
+    <%- include templates/chat %>
 </body>
 
 </html>

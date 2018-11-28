@@ -12,11 +12,12 @@
 </head>
 
 <body class="body">
-    <div class="bg d-flex justify-content-center align-items-center">
+    <div class="bg-tutorial align-items-center">
         <%- include templates/alert %>
-        <div class="card">
+    
+        <div class="card search-card">
             <div class="card-header">
-                <h2 class="display-4 mb-0 search-title">What do you need help with?</h2>
+                <h3 class="display-4 search-title">What do you need help with?</h3>
             </div>
             <div class="card-body">
                 <form class="form-inline" action="/searchRoute" autocomplete = "off" method="GET">
@@ -26,7 +27,54 @@
                 </form>
             </div>
         </div>
-        <%- include templates/footer %>
+        <div class="tutorial-main">
+            <h4 class="display-4">I am a...</h4>
+
+            <div class="tutorial-subsection">
+                <div class="card tutorial-card">
+                    <div class="tutorial-card-header">
+                        <h1 class="role-title">Tutor</h1>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li class="tutorial-item">
+                                Create an account to let others know what classes you are teaching.
+                            </li>
+                            <li class="tutorial-item">
+                                Update your profile with an attractive biography or even your LinkedIn profile to showcase your qualifications.
+                            </li>
+                            <li class="tutorial-item">
+                                Search for other tutors to collaborate with others who are teaching your subject.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card tutorial-card">
+                    <div class="tutorial-card-header">
+                        <h1 class="role-title">Student</h1>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li class="tutorial-item">
+                                Search for classes that you need help in, sorting your results as desired.
+                            </li>
+                            <li class="tutorial-item">
+                                Click on a tutor's name to access their profile.
+                            </li>
+                            <li class="tutorial-item">
+                                Review their qualifications and message them if you are interested in connecting.
+                            </li>
+                            <li class="tutorial-item">
+                                Rate their assistance after communicating to help others with their search.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <%- include templates/chat %>
     </div>
     <script type = "module" src ="/autocomplete.js"></script>
 </body>
