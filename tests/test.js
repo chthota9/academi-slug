@@ -187,6 +187,7 @@ describe('user', () => {
             });
         });
     });
+    
 
     describe('#deleteTutor()', () => {
         it('should delete a tutor', () => {
