@@ -220,47 +220,47 @@ describe('class', () => {
 describe('parserFunctions', () => {
     describe('#getClassID()', () => {
         it('should return class ID without error', done => {
-            classes.getClassID("CMPS 115");
+            classes.getClassID('CMPS 115');
             done();
-        })
+        });
 
         it('should return a correct class ID', done => {
-            classes.getClassID("CMPS 115").should.equal(21451);
+            classes.getClassID('CMPS 115').should.equal(21451);
             done();
-        })
+        });
 
         it('should return undefined on invalid class name', done => {
-            expect(classes.getClassID("DOBRA 302")).to.be.undefined;
+            expect(classes.getClassID('DOBRA 302')).to.be.undefined;
             done();
-        }) 
-    })
+        });
+    });
 
     describe('#isValidCourse()', () => {
         it('should return true for a real class name', done => {
             expect(classes.isValidCourse('CMPS 101')).to.be.true;
             done();
-        })
+        });
 
         it('should return false if we take a fake class name', done => {
             expect(classes.isValidCourse('THIS_IS_NOT_A_CLASSNAME 101')).to.be.false;
             done();
-        })
-    })
+        });
+    });
 
     describe('#getClassName()', () => {
         it('should return class name without error', done => {
             classes.getClassName(21529);
             done();
-        })
+        });
 
         it('should return a correct class name', done => {
             classes.getClassName(21529).should.equal('ECON 1');
             done();
-        })
+        });
 
         it('should return undefined on invalid class name', done => {
             expect(classes.getClassName(95064)).to.be.undefined;
             done();
-        }) 
-    })
+        });
+    });
 });
