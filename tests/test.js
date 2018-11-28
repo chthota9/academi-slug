@@ -153,9 +153,14 @@ describe('user', () => {
 
     
     describe('#updateUser()', () => {
+        updates = testUser.bio = 'I hate to teach';
         
         it('should update user', () => {
-           return database.updateUser(testUser.googleID);
+           database.updateUser(testUser.googleID, updates)
+           .then(user => {
+                expect(user.bio).to.be('I hate to teach');
+                done();
+           });
             });
         });
    
@@ -173,8 +178,13 @@ describe('user', () => {
     });
 
     describe('#addReview()', () => {
+        reviews = [2,3,4,5];
         it('should add a review', () => {
-            return database.addReview(testUser.googleID, database.findClass(420));
+            database.addReview(testUser.googleID, database.findClass(420), reviews)
+            .then(user => {
+                expect(user.findClass(420).rating).to.be(3.75);
+                done();
+            });
         });
     });
 
@@ -198,7 +208,7 @@ describe('user', () => {
     //having trouble testing this method
     describe('#findClass()', () => {
         it('should find a class', () => {
-            return database.Classes.findById(_id);
+            return database.Classes.findById(testUser._id);
         });
 
     });
