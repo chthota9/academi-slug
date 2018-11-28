@@ -225,7 +225,7 @@ describe('parserFunctions', () => {
         })
 
         it('should return a correct class ID', done => {
-            classes.getClassID("CMPS 115").should.equal(12);
+            classes.getClassID("CMPS 115").should.equal(21451);
             done();
         })
 
@@ -236,37 +236,29 @@ describe('parserFunctions', () => {
     })
 
     describe('#isValidCourse()', () => {
-        it('should return true', () => {
-
+        it('should return true for a real class name', done => {
+            expect(classes.isValidCourse('SMPS 101')).to.be.true;
         })
 
-        it('should return false', () => {
-
+        it('should return false if we take a fake class name', done => {
+            expect(classes.isValidCourse('THIS_IS_NOT_A_CLASSNAME 101')).to.be.false;
         })
     })
 
     describe('#getClassName()', () => {
-        it('should return class name by classID without error', done => {
-            database.Classes.getClassName
+        it('should return class name without error', done => {
+            classes.getClassName(21529);
             done();
-        });
+        })
 
-        it('should return the correct class name given a classID', done => {
-            database.Users.findById(testUser.googleID, (err, user) => {
-                JSON.stringify(user).should.equal(JSON.stringify(testUser));
-                done();
-            });
-        });
+        it('should return a correct class name', done => {
+            classes.getClassName(21529).should.equal('ECON 1');
+            done();
+        })
 
-        it('should return null on invalid classID', done => {
-            let nonGoogleID = Math.random();
-            while (nonGoogleID == testUser.googleID)
-                nonGoogleID = Math.random();
-
-            database.Users.findById(nonGoogleID, (err,user) => {
-                expect(user).to.be.null;
-                done();
-            });
-        });
-    });
+        it('should return undefined on invalid class name', done => {
+            expect(classes.getClassName(95064)).to.be.undefined;
+            done();
+        }) 
+    })
 });
