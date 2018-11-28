@@ -152,10 +152,10 @@ describe('user', () => {
         });
     });
 
-    
+
     describe('#updateUser()', () => {
         updates = testUser.bio = 'I hate to teach';
-        
+
         it('should update user', () => {
            database.updateUser(testUser.googleID, updates)
            .then(user => {
