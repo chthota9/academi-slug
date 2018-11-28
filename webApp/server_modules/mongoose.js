@@ -41,7 +41,7 @@ let courseTeachingSchema = new mongoose.Schema({
     rating: {
         type: Number,
         required: true,
-        default: 5
+        default: 0
     },
     reviewCount: {
         type: Number,
@@ -134,7 +134,6 @@ function addUser (user) {
             bio: user.bio,
             linkedIn: user.linkedIn,
             coursesTeaching: user.coursesTeaching,
-            reviewCount: 0
         });
 
         userAdded.save((err, profile) => {
@@ -216,8 +215,7 @@ function updateUser (user, updates) {
     });
 }
 
-//Untested - needed
-function addReview(googleID, courseNo, average) {
+function addReview(googleID, classID, reviews) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         findUser(googleID)
@@ -361,10 +359,7 @@ module.exports = {
     deleteTutor,
     deleteClass,
     addTutor,
-    connection, 
+    connection,
     addReview,
-    deleteClass,
-    deleteTutor,
-    Classes
 };
 
