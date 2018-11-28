@@ -225,7 +225,7 @@ describe('parserFunctions', () => {
         })
 
         it('should return a correct class ID', done => {
-            classes.getClassID("CMPS 115").should.equal(21451);
+            classes.getClassID("CMPS 115").should.equal(12);
             done();
         })
 
