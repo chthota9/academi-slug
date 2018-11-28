@@ -68,6 +68,7 @@ socket.on('recvPrivate', function(data) {
     node.appendChild(textnode);
     chatContainer.appendChild(node);
     node.scrollIntoView();
+    inputBox.disabled = false;
 });
 
 // socket.on('syncChats', function(data) {

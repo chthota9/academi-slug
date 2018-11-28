@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {isValidCourse, getMajors, getClassID, getClassName } = require('../course_json_parser');
-const {findClass,} = require(`../mongoose.js`);
+const { isValidCourse, getMajors, getClassID, getClassName } = require('../course_json_parser');
+const { findClass, } = require(`../mongoose.js`);
 
 /**
  *
@@ -21,15 +21,15 @@ const {findClass,} = require(`../mongoose.js`);
 router.get('/', function(req, res) {
     var searched = req.query.search.toUpperCase();
     let courseNo = getClassID(searched);
-    findClass(courseNo).then(tutors =>{
-        if(tutors.length < 1){
+    findClass(courseNo).then(tutors => {
+        if (tutors.length < 1) {
             res.render('search-page-error');
         }
         let classSearched = {
             name: searched,
             tutors: tutors
         };
-        res.render('search-page', { classSearched });
+        res.render('search-page', { classSearched, loggedIn: req.isAuthenticated() });
     });
 });
 
