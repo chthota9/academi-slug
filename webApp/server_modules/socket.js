@@ -37,7 +37,7 @@ module.exports = function(server, session) {
                         }
                     });
 
-                    socket.emit('syncChats', socket.request.session.currChat);
+                    // socket.emit('syncChats', socket.request.session.currChat);
 
                     socket.on('addChat', (id, cb) => {
                         console.log(id);

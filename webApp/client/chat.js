@@ -58,9 +58,8 @@ socket.on('recvPrivate', function(data) {
     console.log(`${data.from.name} : msg ${data.msg}`);
     let name = data.from.name;
     let id = data.from.id;
-    if (typeof chattingWith[id] === 'undefined') {
-        chattingWith[id] = name;
-    }
+    chatNameTitle.textContent = name;
+    currChat = id;
     var node = document.createElement('div');
     var textnode = document.createTextNode(data.msg);
     node.classList.add('chat', 'recv');
@@ -69,8 +68,8 @@ socket.on('recvPrivate', function(data) {
 
 });
 
-socket.on('syncChats', function(data) {
-    if (data) {
-        chattingWith = data;
-    }
-});
+// socket.on('syncChats', function(data) {
+//     if (data) {
+//         chattingWith = data;
+//     }
+// });
