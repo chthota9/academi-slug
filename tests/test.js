@@ -210,6 +210,7 @@ describe('user', () => {
     describe('#findClass()', () => {
         it('should find a class', () => {
             return database.Classes.findById(testUser._id);
+            done();
         });
 
     });
