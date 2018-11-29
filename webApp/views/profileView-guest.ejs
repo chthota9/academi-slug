@@ -68,11 +68,11 @@
                                     <label><%= course.courseName %></label>
                                 </div>
                                 <% if (course.reviewCount == 0) {%>
-                                    <div class="col-2 course-element">
+                                    <div class="col-3 course-element">
                                         <b>N/A</b>
                                     </div>
                                 <% } else { %>
-                                <div class="col-4 course-element">
+                                <div class="col-3 course-element">
                                     <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
                                         <span class="fa fa-star checked"></span>
                                     <% } %>
