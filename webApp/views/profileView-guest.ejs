@@ -9,6 +9,7 @@
         <% } else { %>
         <%- include templates/nav-profile %>
     <% } %>
+    <%- include templates/footer %>
     <title>Academi-Slug | Profile</title>
 </head>
 
@@ -24,7 +25,7 @@
                     <% } %>
                     <% if (loggedIn) {%>
                         <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send me an Email!</a>
-                        <span class="chat-link" onclick="addChat(<%= profile.googleID %>)">Ask For Help!</span>  
+                        <span class="chat-link" onclick="addChat(<%= profile.googleID %>">Ask For Help!</span>  
                     <% } %>
                 </div>
             </div>
@@ -89,7 +90,6 @@
         </div>
     </div>
     <%- include templates/chat %>
-    <%- include templates/footer %>
 </body>
 
 </html>
