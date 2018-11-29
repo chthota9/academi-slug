@@ -41,7 +41,7 @@ router.get('/user/:id(\\d+)', (req, res) => {
                 rating: course.rating,
                 reviewCount: course.reviewCount
             }));
-            res.render('profileView-guest', { profile: prof, courses, loggedIn: req.isAuthenticated() });
+            res.render('profileView-guest', { profile: prof, courses, loggedIn: req.isAuthenticated(), thisUser: req.user });
         }).catch((err) => {
             throw err;
         });

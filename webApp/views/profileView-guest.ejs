@@ -23,7 +23,7 @@
                         <script src="//platform.linkedin.com/in.js" type="text/javascript" defer></script>
                         <script type="IN/MemberProfile" data-id="<%= profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
                     <% } %>
-                    <% if (loggedIn) {%>
+                    <% if (loggedIn && thisUser.googleID != profile.googleID) { %>
                         <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send me an Email!</a>
                         <span class="chat-link" onclick="addChat(<%= profile.googleID %>">Ask For Help!</span>  
                     <% } %>
@@ -72,16 +72,20 @@
                                         <b>N/A</b>
                                     </div>
                                 <% } else { %>
-                                <div class="col-3 course-element">
-                                    <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } %>
-                                (<%=course.reviewCount%>)
-                            </div>
-                            <% } %>
+                                    <div class="col-3 course-element">
+                                        <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } %>
+                                    (<%=course.reviewCount%>)
+                                    </div>
+                                <% } %>
 
                                 <div class="col-3 course-element">
-                                <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary">Leave Review</a>
+                                <% if (loggedIn && thisUser.googleID != profile.googleID) { %>
+                                    <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary">Leave Review</a>
+                                <% } else { %>
+                                    <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary disabled">Leave Review</a>
+                                <% } %>
                                 </div>
                             </div>
                         </li>
