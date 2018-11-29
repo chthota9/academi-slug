@@ -72,15 +72,16 @@
                                         <b>N/A</b>
                                     </div>
                                 <% } else { %>
-                                    <div class="col-4 course-element">
-                                        <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
-                                            <span class="fa fa-star checked"></span>
-                                        <% } %>
-                                        (<%-course.reviewCount%>)
-                                    </div>
-                                <% } %>
-                                <div class="course-element">
-                                    <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary">Leave Review</a>
+                                <div class="col-4 course-element">
+                                    <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } %>
+                                (<%=course.reviewCount%>)
+                            </div>
+                            <% } %>
+
+                                <div class="col-3 course-element">
+                                <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary">Leave Review</a>
                                 </div>
                             </div>
                         </li>
