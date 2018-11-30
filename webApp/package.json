@@ -8,9 +8,7 @@
     "quickrun": "pm2-runtime start ecosystem.config.js",
     "start": "pm2-runtime start ecosystem.config.js --env production ",
     "stop": "pm2 kill",
-    "buildtest": "pm2-runtime start ecosystem.config.js --env build",
     "main-test": "mocha --exit ../tests/test.js",
-    "secondary-test": "mocha --exit ../tests/mongoose.test.js"
   },
   "author": "",
   "license": "ISC",
