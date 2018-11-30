@@ -7,7 +7,7 @@ const profileRoute = require('./server_modules/routes/profile');
 const searchRoute = require('./server_modules/routes/searchRoute');
 const bodyParser = require('body-parser');
 const classSearch = require('./server_modules/routes/classSearch');
-const io = require('./server_modules/socket.js')(server, sessionMid);
+const io = require('./server_modules/socket.js');
 
 // Includes a bodyParser to parse JSON files
 app.use(bodyParser.json());
@@ -61,3 +61,4 @@ const PORT = process.env.PORT || 5000;
 let server = app.listen(PORT, function() {
     console.log(`Server started on Port ${PORT}`);
 });
+io(server, sessionMid);
