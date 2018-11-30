@@ -48,11 +48,20 @@ function addToClients (socket) {
                 console.log(`from : ${socket.googleID} to ${data.to} : ${data.msg}`);
                 if (typeof clients[data.to] !== 'undefined') {
                     let recvSocket = clients[data.to];
-                    addToChatSessions(socket, recvSocket, data.msg);
+                    addToChatSessions(socket, recvSocket, data.msg, 'send');
+                    addToChatSessions(recvSocket, socket, data.msg, 'recv');
                     io.to(recvSocket.id).emit('recvPrivate', { from: { id: socket.googleID, name: socket.name }, msg: data.msg });
                 } else {
                     //Theyre offline
                 }
+            });
+
+            socket.on('setCurrentChat', function(id) {
+                socket.handshake.session.currChat = id;
+                socket.handshake.session.save();
+            });
+            socket.on('deleteChat', function(idToDelete) {
+                removeFromChatSessions(socket, idToDelete);
             });
 
 
@@ -70,10 +79,10 @@ function addToClients (socket) {
         });
 }
 
-function addToChatSessions (fromSocket, toSocket, newMsg) {
+function addToChatSessions (fromSocket, toSocket, newMsg, state) {
     let sess = fromSocket.handshake.session;
     let toID = toSocket.googleID;
-    
+
     if (sess.chatSessions[toID] !== undefined) {
         /**
          * @type {Array} chatSess;
@@ -82,16 +91,22 @@ function addToChatSessions (fromSocket, toSocket, newMsg) {
         let chatSess = chatObj.chatSess;
         if (chatSess.length === maxSavedChat) {
             chatSess.shift();
-            chatSess.push(newMsg);
+            chatSess.push({ msg: newMsg, state });
         } else {
-            chatSess.push(newMsg);
+            chatSess.push({ msg: newMsg, state });
         }
     } else {
         let toName = toSocket.name;
         sess.chatSessions[toID] = {
-            name:toName,
-            chatSess:[newMsg]
+            name: toName,
+            chatSess: [{ msg: newMsg, state }]
         };
     }
+    sess.save();
+}
+
+function removeFromChatSessions (socket, idToRemove) {
+    let sess = socket.handshake.session;
+    delete sess.chatSessions[idToRemove];
     sess.save();
 }

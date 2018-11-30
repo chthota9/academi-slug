@@ -648,12 +648,12 @@
     height: 1.8em;
 }
 
-.chatNameTitle > *{
-    cursor: pointer;
-}
 .dropDownArrow{
     font-family: FontAwesome;
     font-size: 1em;
+}
+.dropDownArrow:hover{
+    cursor: pointer;
 }
 .dropDownArrow::before{
     content: "\f0d7";
@@ -689,14 +689,20 @@
 
 .chat{
     margin: 0.2em;
-    padding: 0.2em;
+    padding: 0.3em;
+    width: 90%;
+    overflow-wrap: break-word;
+    border-radius: 8px;
 }
 
 .chat.recv{
     background: rgb(219, 219, 219);
+    position: relative;
+    left: 8%;
 }
 .chat.send{
     background: whitesmoke;
+
 }
 .chat-link:hover{
     color: #fdc700;
@@ -719,14 +725,29 @@
     border-bottom-left-radius: 5%;
     border-bottom-right-radius: 5%;
     transform-origin: top;
-    transition: transform 0.3s;
+    transition: transform 0.2s;
 }
 .chatList>.chats{
     height: 1.8em;
+    padding: 0 5px 0 5px;
     width:100%;
+    color: black;
 }
 .chats:hover{
-    color: black;
+    color: rgb(185, 184, 184);
+    cursor: pointer;
+}
+.chatHelper{
+    width: 90%;
+    height: 50%;
+    background: rgb(219, 219, 219);
+    padding: 1em;
+    margin: 1em auto 0 auto;
+    border-radius: 1em;
+}
+.chatHelper::after{
+    font-weight: bold;
+    content: "Search for a tutor using our homepage, click on their profile and click on 'Ask For Help!' "
 }
 
 .hidden {
