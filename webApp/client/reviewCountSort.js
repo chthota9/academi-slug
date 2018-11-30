@@ -1,4 +1,4 @@
-// Sorts reviewCount most review to least
+// Sorts reviewCount most reviewed to least reviewed
 function reviewCountSort() {
     var rows, switching, i, x, y, shouldSwitch;
     rows = document.getElementsByTagName('tr');
@@ -11,7 +11,6 @@ function reviewCountSort() {
                 shouldSwitch = false;
                 x = rows[i].getElementsByTagName('td')[1];
                 y = rows[i + 1].getElementsByTagName('td')[1];
-                console.log("sorting now");
                 var changeValue = x.innerText.replace(/\(|\)/g,'');
                 var changeValue1 = y.innerText.replace(/\(|\)/g,'');
 
@@ -27,7 +26,7 @@ function reviewCountSort() {
                 if( isNaN(changeValue1)) {
                     changeValue1 = 0;
                 }
-                
+
                 if (changeValue < changeValue1) {
                     console.log(changeValue);
                     console.log(changeValue1);
@@ -40,4 +39,4 @@ function reviewCountSort() {
                 switching = true;
         }
     }
-}   
+}

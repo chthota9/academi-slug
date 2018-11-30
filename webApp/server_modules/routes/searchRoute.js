@@ -3,7 +3,6 @@ const router = express.Router();
 const { isValidCourse, getClassID, } = require('../course_json_parser');
 const { findClass, } = require('../mongoose.js');
 
-// this READS all
 // A route used to render a user's search results
 router.get('/', function(req, res) {
     var searched = req.query.search.toUpperCase();

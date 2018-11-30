@@ -5,6 +5,7 @@ let classNames;
 let classIDs;
 let ucscMajors;
 
+// Extracts all courses from input file
 function getUCSCCourses () {
     return new Promise((resolve, reject) => {
         fs.readFile('./ucsc-courses.json', (err, data) => {
@@ -17,6 +18,7 @@ function getUCSCCourses () {
     });
 }
 
+// Extracts all majors from input file
 function getUCSCMajors () {
     return new Promise((resolve, reject) => {
         fs.readFile('./ucsc-majors.json', (err, data) => {
@@ -29,6 +31,7 @@ function getUCSCMajors () {
     });
 }
 
+// Quick helper functions to return self-described parameters
 /**
  *
  * @param {String} className
@@ -65,6 +68,7 @@ function getMajors () {
     return ucscMajors;
 }
 
+// Extracts UCSC courses
 getUCSCCourses()
     .then(data => {
         classNameToID = JSON.parse(data);

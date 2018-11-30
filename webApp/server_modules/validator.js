@@ -68,8 +68,6 @@ let checkScheme = checkSchema({
             }
         }
     }
-
-
 });
 
 module.exports.validateForm = checkScheme;

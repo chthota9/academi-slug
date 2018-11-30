@@ -1,11 +1,12 @@
 var chai = require('chai');
-var chaiAsPromised = require('chai-as-promised');
 chai.use(require('chai-as-promised'));
 
+// Specifies assertion libraries
 chai.should();
 var expect = require('chai').expect;
 const database = require('../webApp/server_modules/mongoose');
 
+// Defines a sample input
 let testUser = new database.Users({
     googleID: Math.random(),
     email: 'testUser@gmail.com',
@@ -19,12 +20,14 @@ let testUser = new database.Users({
     coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }]
 });
 
+// Before each execution, deletes any spare testUser documents
 before(() => {
     database.Users.deleteMany({ email: 'testUser@gmail.com' }, function(err) {
         console.log(err);
     });
 });
 
+// Tests all functions of UserSchema
 describe('user', () => {
     describe('#save()', () => {
         it('should save without error', done => {
@@ -151,10 +154,10 @@ describe('user', () => {
         });
     });
 
-    
+
     describe('#updateUser()', () => {
         updates = testUser.bio = 'I hate to teach';
-        
+
         it('should update user', () => {
            database.updateUser(testUser.googleID, updates)
            .then(user => {
@@ -165,6 +168,7 @@ describe('user', () => {
         });
 });
 
+// Tests all functions of ClassSchema
 describe('class', () => {
         describe('#addClass()', () => {
             it('should add a class', () => {

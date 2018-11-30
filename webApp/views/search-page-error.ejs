@@ -4,27 +4,24 @@
 
 <head>
     <%- include templates/header %>
+    <%- include templates/footer %>
     <title>Academi-Slug | Error</title>
 </head>
 
 <%- include templates/nav-search %>
 
 <body class="body">
-    <div class="bg">
-        <div class="row h-100 justify-content-center align-items-center">
-
-            <div class="col-md-10">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="display-4 mb-0 h2-title">Sorry...</h2>
-                    </div>
-                    <div clasts="card-body">
-                        <h3> There are no tutors available for this course. Did you format your search string correctly? We will redirect you shortly.</h3>
-                    </div>
-                </div>
+    <div class="bg d-flex justify-content-center align-items-center">
+        <div class="card w-50">
+            <div class="card-header">
+                <h2 class="display-4 mb-0 h2-title">Sorry...</h2>
+            </div>
+            <div clasts="card-body">
+                <h3> There are no tutors available for this course. Did you format your search string correctly? We will redirect you shortly.</h3>
             </div>
         </div>
     </div>
+    
     <script>
         setTimeout(()=>window.location.href = '/',7000);
     </script>

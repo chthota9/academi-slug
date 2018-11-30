@@ -4,6 +4,7 @@
 
 <head>
     <%- include templates/header %>
+    <%- include templates/footer %>
     <title>Academi-Slug | Sign Up</title>
 </head>
 
@@ -44,9 +45,7 @@
                             <select id="major" name="major" class="form-control" required>
                                 <option value="" selected disabled>Major</option>
                                 <% majors.forEach(major=>{ %>
-                                <option>
-                                    <%= major %>
-                                </option>
+                                    <option> <%= major %> </option>
                                 <%   }) %>
                             </select>
                         </div>
@@ -67,6 +66,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="form-group col-md-12">
                             <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
@@ -93,7 +93,6 @@
             </div>
         </div>
     </div>        
-    <%- include templates/footer %>
     <script src="/classSelect.js" defer></script>
     <script src="/profileCreate.js" defer></script>
 </body>
