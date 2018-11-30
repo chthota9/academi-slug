@@ -8,9 +8,7 @@
     <title>Academi-Slug | Profile</title>
 </head>
 
-<!-- <script src="nav-search.js"></script> -->
 <%- include templates/nav-search %>
-
 
 <body class="body">
     <div class="bg-bigger d-flex justify-content-center align-items-center">
@@ -22,21 +20,21 @@
             <div class="card-body">
                 <div class="col-md-auto">
                     <form id="profileForm">
-                    <h3 class="h3-title">Profile Information</h3>
-                    <div class="row">
-                        <div class="form-group col-md-3">
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value="<%- profile.name.first %>" required>
+                        <h3 class="h3-title">Profile Information</h3>
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" value="<%- profile.name.first %>" required>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" value="<%- profile.name.last %>" required>
+                            </div>
                         </div>
-                        <div class="form-group col-md-4">
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" value="<%- profile.name.last %>" required>
-                        </div>
-                    </div>
+
                         <div class="row">
                             <div class="form-group col-md-3">
                                 <select id="year" name="year" class="form-control" required>
-                                    <option selected hidden>
-                                        <%= profile.year %>
-                                    </option>
+                                    <option selected hidden> <%= profile.year %> </option>
                                     <option>Freshman</option>
                                     <option>Sophomore</option>
                                     <option>Junior</option>
@@ -47,21 +45,15 @@
                             </div>
                             <div class="form-group col-md-5">
                                 <select id="major" name="major" class="form-control" required>
-                                    <option selected hidden>
-                                        <%= profile.major %>
-                                    </option>
+                                    <option selected hidden> <%= profile.major %> </option>
                                     <% majors.forEach(major=>{ %>
-                                    <option>
-                                        <%= major %>
-                                    </option>
+                                        <option> <%= major %> </option>
                                     <%   }) %>
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
                                 <select id="college" name="college" class="form-control" required>
-                                    <option selected hidden>
-                                        <%= profile.college %>
-                                    </option>
+                                    <option selected hidden> <%= profile.college %> </option>
                                     <option>Cowell</option>
                                     <option>Stevenson</option>
                                     <option>Crown</option>
@@ -75,33 +67,35 @@
                                     <option>Other</option>
                                 </select>
                             </div>          
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Class experience" required><%= profile.bio %></textarea>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="form-group col-md-7">
-                            <input type="text" name="linkedIn" class="form-control" id="linkedIn" placeholder="LinkedIn URL" value="<%= profile.linkedIn %>">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Class experience" required><%= profile.bio %></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <hr class="horizontal-row">
-                    <h3 class="h3-title">Courses Currently Tutoring:</h3>
+
+                        <div class="row">
+                            <div class="form-group col-md-7">
+                                <input type="text" name="linkedIn" class="form-control" id="linkedIn" placeholder="LinkedIn URL" value="<%= profile.linkedIn %>">
+                            </div>
+                        </div>
+
+                        <hr class="horizontal-row">
+                        <h3 class="h3-title">Courses Currently Tutoring:</h3>
                         <div class="form-control classSelect">
                             <ul class="classlist">
                                 <% courses.forEach(course =>{ %>
-                                <li class="classname"><%= course.courseName %></li>
+                                    <li class="classname"><%= course.courseName %></li>
                                 <% }) %>
 
                                 <% if (courses.length == 0){ %>
-                                        <li class="classinput" style="width: 9em;border-style: double; border-width: 5px">`
+                                    <li class="classinput" style="width: 9em;border-style: double; border-width: 5px">`
                                         <input placeholder="Add Course" type="text" name="query" autocomplete="off" spellcheck="false" id="classInput">
                                         <span data-helper="e.g CMPS 115" class="querylist helper hidden"></span>
                                     </li>
                                 <% } else { %>
-                                        <li class="classinput" style="width: 13em;border-style: double; border-width: 5px">
+                                    <li class="classinput" style="width: 13em;border-style: double; border-width: 5px">
                                         <input placeholder="Add Another Course" type="text" name="query" autocomplete="off" spellcheck="false" id="classInput">
                                         <span data-helper="e.g CMPS 115" class="querylist helper hidden"></span>
                                     </li>
@@ -115,6 +109,7 @@
             </div>
         </div>
     </div>
+    
     <%- include templates/chat %>
     <script src="/classSelect.js"></script>
     <script src="/profileView.js"></script>

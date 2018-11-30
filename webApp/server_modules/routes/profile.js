@@ -1,6 +1,5 @@
 const passport = require('passport');
 const router = require('express').Router();
-const { validateForm } = require('../validator');
 const { getMajors, getClassID, getClassName } = require('../course_json_parser');
 const { addUser, updateUser, deleteUser, findUser, addReview, addClass, addTutor, Classes, deleteTutor } = require('../mongoose');
 

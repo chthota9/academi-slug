@@ -4,14 +4,15 @@
 
 <head>
     <%- include templates/header %>
-    <% if(!loggedIn) { %>
-        <%- include templates/nav-buttons %>
-        <% } else { %>
-        <%- include templates/nav-profile %>
-    <% } %>
     <%- include templates/footer %>
     <title>Academi-Slug | Profile</title>
 </head>
+
+<% if(!loggedIn) { %>
+    <%- include templates/nav-buttons %>
+    <% } else { %>
+    <%- include templates/nav-profile %>
+<% } %>
 
 <body class="body">
     <div class="bg-bigger d-flex justify-content-center align-items-center">
@@ -31,33 +32,23 @@
             </div>
             <dl class="dl-horizontal">
                 <dt class="col-sm-3 mt-4">Name:</dt>
-                <dd class="col-sm-9">
-                <%= profile.name.first %> <%= profile.name.last %>
-                </dd>
+                <dd class="col-sm-9"> <%= profile.name.first %> <%= profile.name.last %> </dd>
                 <hr>
 
                 <dt class="col-sm-3">Year:</dt>
-                <dd class="col-sm-9">
-                    <%= profile.year %>
-                </dd>
+                <dd class="col-sm-9"> <%= profile.year %> </dd>
                 <hr>
 
                 <dt class="col-sm-3">Major:</dt>
-                <dd class="col-sm-9">
-                    <%= profile.major %>
-                </dd>
+                <dd class="col-sm-9"> <%= profile.major %> </dd>
                 <hr>
 
                 <dt class="col-sm-3">College:</dt>
-                <dd class="col-sm-9">
-                    <%= profile.college %>
-                </dd>
+                <dd class="col-sm-9"> <%= profile.college %> </dd>
                 <hr>
 
                 <dt class="col-sm-3">About:</dt>
-                <dd class="col-sm-9">
-                    <%= profile.bio %>
-                </dd>
+                <dd class="col-sm-9"> <%= profile.bio %> </dd>
                 <hr>
                 <dt class="col-sm-6">Courses Teaching:</dt>
                 <ul>

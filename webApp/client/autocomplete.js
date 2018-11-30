@@ -9,7 +9,6 @@ fetch('/classSearch/allClasses/', { method: 'POST' })
 
 // Takes two argument (userinput, array)
 function autocomplete (classInput, classNames) {
-
     /* Listening for input from user*/
     classInput.addEventListener('input', function() {
         var eValue, mValue, i, val = this.value;
@@ -29,10 +28,8 @@ function autocomplete (classInput, classNames) {
         this.parentNode.appendChild(eValue);
 
         for (i = 0; i < classNames.length; i++) {
-
             /* Checks if the item starts with the same letters as the text field value:*/
             if (classNames[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-
                 /* Div element for matching values (shown in bold)*/
                 mValue = document.createElement('DIV');
                 mValue.innerHTML = '<strong>' + classNames[i].substr(0, val.length) + '</strong>';
@@ -43,7 +40,6 @@ function autocomplete (classInput, classNames) {
 
                 /* Execute a function when someone clicks on the item value */
                 mValue.addEventListener('click', function() {
-
                     /* Insert the value for the autocomplete text field:*/
                     classInput.value = this.getElementsByTagName('input')[0].value;
 
@@ -55,11 +51,9 @@ function autocomplete (classInput, classNames) {
         }
     });
 
-
     function closeAllLists (elementInput) {
         /* Close all autocomplete lists in the document, except the matching one */
         var x = document.getElementsByClassName('autocomplete-items');
-
         for (var i = 0; i < x.length; i++) {
             if (elementInput != x[i] && elementInput != classInput) {
                 x[i].parentNode.removeChild(x[i]);

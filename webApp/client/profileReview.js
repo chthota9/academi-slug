@@ -3,7 +3,7 @@ let reviewForm = document.querySelector('#reviewForm'); //get form
 let subBtn = reviewForm.querySelector('button[type="submit"]');
 let finalRating = {}; //the final ratings that will be sent to the server on submit
 
-//sets up the radios to do something when they are clicked/changed
+// Sets up the radios to do something when they are clicked/changed
 for (let i = 0; i < categories.length; i++) {
     const category = categories[i];
     let categoryName = category.id;

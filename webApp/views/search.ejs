@@ -3,14 +3,15 @@
 
 <head>
     <%- include templates/header %>
-    <% if(!loggedIn) { %>
-    <%- include templates/nav-buttons %>
-    <% } else { %>
-    <%- include templates/nav-profile %>
-    <% } %>
     <%- include templates/footer %>
     <title>Academi-Slug | Search</title>
 </head>
+
+<% if(!loggedIn) { %>
+    <%- include templates/nav-buttons %>
+<% } else { %>
+    <%- include templates/nav-profile %>
+<% } %>
 
 <body class="body">
     <div class="bg-tutorial align-items-center">
@@ -28,9 +29,9 @@
                 </form>
             </div>
         </div>
+
         <div class="tutorial-main">
             <h4 class="display-4">I am a...</h4>
-
             <div class="tutorial-subsection">
                 <div class="card tutorial-card">
                     <div class="tutorial-card-header">
@@ -73,11 +74,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+    
     <%- include templates/chat %>
-    <%- include templates/footer %>
     <script type = "module" src ="/autocomplete.js"></script>
 </body>
 

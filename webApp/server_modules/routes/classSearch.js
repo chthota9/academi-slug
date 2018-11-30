@@ -1,7 +1,5 @@
 const router = require('express').Router();
 const { getAllClasses } = require('../course_json_parser');
-const async = require('async');
-
 
 // A route used when a user searches for a class
 router.get('/', (req, res) => {
@@ -16,9 +14,9 @@ router.get('/', (req, res) => {
 });
 
 /**
- * 
- * @param {String} query 
- * @param {Array<String>} courses 
+ *
+ * @param {String} query
+ * @param {Array<String>} courses
  * @returns {[Number,Number]} index of first and last class
  */
 function classSearch (query, courses) {

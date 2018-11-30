@@ -25,7 +25,6 @@ module.exports = function(server, session) {
                     clients[socket.googleID] = socket;
                     // console.log(clients);
                     socket.on('disconnect', () => {
-                        console.log('Disconnect');
                         delete clients[socket.googleID];
                     });
 
@@ -50,7 +49,6 @@ module.exports = function(server, session) {
                             cb(null);
                         }
                     });
-
                 });
         }
     });

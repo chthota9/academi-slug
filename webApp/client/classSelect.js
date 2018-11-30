@@ -11,7 +11,7 @@ var ClassSelect = (function() {
     let inputBox = inputNode.children[0];
     let infoNode = inputNode.children[1];
     let courseList = null;
-    
+
     inputBox.addEventListener('input', evt => {
         let param = evt.currentTarget.value;
         clearTimeout(inputTimer);
@@ -161,6 +161,5 @@ var ClassSelect = (function() {
         }
         return false;
     }
-
     return this;
 })();

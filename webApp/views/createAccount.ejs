@@ -45,9 +45,7 @@
                             <select id="major" name="major" class="form-control" required>
                                 <option value="" selected disabled>Major</option>
                                 <% majors.forEach(major=>{ %>
-                                <option>
-                                    <%= major %>
-                                </option>
+                                    <option> <%= major %> </option>
                                 <%   }) %>
                             </select>
                         </div>
@@ -68,6 +66,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="form-group col-md-12">
                             <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
@@ -82,7 +81,7 @@
                     <label for="classInput" >Classes Able To Tutor(optional):</label>
                     <div class="form-control classSelect">
                         <ul class="classlist">
-                                <li class="classinput" style="border-style: double; border-width: 5px">
+                            <li class="classinput" style="border-style: double; border-width: 5px">
                                 <input placeholder="Search For Class" type="text" id="classInput" name="query" autocomplete="off" spellcheck="false">
                                 <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
                             </li>
