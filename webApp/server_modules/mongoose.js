@@ -6,11 +6,13 @@ mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/acade
     useNewUrlParser: true
 });
 
+// Establishes Mongoose connection
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log('We\'re connected to the database!');
 });
 
+// Defines ClassSchema
 let classSchema = new mongoose.Schema({
     _id: {
         type: Number,
@@ -30,8 +32,8 @@ classSchema.pre('findOne', function() {
     this.populate('tutors', 'name _id coursesTeaching');
 });
 
+// Defiens Classes model
 let Classes = mongoose.model('Classes', classSchema);
-
 
 let courseTeachingSchema = new mongoose.Schema({
     _id: {
@@ -62,6 +64,7 @@ courseTeachingSchema.virtual('courseNo')
         this._id = val;
     });
 
+// Defines UserSchema
 let userSchema = new mongoose.Schema({
     _id: {
         type: Number,
@@ -118,9 +121,10 @@ userSchema.virtual('fullName').get(function() {
     return this.firstName + ' ' + this.lastName;
 });
 
-
+// Defines Users model
 let Users = mongoose.model('Users', userSchema);
 
+// Adds a user to the database
 function addUser (user) {
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
@@ -145,6 +149,7 @@ function addUser (user) {
     });
 }
 
+// Deletes a user from the database
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findByIdAndDelete(googleID, function(err) {
@@ -156,6 +161,7 @@ function deleteUser (googleID) {
     });
 }
 
+// Finds a user in the database
 function findUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
@@ -168,6 +174,7 @@ function findUser (googleID) {
     });
 }
 
+// Updates a user in the database
 function updateUser (user, updates) {
     console.log('Updating user ' + user.id);
     return new Promise((resolve, reject) => {
@@ -211,10 +218,12 @@ function updateUser (user, updates) {
     });
 }
 
+// Adds a review to a user for a specific class
 function addReview(googleID, classID, reviews) {
     return new Promise((resolve, reject) => {
         findUser(googleID)
             .then(thisUser => {
+
                 // Loop through array of coursesTeaching to find rating for the specific course
                 let thisClass = thisUser.coursesTeaching.id(classID);
                 let oldRating = thisClass.rating;
@@ -235,10 +244,7 @@ function addReview(googleID, classID, reviews) {
 }
 
 
-/**
- * func should add tutor under class but if class is not in database
- * add class to db with tutor under it
- */
+// Adds a class to the database
 function addClass (courseNo) {
     return new Promise((resolve, reject) => {
         let classAdded = new Classes({ courseNo, tutors: [] });
@@ -251,6 +257,7 @@ function addClass (courseNo) {
     });
 }
 
+// Deletes a class from the database
 function deleteClass (courseNo) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndDelete(courseNo, function(err) {
@@ -262,8 +269,7 @@ function deleteClass (courseNo) {
     });
 }
 
-//Seems to be working
-//Should error checking when class does not exist
+// Adds tutor to a course
 function addTutor (courseNo, tutorID) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutorID } })
@@ -274,6 +280,7 @@ function addTutor (courseNo, tutorID) {
     });
 }
 
+// Deletes a user from a class
 function deleteTutor (googleID, courseNo) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndUpdate(courseNo, { $pull: { tutors: googleID }})
@@ -286,6 +293,7 @@ function deleteTutor (googleID, courseNo) {
     });
 }
 
+// Finds a class
 /**
  * @param {Number} courseNo
  * @returns {Promise<Array>} tutors

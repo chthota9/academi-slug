@@ -7,6 +7,7 @@ const profileRoute = require('./server_modules/routes/profile');
 const searchRoute = require('./server_modules/routes/searchRoute');
 const bodyParser = require('body-parser');
 const classSearch = require('./server_modules/routes/classSearch');
+const io = require('./server_modules/socket.js')(server, sessionMid);
 
 // Includes a bodyParser to parse JSON files
 app.use(bodyParser.json());
@@ -26,6 +27,7 @@ app.use('/searchRoute', searchRoute);
 // Establishes EJS view engine in 'views' folder
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
+
 // Establish home page
 app.get('/', function(req, res) {
     console.log(req.session);
@@ -59,4 +61,3 @@ const PORT = process.env.PORT || 5000;
 let server = app.listen(PORT, function() {
     console.log(`Server started on Port ${PORT}`);
 });
-const io = require('./server_modules/socket.js')(server, sessionMid);

@@ -25,7 +25,6 @@ router.get('/create', function(req, res) {
 });
 
 // A route used to access a user's profile
-// Tested
 // eslint-disable-next-line no-useless-escape
 router.get('/user/:id(\\d+)', (req, res) => {
     let googleID = req.params.id;
@@ -64,9 +63,7 @@ router.use((req, res, next) => {
 });
 
 
-/**
- * A route used when a user accesses their profile
- */
+//A route used when a user accesses their profile
 router.get('/', function(req, res) {
     let courseNames = req.user.coursesTeaching.map(course => ({
         courseName: getClassName(course._id)
@@ -80,9 +77,7 @@ router.get('/', function(req, res) {
     });
 });
 
-
-// // A route that accesses a user's review page for a particular class.
-// // Tested - works
+// A route that accesses a user's review page for a particular class
 router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
     let googleID = req.params.id;
     let classID = req.params.course;
@@ -99,12 +94,11 @@ router.get('/user/:id(\\d+)/review/:course(\\d+)', (req, res) => {
         });
 });
 
-// Probably not right
+// A route that submits a user's review
 router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
     let googleID = req.params.id;
     let classID = req.params.course;
-    let reviews = req.body; // will contain an object with each reviewed category the object
-    // the object's fields will depend on how its sent from the client
+    let reviews = req.body; // Will contain an object with each reviewed category ~ object's fields will depend on how its sent from the client
 
     console.log(JSON.stringify(req.body));
     addReview(googleID, classID, reviews)
@@ -114,8 +108,6 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
             throw err;
         });
 });
-
-
 
 // A route that will actually create a user's account within the database
 router.post('/createProfile', function(req, res) {

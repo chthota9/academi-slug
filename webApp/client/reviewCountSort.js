@@ -1,4 +1,4 @@
-// Sorts reviewCount most review to least
+// Sorts reviewCount most reviewed to least reviewed
 function reviewCountSort() {
     var rows, switching, i, x, y, shouldSwitch;
     rows = document.getElementsByTagName('tr');

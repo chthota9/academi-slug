@@ -49,6 +49,4 @@ router.post('/allclasses', (req, res) => {
     res.json(getAllClasses());
 });
 
-
-
 module.exports = router;
