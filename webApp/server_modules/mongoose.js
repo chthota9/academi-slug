@@ -360,6 +360,6 @@ module.exports = {
     deleteClass,
     addTutor,
     connection,
-    addReview,
+    addReview
 };
 
