@@ -6,8 +6,7 @@ var chatLinks = [...document.getElementsByClassName('.chat-link')];
 var chatNameTitle = chatBox.querySelector('.chatNameTitle');
 var minimized = true;
 var chatListMinimized = true;
-const chatHandler = new ChatInstanceHandler(chatNameTitle.querySelector('.dropDownArrow'),
-    chatNameTitle.querySelector('.chatList'), chatNameTitle.childNodes[0]);
+const chatHandler = new ChatInstanceHandler(chatNameTitle.querySelector('.dropDownArrow'), chatNameTitle.querySelector('.chatList'), chatNameTitle.childNodes[0]);
 
 // eslint-disable-next-line no-undef
 var socket = io();
@@ -33,7 +32,6 @@ socket.on('chatSync', function(syncData) {
     });
 });
 
-
 function addChat (id) {
     socket.emit('addChat', id, function(name) {
         if (name) {
@@ -43,7 +41,6 @@ function addChat (id) {
             if (minimized) {
                 changeChatBoxState();
             }
-            
         }
     });
 }
@@ -196,5 +193,5 @@ function ChatInstanceHandler (downArrow, nameList, chatTitle) {
             nameTitle.removeEventListener('click', dropDownMenu);
             dropDownArrow.removeEventListener('click', dropDownMenu);
         }
-    }
+    };
 }

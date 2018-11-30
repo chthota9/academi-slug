@@ -1,14 +1,14 @@
 <!-- Chat view -->
 <% if(typeof loggedIn !== 'undefined'){ %>
-<% if(loggedIn){ %>
-<div class="chatBox minimized">
-    <div class="minimize"></div>
-    
-    <div class="chatNameTitle"><span>Live Chat</span><span class="dropDownArrow hidden"></span><ul class="chatList hidden"></ul></div>
-    <div class="chatContainer"><div class="chatHelper">Search for a tutor using our homepage, click on their profile and click on 'Ask For Help!' then send a message! If you have multiple chats click on the down arrow to switch.</div></div>
-    <input class="inputBox" maxlength="120" type="text" placeholder="Enter Message..." disabled>
-</div>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/chat.js"></script>
-<% } %>
+    <% if(loggedIn){ %>
+        <div class="chatBox minimized">
+            <div class="minimize"></div>
+            
+            <div class="chatNameTitle"><span>Live Chat</span><span class="dropDownArrow hidden"></span><ul class="chatList hidden"></ul></div>
+            <div class="chatContainer"><div class="chatHelper">Search for a tutor using our homepage, click on their profile and click on 'Ask For Help!' then send a message! If you have multiple chats click on the down arrow to switch.</div></div>
+            <input class="inputBox" maxlength="120" type="text" placeholder="Enter Message..." disabled>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/chat.js"></script>
+    <% } %>
 <% }%>

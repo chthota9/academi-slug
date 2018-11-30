@@ -45,8 +45,7 @@ app.get('/', function(req, res) {
 app.use((req, res, next) => {
     if (!req.route) {
         return next(new Error(`No route ${req.originalUrl}`));
-    }
-    next();
+    } next();
 });
 
 // Error route for run-time errors

@@ -32,7 +32,6 @@ module.exports = function(server, session) {
     });
 };
 
-
 function addToClients (socket) {
     findUser(socket.googleID)
         .then(prof => {
