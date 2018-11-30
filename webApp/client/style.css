@@ -739,12 +739,13 @@
 }
 .chatHelper{
     width: 90%;
-    height: 50%;
+    overflow-y: auto;
     background: rgb(219, 219, 219);
     padding: 1em;
     margin: 1em auto 0 auto;
     border-radius: 1em;
     font-weight: bold;
+    font-size: small;
 }
 
 .hidden {
