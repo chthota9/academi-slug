@@ -3,7 +3,6 @@
 
 <head>
     <%- include templates/header %>
-    <%- include templates/footer %>
     <title>Academi-Slug | Search</title>
 </head>
 
@@ -13,10 +12,12 @@
     <%- include templates/nav-profile %>
 <% } %>
 
+<%- include templates/alert %>
+<%- include templates/chat %>
+<%- include templates/footer %>
+
 <body class="body">
     <div class="bg-tutorial align-items-center">
-        <%- include templates/alert %>
-    
         <div class="card search-card">
             <div class="card-header">
                 <h3 class="display-4 search-title">What do you need help with?</h3>
@@ -76,8 +77,6 @@
             </div>
         </div>
     </div>
-    
-    <%- include templates/chat %>
     <script type = "module" src ="/autocomplete.js"></script>
 </body>
 

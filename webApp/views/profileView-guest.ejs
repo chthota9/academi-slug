@@ -4,15 +4,16 @@
 
 <head>
     <%- include templates/header %>
-    <%- include templates/footer %>
     <title>Academi-Slug | Profile</title>
 </head>
 
 <% if(!loggedIn) { %>
     <%- include templates/nav-buttons %>
-    <% } else { %>
+<% } else { %>
     <%- include templates/nav-profile %>
 <% } %>
+<%- include templates/chat %>
+<%- include templates/footer %>
 
 <body class="body">
     <div class="bg-bigger d-flex justify-content-center align-items-center">
@@ -85,7 +86,6 @@
             </dl>
         </div>
     </div>
-    <%- include templates/chat %>
 </body>
 
 </html>

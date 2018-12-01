@@ -4,15 +4,17 @@
 
 <head>
     <%- include templates/header %>
-    <%- include templates/footer %>
     <title>Academi-Slug | Profile</title>
 </head>
 
 <%- include templates/nav-search %>
+<%- include templates/alert %>
+<%- include templates/chat %>
+<%- include templates/footer %>
+
 
 <body class="body">
     <div class="bg-bigger d-flex justify-content-center align-items-center">
-        <%- include templates/alert %>
         <div class="card w-75">
             <div class="card-header">
                 <h2 class="display-4 mb-0">Your Profile</h2>
@@ -110,7 +112,6 @@
         </div>
     </div>
     
-    <%- include templates/chat %>
     <script src="/classSelect.js"></script>
     <script src="/profileView.js"></script>
 </body>
