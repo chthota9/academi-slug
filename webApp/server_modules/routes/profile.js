@@ -48,7 +48,7 @@ router.get('/user/:id(\\d+)', (req, res) => {
 // A route used when a user logs out
 router.get('/logout', function(req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect(req.header('Referer') || '/');
 });
 
 /**

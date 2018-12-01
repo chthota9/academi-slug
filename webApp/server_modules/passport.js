@@ -94,7 +94,7 @@ module.exports = function(app) {
 
     router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/profile/signup' }),
         function(req, res) {
-            req.session.save(() => res.redirect('/'));
+            req.session.save(() => res.redirect(req.header('Referer') || '/'));
         });
 
     return { sessionMid, router };
