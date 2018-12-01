@@ -13,7 +13,6 @@ for (let i = 0; i < categories.length; i++) {
         radio.addEventListener('change', function() {
             //on radio click apply rating to category
             finalRating[categoryName] = Number.parseInt(this.value);
-            console.log(`${categoryName} = ${this.value}`);
             validateForm();
         });
     }

@@ -183,7 +183,6 @@ function findUser (googleID) {
  * @param {Object} updates The changes to the profile
  */
 function updateUser (user, updates) {
-    console.log('Updating user ' + user.id);
     return new Promise((resolve, reject) => {
         let keys = Object.keys(updates);
         let profileUpdate = {};
@@ -234,7 +233,6 @@ function addReview(googleID, classID, reviews) {
     return new Promise((resolve, reject) => {
         findUser(googleID)
             .then(thisUser => {
-
                 // Loop through array of coursesTeaching to find rating for the specific course
                 let thisClass = thisUser.coursesTeaching.id(classID);
                 let oldRating = thisClass.rating;

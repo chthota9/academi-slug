@@ -39,12 +39,10 @@ function addToClients (socket) {
             clients[socket.googleID] = socket;
             socket.emit('chatSync', { chatSessions: socket.handshake.session.chatSessions, currChat: socket.handshake.session.currChat });
             socket.on('disconnect', () => {
-                console.log('Disconnect');
                 delete clients[socket.googleID];
             });
 
             socket.on('sendPrivate', function(data) {
-                console.log(`from : ${socket.googleID} to ${data.to} : ${data.msg}`);
                 if (typeof clients[data.to] !== 'undefined') {
                     let recvSocket = clients[data.to];
                     addToChatSessions(socket, recvSocket, data.msg, 'send');
@@ -65,7 +63,6 @@ function addToClients (socket) {
 
 
             socket.on('addChat', (id, cb) => {
-                console.log(id);
                 if (typeof clients[id] !== undefined) {
                     let rcvSocket = clients[id];
                     let clientName = rcvSocket.name;

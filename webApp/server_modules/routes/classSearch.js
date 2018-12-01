@@ -3,7 +3,6 @@ const { getAllClasses } = require('../course_json_parser');
 
 // A route used when a user searches for a class
 router.get('/', (req, res) => {
-    console.log(`Client is looking for ${req.query.q}`);
     let query = req.query.q;
     let courses = getAllClasses();
     let result = classSearch(query.toUpperCase(), courses);
