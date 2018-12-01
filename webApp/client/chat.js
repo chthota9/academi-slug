@@ -157,7 +157,7 @@ function ChatInstanceHandler (downArrow, nameList, chatTitle) {
         numOfChats++;
         if (chatInstances[id] === undefined) {
             chatInstances[id] = new ChatInstance(id, name);
-            let chatTitle = document.createElement('span');
+            let chatTitle = document.createElement('li');
             chatTitle.classList.add('chats');
             let textNode = document.createTextNode(name);
             chatTitle.appendChild(textNode);
