@@ -20,7 +20,7 @@ let testUser = new database.Users({
 });
 
 let testClass = new database.Classes({
-    _id: 890, //CMPS 115
+    _id: 890, 
     tutors: [{_id: Math.random()}]
 });
 
@@ -125,12 +125,11 @@ describe('user', () => {
             });
         });
 
-        // // Temporarily commented out to prevent false positive
-        // it('should not add two Users with the same googleID', done => {
-        //     new Promise(() => {
-        //         return new Promise(database.addUser(testUser));
-        //     }).should.be.rejected.notify(done);
-        // });
+        it('should not add two Users with the same googleID', done => {
+            new Promise(() => {
+                return new Promise(database.addUser(testUser));
+            }).should.be.rejected.notify(done);
+        });
     });
 
     describe('#findUser()', () => {
@@ -192,13 +191,10 @@ describe('user', () => {
 
 describe('class', () => {
     describe('#addClass()', () => {
-        it('should add a class', (done) => {
+        it('should add a class without error', (done) => {
             database.addClass(testClass._id);
             done();
         });
-
-
-
     });
 
     describe('#deleteClass()', () => {
