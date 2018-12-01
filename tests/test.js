@@ -185,7 +185,7 @@ describe('user', () => {
 describe('class', () => {
     describe('#addClass()', () => {
         it('should add a class', () => {
-            return c.addClass._id;
+            return database.addClass._id;
         });
     });
 
@@ -202,10 +202,10 @@ describe('class', () => {
         });
     });
 
-    describe('#addReview()', () => {
-        reviews = [2, 3, 4, 5];
+    describe('#addReview()', done => {
+        reviews = {"quality_of_teaching":2,"punctuality":3,"politeness":4,"organization":5} 
         it('should add a review', () => {
-            database.addReview(testUser.googleID, database.findClass(420), reviews)
+            database.addReview(testUser.googleID, 420, reviews)
                 .then(user => {
                     expect(user.findClass(420).rating).to.be(3.75);
                     done();

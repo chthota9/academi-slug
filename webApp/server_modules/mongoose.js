@@ -217,11 +217,13 @@ function updateUser (user, updates) {
 }
 
 //Untested - needed
-function addReview(googleID, courseNo, reviews) {
+function addReview(googleID, classID, reviews) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         findUser(googleID)
             .then(thisUser => {
+                
+                console.log('There reviews are' + JSON.stringify(reviews));
                 // Loop through array of coursesTeaching to find rating for the specific course
                 let thisClass = thisUser.coursesTeaching.id(classID);
                 let oldRating = thisClass.rating;
