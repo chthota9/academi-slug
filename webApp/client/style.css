@@ -63,6 +63,10 @@
     color: #003c6c;
 }
 
+* {
+    font-size: 16px;
+}
+
 /* Background */
 .html,
 .body {
@@ -188,7 +192,7 @@
 
 .search-card {
     position: absolute; 
-    top: 300px;
+    top: 15.63em;
 }
 
 /* Tutorial elements */
@@ -196,14 +200,14 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 550px;
+    top: 34.38em;
 
-    padding-bottom: 50px;
-    margin-bottom: 75px;
+    padding-bottom: 3.31em;
+    margin-bottom: 4.69em;
     text-align: center;
 
     background-color: rgba(0, 0, 0, 0.35);
-    border-radius: 7px;
+    border-radius: 0.44em;
 }
 
 .tutorial-subsection {
@@ -214,9 +218,9 @@
 }
 
 .tutorial-card {
-    width: 500px;
-    margin-left: 30px;
-    margin-right: 30px;
+    width: 31.25em;
+    margin-left: 1.88em;
+    margin-right: 1.88em;
 }
 
 .tutorial-card-header {
@@ -225,13 +229,13 @@
 }
 
 .role-title {
-    margin-bottom: 0px;
-    margin-left: 10px;
+    margin-bottom: 0em;
+    margin-left: 0.63em;
 }
 
 .tutorial-item {
     font-weight: normal;
-    margin-bottom: 5px;
+    margin-bottom: 0.31em;
 }
 
 /* Autocomplete elements */
@@ -641,7 +645,7 @@
 .chatNameTitle{
     text-align: left;
     font-weight: bold;
-    padding-left: 15px;
+    padding-left: 0.63em;
     background: rgba(19, 165, 220, .25);
     overflow: hidden;
     white-space: nowrap;
@@ -657,7 +661,7 @@
 }
 .dropDownArrow::before{
     content: "\f0d7";
-    padding: 7px;
+    padding: 0.44em;
 }
 
 .minimize{
@@ -712,7 +716,7 @@
 
 .chatList{
     position: absolute;
-    left: 12px;
+    left: 0.75em;
     top: 1.8em;
     background: rgb(238, 238, 238);
     width: fit-content;
@@ -729,7 +733,7 @@
 }
 .chatList>.chats{
     height: 1.8em;
-    padding: 0 5px 0 5px;
+    padding: 0 0.31em 0 0.31em;
     width:100%;
     color: black;
 }
