@@ -55,7 +55,6 @@ router.get('/logout', function(req, res) {
  * Every route past this requires the user to be logged in!
  */
 router.use((req, res, next) => {
-    console.log('profile is auth' + req.isAuthenticated());
     if (req.isAuthenticated()) {
         return next();
     }
@@ -100,7 +99,6 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
     let classID = req.params.course;
     let reviews = req.body; // Will contain an object with each reviewed category ~ object's fields will depend on how its sent from the client
 
-    console.log(JSON.stringify(req.body));
     addReview(googleID, classID, reviews)
         .then(() => {
             res.redirect('/');
@@ -140,7 +138,6 @@ router.post('/createProfile', function(req, res) {
 
 // A route used when a user wants to update their profile
 router.post('/updateProfile', function(req, res) {
-    console.log(req.body);
     if (Object.keys(req.body).length < 1) {
         return res.json({ successful: true });
     }

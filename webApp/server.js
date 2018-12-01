@@ -30,7 +30,6 @@ app.set('views', path.join(__dirname, '/views'));
 
 // Establish home page
 app.get('/', function(req, res) {
-    // console.log(req.session);
     let input = {
         loggedIn: req.isAuthenticated() && req.user.extra === undefined,
     };
