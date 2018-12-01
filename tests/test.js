@@ -20,7 +20,7 @@ let testUser = new database.Users({
 });
 
 before(() => {
-    database.Users.deleteMany({ email: 'testUser@gmail.com' }, function(err) {
+    database.Users.deleteMany({ email: 'user@gmail.com' }, function(err) {
         console.log(err);
     });
 });
@@ -216,7 +216,7 @@ describe('class', () => {
 
     describe('#addTutor()',() => {
         it('should add tutor for the courseNo', () => {
-            courseNo = classes.getClassID('CMPS 115');
+            courseNo = classes.getClassID('');
             database.addTutor(courseNo, testUser)
             .then(user =>{
                 expect(user.coursesTeaching.findById(courseNo).should.eventually.equal(findById(courseNo)));
@@ -228,7 +228,8 @@ describe('class', () => {
 
     describe('#deleteTutor()', () => {
         it('should delete a tutor', () => {
-            return database.deleteTutor(testUser.googleID, testUser.coursesTeaching._id);
+
+            return database.deleteTutor(testUser.googleID, );
         });
 
         it('should set invalid googleID to null', () => {
