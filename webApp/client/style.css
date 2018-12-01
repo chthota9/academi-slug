@@ -624,7 +624,7 @@
     position: fixed;
     bottom:0;
     right: 1%;
-    z-index: 999;
+    z-index: 50;
 
     width: 40%;
     height: 60%;
@@ -716,6 +716,7 @@
 }
 
 .chatList{
+    z-index: 53;
     position: absolute;
     left: 0.75em;
     top: 1.8em;
@@ -735,7 +736,7 @@
 .chatList>.chats{
     height: 1.8em;
     padding: 0 0.31em 0 0.31em;
-    width:100%;
+    width:50%;
     color: black;
 }
 .chats:hover{
