@@ -149,7 +149,9 @@ function addUser (user) {
     });
 }
 
-// Deletes a user from the database
+/**
+ * @param {Number} googleID The user to be deleted
+ */
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findByIdAndDelete(googleID, function(err) {
@@ -161,7 +163,9 @@ function deleteUser (googleID) {
     });
 }
 
-// Finds a user in the database
+/**
+ * @param {Number} googleID The user trying to be found
+ */
 function findUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
@@ -174,7 +178,10 @@ function findUser (googleID) {
     });
 }
 
-// Updates a user in the database
+/**
+ * @param {Object} user The user to update
+ * @param {Object} updates The changes to the profile
+ */
 function updateUser (user, updates) {
     console.log('Updating user ' + user.id);
     return new Promise((resolve, reject) => {
@@ -218,7 +225,11 @@ function updateUser (user, updates) {
     });
 }
 
-// Adds a review to a user for a specific class
+/**
+ * @param {Number} googleID Account to add review under
+ * @param {Number} classID Course to review account on
+ * @param {Object} reviews The contains rating of each category
+ */
 function addReview(googleID, classID, reviews) {
     return new Promise((resolve, reject) => {
         findUser(googleID)
@@ -257,7 +268,10 @@ function addClass (courseNo) {
     });
 }
 
-// Deletes a class from the database
+/**
+ * @param {Number} courseNo Course number of course to delete
+ * @summary Deletes a class from the database
+ */
 function deleteClass (courseNo) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndDelete(courseNo, function(err) {
@@ -269,7 +283,11 @@ function deleteClass (courseNo) {
     });
 }
 
-// Adds tutor to a course
+/**
+ * @param {Number} courseNo The course's course number the tutor should be added to
+ * @param {Number} tutorID The tutor's google ID
+ * @returns {Promise<>} The tutor that was added under a class
+ */
 function addTutor (courseNo, tutorID) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutorID } })
@@ -280,7 +298,10 @@ function addTutor (courseNo, tutorID) {
     });
 }
 
-// Deletes a user from a class
+/**
+ * @param {Number} googleID The tutor to be removed from a course
+ * @param {Number} courseNo The course that the tutor is being removed from
+ */
 function deleteTutor (googleID, courseNo) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndUpdate(courseNo, { $pull: { tutors: googleID }})
@@ -295,8 +316,8 @@ function deleteTutor (googleID, courseNo) {
 
 // Finds a class
 /**
- * @param {Number} courseNo
- * @returns {Promise<Array>} tutors
+ * @param {Number} courseNo The course being looked for
+ * @returns {Promise<Array>} The tutors teaching the course
  */
 function findClass (courseNo) {
     return new Promise((resolve, reject) => {
