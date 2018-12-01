@@ -28,12 +28,12 @@ reviewForm.addEventListener('submit', evt => {
     formReq.open('POST', `/profile/user/${userID}/review/${classID}/sub`);
     formReq.addEventListener('load', () => {
         if (formReq.status === 200) {
-            location.href = formReq.responseURL;
+            window.location.replace('/');
         } else {
             throw new Error('Failed to send review');
         }
     });
-    formReq.setRequestHeader('Content-Type', 'application/json');
+    formReq.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     formReq.send(JSON.stringify(finalRating));
 });
 

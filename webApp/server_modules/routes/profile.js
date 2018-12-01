@@ -101,9 +101,10 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
 
     addReview(googleID, classID, reviews)
         .then(() => {
+            console.log('reviewed');
             req.session.reviewed = true;
-            req.session.save(() => res.redirect('/'));
-            }).catch((err) => {
+            req.session.save(() => res.json({ success: true }));
+        }).catch((err) => {
             throw err;
         });
 });
