@@ -254,6 +254,7 @@ function addClass (courseNo) {
             console.log('Class ' + course.courseNo + ' added.');
             resolve(course);
         });
+        
     });
 }
 

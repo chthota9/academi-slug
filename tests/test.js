@@ -19,11 +19,17 @@ let testUser = new database.Users({
     coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }]
 });
 
+let testClass = new database.Classes({
+    _id: 890, //CMPS 115
+    tutors: [{_id: Math.random()}]
+});
+
 before(() => {
     database.Users.deleteMany({ email: 'testUser@gmail.com' }, function(err) {
         console.log(err);
     });
 });
+
 
 beforeEach(function(done){
     letUser = new database.Users({
@@ -185,14 +191,19 @@ describe('user', () => {
 
 describe('class', () => {
     describe('#addClass()', () => {
-        it('should add a class', () => {
-            return database.addClass._id;
+        it('should add a class', (done) => {
+            database.addClass(testClass._id);
+            done();
         });
+
+
+
     });
 
     describe('#deleteClass()', () => {
-        it('should delete a class', () => {
-            return database.deleteClass._id;
+        it('should delete a class', (done) => {
+            database.deleteClass(testClass._id);
+            done();
         });
     });
 
