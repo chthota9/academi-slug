@@ -701,14 +701,16 @@
 }
 
 .chat.recv{
-    background: rgb(219, 219, 219);
-    position: relative;
-    left: 8%;
+    background: #F1EFF0;
+    margin-top: 3%;
 }
 .chat.send{
-    background: whitesmoke;
-
+    background: rgba(19, 165, 220, .25);
+    position: relative;
+    left: 7.5%;
+    margin-top: 3%;
 }
+
 .chat-link:hover{
     color: #fdc700;
     cursor: pointer;
