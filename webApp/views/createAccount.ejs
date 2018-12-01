@@ -45,56 +45,56 @@
                                 <option value="" selected disabled>Major</option>
                                 <% majors.forEach(major=>{ %>
                                     <option> <%= major %> </option>
-                                    <%   }) %>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <select id="college" name="college" class="form-control" required>
-                                    <option value="" selected disabled>College Affiliation</option>
-                                    <option>Cowell</option>
-                                    <option>Stevenson</option>
-                                    <option>Crown</option>
-                                    <option>Merrill</option>
-                                    <option>College Nine</option>
-                                    <option>College Ten</option>
-                                    <option>Kresge</option>
-                                    <option>Porter</option>
-                                    <option>Rachel Carson</option>
-                                    <option>Oakes</option>
-                                    <option>Other</option>
-                                </select>
-                            </div>
+                                <%   }) %>
+                            </select>
                         </div>
-                        
-                        <div class="row">
-                            <div class="form-group col-md-12">
-                                <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
-                            </div>
+                        <div class="form-group col-md-3">
+                            <select id="college" name="college" class="form-control" required>
+                                <option value="" selected disabled>College Affiliation</option>
+                                <option>Cowell</option>
+                                <option>Stevenson</option>
+                                <option>Crown</option>
+                                <option>Merrill</option>
+                                <option>College Nine</option>
+                                <option>College Ten</option>
+                                <option>Kresge</option>
+                                <option>Porter</option>
+                                <option>Rachel Carson</option>
+                                <option>Oakes</option>
+                                <option>Other</option>
+                            </select>
                         </div>
-                        
-                        <div class="row">
-                            <div class="form-group col-md-7">
-                                <input type="text" class="form-control" id="linkedIn" name="linkedIn" placeholder="LinkedIn URL">
-                            </div>
-                        </div>
-                        <label for="classInput" >Classes Able To Tutor(optional):</label>
-                        <div class="form-control classSelect">
-                            <ul class="classlist">
-                                <li class="classinput" style="border-style: double; border-width: 5px">
-                                        <input placeholder="Search For Class" type="text" id="classInput" name="query" autocomplete="off" spellcheck="false">
-                                        <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
-                                    </li>
-                                </ul>
-                            </div>
-                            
-                            <button form="profileForm" type="submit" class="btn btn-primary mt-2 float-right">Sign up</button>
-                        </form>
                     </div>
-                </div>
-            </div>        
-            <script src="/classSelect.js" defer></script>
-            <script src="/profileCreate.js" defer></script>
-            <%- include templates/footer %>
-        </body>
-        
-        </html>
+                    
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group col-md-7">
+                            <input type="text" class="form-control" id="linkedIn" name="linkedIn" placeholder="LinkedIn URL">
+                        </div>
+                    </div>
+                    <label for="classInput" >Classes Able To Tutor(optional):</label>
+                    <div class="form-control classSelect">
+                        <ul class="classlist">
+                            <li class="classinput" style="border-style: double; border-width: 5px">
+                                <input placeholder="Search For Class" type="text" id="classInput" name="query" autocomplete="off" spellcheck="false">
+                                <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <button form="profileForm" type="submit" class="btn btn-primary mt-2 float-right">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>        
+    <script src="/classSelect.js" defer></script>
+    <script src="/profileCreate.js" defer></script>
+    <%- include templates/footer %>
+</body>
+
+</html>

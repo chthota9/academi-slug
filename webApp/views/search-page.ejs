@@ -45,31 +45,31 @@
                                 <td class="td">
                                     <% if (tutor.reviewCount == 0) {%>
                                         <b>N/A</b>
-                                        <% } else { %>
-                                            <% for (starNum = 0; starNum < Math.round(tutor.rating); starNum++) { %>
-                                                <span class="fa fa-star checked">  </span>
-                                                <% } %>  
-                                                
-                                                <!-- Includes empty stars
-                                                    <% let maxRating = 5; %>
-                                                    <% for (star = Math.round(tutor.rating); star < maxRating; star++) { %>
-                                                        <span class="fa fa-star-o"></span>
-                                                        <% } %> -->
-                                                        (<%-tutor.reviewCount%>)
-                                                        <% } %>
-                                                    </td>
-                                                </tr>	
-                                                <% }) %>   
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <script src="../alphasort.js"></script>
-                            <script src="../numsort.js"></script>
-                            <script src="../reviewCountSort.js"></script>
-                            <%- include templates/footer %>
-                        </body>
-                        
-                        </html>
+                                    <% } else { %>
+                                        <% for (starNum = 0; starNum < Math.round(tutor.rating); starNum++) { %>
+                                            <span class="fa fa-star checked">  </span>
+                                        <% } %>  
+                                        
+                                        <!-- Includes empty stars
+                                        <% let maxRating = 5; %>
+                                        <% for (star = Math.round(tutor.rating); star < maxRating; star++) { %>
+                                            <span class="fa fa-star-o"></span>
+                                        <% } %> -->
+                                        (<%-tutor.reviewCount%>)
+                                    <% } %>
+                                </td>
+                            </tr>	
+                        <% }) %>   
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../alphasort.js"></script>
+    <script src="../numsort.js"></script>
+    <script src="../reviewCountSort.js"></script>
+    <%- include templates/footer %>
+</body>
+
+</html>
