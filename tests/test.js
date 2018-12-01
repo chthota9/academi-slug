@@ -26,7 +26,7 @@ before(() => {
 });
 
 beforeEach(function(done){
-    letUser = new database.Users({
+        testUser = new database.Users({
         googleID: Math.random(),
         email: 'testUser@gmail.com',
         firstName: 'Test',
@@ -171,12 +171,11 @@ describe('user', () => {
 
 
     describe('#updateUser()', () => {
-
+        updates = testUser.bio = 'I hate to teach';
         it('should update user', done => {
-           updates = testUser.bio = 'I hate to teach';
-           database.updateUser(testUser, updates)
+           return database.updateUser(testUser, updates)
            .then(user => {
-                expect(user.bio).to.equal('I hate to teach');
+                expect(user.bio).to.be('I hate to teach');
                 done();
            });
             });
@@ -186,7 +185,7 @@ describe('user', () => {
 describe('class', () => {
     describe('#addClass()', () => {
         it('should add a class', () => {
-            return database.addClass._id;
+            return c.addClass._id;
         });
     });
 

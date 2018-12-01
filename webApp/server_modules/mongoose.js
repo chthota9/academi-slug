@@ -41,12 +41,12 @@ let courseTeachingSchema = new mongoose.Schema({
     rating: {
         type: Number,
         required: true,
-        default: 0
+        default: 5
     },
     reviewCount: {
         type: Number,
         required: true,
-        default: 0
+        default: 1
     }
 }, {
     autoIndex: false,
@@ -134,6 +134,7 @@ function addUser (user) {
             bio: user.bio,
             linkedIn: user.linkedIn,
             coursesTeaching: user.coursesTeaching,
+            reviewCount: 0
         });
 
         userAdded.save((err, profile) => {
@@ -215,7 +216,8 @@ function updateUser (user, updates) {
     });
 }
 
-function addReview(googleID, classID, reviews) {
+//Untested - needed
+function addReview(googleID, courseNo, reviews) {
     console.log('Adding a review!');
     return new Promise((resolve, reject) => {
         findUser(googleID)
@@ -272,29 +274,29 @@ function deleteClass (courseNo) {
 
 //Seems to be working
 //Should error checking when class does not exist
-function addTutor (courseNo, tutorID) {
+function addTutor (courseNo, tutor) {
     return new Promise((resolve, reject) => {
-        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutorID } })
+
+        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutor } })
             .exec((err, user) => {
                 if (err) return reject(err);
-                console.log('Tutor ' + tutorID + ' added to class ' + courseNo);
+                console.log('Tutor ' + tutor._id + ' added to class ' + courseNo);
                 resolve(user);
             });
     });
 }
 
+//Untested
 function deleteTutor (googleID, courseNo) {
     return new Promise((resolve, reject) => {
-        Classes.findByIdAndUpdate(courseNo, { $pull: { tutors: googleID }})
-            .exec((err, user) => {
+        Classes.findByIdAndDelete(googleID, function(err) {
             if (err) {
                 console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log('Tutor ' + googleID + ' deleted from ' + courseNo);
-            resolve(user);
+            console.log('Class ' + courseNo + ' deleted.');
+            resolve();
         });
-
     });
 }
 
@@ -315,8 +317,7 @@ function findClass (courseNo) {
                         let tutor = {
                             googleID: tutorDoc.googleID,
                             name: { first: tutorDoc.firstName, last: tutorDoc.lastName },
-                            rating: tutorDoc.coursesTeaching.id(courseNo).rating,
-                            reviewCount: tutorDoc.coursesTeaching.id(courseNo).reviewCount
+                            rating: tutorDoc.coursesTeaching.id(courseNo).rating
                         };
                         tutors.push(tutor);
                     });
@@ -353,13 +354,13 @@ module.exports = {
     deleteUser,
     findUser,
     updateUser,
-    Classes,
     addClass,
-    findClass,
-    deleteTutor,
-    deleteClass,
     addTutor,
-    connection,
-    addReview
+    findClass,
+    connection, 
+    addReview,
+    deleteClass,
+    deleteTutor,
+    Classes
 };
 
