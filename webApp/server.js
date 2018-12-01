@@ -33,7 +33,6 @@ app.get('/', function(req, res) {
     let input = {
         loggedIn: req.isAuthenticated() && req.user.extra === undefined,
     };
-    res.connection.setTimeout(0);
     if (req.session.deleted) {
         input['deleted'] = req.session.deleted;
         req.session.deleted = null;
@@ -41,7 +40,6 @@ app.get('/', function(req, res) {
         input['reviewed'] = req.session.reviewed;
         req.session.reviewed = null;
     }
-    console.log(input);
     res.render('search', input);
 });
 
