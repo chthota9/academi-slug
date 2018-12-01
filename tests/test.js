@@ -19,11 +19,17 @@ let testUser = new database.Users({
     coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }]
 });
 
+let testClass = new database.Classes({
+    _id: 890, 
+    tutors: [{_id: Math.random()}]
+});
+
 before(() => {
     database.Users.deleteMany({ email: 'user@gmail.com' }, function(err) {
         console.log(err);
     });
 });
+
 
 beforeEach(function(done){
         testUser = new database.Users({
@@ -119,12 +125,11 @@ describe('user', () => {
             });
         });
 
-        // // Temporarily commented out to prevent false positive
-        // it('should not add two Users with the same googleID', done => {
-        //     new Promise(() => {
-        //         return new Promise(database.addUser(testUser));
-        //     }).should.be.rejected.notify(done);
-        // });
+        it('should not add two Users with the same googleID', done => {
+            new Promise(() => {
+                return new Promise(database.addUser(testUser));
+            }).should.be.rejected.notify(done);
+        });
     });
 
     describe('#findUser()', () => {
@@ -185,14 +190,16 @@ describe('user', () => {
 
 describe('class', () => {
     describe('#addClass()', () => {
-        it('should add a class', () => {
-            return database.addClass._id;
+        it('should add a class without error', (done) => {
+            database.addClass(testClass._id);
+            done();
         });
     });
 
     describe('#deleteClass()', () => {
-        it('should delete a class', () => {
-            return database.deleteClass._id;
+        it('should delete a class', (done) => {
+            database.deleteClass(testClass._id);
+            done();
         });
     });
 
