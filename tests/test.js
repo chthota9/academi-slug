@@ -1,7 +1,6 @@
 var chai = require('chai');
 var chaiAsPromised = require('chai-as-promised');
 chai.use(require('chai-as-promised'));
-
 chai.should();
 var expect = require('chai').expect;
 const database = require('../webApp/server_modules/mongoose');
@@ -23,6 +22,24 @@ let testUser = new database.Users({
 before(() => {
     database.Users.deleteMany({ email: 'testUser@gmail.com' }, function(err) {
         console.log(err);
+    });
+});
+
+beforeEach(function(done){
+    letUser = new database.Users({
+        googleID: Math.random(),
+        email: 'testUser@gmail.com',
+        firstName: 'Test',
+        lastName: 'User',
+        year: 'Sophoomre',
+        college: 'Kresge',
+        major: 'Computer Science',
+        bio: 'I like to teach!', 
+        linkedIn: 'test URL',
+        coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }]
+    });
+    testUser.save().then(function(){
+        done();
     });
 });
 
@@ -154,12 +171,12 @@ describe('user', () => {
 
 
     describe('#updateUser()', () => {
-        updates = testUser.bio = 'I hate to teach';
 
-        it('should update user', () => {
-           database.updateUser(testUser.googleID, updates)
+        it('should update user', done => {
+           updates = testUser.bio = 'I hate to teach';
+           database.updateUser(testUser, updates)
            .then(user => {
-                expect(user.bio).to.be('I hate to teach');
+                expect(user.bio).to.equal('I hate to teach');
                 done();
            });
             });
@@ -179,10 +196,10 @@ describe('class', () => {
         });
     });
 
-    //having trouble testing this method
     describe('#findClass()', () => {
         it('should find a class', () => {
-            return database.Classes.findById(testUser._id);
+            var classID;
+            classID = database.Classes.findById(testUser._id);
         });
     });
 
@@ -197,6 +214,17 @@ describe('class', () => {
         });
     });
 
+    describe('#addTutor()',() => {
+        it('should add tutor for the courseNo', () => {
+            courseNo = classes.getClassID('CMPS 115');
+            database.addTutor(courseNo, testUser)
+            .then(user =>{
+                expect(user.coursesTeaching.findById(courseNo).should.eventually.equal(findById(courseNo)));
+                done();
+
+            });
+        });
+    });
 
     describe('#deleteTutor()', () => {
         it('should delete a tutor', () => {
