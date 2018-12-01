@@ -13,7 +13,6 @@
     <%- include templates/nav-profile %>
 <% } %>
 <%- include templates/chat %>
-<%- include templates/footer %>
 
 <body class="body">
     <div class="bg-bigger d-flex justify-content-center align-items-center">
@@ -24,36 +23,36 @@
                     <% if (profile.linkedIn != "") { %>
                         <script src="//platform.linkedin.com/in.js" type="text/javascript" defer></script>
                         <script type="IN/MemberProfile" data-id="<%= profile.linkedIn %>" data-format="click" data-related="false" data-text="Go to <%- profile.name.first %>'s LinkedIn"></script>
-                    <% } %>
-                    <% if (loggedIn && thisUser.googleID != profile.googleID) { %>
-                        <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send me an Email!</a>
-                        <span class="chat-link" onclick="addChat(<%= profile.googleID %>)">Ask For Help!</span>  
-                    <% } %>
-                </div>
-            </div>
-            <dl class="dl-horizontal">
-                <dt class="col-sm-3 mt-4">Name:</dt>
+                        <% } %>
+                        <% if (loggedIn && thisUser.googleID != profile.googleID) { %>
+                            <a class="profile-link" href="mailto:<%= profile.email %>?subject=[Academi-Slug] Can You Help Me?">Send me an Email!</a>
+                            <span class="chat-link" onclick="addChat(<%= profile.googleID %>)">Ask For Help!</span>  
+                            <% } %>
+                        </div>
+                    </div>
+                    <dl class="dl-horizontal">
+                        <dt class="col-sm-3 mt-4">Name:</dt>
                 <dd class="col-sm-9"> <%= profile.name.first %> <%= profile.name.last %> </dd>
                 <hr>
 
                 <dt class="col-sm-3">Year:</dt>
                 <dd class="col-sm-9"> <%= profile.year %> </dd>
                 <hr>
-
+                
                 <dt class="col-sm-3">Major:</dt>
                 <dd class="col-sm-9"> <%= profile.major %> </dd>
                 <hr>
-
+                
                 <dt class="col-sm-3">College:</dt>
                 <dd class="col-sm-9"> <%= profile.college %> </dd>
                 <hr>
-
+                
                 <dt class="col-sm-3">About:</dt>
                 <dd class="col-sm-9"> <%= profile.bio %> </dd>
                 <hr>
                 <dt class="col-sm-6">Courses Teaching:</dt>
                 <ul>
-                   <% courses.forEach(course =>{ %>
+                    <% courses.forEach(course =>{ %>
                         <li>
                             <div class="form-group row align-items-baseline">
                                 <div class="col-4 course-element">
@@ -63,29 +62,30 @@
                                     <div class="col-3 course-element">
                                         <b>N/A</b>
                                     </div>
-                                <% } else { %>
-                                    <div class="col-3 course-element">
-                                        <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
-                                            <span class="fa fa-star checked"></span>
-                                        <% } %>
-                                    (<%=course.reviewCount%>)
+                                    <% } else { %>
+                                        <div class="col-3 course-element">
+                                            <% for (starNum = 0; starNum < Math.round(course.rating); starNum++) { %>
+                                                <span class="fa fa-star checked"></span>
+                                                <% } %>
+                                                (<%=course.reviewCount%>)
                                     </div>
-                                <% } %>
-
-                                <div class="col-3 course-element">
-                                <% if (loggedIn && thisUser.googleID != profile.googleID) { %>
-                                    <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary">Leave Review</a>
-                                <% } else { %>
-                                    <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary disabled">Leave Review</a>
-                                <% } %>
-                                </div>
-                            </div>
-                        </li>
-                    <%   }) %>
-                </ul>
-            </dl>
-        </div>
-    </div>
-</body>
-
-</html>
+                                    <% } %>
+                                    
+                                    <div class="col-3 course-element">
+                                        <% if (loggedIn && thisUser.googleID != profile.googleID) { %>
+                                            <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary">Leave Review</a>
+                                            <% } else { %>
+                                                <a href='/profile/user/<%= profile.googleID %>/review/<%= course._id %>' class="btn btn-secondary disabled">Leave Review</a>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <%   }) %>
+                                </ul>
+                            </dl>
+                        </div>
+                    </div>
+                    <%- include templates/footer %>
+                </body>
+                
+                </html>
