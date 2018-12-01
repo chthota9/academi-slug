@@ -36,6 +36,9 @@ app.get('/', function(req, res) {
     if (req.session.deleted) {
         input['deleted'] = req.session.deleted;
         req.session.deleted = null;
+    } else if (req.session.reviewed) {
+        input['reviewed'] = req.session.reviewed;
+        req.session.reviewed = null;
     }
     res.render('search', input);
 });

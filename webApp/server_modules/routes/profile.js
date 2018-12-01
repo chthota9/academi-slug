@@ -101,8 +101,9 @@ router.post('/user/:id(\\d+)/review/:course(\\d+)/sub', (req, res) => {
 
     addReview(googleID, classID, reviews)
         .then(() => {
-            res.redirect('/');
-        }).catch((err) => {
+            req.session.reviewed = true;
+            req.session.save(() => res.redirect('/'));
+            }).catch((err) => {
             throw err;
         });
 });
@@ -181,7 +182,6 @@ router.get('/deleteProfile', (req, res) => {
     }
     deleteUser(req.user.id)
         .then(() => {
-            console.log(req.session);
             req.session.passport = null;
             req.session.deleted = true;
             req.session.save(() => res.redirect('/'));

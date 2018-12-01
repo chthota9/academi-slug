@@ -1,10 +1,14 @@
 <!-- Alert view -->
-<% if(typeof deleted === 'undefined'){ %>
+<% if((typeof deleted === 'undefined') && (typeof reviewed === 'undefined')){ %>
     <div id="alert" class=" hidden msg view container-fluid alert alert-success">
         <span class="align-middle" role="alert"></span>
     </div>
-<% } else if (deleted === true) { %>
+<% } else if (typeof reviewed === 'undefined') { %>
     <div id="alert" class=" msg deleted container-fluid alert alert-success">
         <span class="align-middle" role="alert">You have successfully deleted your account!</span>
+    </div>
+<% } else if (typeof deleted === 'undefined') { %>
+    <div id="alert" class=" msg deleted container-fluid alert alert-success">
+        <span class="align-middle" role="alert">You have successfully reviewed another user!</span>
     </div>
 <% } %>
