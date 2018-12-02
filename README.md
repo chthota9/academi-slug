@@ -2,7 +2,7 @@
 
 ---
 
-### Final project documents can be found [here](Documents/Final%Documents)
+### Final project documents can be found [here](Documents/Final_Documents)
 
 ---
 
