@@ -174,6 +174,7 @@ function findUser (googleID) {
 }
 
 function updateUser (user, updates) {
+    console.log('The updates are' + JSON.stringify(updates));
     console.log('Updating user ' + user.id);
     return new Promise((resolve, reject) => {
         let keys = Object.keys(updates);
@@ -219,10 +220,10 @@ function updateUser (user, updates) {
 //Untested - needed
 function addReview(googleID, classID, reviews) {
     console.log('Adding a review!');
+    console.log(googleID);
     return new Promise((resolve, reject) => {
         findUser(googleID)
             .then(thisUser => {
-                
                 console.log('There reviews are' + JSON.stringify(reviews));
                 // Loop through array of coursesTeaching to find rating for the specific course
                 let thisClass = thisUser.coursesTeaching.id(classID);
@@ -258,7 +259,6 @@ function addClass (courseNo) {
             console.log('Class ' + course.courseNo + ' added.');
             resolve(course);
         });
-        
     });
 }
 
@@ -278,8 +278,8 @@ function deleteClass (courseNo) {
 //Seems to be working
 //Should error checking when class does not exist
 function addTutor (courseNo, tutor) {
+    console.log(courseNo);
     return new Promise((resolve, reject) => {
-
         Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutor } })
             .exec((err, user) => {
                 if (err) return reject(err);
@@ -291,6 +291,7 @@ function addTutor (courseNo, tutor) {
 
 //Untested
 function deleteTutor (googleID, courseNo) {
+    console.log(courseNo);
     return new Promise((resolve, reject) => {
         Classes.findByIdAndDelete(googleID, function(err) {
             if (err) {
@@ -304,7 +305,7 @@ function deleteTutor (googleID, courseNo) {
 }
 
 /**
- * @param {Number} courseNo 
+ * @param {Number} courseNo
  * @returns {Promise<Array>} tutors
  */
 function findClass (courseNo) {
@@ -360,7 +361,7 @@ module.exports = {
     addClass,
     addTutor,
     findClass,
-    connection, 
+    connection,
     addReview,
     deleteClass,
     deleteTutor,

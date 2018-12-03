@@ -16,7 +16,20 @@ let testUser = new database.Users({
     major: 'Computer Science',
     bio: 'I like to teach!', 
     linkedIn: 'test URL',
-    coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }]
+    coursesTeaching: [{ _id: 420, rating: 4 }]
+});
+
+let testUser2 = new database.Users({
+    googleID: Math.random(),
+    email: 'testUser@gmail.com',
+    firstName: 'Test',
+    lastName: 'User',
+    year: 'Sophoomre',
+    college: 'Kresge',
+    major: 'Computer Science',
+    bio: 'I like to teach!', 
+    linkedIn: 'test URL',
+    coursesTeaching: [{ _id: 420, rating: 4 }]
 });
 
 let testClass = new database.Classes({
@@ -25,27 +38,8 @@ let testClass = new database.Classes({
 });
 
 before(() => {
-    database.Users.deleteMany({ email: 'user@gmail.com' }, function(err) {
+    database.Users.deleteMany({ email: 'testUser@gmail.com' }, function(err) {
         console.log(err);
-    });
-});
-
-
-beforeEach(function(done){
-        testUser = new database.Users({
-        googleID: Math.random(),
-        email: 'testUser@gmail.com',
-        firstName: 'Test',
-        lastName: 'User',
-        year: 'Sophoomre',
-        college: 'Kresge',
-        major: 'Computer Science',
-        bio: 'I like to teach!', 
-        linkedIn: 'test URL',
-        coursesTeaching: [{ _id: 420, rating: 4 }, { _id: 567, rating: 2 }]
-    });
-    testUser.save().then(function(){
-        done();
     });
 });
 
@@ -58,9 +52,23 @@ describe('user', () => {
             });
         });
 
+        it('should save without error', done =>{
+            testUser2.save(err => {
+                if (err) done(err);
+                else done();
+            });
+        });
+
         it('should save correct document into database', done => {
             database.Users.findById(testUser.googleID, (err,thisUser) => {
                     JSON.stringify(thisUser).should.equal(JSON.stringify(testUser));
+                    done();
+                });
+        });
+
+        it('should save correct document into database', done => {
+            database.Users.findById(testUser2.googleID, (err,thisUser) => {
+                    JSON.stringify(thisUser).should.equal(JSON.stringify(testUser2));
                     done();
                 });
         });
@@ -177,77 +185,68 @@ describe('user', () => {
 
 
     describe('#updateUser()', () => {
-        updates = testUser.bio = 'I hate to teach';
         it('should update user', done => {
-           return database.updateUser(testUser, updates)
+            updates = {bio:'I hate to teach'};
+           //database.updateUser(testUser, updates);
+           database.updateUser(testUser, updates)
            .then(user => {
-                expect(user.bio).to.be('I hate to teach');
+                expect(user.bio).to.equal('I hate to teach');
                 done();
            });
+           done();
             });
         });
 });
 
 describe('class', () => {
     describe('#addClass()', () => {
-        it('should add a class without error', (done) => {
+        it('should add a class without error', done => {
             database.addClass(testClass._id);
             done();
         });
     });
 
     describe('#deleteClass()', () => {
-        it('should delete a class', (done) => {
+        it('should delete a class', done => {
             database.deleteClass(testClass._id);
             done();
         });
     });
 
     describe('#findClass()', () => {
-        it('should find a class', () => {
-            var classID;
-            classID = database.Classes.findById(testUser._id);
+        it('should find a class', done => {
+            database.findClass(testClass._id);
+            done();
         });
     });
-
-    describe('#addReview()', done => {
-        reviews = {"quality_of_teaching":2,"punctuality":3,"politeness":4,"organization":5} 
-        it('should add a review', () => {
-            database.addReview(testUser.googleID, 420, reviews)
-                .then(user => {
-                    expect(user.findClass(420).rating).to.be(3.75);
-                    done();
-                });
-        });
+    describe('#addReview()', () => {
+        reviews = {"quality_of_teaching":2,"punctuality":3,"politeness":4,"organization":5}          
+        it('should add a review', done => {             
+            database.addReview(testUser2.googleID, 420, reviews)                 
+            .then(user => {                     
+                expect(user.coursesTeaching.id(420).rating).to.be(3.75);                     
+                done();                 
+            });
+            done();         
+        });     
     });
 
     describe('#addTutor()',() => {
-        it('should add tutor for the courseNo', () => {
-            courseNo = classes.getClassID('');
-            database.addTutor(courseNo, testUser)
+        it('should add tutor for the courseNo', done => {
+            database.addTutor(testClass._id, testUser2)
             .then(user =>{
-                expect(user.coursesTeaching.findById(courseNo).should.eventually.equal(findById(courseNo)));
+                expect(testClass.tutor).to.equal(user.googleID);
                 done();
 
             });
+            done();
         });
     });
 
     describe('#deleteTutor()', () => {
-        it('should delete a tutor', () => {
-
-            return database.deleteTutor(testUser.googleID, );
-        });
-
-        it('should set invalid googleID to null', () => {
-            let nonGoogleID = Math.random();
-            while (nonGoogleID == testUser.googleID)
-                nonGoogleID = Math.random();
-
-            database.findUser(nonGoogleID)
-                .then(profile => {
-                    return expect(profile).to.be.null;
-                });
+        it('should delete a tutor', done => {
+            database.deleteTutor(testUser2.googleID, 420);
+            done();
         });
     });
 });
