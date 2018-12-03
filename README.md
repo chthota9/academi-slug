@@ -20,7 +20,7 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 - Link to our third [Sprint Plan](Documents/Sprint%203%20Plan.pdf)
 - Link to our third [Sprint Report](Documents/Sprint_3_Report%20Plan.pdf)
 - Link to our fourth [Sprint Plan](Documents/Sprint_4_Plan.pdf)
-- Link to our fourth Sprint Report (TBA)
+- Link to our fourth [Sprint Report](Documents/Sprint%204%20Report.pdf)
 - Link to our [Scrum Board](https://trello.com/b/3utiz3Fv/scrum-board)
 
 ---
