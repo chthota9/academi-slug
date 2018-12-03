@@ -179,6 +179,7 @@ describe('user', () => {
     describe('#updateUser()', () => {
 
         it('should update user', done => {
+            database.updateUser(testUser, )
            updates = testUser.bio = 'I hate to teach';
            database.updateUser(testUser, updates)
            .then(user => {
