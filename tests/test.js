@@ -244,9 +244,20 @@ describe('class', () => {
     });
 
     describe('#deleteTutor()', () => {
-        it('should delete a tutor', done => {
-            database.deleteTutor(testUser2.googleID, 420);
+        it('should delete a tutor', (done) => {
+            database.deleteTutor(testUser.googleID, testClass._id);
             done();
+        });
+
+        it('should set invalid googleID to null', () => {
+            let nonGoogleID = Math.random();
+            while (nonGoogleID == testUser.googleID)
+                nonGoogleID = Math.random();
+
+            database.findUser(nonGoogleID)
+                .then(profile => {
+                    return expect(profile).to.be.null;
+                });
         });
     });
 });
