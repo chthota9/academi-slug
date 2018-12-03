@@ -177,15 +177,15 @@ describe('user', () => {
 
 
     describe('#updateUser()', () => {
-
         it('should update user', done => {
-            database.updateUser(testUser, )
-           updates = testUser.bio = 'I hate to teach';
+            updates = testUser.bio = 'I hate to teach';
+           //database.updateUser(testUser, updates);
            database.updateUser(testUser, updates)
            .then(user => {
                 expect(user.bio).to.equal('I hate to teach');
                 done();
            });
+           done();
             });
         });
 });
@@ -236,8 +236,9 @@ describe('class', () => {
     });
 
     describe('#deleteTutor()', () => {
-        it('should delete a tutor', () => {
-            return database.deleteTutor(testUser.googleID, testUser.coursesTeaching._id);
+        it('should delete a tutor', (done) => {
+            database.deleteTutor(testUser.googleID, testUser.Users.coursesTeaching);
+            done();
         });
 
         it('should set invalid googleID to null', () => {
