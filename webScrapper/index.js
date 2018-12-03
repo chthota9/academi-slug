@@ -82,11 +82,10 @@ function requestMajors() {
                 if (err) {
                     throw err
                 }
-                console.log(`Got all ${majors.length} majors at UCSC!`);
-            })
+            });
         })
         .catch(err => {
-            throw (err)
+            throw (err);
         });
 }
 
@@ -100,15 +99,14 @@ function requestCourses() {
             new Promise((resolve, reject) => {
                 fs.writeFile('ucsc-courses.json', JSON.stringify(classes), err => {
                     if (err) {
-                        return reject(err)
+                        return reject(err);
                     }
-                    console.log(`Got all ${Object.keys(classes).length} courses at UCSC!`);
                     resolve();
-                })
+                });
             })
         )
         .catch(err => {
-            throw err
+            throw(err);
         });
 }
 

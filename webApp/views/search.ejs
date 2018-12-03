@@ -1,20 +1,23 @@
 <!DOCTYPE html>
+
 <html class="html">
 
 <head>
     <%- include templates/header %>
-    <% if(!loggedIn) { %>
-    <%- include templates/nav-buttons %>
-    <% } else { %>
-    <%- include templates/nav-profile %>
-    <% } %>
     <title>Academi-Slug | Search</title>
 </head>
 
+<% if(!loggedIn) { %>
+    <%- include templates/nav-buttons %>
+<% } else { %>
+    <%- include templates/nav-profile %>
+<% } %>
+
+<%- include templates/alert %>
+<%- include templates/chat %>
+
 <body class="body">
     <div class="bg-tutorial align-items-center">
-        <%- include templates/alert %>
-    
         <div class="card search-card">
             <div class="card-header">
                 <h3 class="display-4 search-title">What do you need help with?</h3>
@@ -22,14 +25,14 @@
             <div class="card-body">
                 <form class="form-inline" action="/searchRoute" autocomplete = "off" method="GET">
                     <input class="form-control mr-sm-2 text-center col-sm-9" id='searchBar'
-                        type="search" placeholder="Search For Course (i.e. CMPS 115)" name="search">
+                    type="search" placeholder="Search For Course (i.e. CMPS 115)" name="search">
                     <input class="btn btn-primary" value="Search" type="submit">
                 </form>
             </div>
         </div>
+        
         <div class="tutorial-main">
             <h4 class="display-4">I am a...</h4>
-
             <div class="tutorial-subsection">
                 <div class="card tutorial-card">
                     <div class="tutorial-card-header">
@@ -72,11 +75,10 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <%- include templates/chat %>
     </div>
     <script type = "module" src ="/autocomplete.js"></script>
+    <%- include templates/footer %>
 </body>
 
 </html>

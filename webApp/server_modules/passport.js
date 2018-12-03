@@ -54,8 +54,6 @@ module.exports = function(app) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CREATEP_CALLBACK
     }, function(accessToken, refreshToken, profile, cb) {
-        // console.log(profile);
-        console.log('Creating Account');
         let googID = Number.parseInt(profile.id);
         findUser(googID)
             .then(prof => {
@@ -76,16 +74,10 @@ module.exports = function(app) {
     }));
 
     passport.serializeUser((sessData, cb) => {
-        console.log('Serializing');
-        // console.log(JSON.stringify(sessData));
-
         return cb(null, sessData);
     });
 
     passport.deserializeUser((sessData, cb) => {
-        //search database for user
-        console.log('deserializing');
-        // console.log(JSON.stringify(sessData));
         if (sessData.extra != undefined) {
             cb(null, sessData);
         } else {
@@ -102,7 +94,7 @@ module.exports = function(app) {
 
     router.get('/login', passport.authenticate('googleHave', { failureRedirect: '/profile/signup' }),
         function(req, res) {
-            req.session.save(() => res.redirect('/'));
+            req.session.save(() => res.redirect(req.header('Referer') || '/'));
         });
 
     return { sessionMid, router };

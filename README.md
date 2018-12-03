@@ -1,7 +1,10 @@
 ## Academi-Slug: UCSC's Premier Tutoring Platform
 
+---
 
+### Final project documents can be found [here!](tree/master/Documents/Final_Documents)
 
+---
 
 #### Description: 
 Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring platform of UC Santa Cruz. Users can sign up and search for all tutors available for a particular class. After selecting a tutor based on their experience and qualifications, potential tutees can then communicate with their tutors to establish a meeting time/location. Simple and easy-to-use, Academi-Slug is your one-stop-shop for all your assistive-learning needs.

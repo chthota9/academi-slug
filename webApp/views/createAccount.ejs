@@ -17,7 +17,7 @@
             </div>
             <div class="card-body">
                 <form id="profileForm">
-
+                    
                     <h3 class="h3-title">Profile Information</h3>
                     <div class="row">
                         <div class="form-group col-md-3">
@@ -27,7 +27,7 @@
                             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" value="<%- user.extra.lastName %>" required>
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="form-group col-md-3">
                             <select id="year" name="year" class="form-control" required>
@@ -44,9 +44,7 @@
                             <select id="major" name="major" class="form-control" required>
                                 <option value="" selected disabled>Major</option>
                                 <% majors.forEach(major=>{ %>
-                                <option>
-                                    <%= major %>
-                                </option>
+                                    <option> <%= major %> </option>
                                 <%   }) %>
                             </select>
                         </div>
@@ -67,23 +65,26 @@
                             </select>
                         </div>
                     </div>
+                    
                     <div class="row">
                         <div class="form-group col-md-12">
                             <textarea class="form-control" name="bio" rows="5" id="bio" placeholder="Talk about your class experience..." required></textarea>
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="form-group col-md-7">
-                            <input type="text" class="form-control" id="linkedIn" name="linkedIn" placeholder="LinkedIn URL">
+                            <input type="text" class="form-control" id="linkedIn" name="linkedIn" autocomplete="off" placeholder="LinkedIn URL">
                         </div>
                     </div>
-                    <label for="classInput" >Classes Able To Tutor(optional):</label>
+
+                    <hr class="horizontal-row">
+                    <h3 class="h3-title">Courses Currently Tutoring:</h3>
                     <div class="form-control classSelect">
                         <ul class="classlist">
-                                <li class="classinput" style="border-style: double; border-width: 5px">
-                                <input placeholder="Search For Class" type="text" id="classInput" name="query" autocomplete="off" spellcheck="false">
-                                <span data-helper="e.g CMPS115" class="querylist helper hidden"></span>
+                            <li class="classinput" style="width: 9em; border-style: double; border-width: 5px">
+                                <input placeholder="Add Course" type="text" id="classInput" name="query" autocomplete="off" spellcheck="false">
+                                <span data-helper="e.g CMPS 115" class="querylist helper hidden"></span>
                             </li>
                         </ul>
                     </div>
@@ -93,9 +94,9 @@
             </div>
         </div>
     </div>        
-    <%- include templates/footer %>
     <script src="/classSelect.js" defer></script>
     <script src="/profileCreate.js" defer></script>
+    <%- include templates/footer %>
 </body>
 
 </html>

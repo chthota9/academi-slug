@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-
 <html class="html">
 
 <head>
@@ -19,13 +18,13 @@
             <div class="card-body">
                 <div class="col-md-auto">
                     <div>
-                        <p>You are rating <b><%= profile.firstName %> <%= profile.lastName %></b> for their tutoring of <b><%= className %></b>. Please be sure to leave ratings for all categories; otherwise, submitting will no work.</p>
+                        <p>You are rating <b><%= profile.firstName %> <%= profile.lastName %></b> for their tutoring of <b><%= className %></b>. Please be sure to leave ratings for all categories; otherwise, submitting will not work.</p>
                     </div>
-                    <hr>
+                    <hr class="horizontal row">
+
                     <form id="reviewForm">
                         <div class="form-group row">
-                            <label for="quality_of_teaching" class="col-5 &#9733col-form-label review-title">Quality of
-                                Teaching:</label>
+                            <label for="quality_of_teaching" class="col-5 &#9733col-form-label review-title">Quality of Teaching:</label>
                             <div class="col-7">
                                 <fieldset class="rating" id="quality_of_teaching">
                                     <input type="radio" id="star1.5" name="quality_of_teaching" value="5" /><label
@@ -41,6 +40,7 @@
                                 </fieldset>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="punctuality" class="col-5 col-form-label review-title">Punctuality:</label>
                             <div class="col-7">
@@ -58,7 +58,6 @@
                                 </fieldset>
                             </div>
                         </div>
-
 
                         <div class="form-group row ">
                             <label for="politeness" class="col-5 col-form-label review-title">Politeness:</label>
@@ -102,6 +101,7 @@
                             </div>
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>

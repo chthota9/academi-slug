@@ -3,7 +3,7 @@ let reviewForm = document.querySelector('#reviewForm'); //get form
 let subBtn = reviewForm.querySelector('button[type="submit"]');
 let finalRating = {}; //the final ratings that will be sent to the server on submit
 
-//sets up the radios to do something when they are clicked/changed
+// Sets up the radios to do something when they are clicked/changed
 for (let i = 0; i < categories.length; i++) {
     const category = categories[i];
     let categoryName = category.id;
@@ -13,7 +13,6 @@ for (let i = 0; i < categories.length; i++) {
         radio.addEventListener('change', function() {
             //on radio click apply rating to category
             finalRating[categoryName] = Number.parseInt(this.value);
-            console.log(`${categoryName} = ${this.value}`);
             validateForm();
         });
     }
@@ -29,12 +28,12 @@ reviewForm.addEventListener('submit', evt => {
     formReq.open('POST', `/profile/user/${userID}/review/${classID}/sub`);
     formReq.addEventListener('load', () => {
         if (formReq.status === 200) {
-            location.href = formReq.responseURL;
+            window.location.replace('/');
         } else {
             throw new Error('Failed to send review');
         }
     });
-    formReq.setRequestHeader('Content-Type', 'application/json');
+    formReq.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
     formReq.send(JSON.stringify(finalRating));
 });
 

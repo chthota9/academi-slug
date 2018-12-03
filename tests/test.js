@@ -1,11 +1,11 @@
 var chai = require('chai');
-var chaiAsPromised = require('chai-as-promised');
 chai.use(require('chai-as-promised'));
 chai.should();
 var expect = require('chai').expect;
 const database = require('../webApp/server_modules/mongoose');
 const classes = require('../webApp/server_modules/course_json_parser');
 
+// Defines a sample input
 let testUser = new database.Users({
     googleID: Math.random(),
     email: 'testUser@gmail.com',
@@ -37,12 +37,14 @@ let testClass = new database.Classes({
     tutors: [{_id: Math.random()}]
 });
 
+// Before each execution, deletes any spare testUser documents
 before(() => {
     database.Users.deleteMany({ email: 'testUser@gmail.com' }, function(err) {
         console.log(err);
     });
 });
 
+// Tests all functions of UserSchema
 describe('user', () => {
     describe('#save()', () => {
         it('should save without error', done => {
@@ -198,6 +200,7 @@ describe('user', () => {
         });
 });
 
+// Tests all functions of ClassSchema
 describe('class', () => {
     describe('#addClass()', () => {
         it('should add a class without error', done => {

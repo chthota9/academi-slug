@@ -6,11 +6,13 @@ mongoose.connect('mongodb://jrybojad:exchangeslug3@ds135003.mlab.com:35003/acade
     useNewUrlParser: true
 });
 
+// Establishes Mongoose connection
 const connection = mongoose.connection;
 connection.once('open', function() {
     console.log('We\'re connected to the database!');
 });
 
+// Defines ClassSchema
 let classSchema = new mongoose.Schema({
     _id: {
         type: Number,
@@ -30,8 +32,8 @@ classSchema.pre('findOne', function() {
     this.populate('tutors', 'name _id coursesTeaching');
 });
 
+// Defiens Classes model
 let Classes = mongoose.model('Classes', classSchema);
-
 
 let courseTeachingSchema = new mongoose.Schema({
     _id: {
@@ -62,6 +64,7 @@ courseTeachingSchema.virtual('courseNo')
         this._id = val;
     });
 
+// Defines UserSchema
 let userSchema = new mongoose.Schema({
     _id: {
         type: Number,
@@ -118,9 +121,10 @@ userSchema.virtual('fullName').get(function() {
     return this.firstName + ' ' + this.lastName;
 });
 
-
+// Defines Users model
 let Users = mongoose.model('Users', userSchema);
 
+// Adds a user to the database
 function addUser (user) {
     return new Promise((resolve, reject) => {
         let userAdded = new Users({
@@ -141,26 +145,28 @@ function addUser (user) {
             if (err) {
                 return reject(err);
             }
-            // console.log(profile);
-            console.log('User ' + profile.googleID + ' added.');
             resolve(profile);
         });
     });
 }
 
+/**
+ * @param {Number} googleID The user to be deleted
+ */
 function deleteUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findByIdAndDelete(googleID, function(err) {
             if (err) {
-                console.log('User with googleID ' + googleID + ' does not exist.');
                 return reject(err);
             }
-            console.log('User ' + googleID + ' deleted.');
             resolve();
         });
     });
 }
 
+/**
+ * @param {Number} googleID The user trying to be found
+ */
 function findUser (googleID) {
     return new Promise((resolve, reject) => {
         Users.findById(googleID)
@@ -173,9 +179,11 @@ function findUser (googleID) {
     });
 }
 
+/**
+ * @param {Object} user The user to update
+ * @param {Object} updates The changes to the profile
+ */
 function updateUser (user, updates) {
-    console.log('The updates are' + JSON.stringify(updates));
-    console.log('Updating user ' + user.id);
     return new Promise((resolve, reject) => {
         let keys = Object.keys(updates);
         let profileUpdate = {};
@@ -217,10 +225,12 @@ function updateUser (user, updates) {
     });
 }
 
-//Untested - needed
+/**
+ * @param {Number} googleID Account to add review under
+ * @param {Number} classID Course to review account on
+ * @param {Object} reviews The contains rating of each category
+ */
 function addReview(googleID, classID, reviews) {
-    console.log('Adding a review!');
-    console.log('The reviews are' + JSON.stringify(reviews));
     return new Promise((resolve, reject) => {
         findUser(googleID)
             .then(thisUser => {
@@ -244,10 +254,7 @@ function addReview(googleID, classID, reviews) {
 }
 
 
-/**
- * func should add tutor under class but if class is not in database
- * add class to db with tutor under it
- */
+// Adds a class to the database
 function addClass (courseNo) {
     return new Promise((resolve, reject) => {
         let classAdded = new Classes({ courseNo, tutors: [] });
@@ -255,60 +262,63 @@ function addClass (courseNo) {
             if (err) {
                 return reject(err);
             }
-            console.log('Class ' + course.courseNo + ' added.');
             resolve(course);
         });
     });
 }
 
+/**
+ * @param {Number} courseNo Course number of course to delete
+ * @summary Deletes a class from the database
+ */
 function deleteClass (courseNo) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndDelete(courseNo, function(err) {
             if (err) {
-                console.log('User with courseNo ' + courseNo + ' does not exist.');
                 return reject(err);
             }
-            console.log('Class ' + courseNo + ' deleted.');
-            resolve();
-        });
-    });
-}
-
-//Seems to be working
-//Should error checking when class does not exist
-function addTutor (courseNo, tutor) {
-    console.log(courseNo);
-    return new Promise((resolve, reject) => {
-        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutor } })
-            .exec((err, user) => {
-                if (err) return reject(err);
-                console.log('Tutor ' + tutor._id + ' added to class ' + courseNo);
-                resolve(user);
-            });
-    });
-}
-
-//Untested
-function deleteTutor (googleID, courseNo) {
-    console.log(courseNo);
-    return new Promise((resolve, reject) => {
-        Classes.findByIdAndDelete(googleID, function(err) {
-            if (err) {
-                console.log('User with googleID ' + googleID + ' does not exist.');
-                return reject(err);
-            }
-            console.log('Class ' + courseNo + ' deleted.');
             resolve();
         });
     });
 }
 
 /**
- * @param {Number} courseNo
- * @returns {Promise<Array>} tutors
+ * @param {Number} courseNo The course's course number the tutor should be added to
+ * @param {Number} tutorID The tutor's google ID
+ * @returns {Promise<>} The tutor that was added under a class
+ */
+function addTutor (courseNo, tutorID) {
+    return new Promise((resolve, reject) => {
+        Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutorID } },{new:true})
+            .exec((err, updatedCourse) => {
+                if (err) return reject(err);
+                resolve(updatedCourse);
+            });
+    });
+}
+
+/**
+ * @param {Number} googleID The tutor to be removed from a course
+ * @param {Number} courseNo The course that the tutor is being removed from
+ */
+function deleteTutor (googleID, courseNo) {
+    console.log(courseNo);
+    return new Promise((resolve, reject) => {
+        Classes.findByIdAndDelete(googleID, function(err) {
+            if (err) {
+                return reject(err);
+            }
+            resolve(user);
+        });
+    });
+}
+
+// Finds a class
+/**
+ * @param {Number} courseNo The course being looked for
+ * @returns {Promise<Array>} The tutors teaching the course
  */
 function findClass (courseNo) {
-    console.log('Searching for Class ' + courseNo);
     return new Promise((resolve, reject) => {
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
@@ -329,28 +339,6 @@ function findClass (courseNo) {
     });
 }
 
-// //Uncomment to test
-// deleteClass(456)
-//     .then(() => addClass({ courseNo: 456}))
-//     .then(() => addTutor(123, 456))
-//     .then(() => addTutor(321, 456))
-//     .then(prof => findUser(prof.googleID))
-//     .then(prof => {
-//         console.log(`BEFORE: ${prof.fullName}`);
-//         return prof;
-//     })
-//     .then((prof) => updateUser(prof.googleID, { 'name.first': 'Bob' }))
-//     .then(prof => {
-//         console.log(`AFTER: ${prof.fullName}`);
-//         return prof;
-//     })
-//     //    .then((prof) => addReview(prof.googleID, { 'coursesTaught': [{_id:  420, rating: 4.6}] })) // Will break testing unit
-//     .    catch(err => console.log(err));
-// addClass(21451)
-//     .then(() => addTutor(21451, { _id: 4321, name: 'Sammy Slug', rating: 4 }))
-//     .then(() => addTutor(21451, { _id: 5555, name: 'George Bluementhall', rating: 3 }));
-
-//exported addReview and deleteClass
 module.exports = {
     Users,
     addUser,

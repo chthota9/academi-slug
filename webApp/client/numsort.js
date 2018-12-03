@@ -1,4 +1,4 @@
-// Sorts rating from best to worst
+// Sorts ratings from best to worst
 function numSort() {
     var rows, switching, i, x, y, shouldSwitch;
     rows = document.getElementsByTagName('tr');
@@ -21,4 +21,4 @@ function numSort() {
             switching = true;
         }
     }
-}   
+}
