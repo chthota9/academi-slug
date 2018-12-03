@@ -2,7 +2,7 @@
 
 ---
 
-### Final project documents can be found [here!](tree/master/Documents/Final_Documents)
+### Final project documents can be found [here!](https://github.com/tim-nguyen-cs/academi-slug/tree/master/Documents/Final%20Documents)
 
 ---
 
