@@ -12,7 +12,7 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 ---
 
 #### Documentation:
-- Link to our [Release Plan](Documents/Release%20Plan.pdf)
+- Link to our [Release Plan](Documents/Plans%20&%20Reports/Release%20Plan.pdf)
 - Link to our first [Sprint Plan](Documents/Sprint%201%20Plan.pdf)
 - Link to our first [Sprint Report](Documents/Sprint_1_Report.pdf)
 - Link to our second [Sprint Plan](Documents/Sprint_2_Plan.pdf)
