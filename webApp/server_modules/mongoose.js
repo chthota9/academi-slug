@@ -289,9 +289,9 @@ function deleteClass (courseNo) {
 function addTutor (courseNo, tutorID) {
     return new Promise((resolve, reject) => {
         Classes.findByIdAndUpdate(courseNo, { $push: { tutors: tutorID } })
-            .exec((err, user) => {
+            .exec((err, updatedCourse) => {
                 if (err) return reject(err);
-                resolve(user);
+                resolve(updatedCourse);
             });
     });
 }
