@@ -13,14 +13,14 @@ Need personal, quality tutoring assitance? Academi-Slug is the premier tutoring 
 
 #### Documentation:
 - Link to our [Release Plan](Documents/Plans%20&%20Reports/Release%20Plan.pdf)
-- Link to our first [Sprint Plan](Documents/Sprint%201%20Plan.pdf)
-- Link to our first [Sprint Report](Documents/Sprint_1_Report.pdf)
-- Link to our second [Sprint Plan](Documents/Sprint_2_Plan.pdf)
-- Link to our second [Sprint Report](Documents/Sprint_2_Report.pdf)
-- Link to our third [Sprint Plan](Documents/Sprint%203%20Plan.pdf)
-- Link to our third [Sprint Report](Documents/Sprint_3_Report%20Plan.pdf)
-- Link to our fourth [Sprint Plan](Documents/Sprint_4_Plan.pdf)
-- Link to our fourth [Sprint Report](Documents/Sprint%204%20PReport.pdf)
+- Link to our first [Sprint Plan](Documents/Plans%20&%20Reports/Sprint%201%20Plan.pdf)
+- Link to our first [Sprint Report](Documents/Plans%20&%20Reports/Sprint_1_Report.pdf)
+- Link to our second [Sprint Plan](Documents/Plans%20&%20Reports/Sprint_2_Plan.pdf)
+- Link to our second [Sprint Report](Documents/Plans%20&%20Reports/Sprint_2_Report.pdf)
+- Link to our third [Sprint Plan](Documents/Plans%20&%20Reports/Sprint%203%20Plan.pdf)
+- Link to our third [Sprint Report](Documents/Plans%20&%20Reports/Sprint_3_Report%20Plan.pdf)
+- Link to our fourth [Sprint Plan](Documents/Plans%20&%20Reports/Sprint_4_Plan.pdf)
+- Link to our fourth [Sprint Report](Documents/Plans%20&%20Reports/Sprint%204%20PReport.pdf)
 - Link to our [Scrum Board](https://trello.com/b/3utiz3Fv/scrum-board)
 
 ---
