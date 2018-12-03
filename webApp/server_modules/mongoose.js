@@ -308,7 +308,7 @@ function deleteTutor (googleID, courseNo) {
             if (err) {
                 return reject(err);
             }
-            resolve(user);
+            resolve();
         });
     });
 }
@@ -323,10 +323,11 @@ function findClass (courseNo) {
         Classes.findById(courseNo)
             .exec((err, classQuery) => {
                 if (err) return reject(err);
-
                 let tutors = [];
                 if (classQuery != null)
                     classQuery.tutors.forEach(tutorDoc => {
+                        console.log(tutorDoc);
+                        
                         let tutor = {
                             googleID: tutorDoc.googleID,
                             name: { first: tutorDoc.firstName, last: tutorDoc.lastName },

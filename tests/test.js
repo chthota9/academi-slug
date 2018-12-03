@@ -34,7 +34,7 @@ let testUser2 = new database.Users({
 
 let testClass = new database.Classes({
     _id: 890, 
-    tutors: [{_id: Math.random()}]
+    tutors: []
 });
 
 // Before each execution, deletes any spare testUser documents
@@ -42,6 +42,9 @@ before(() => {
     database.Users.deleteMany({ email: 'testUser@gmail.com' }, function(err) {
         console.log(err);
     });
+    database.Classes.deleteMany({_id:890},(err)=>{
+        console.log(err);
+    })
 });
 
 // Tests all functions of UserSchema
@@ -136,9 +139,7 @@ describe('user', () => {
         });
 
         it('should not add two Users with the same googleID', done => {
-            new Promise(() => {
-                return new Promise(database.addUser(testUser));
-            }).should.be.rejected.notify(done);
+            database.addUser(testUser).catch(err=>done());
         });
     });
 
@@ -190,12 +191,12 @@ describe('user', () => {
         it('should update user', done => {
             updates = {bio:'I hate to teach'};
            //database.updateUser(testUser, updates);
-           database.updateUser(testUser, updates)
-           .then(user => {
-                expect(user.bio).to.equal('I hate to teach');
-                done();
+           database.updateUser(testUser2, updates)
+           .then(()=> database.findUser(testUser2.googleID))
+           .then(user=>{
+               expect(user.bio).to.equal('I hate to teach');
+               done();
            });
-           done();
             });
         });
 });
@@ -204,47 +205,46 @@ describe('user', () => {
 describe('class', () => {
     describe('#addClass()', () => {
         it('should add a class without error', done => {
-            database.addClass(testClass._id);
-            done();
+            database.addClass(testClass._id)
+            .then(course=>{
+                expect(course.courseNo).to.equal(testClass._id);
+                done();
+            });
         });
     });
 
-    describe('#deleteClass()', () => {
-        it('should delete a class', done => {
-            database.deleteClass(testClass._id);
-            done();
-        });
-    });
-
-    describe('#findClass()', () => {
-        it('should find a class', done => {
-            database.findClass(testClass._id);
-            done();
-        });
-    });
     describe('#addReview()', () => {
         reviews = {"quality_of_teaching":2,"punctuality":3,"politeness":4,"organization":5}          
         it('should add a review', done => {             
             database.addReview(testUser2.googleID, 420, reviews)                 
-            .then(user => {                     
-                expect(user.coursesTeaching.id(420).rating).to.be(3.75);                     
-                done();                 
-            });
-            done();         
+            .then(() => database.findUser(testUser2.googleID))
+            .then(user=>{
+                expect(user.coursesTeaching.id(420).rating).to.equal(3.75);                     
+                done();
+            });     
         });     
     });
 
     describe('#addTutor()',() => {
         it('should add tutor for the courseNo', done => {
-            database.addTutor(testClass._id, testUser2)
-            .then(user =>{
-                expect(testClass.tutor).to.equal(user.googleID);
+            database.addTutor(testClass._id, testUser2.googleID)
+            .then(course =>{
+                expect(course.tutors[0]).to.equal(testUser2.googleID);
                 done();
-
             });
-            done();
         });
     });
+
+    // describe('#findClass()', () => {
+    //     it('should find a class', done => {
+    //         database.deleteTutor(testUser2.googleID,testClass._id)
+    //         .then(=>database.findClass(testClass._id))
+    //         .then(tutors=>{
+    //             expect(tutors.length).to.equal(0);
+    //             done();
+    //         })
+    //     });
+    // });
 
     describe('#deleteTutor()', () => {
         it('should delete a tutor', (done) => {
@@ -261,6 +261,12 @@ describe('class', () => {
                 .then(profile => {
                     return expect(profile).to.be.null;
                 });
+        });
+    });
+    describe('#deleteClass()', () => {
+        it('should delete a class', done => {
+            database.deleteClass(testClass._id);
+            done();
         });
     });
 });
